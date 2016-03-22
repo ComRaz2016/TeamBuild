@@ -60,6 +60,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.materialBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.materialBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.testDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.testDataSet = new Delivery.TestDataSet();
             this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -70,7 +71,6 @@
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.materialBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.materialTableAdapter = new Delivery.TestDataSetTableAdapters.MaterialTableAdapter();
             this.panel5 = new System.Windows.Forms.Panel();
@@ -103,11 +103,11 @@
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.materialBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.materialBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.testDataSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.testDataSet)).BeginInit();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.materialBindingSource1)).BeginInit();
             this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).BeginInit();
             this.SuspendLayout();
@@ -171,6 +171,7 @@
             this.comboBox4.Name = "comboBox4";
             this.comboBox4.Size = new System.Drawing.Size(161, 21);
             this.comboBox4.TabIndex = 16;
+            this.comboBox4.SelectionChangeCommitted += new System.EventHandler(this.comboBox4_SelectionChangeCommitted);
             // 
             // label11
             // 
@@ -240,6 +241,7 @@
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(161, 21);
             this.comboBox3.TabIndex = 16;
+            this.comboBox3.SelectionChangeCommitted += new System.EventHandler(this.comboBox3_SelectionChangeCommitted);
             // 
             // label6
             // 
@@ -463,8 +465,12 @@
             // 
             // materialBindingSource
             // 
-            this.materialBindingSource.DataMember = "Material";
-            this.materialBindingSource.DataSource = this.testDataSetBindingSource;
+            this.materialBindingSource.DataSource = this.materialBindingSource1;
+            // 
+            // materialBindingSource1
+            // 
+            this.materialBindingSource1.DataMember = "Material";
+            this.materialBindingSource1.DataSource = this.testDataSetBindingSource;
             // 
             // testDataSetBindingSource
             // 
@@ -577,11 +583,6 @@
             this.comboBox2.Size = new System.Drawing.Size(154, 21);
             this.comboBox2.TabIndex = 0;
             this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
-            // 
-            // materialBindingSource1
-            // 
-            this.materialBindingSource1.DataMember = "Material";
-            this.materialBindingSource1.DataSource = this.testDataSetBindingSource;
             // 
             // label1
             // 
@@ -824,12 +825,12 @@
             this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.materialBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.materialBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.testDataSetBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.testDataSet)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.materialBindingSource1)).EndInit();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).EndInit();

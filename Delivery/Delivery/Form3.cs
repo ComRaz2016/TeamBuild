@@ -56,6 +56,7 @@ namespace Delivery
                             comboBox4.Items.Add(trucks.ElementAt(i));
                         }
                     }
+                           
                 }
             }
             else
@@ -160,7 +161,7 @@ namespace Delivery
                         }
                         if (instructionFirst && instructionSecond)
                         {
-                            msc.CommandText = "SELECT mark_car,regist_number, tonnage  FROM Car  WHERE pk_car  = '" + car + "'";
+                            //msc.CommandText = "SELECT mark_car,regist_number, tonnage  FROM Car  WHERE pk_car  = '" + car + "'";
                             msc.Connection = ConnectionToMySQL;
                             dataReader = msc.ExecuteReader();
                             String carName = null;
@@ -595,7 +596,7 @@ namespace Delivery
             String serverName = "127.0.0.1"; // Адрес сервера (для локальной базы пишите "localhost")
             string userName = "dbadmin"; // Имя пользователя
             string dbName = "Test"; //Имя базы данных
-            string port = "9570"; // Порт для подключения
+            string port = "6565"; // Порт для подключения
             string password = "dbadmin"; // Пароль для подключения
             String connStr = "server=" + serverName +
                 ";user=" + userName +
@@ -885,6 +886,36 @@ namespace Delivery
             materialCost = Convert.ToDouble(numericUpDown1.Value) * tonnCost;
             resultCost();
             //
+        }
+
+
+       
+
+        private void comboBox4_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            var currentItems = comboBox3.SelectedItem;
+            comboBox3.Items.Clear();
+            comboBox3.Text = "";
+            foreach (String truck in trucks)
+            {
+                if (!String.Equals(comboBox4.SelectedItem, truck))
+                    comboBox3.Items.Add(truck);
+            }
+            comboBox3.SelectedItem = currentItems;
+        }
+
+        private void comboBox3_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            var currentItems = comboBox4.SelectedItem;
+            comboBox4.Items.Clear();
+            comboBox4.Text = "";
+            foreach (String truck in trucks)
+            {
+                if (!String.Equals(comboBox3.SelectedItem.ToString(), truck))
+                    comboBox4.Items.Add(truck);
+            }
+            comboBox4.SelectedItem = currentItems;
+
         }
     }
 }
