@@ -26,7 +26,8 @@ namespace Delivery
         double tonnCost = 0;    //Цена за тонну
         double bagCost = 0;     //Цена за мешок
 
-        List<String> trucks = new List<String>();
+        List<String> trucks = new List<String>();   // Машины, подходящие для доставки
+        List<String> trucksKey = new List<String>();    // Первичные ключи машин, подходящих для доставки
 
         public void resultTrucks()
         {
@@ -84,6 +85,7 @@ namespace Delivery
         {
             comboBox3.Items.Clear();
             trucks.Clear();
+            trucksKey.Clear();
             List<String> cars = new List<String>();
             bool bulk = false;  //заказ на груз насыпью
             bool bag = false;   //заказ на груз в мешках
@@ -177,7 +179,7 @@ namespace Delivery
                             String truck = carName + "(" + regNumber + ") " + tonnage + "т";
                             //MessageBox.Show(truck);
                             trucks.Add(truck);
-
+                            trucksKey.Add(car);
                             //comboBox3.Items.Add(truck);
                             //comboBox3.SelectedIndex = 0;
                         }
@@ -247,6 +249,7 @@ namespace Delivery
                                 String truck = carName + "(" + regNumber + ") " + tonnage + "т";
                                 //MessageBox.Show(truck);
                                 trucks.Add(truck);
+                                trucksKey.Add(car);
                                 //comboBox3.Items.Add(truck);
                                 //comboBox3.SelectedIndex = 0;
                             }
@@ -317,6 +320,7 @@ namespace Delivery
                                     String truck = carName + "(" + regNumber + ") " + tonnage + "т";
                                     //MessageBox.Show(truck);
                                     trucks.Add(truck);
+                                    trucksKey.Add(car);
                                     //comboBox3.Items.Add(truck);
                                     //comboBox3.SelectedIndex = 0;
                                 }
@@ -325,20 +329,23 @@ namespace Delivery
                         else  // Требований к ТС нет
                         {
                             MySqlCommand msc = new MySqlCommand();
-                            msc.CommandText = "SELECT mark_car,regist_number, tonnage  FROM Car  WHERE delivery_bulk  = 1";
+                            msc.CommandText = "SELECT mark_car,regist_number, tonnage, pk_car  FROM Car  WHERE delivery_bulk  = 1";
                             msc.Connection = ConnectionToMySQL;
                             MySqlDataReader dataReader = msc.ExecuteReader();
                             String carName = null;
                             String regNumber = null;
                             String tonnage = null;
+                            String carKey = null;
                             while (dataReader.Read())
                             {
                                 carName = dataReader[0].ToString();
                                 regNumber = dataReader[1].ToString();
                                 tonnage = dataReader[2].ToString();
+                                carKey = dataReader[3].ToString();
                                 String truck = carName + "(" + regNumber + ") " + tonnage + "т";
                                 //MessageBox.Show(truck);
                                 trucks.Add(truck);
+                                trucksKey.Add(carKey);
                                 //comboBox3.Items.Add(truck);
                             }
                             dataReader.Close();
@@ -417,6 +424,7 @@ namespace Delivery
                             String truck = carName + "(" + regNumber + ") " + tonnage + "т";
                             //MessageBox.Show(truck);
                             trucks.Add(truck);
+                            trucksKey.Add(car);
                             //comboBox3.Items.Add(truck);
                             //comboBox3.SelectedIndex = 0;
                         }
@@ -486,6 +494,7 @@ namespace Delivery
                                 String truck = carName + "(" + regNumber + ") " + tonnage + "т";
                                 //MessageBox.Show(truck);
                                 trucks.Add(truck);
+                                trucksKey.Add(car);
                                 //comboBox3.Items.Add(truck);
                                 //comboBox3.SelectedIndex = 0;
                             }
@@ -556,6 +565,7 @@ namespace Delivery
                                     String truck = carName + "(" + regNumber + ") " + tonnage + "т";
                                     //MessageBox.Show(truck);
                                     trucks.Add(truck);
+                                    trucksKey.Add(car);
                                     //comboBox3.Items.Add(truck);
                                     //comboBox3.SelectedIndex = 0;
                                 }
@@ -564,21 +574,24 @@ namespace Delivery
                         else  // Требований к ТС нет
                         {
                             MySqlCommand msc = new MySqlCommand();
-                            msc.CommandText = "SELECT mark_car,regist_number, tonnage  FROM Car  WHERE delivery_bag  = 1";
+                            msc.CommandText = "SELECT mark_car,regist_number, tonnage, pk_car  FROM Car  WHERE delivery_bag  = 1";
                             msc.Connection = ConnectionToMySQL;
                             MySqlDataReader dataReader = msc.ExecuteReader();
                             String carName = null;
                             String regNumber = null;
                             String tonnage = null;
+                            String carKey = null;
                             while (dataReader.Read())
                             {
                                 carName = dataReader[0].ToString();
                                 regNumber = dataReader[1].ToString();
                                 tonnage = dataReader[2].ToString();
+                                carKey = dataReader[3].ToString();
                                 String truck = carName + "(" + regNumber + ") " + tonnage + "т";
                                 //MessageBox.Show(truck);
                                 //comboBox3.Items.Add(truck);
                                 trucks.Add(truck);
+                                trucksKey.Add(carKey);
                             }
                             dataReader.Close();
                             //comboBox3.SelectedIndex = 0;
@@ -596,7 +609,8 @@ namespace Delivery
             String serverName = "127.0.0.1"; // Адрес сервера (для локальной базы пишите "localhost")
             string userName = "dbadmin"; // Имя пользователя
             string dbName = "Test"; //Имя базы данных
-            string port = "6565"; // Порт для подключения
+            //string port = "6565"; // Порт для подключения
+            string port = "9570"; // Порт для подключения
             string password = "dbadmin"; // Пароль для подключения
             String connStr = "server=" + serverName +
                 ";user=" + userName +
@@ -887,9 +901,6 @@ namespace Delivery
             resultCost();
             //
         }
-
-
-       
 
         private void comboBox4_SelectionChangeCommitted(object sender, EventArgs e)
         {
