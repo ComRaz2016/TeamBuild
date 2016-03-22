@@ -591,6 +591,29 @@ namespace Delivery
             //
         }
 
+        public void insertMaterial()
+        {
+            MySqlCommand msc = new MySqlCommand();
+            msc.CommandText = "SELECT name FROM Material";
+            msc.Connection = ConnectionToMySQL;
+            MySqlDataReader dataReader = msc.ExecuteReader();
+            //String car = null;
+            List<String> materials = new List<String>();
+            while (dataReader.Read())
+            {
+                materials.Add(dataReader[0].ToString());
+                //MessageBox.Show(dataReader[0].ToString());
+            }
+            dataReader.Close();
+            foreach (var material in materials)
+            {
+                comboBox1.Items.Add(material);
+                comboBox2.Items.Add(material);
+            }
+            comboBox1.SelectedIndex = 0;
+            comboBox2.SelectedIndex = 0;
+        }
+
         public Form3()
         {
             String serverName = "127.0.0.1"; // Адрес сервера (для локальной базы пишите "localhost")
@@ -598,16 +621,20 @@ namespace Delivery
             string dbName = "Test"; //Имя базы данных
             string port = "6565"; // Порт для подключения
             string password = "dbadmin"; // Пароль для подключения
+            string charset = "utf8";
             String connStr = "server=" + serverName +
                 ";user=" + userName +
                 ";database=" + dbName +
                 ";port=" + port +
-                ";password=" + password + ";";
+                ";password=" + password +
+                ";charset=" + charset + ";";
             ConnectionToMySQL = new MySqlConnection(connStr);
             ConnectionToMySQL.Open();
             InitializeComponent();
             //
             resultCost();
+            resultCar();
+            insertMaterial();
             //
         }
 

@@ -453,8 +453,6 @@
             // 
             // comboBox1
             // 
-            this.comboBox1.DataSource = this.materialBindingSource;
-            this.comboBox1.DisplayMember = "name";
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(18, 17);
             this.comboBox1.Margin = new System.Windows.Forms.Padding(2);
@@ -574,8 +572,6 @@
             // 
             // comboBox2
             // 
-            this.comboBox2.DataSource = this.materialBindingSource1;
-            this.comboBox2.DisplayMember = "name";
             this.comboBox2.FormattingEnabled = true;
             this.comboBox2.Location = new System.Drawing.Point(18, 17);
             this.comboBox2.Margin = new System.Windows.Forms.Padding(2);
