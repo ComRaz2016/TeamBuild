@@ -26,9 +26,60 @@ namespace Delivery
         double tonnCost = 0;    //Цена за тонну
         double bagCost = 0;     //Цена за мешок
 
+        bool checkMaterial = false;
+
         List<String> trucks = new List<String>();   // Машины, подходящие для доставки
         List<String> trucksKey = new List<String>();    // Первичные ключи машин, подходящих для доставки
+        List<String> trucksTonnage = new List<String>();    // Тоннаж машин, подходящих для доставки
 
+        public void changeEnabled()
+        {
+            if (checkMaterial)
+            {
+                panel1.Enabled = true;
+                panel2.Enabled = true;
+                panel3.Enabled = true;
+                panel4.Enabled = true;
+                panel5.Enabled = true;
+                label5.Enabled = true;
+                checkBox1.Enabled = true;
+                if (checkBox1.Checked)
+                {
+                    numericUpDown3.Enabled = true;
+                }
+                else
+                {
+                    numericUpDown3.Enabled = false;
+                }
+            }
+            else
+            {
+                panel1.Enabled = false;
+                panel2.Enabled = false;
+                panel3.Enabled = false;
+                panel4.Enabled = false;
+                panel5.Enabled = false;
+                label5.Enabled = false;
+                checkBox1.Enabled = false;
+                numericUpDown3.Enabled = false;
+            }
+        }
+
+        public void resultTonnage()
+        {
+            if (radioButton4.Checked == true)
+            {
+
+            }
+            else
+            {
+                if (tabControl1.SelectedTab == tabPage1)
+                {
+                }
+            }
+        }
+
+        // Заполнение combobox доступными машинами
         public void resultTrucks()
         {
             if (radioButton4.Checked == true)
@@ -72,6 +123,7 @@ namespace Delivery
             }
         }
 
+        // Расчет стоимости заказа
         public void resultCost()
         {
             double result = 0;
@@ -81,11 +133,13 @@ namespace Delivery
             textBox8.Text = Convert.ToString(result);
         }
 
+        // Выбор машин, удовлетворяющих требованиям 
         public void resultCar()
         {
             comboBox3.Items.Clear();
             trucks.Clear();
             trucksKey.Clear();
+            trucksTonnage.Clear();
             List<String> cars = new List<String>();
             bool bulk = false;  //заказ на груз насыпью
             bool bag = false;   //заказ на груз в мешках
@@ -163,7 +217,7 @@ namespace Delivery
                         }
                         if (instructionFirst && instructionSecond)
                         {
-                            //msc.CommandText = "SELECT mark_car,regist_number, tonnage  FROM Car  WHERE pk_car  = '" + car + "'";
+                            msc.CommandText = "SELECT mark_car,regist_number, tonnage  FROM Car  WHERE pk_car  = '" + car + "'";
                             msc.Connection = ConnectionToMySQL;
                             dataReader = msc.ExecuteReader();
                             String carName = null;
@@ -180,6 +234,7 @@ namespace Delivery
                             //MessageBox.Show(truck);
                             trucks.Add(truck);
                             trucksKey.Add(car);
+                            trucksTonnage.Add(tonnage);
                             //comboBox3.Items.Add(truck);
                             //comboBox3.SelectedIndex = 0;
                         }
@@ -250,6 +305,7 @@ namespace Delivery
                                 //MessageBox.Show(truck);
                                 trucks.Add(truck);
                                 trucksKey.Add(car);
+                                trucksTonnage.Add(tonnage);
                                 //comboBox3.Items.Add(truck);
                                 //comboBox3.SelectedIndex = 0;
                             }
@@ -321,6 +377,7 @@ namespace Delivery
                                     //MessageBox.Show(truck);
                                     trucks.Add(truck);
                                     trucksKey.Add(car);
+                                    trucksTonnage.Add(tonnage);
                                     //comboBox3.Items.Add(truck);
                                     //comboBox3.SelectedIndex = 0;
                                 }
@@ -346,6 +403,7 @@ namespace Delivery
                                 //MessageBox.Show(truck);
                                 trucks.Add(truck);
                                 trucksKey.Add(carKey);
+                                trucksTonnage.Add(tonnage);
                                 //comboBox3.Items.Add(truck);
                             }
                             dataReader.Close();
@@ -425,6 +483,7 @@ namespace Delivery
                             //MessageBox.Show(truck);
                             trucks.Add(truck);
                             trucksKey.Add(car);
+                            trucksTonnage.Add(tonnage);
                             //comboBox3.Items.Add(truck);
                             //comboBox3.SelectedIndex = 0;
                         }
@@ -495,6 +554,7 @@ namespace Delivery
                                 //MessageBox.Show(truck);
                                 trucks.Add(truck);
                                 trucksKey.Add(car);
+                                trucksTonnage.Add(tonnage);
                                 //comboBox3.Items.Add(truck);
                                 //comboBox3.SelectedIndex = 0;
                             }
@@ -566,6 +626,7 @@ namespace Delivery
                                     //MessageBox.Show(truck);
                                     trucks.Add(truck);
                                     trucksKey.Add(car);
+                                    trucksTonnage.Add(tonnage);
                                     //comboBox3.Items.Add(truck);
                                     //comboBox3.SelectedIndex = 0;
                                 }
@@ -592,6 +653,7 @@ namespace Delivery
                                 //comboBox3.Items.Add(truck);
                                 trucks.Add(truck);
                                 trucksKey.Add(carKey);
+                                trucksTonnage.Add(tonnage);
                             }
                             dataReader.Close();
                             //comboBox3.SelectedIndex = 0;
@@ -612,11 +674,13 @@ namespace Delivery
             //string port = "6565"; // Порт для подключения
             string port = "9570"; // Порт для подключения
             string password = "dbadmin"; // Пароль для подключения
+            string charset = "utf8";
             String connStr = "server=" + serverName +
                 ";user=" + userName +
                 ";database=" + dbName +
                 ";port=" + port +
-                ";password=" + password + ";";
+                ";password=" + password +
+                ";charset=" + charset + ";";
             ConnectionToMySQL = new MySqlConnection(connStr);
             ConnectionToMySQL.Open();
             InitializeComponent();
@@ -681,6 +745,10 @@ namespace Delivery
                 }
                 if (count == 0)
                 {
+                    //
+                    checkMaterial = false;
+                    changeEnabled();
+                    //
                     MessageBox.Show("Товар не найден");
                     label19.Visible = false;
                     label20.Visible = false;
@@ -693,6 +761,10 @@ namespace Delivery
                 }
                 else
                 {
+                    //
+                    checkMaterial = true;
+                    changeEnabled();
+                    //
                     label19.Visible = true;
                     label20.Visible = true;
                     tonnCost = cost / count;
@@ -760,6 +832,10 @@ namespace Delivery
                 }
                 if (count == 0)
                 {
+                    //
+                    checkMaterial = false;
+                    changeEnabled();
+                    //
                     MessageBox.Show("Товар не найден");
                     label21.Visible = false;
                     label22.Visible = false;
@@ -773,6 +849,10 @@ namespace Delivery
                 }
                 else
                 {
+                    //
+                    checkMaterial = true;
+                    changeEnabled();
+                    //
                     label22.Visible = true;
                     label21.Visible = true;
                     bagCost = cost / count;
@@ -883,23 +963,65 @@ namespace Delivery
         private void tabPage3_Enter(object sender, EventArgs e)
         {
             //
+            if (numericUpDown2.Enabled == true)
+            {
+                //
+                checkMaterial = true;
+                changeEnabled();
+                //
+                //
+                materialCost = Convert.ToDouble(numericUpDown2.Value) * bagCost;
+                resultCost();
+                //
+            }
+            else
+            {
+                //
+                checkMaterial = false;
+                changeEnabled();
+                //
+                materialCost = 0;
+                resultCost();
+                //
+                //
+            }
+            //
+            //
             resultCar();
             //
-            //
-            materialCost = Convert.ToDouble(numericUpDown2.Value) * bagCost;
-            resultCost();
-            //
+            
         }
 
         private void tabPage1_Enter(object sender, EventArgs e)
         {
             //
+            if (numericUpDown1.Enabled == true)
+            {
+                //
+                checkMaterial = true;
+                changeEnabled();
+                //
+                //
+                materialCost = Convert.ToDouble(numericUpDown1.Value) * tonnCost;
+                resultCost();
+                //
+            }
+            else
+            {
+                //
+                checkMaterial = false;
+                changeEnabled();
+                //
+                //
+                materialCost = Convert.ToDouble(numericUpDown1.Value) * 0;
+                resultCost();
+                //
+            }
+            //
+            //
             resultCar();
             //
-            //
-            materialCost = Convert.ToDouble(numericUpDown1.Value) * tonnCost;
-            resultCost();
-            //
+            
         }
 
         private void comboBox4_SelectionChangeCommitted(object sender, EventArgs e)
@@ -926,7 +1048,10 @@ namespace Delivery
                     comboBox4.Items.Add(truck);
             }
             comboBox4.SelectedItem = currentItems;
+        }
 
+        private void numericUpDown4_ValueChanged(object sender, EventArgs e)
+        {
         }
     }
 }

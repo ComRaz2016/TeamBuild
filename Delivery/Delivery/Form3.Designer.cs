@@ -120,6 +120,7 @@
             this.panel4.Controls.Add(this.numericUpDown5);
             this.panel4.Controls.Add(this.comboBox4);
             this.panel4.Controls.Add(this.label11);
+            this.panel4.Enabled = false;
             this.panel4.Location = new System.Drawing.Point(91, 328);
             this.panel4.Margin = new System.Windows.Forms.Padding(2);
             this.panel4.Name = "panel4";
@@ -132,6 +133,7 @@
             this.textBox3.Location = new System.Drawing.Point(317, 45);
             this.textBox3.Margin = new System.Windows.Forms.Padding(2);
             this.textBox3.Name = "textBox3";
+            this.textBox3.ReadOnly = true;
             this.textBox3.Size = new System.Drawing.Size(45, 20);
             this.textBox3.TabIndex = 14;
             // 
@@ -159,9 +161,19 @@
             // 
             this.numericUpDown5.Location = new System.Drawing.Point(266, 12);
             this.numericUpDown5.Margin = new System.Windows.Forms.Padding(2);
+            this.numericUpDown5.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.numericUpDown5.Name = "numericUpDown5";
             this.numericUpDown5.Size = new System.Drawing.Size(36, 20);
             this.numericUpDown5.TabIndex = 17;
+            this.numericUpDown5.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // comboBox4
             // 
@@ -191,6 +203,7 @@
             this.panel3.Controls.Add(this.numericUpDown4);
             this.panel3.Controls.Add(this.comboBox3);
             this.panel3.Controls.Add(this.label6);
+            this.panel3.Enabled = false;
             this.panel3.Location = new System.Drawing.Point(91, 248);
             this.panel3.Margin = new System.Windows.Forms.Padding(2);
             this.panel3.Name = "panel3";
@@ -202,6 +215,7 @@
             this.textBox2.Location = new System.Drawing.Point(317, 42);
             this.textBox2.Margin = new System.Windows.Forms.Padding(2);
             this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
             this.textBox2.Size = new System.Drawing.Size(45, 20);
             this.textBox2.TabIndex = 14;
             // 
@@ -229,9 +243,20 @@
             // 
             this.numericUpDown4.Location = new System.Drawing.Point(266, 10);
             this.numericUpDown4.Margin = new System.Windows.Forms.Padding(2);
+            this.numericUpDown4.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.numericUpDown4.Name = "numericUpDown4";
             this.numericUpDown4.Size = new System.Drawing.Size(36, 20);
             this.numericUpDown4.TabIndex = 17;
+            this.numericUpDown4.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown4.ValueChanged += new System.EventHandler(this.numericUpDown4_ValueChanged);
             // 
             // comboBox3
             // 
@@ -276,6 +301,7 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
+            this.checkBox1.Enabled = false;
             this.checkBox1.Location = new System.Drawing.Point(91, 199);
             this.checkBox1.Margin = new System.Windows.Forms.Padding(2);
             this.checkBox1.Name = "checkBox1";
@@ -289,6 +315,7 @@
             // 
             this.panel2.Controls.Add(this.radioButton4);
             this.panel2.Controls.Add(this.radioButton3);
+            this.panel2.Enabled = false;
             this.panel2.Location = new System.Drawing.Point(219, 196);
             this.panel2.Margin = new System.Windows.Forms.Padding(2);
             this.panel2.Name = "panel2";
@@ -326,6 +353,7 @@
             // 
             this.panel1.Controls.Add(this.checkBox3);
             this.panel1.Controls.Add(this.checkBox2);
+            this.panel1.Enabled = false;
             this.panel1.Location = new System.Drawing.Point(219, 144);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
@@ -359,6 +387,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
+            this.label5.Enabled = false;
             this.label5.Location = new System.Drawing.Point(88, 144);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
@@ -618,6 +647,7 @@
             this.panel5.Controls.Add(this.textBox6);
             this.panel5.Controls.Add(this.textBox5);
             this.panel5.Controls.Add(this.textBox4);
+            this.panel5.Enabled = false;
             this.panel5.Location = new System.Drawing.Point(14, 328);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(555, 245);
