@@ -99,6 +99,78 @@ namespace Delivery
             return materialTonn;
         }
 
+        // Рассчет для первой машины
+        public void resultTonnageFirstTruck()
+        {
+            //
+            double materialTonnFirstTruck = Convert.ToDouble(numericUpDown4.Value);
+            String selectedTruck = comboBox3.SelectedItem.ToString();
+            double truckTonn = truckTonnage(selectedTruck);
+            //numericUpDown4.Value = 0;
+            if (materialTonnFirstTruck == 0)
+            {
+                textBox2.Text = "0";
+            }
+            else
+            {
+                if (materialTonnFirstTruck <= truckTonn)
+                {
+                    textBox2.Text = "1";
+                }
+                else {
+                    int countTrip = 0;
+                    if ((materialTonnFirstTruck % truckTonn) > 0)
+                    {
+                        countTrip = (int)(materialTonnFirstTruck / truckTonn) + 1;
+                    }
+                    else
+                    {
+                        countTrip = (int)(materialTonnFirstTruck / truckTonn);
+                    }
+                    textBox2.Text = Convert.ToString(countTrip);
+                }
+            }
+            //
+        }
+
+        // Рассчет для второй машины
+        public void resultTonnageSecondTruck()
+        {
+            //
+            if (comboBox4.SelectedItem != null)
+            {
+                double materialTonnSecondTruck = Convert.ToDouble(numericUpDown5.Value);
+                String selectedTruck = comboBox4.SelectedItem.ToString();
+                double truckTonn = truckTonnage(selectedTruck);
+                //numericUpDown4.Value = 0;
+                if (materialTonnSecondTruck == 0)
+                {
+                    textBox3.Text = "0";
+                }
+                else
+                {
+                    if (materialTonnSecondTruck <= truckTonn)
+                    {
+                        textBox3.Text = "1";
+                    }
+                    else
+                    {
+                        int countTrip = 0;
+                        if ((materialTonnSecondTruck % truckTonn) > 0)
+                        {
+                            countTrip = (int)(materialTonnSecondTruck / truckTonn) + 1;
+                        }
+                        else
+                        {
+                            countTrip = (int)(materialTonnSecondTruck / truckTonn);
+                        }
+                        textBox3.Text = Convert.ToString(countTrip);
+                    }
+                }
+            }
+            //
+        }
+
         // Рассчет количества рейсов для машины
         public void resultTonnage()
         {
@@ -114,18 +186,148 @@ namespace Delivery
 
                     numericUpDown4.Value = Convert.ToDecimal(materialTonn / 2);
                     numericUpDown5.Value = Convert.ToDecimal(materialTonn / 2);
+                    // Рассчет рейсов для первой машины
+                    double materialTonnFirstTruck = Convert.ToDouble(numericUpDown4.Value);
+                    if (comboBox3.SelectedItem != null)
+                    {
+                        String selectedTruck = comboBox3.SelectedItem.ToString();
+                        double truckTonn = truckTonnage(selectedTruck);
+
+                        if (materialTonnFirstTruck == 0)
+                        {
+                            textBox2.Text = "0";
+                        }
+                        else
+                        {
+                            if (materialTonnFirstTruck <= truckTonn)
+                            {
+                                textBox2.Text = "1";
+                            }
+                            else
+                            {
+                                int countTrip = 0;
+                                if ((materialTonnFirstTruck % truckTonn) > 0)
+                                {
+                                    countTrip = (int)(materialTonnFirstTruck / truckTonn) + 1;
+                                }
+                                else
+                                {
+                                    countTrip = (int)(materialTonnFirstTruck / truckTonn);
+                                }
+                                textBox2.Text = Convert.ToString(countTrip);
+                            }
+                        }
+                    }
+                    // Рассчет рейсов для второй машины
+                    if (comboBox4.SelectedItem != null)
+                    {
+                        double materialTonnSecondTruck = Convert.ToDouble(numericUpDown5.Value);
+                        String selectedTruck = comboBox4.SelectedItem.ToString();
+                        double truckTonn = truckTonnage(selectedTruck);
+
+                        if (materialTonnSecondTruck == 0)
+                        {
+                            textBox3.Text = "0";
+                        }
+                        else
+                        {
+                            if (materialTonnSecondTruck <= truckTonn)
+                            {
+                                textBox3.Text = "1";
+                            }
+                            else
+                            {
+                                int countTrip = 0;
+                                if ((materialTonnSecondTruck % truckTonn) > 0)
+                                {
+                                    countTrip = (int)(materialTonnSecondTruck / truckTonn) + 1;
+                                }
+                                else
+                                {
+                                    countTrip = (int)(materialTonnSecondTruck / truckTonn);
+                                }
+                                textBox3.Text = Convert.ToString(countTrip);
+                            }
+                        }
+                    }
+                    //
+
                 }
                 if (tabControl1.SelectedTab == tabPage3)
                 {
                     double materialTonn = Convert.ToDouble(numericUpDown2.Value) * 0.05;
-                    //materialTonn = materialTonnage(materialTonn);
-                    //
+
                     numericUpDown4.Maximum = Convert.ToDecimal(materialTonn);
                     numericUpDown5.Maximum = Convert.ToDecimal(materialTonn);
+
+                    double halfMaterialTruck = materialTonn / 2;
+                    numericUpDown4.Value = Convert.ToDecimal(halfMaterialTruck);
+                    numericUpDown5.Value = Convert.ToDecimal(halfMaterialTruck);
+                    // Рассчет рейсов для первой машины
+                    double materialTonnFirstTruck = Convert.ToDouble(numericUpDown4.Value);
+                    if (comboBox3.SelectedItem != null)
+                    {
+                        String selectedTruck = comboBox3.SelectedItem.ToString();
+                        double truckTonn = truckTonnage(selectedTruck);
+
+                        if (materialTonnFirstTruck == 0)
+                        {
+                            textBox2.Text = "0";
+                        }
+                        else
+                        {
+                            if (materialTonnFirstTruck <= truckTonn)
+                            {
+                                textBox2.Text = "1";
+                            }
+                            else
+                            {
+                                int countTrip = 0;
+                                if ((materialTonnFirstTruck % truckTonn) > 0)
+                                {
+                                    countTrip = (int)(materialTonnFirstTruck / truckTonn) + 1;
+                                }
+                                else
+                                {
+                                    countTrip = (int)(materialTonnFirstTruck / truckTonn);
+                                }
+                                textBox2.Text = Convert.ToString(countTrip);
+                            }
+                        }
+                    }
+                    // Рассчет рейсов для второй машины
+                    if (comboBox4.SelectedItem != null)
+                    {
+                        double materialTonnSecondTruck = Convert.ToDouble(numericUpDown5.Value);
+                        String selectedTruck = comboBox4.SelectedItem.ToString();
+                        double truckTonn = truckTonnage(selectedTruck);
+
+                        if (materialTonnSecondTruck == 0)
+                        {
+                            textBox3.Text = "0";
+                        }
+                        else
+                        {
+                            if (materialTonnSecondTruck <= truckTonn)
+                            {
+                                textBox3.Text = "1";
+                            }
+                            else
+                            {
+                                int countTrip = 0;
+                                if ((materialTonnSecondTruck % truckTonn) > 0)
+                                {
+                                    countTrip = (int)(materialTonnSecondTruck / truckTonn) + 1;
+                                }
+                                else
+                                {
+                                    countTrip = (int)(materialTonnSecondTruck / truckTonn);
+                                }
+                                textBox3.Text = Convert.ToString(countTrip);
+                            }
+                        }
+                    }
                     //
-                    double test = materialTonn / 2;
-                    numericUpDown4.Value = Convert.ToDecimal(test);
-                    numericUpDown5.Value = Convert.ToDecimal(test);
                 }
             }
             else
@@ -133,50 +335,70 @@ namespace Delivery
                 if (tabControl1.SelectedTab == tabPage1)
                 {
                     double materialTonn = Convert.ToDouble(numericUpDown1.Value);
-                    String selectedTruck = comboBox3.SelectedItem.ToString();
-                    double truckTonn = truckTonnage(selectedTruck);
-                    numericUpDown4.Value = 0;
-                    if (materialTonn <= truckTonn)
+                    if (comboBox3.SelectedItem != null)
                     {
-                        textBox2.Text = "1";
-                    }
-                    else
-                    {
-                        int countTrip = 0;
-                        if ((materialTonn % truckTonn) > 0)
+                        String selectedTruck = comboBox3.SelectedItem.ToString();
+                        double truckTonn = truckTonnage(selectedTruck);
+                        numericUpDown4.Value = 0;
+                        if (materialTonn == 0)
                         {
-                            countTrip = (int)(materialTonn / truckTonn) + 1;
+                            textBox2.Text = "0";
                         }
                         else
                         {
-                            countTrip = (int)(materialTonn / truckTonn);
+                            if (materialTonn <= truckTonn)
+                            {
+                                textBox2.Text = "1";
+                            }
+                            else
+                            {
+                                int countTrip = 0;
+                                if ((materialTonn % truckTonn) > 0)
+                                {
+                                    countTrip = (int)(materialTonn / truckTonn) + 1;
+                                }
+                                else
+                                {
+                                    countTrip = (int)(materialTonn / truckTonn);
+                                }
+                                textBox2.Text = Convert.ToString(countTrip);
+                            }
                         }
-                        textBox2.Text = Convert.ToString(countTrip);
                     }
                 }
                 if (tabControl1.SelectedTab == tabPage3)
                 {
                     double materialTonn = Convert.ToDouble(numericUpDown2.Value) * 0.05;
                     materialTonn = materialTonnage(materialTonn);
-                    String selectedTruck = comboBox3.SelectedItem.ToString();
-                    double truckTonn = truckTonnage(selectedTruck);
-                    numericUpDown4.Value = 0;
-                    if (materialTonn <= truckTonn)
+                    if (comboBox3.SelectedItem != null)
                     {
-                        textBox2.Text = "1";
-                    }
-                    else
-                    {
-                        int countTrip = 0;
-                        if ((materialTonn % truckTonn) > 0)
+                        String selectedTruck = comboBox3.SelectedItem.ToString();
+                        double truckTonn = truckTonnage(selectedTruck);
+                        numericUpDown4.Value = 0;
+                        if (materialTonn == 0)
                         {
-                            countTrip = (int)(materialTonn / truckTonn) + 1;
+                            textBox2.Text = "0";
                         }
                         else
                         {
-                            countTrip = (int)(materialTonn / truckTonn);
+                            if (materialTonn <= truckTonn)
+                            {
+                                textBox2.Text = "1";
+                            }
+                            else
+                            {
+                                int countTrip = 0;
+                                if ((materialTonn % truckTonn) > 0)
+                                {
+                                    countTrip = (int)(materialTonn / truckTonn) + 1;
+                                }
+                                else
+                                {
+                                    countTrip = (int)(materialTonn / truckTonn);
+                                }
+                                textBox2.Text = Convert.ToString(countTrip);
+                            }
                         }
-                        textBox2.Text = Convert.ToString(countTrip);
                     }
                 }
             }
@@ -804,6 +1026,9 @@ namespace Delivery
             //
             resultCar();
             //
+            //
+            resultTonnage();
+            //
         }
 
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
@@ -1185,6 +1410,9 @@ namespace Delivery
                 {
                     numericUpDown5.Value = Convert.ToDecimal(materialTonn - Convert.ToDouble(numericUpDown4.Value));
                 }
+                //
+                resultTonnageFirstTruck();
+                //
             }
             if (tabControl1.SelectedTab == tabPage3)
             {
@@ -1197,6 +1425,9 @@ namespace Delivery
                 {
                     numericUpDown5.Value = Convert.ToDecimal(materialTonn - Convert.ToDouble(numericUpDown4.Value));
                 }
+                //
+                resultTonnageFirstTruck();
+                //
             }
         }
 
@@ -1222,6 +1453,9 @@ namespace Delivery
                 {
                     numericUpDown4.Value = Convert.ToDecimal(materialTonn - Convert.ToDouble(numericUpDown5.Value));
                 }
+                //
+                resultTonnageSecondTruck();
+                //
             }
             if (tabControl1.SelectedTab == tabPage3)
             {
@@ -1233,6 +1467,9 @@ namespace Delivery
                 {
                     numericUpDown4.Value = Convert.ToDecimal(materialTonn - Convert.ToDouble(numericUpDown5.Value));
                 }
+                //
+                resultTonnageSecondTruck();
+                //
             }
         }
 

@@ -673,7 +673,7 @@
             this.panel5.Controls.Add(this.textBox5);
             this.panel5.Controls.Add(this.textBox4);
             this.panel5.Enabled = false;
-            this.panel5.Location = new System.Drawing.Point(12, 392);
+            this.panel5.Location = new System.Drawing.Point(12, 328);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(555, 245);
             this.panel5.TabIndex = 47;
