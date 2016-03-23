@@ -26,7 +26,8 @@ namespace Delivery
         double tonnCost = 0;    //Цена за тонну
         double bagCost = 0;     //Цена за мешок
 
-        List<String> trucks = new List<String>();
+        List<String> trucks = new List<String>();   // Машины, подходящие для доставки
+        List<String> trucksKey = new List<String>();    // Первичные ключи машин, подходящих для доставки
 
         public void resultTrucks()
         {
@@ -80,10 +81,282 @@ namespace Delivery
             textBox8.Text = Convert.ToString(result);
         }
 
+        //возвращает массив ключей автомобилей, которые могут перевозить насыпь
+        public List<String> bulkCars()
+        {
+            List<String> cars = new List<String>();
+            MySqlCommand msc = new MySqlCommand();
+            msc.CommandText = "SELECT pk_car  FROM Car  WHERE delivery_bulk  = 1";
+            msc.Connection = ConnectionToMySQL;
+            MySqlDataReader dataReader = msc.ExecuteReader();
+            //String car = null;
+            while (dataReader.Read())
+            {
+                cars.Add(dataReader[0].ToString());
+                //MessageBox.Show(dataReader[0].ToString());
+            }
+            dataReader.Close();
+            return cars;
+        }
+
+        //возвращает массив ключей машин, которые могут перевозить мешки
+        public List<String> bagCars()
+        {
+            List<String> cars = new List<String>();
+            MySqlCommand msc = new MySqlCommand();
+            msc.CommandText = "SELECT pk_car  FROM Car  WHERE delivery_bag  = 1";
+            msc.Connection = ConnectionToMySQL;
+            MySqlDataReader dataReader = msc.ExecuteReader();
+            //String car = null;
+            while (dataReader.Read())
+            {
+                cars.Add(dataReader[0].ToString());
+                //MessageBox.Show(dataReader[0].ToString());
+            }
+            dataReader.Close();
+            return cars;
+        }
+
+        
+        public List<Tuple<String,String>> compactCars(List<String> cars)
+        {
+            List<String> instructions = new List<String>();
+            List<Tuple<String, String>> rezult = new List<Tuple<String, String>>();
+            MySqlCommand msc = new MySqlCommand();
+            foreach (String car in cars)
+            {
+                instructions.Clear();
+                msc.CommandText = "SELECT pk_instruction  FROM instruction_car  WHERE pk_car  = '" + car + "'";
+                msc.Connection = ConnectionToMySQL;
+                MySqlDataReader dataReader = msc.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    instructions.Add(dataReader[0].ToString());
+                    //MessageBox.Show(dataReader[0].ToString());
+                }
+                dataReader.Close();
+                foreach (String instruction in instructions)
+                {
+                    msc.CommandText = "SELECT desc_instruction  FROM instruction  WHERE pk_instruction  = '" + instruction + "'";
+                    msc.Connection = ConnectionToMySQL;
+                    dataReader = msc.ExecuteReader();
+                    String instructionName = null;
+                    while (dataReader.Read())
+                    {
+                        instructionName = dataReader[0].ToString();
+                        //MessageBox.Show(dataReader[0].ToString());
+                    }
+                    dataReader.Close();
+                    if (instructionName == "Compact")
+                    {
+                        msc.CommandText = "SELECT mark_car,regist_number, tonnage  FROM Car  WHERE pk_car  = '" + car + "'";
+                        msc.Connection = ConnectionToMySQL;
+                        dataReader = msc.ExecuteReader();
+                        String carName = null;
+                        String regNumber = null;
+                        String tonnage = null;
+                        while (dataReader.Read())
+                        {
+                            carName = dataReader[0].ToString();
+                            regNumber = dataReader[1].ToString();
+                            tonnage = dataReader[2].ToString();
+                        }
+                        dataReader.Close();
+                        String truck = carName + "(" + regNumber + ") " + tonnage + "т";
+                        //MessageBox.Show(truck);
+                        /*trucks.Add(truck);
+                        trucksKey.Add(car);*/
+                        rezult.Add(new Tuple<String,String>(truck,car));
+                    }
+                }
+
+            }
+            return rezult;
+        }
+
+        public List<Tuple<String, String>> tipperCars(List<String> cars)
+        {
+            List<String> instructions = new List<String>();
+            List<Tuple<String, String>> rezult = new List<Tuple<String, String>>();
+            MySqlCommand msc = new MySqlCommand();
+            foreach (String car in cars)
+            {
+                instructions.Clear();
+                msc.CommandText = "SELECT pk_instruction  FROM instruction_car  WHERE pk_car  = '" + car + "'";
+                msc.Connection = ConnectionToMySQL;
+                MySqlDataReader dataReader = msc.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    instructions.Add(dataReader[0].ToString());
+                    //MessageBox.Show(dataReader[0].ToString());
+                }
+                dataReader.Close();
+                foreach (String instruction in instructions)
+                {
+                    msc.CommandText = "SELECT desc_instruction  FROM instruction  WHERE pk_instruction  = '" + instruction + "'";
+                    msc.Connection = ConnectionToMySQL;
+                    dataReader = msc.ExecuteReader();
+                    String instructionName = null;
+                    while (dataReader.Read())
+                    {
+                        instructionName = dataReader[0].ToString();
+                        //MessageBox.Show(dataReader[0].ToString());
+                    }
+                    dataReader.Close();
+                    if (instructionName == "Tipper")
+                    {
+                        msc.CommandText = "SELECT mark_car,regist_number, tonnage  FROM Car  WHERE pk_car  = '" + car + "'";
+                        msc.Connection = ConnectionToMySQL;
+                        dataReader = msc.ExecuteReader();
+                        String carName = null;
+                        String regNumber = null;
+                        String tonnage = null;
+                        while (dataReader.Read())
+                        {
+                            carName = dataReader[0].ToString();
+                            regNumber = dataReader[1].ToString();
+                            tonnage = dataReader[2].ToString();
+                        }
+                        dataReader.Close();
+                        String truck = carName + "(" + regNumber + ") " + tonnage + "т";
+                        //MessageBox.Show(truck);
+                        /*trucks.Add(truck);
+                        trucksKey.Add(car);*/
+                        rezult.Add(new Tuple<String, String>(truck, car));
+                    }
+                }
+
+            }
+            return rezult;
+        }
+
+        public List<Tuple<String,String>> allCars()
+        {
+            List<Tuple<String, String>> rezult = new List<Tuple<String, String>>();
+            MySqlCommand msc = new MySqlCommand();
+            msc.CommandText = "SELECT mark_car,regist_number, tonnage, pk_car  FROM Car  ";
+            msc.Connection = ConnectionToMySQL;
+            MySqlDataReader dataReader = msc.ExecuteReader();
+            String carName = null;
+            String regNumber = null;
+            String tonnage = null;
+            String carKey = null;
+            while (dataReader.Read())
+            {
+                carName = dataReader[0].ToString();
+                regNumber = dataReader[1].ToString();
+                tonnage = dataReader[2].ToString();
+                carKey = dataReader[3].ToString();
+                String truck = carName + "(" + regNumber + ") " + tonnage + "т";
+                //MessageBox.Show(truck);
+                //comboBox3.Items.Add(truck);
+                rezult.Add(new Tuple<String, String>(truck, carKey));
+            }
+            dataReader.Close();
+            return rezult;
+        }
+
         public void resultCar()
         {
             comboBox3.Items.Clear();
             trucks.Clear();
+            trucksKey.Clear();
+            List<String> cars = new List<String>();
+            bool bulk = false;  //заказ на груз насыпью
+            bool bag = false;   //заказ на груз в мешках
+            List<Tuple<String, String>> rezult;
+
+            bool compact = false;  // требование на малогабаритное ТС
+            bool tipper = false;   // требование на самосвал
+
+            if (tabControl1.SelectedTab == tabPage1)
+            {
+                bulk = true;
+            }
+            else
+            {
+                bag = true;
+            }
+            if (checkBox2.Checked == true)
+            {
+                compact = true;
+            }
+            if (checkBox3.Checked == true)
+            {
+                tipper = true;
+            }
+            if (bag)
+            {
+                cars = bagCars();
+            }
+            else
+            {
+                cars = bulkCars();
+            }
+            List<Tuple<String, String>> rezultCompact = null;
+            List<Tuple<String, String>> rezultTipper = null;
+            if (compact)
+            {
+                rezultCompact = compactCars(cars);
+            }
+            if (tipper)
+            {
+                rezultTipper = tipperCars(cars);
+            }
+            trucks.Clear();
+            trucksKey.Clear();
+            if (compact && tipper)
+            {
+                foreach(var com in rezultCompact)
+                {
+                    if (rezultTipper.Contains(com))
+                    {
+                        trucks.Add(com.Item1);
+                        trucksKey.Add(com.Item2);
+                        
+                    }
+                }
+                resultTrucks();
+                return;
+            }
+            if (compact)
+            {
+                foreach (var com in rezultCompact)
+                {
+                    trucks.Add(com.Item1);
+                    trucksKey.Add(com.Item2);
+                    
+                }
+                resultTrucks();
+                return;
+            }
+            if (tipper)
+            {
+                foreach (var tip in rezultTipper)
+                {
+                    trucks.Add(tip.Item1);
+                    trucksKey.Add(tip.Item2);
+                }
+                resultTrucks();
+                return;
+            }
+            List<Tuple<String, String>> rezultAll = allCars();
+            foreach (var car in rezultAll)
+            {
+                trucks.Add(car.Item1);
+                trucksKey.Add(car.Item2);
+                
+            }
+            resultTrucks();
+            return;
+        }
+
+
+        /*public void resultCar()
+        {
+            comboBox3.Items.Clear();
+            trucks.Clear();
+            trucksKey.Clear();
             List<String> cars = new List<String>();
             bool bulk = false;  //заказ на груз насыпью
             bool bag = false;   //заказ на груз в мешках
@@ -161,7 +434,7 @@ namespace Delivery
                         }
                         if (instructionFirst && instructionSecond)
                         {
-                            //msc.CommandText = "SELECT mark_car,regist_number, tonnage  FROM Car  WHERE pk_car  = '" + car + "'";
+                            msc.CommandText = "SELECT mark_car,regist_number, tonnage  FROM Car  WHERE pk_car  = '" + car + "'";
                             msc.Connection = ConnectionToMySQL;
                             dataReader = msc.ExecuteReader();
                             String carName = null;
@@ -177,7 +450,7 @@ namespace Delivery
                             String truck = carName + "(" + regNumber + ") " + tonnage + "т";
                             //MessageBox.Show(truck);
                             trucks.Add(truck);
-
+                            trucksKey.Add(car);
                             //comboBox3.Items.Add(truck);
                             //comboBox3.SelectedIndex = 0;
                         }
@@ -247,6 +520,7 @@ namespace Delivery
                                 String truck = carName + "(" + regNumber + ") " + tonnage + "т";
                                 //MessageBox.Show(truck);
                                 trucks.Add(truck);
+                                trucksKey.Add(car);
                                 //comboBox3.Items.Add(truck);
                                 //comboBox3.SelectedIndex = 0;
                             }
@@ -317,6 +591,7 @@ namespace Delivery
                                     String truck = carName + "(" + regNumber + ") " + tonnage + "т";
                                     //MessageBox.Show(truck);
                                     trucks.Add(truck);
+                                    trucksKey.Add(car);
                                     //comboBox3.Items.Add(truck);
                                     //comboBox3.SelectedIndex = 0;
                                 }
@@ -325,20 +600,23 @@ namespace Delivery
                         else  // Требований к ТС нет
                         {
                             MySqlCommand msc = new MySqlCommand();
-                            msc.CommandText = "SELECT mark_car,regist_number, tonnage  FROM Car  WHERE delivery_bulk  = 1";
+                            msc.CommandText = "SELECT mark_car,regist_number, tonnage, pk_car  FROM Car  WHERE delivery_bulk  = 1";
                             msc.Connection = ConnectionToMySQL;
                             MySqlDataReader dataReader = msc.ExecuteReader();
                             String carName = null;
                             String regNumber = null;
                             String tonnage = null;
+                            String carKey = null;
                             while (dataReader.Read())
                             {
                                 carName = dataReader[0].ToString();
                                 regNumber = dataReader[1].ToString();
                                 tonnage = dataReader[2].ToString();
+                                carKey = dataReader[3].ToString();
                                 String truck = carName + "(" + regNumber + ") " + tonnage + "т";
                                 //MessageBox.Show(truck);
                                 trucks.Add(truck);
+                                trucksKey.Add(carKey);
                                 //comboBox3.Items.Add(truck);
                             }
                             dataReader.Close();
@@ -417,6 +695,7 @@ namespace Delivery
                             String truck = carName + "(" + regNumber + ") " + tonnage + "т";
                             //MessageBox.Show(truck);
                             trucks.Add(truck);
+                            trucksKey.Add(car);
                             //comboBox3.Items.Add(truck);
                             //comboBox3.SelectedIndex = 0;
                         }
@@ -486,6 +765,7 @@ namespace Delivery
                                 String truck = carName + "(" + regNumber + ") " + tonnage + "т";
                                 //MessageBox.Show(truck);
                                 trucks.Add(truck);
+                                trucksKey.Add(car);
                                 //comboBox3.Items.Add(truck);
                                 //comboBox3.SelectedIndex = 0;
                             }
@@ -556,6 +836,7 @@ namespace Delivery
                                     String truck = carName + "(" + regNumber + ") " + tonnage + "т";
                                     //MessageBox.Show(truck);
                                     trucks.Add(truck);
+                                    trucksKey.Add(car);
                                     //comboBox3.Items.Add(truck);
                                     //comboBox3.SelectedIndex = 0;
                                 }
@@ -564,21 +845,24 @@ namespace Delivery
                         else  // Требований к ТС нет
                         {
                             MySqlCommand msc = new MySqlCommand();
-                            msc.CommandText = "SELECT mark_car,regist_number, tonnage  FROM Car  WHERE delivery_bag  = 1";
+                            msc.CommandText = "SELECT mark_car,regist_number, tonnage, pk_car  FROM Car  WHERE delivery_bag  = 1";
                             msc.Connection = ConnectionToMySQL;
                             MySqlDataReader dataReader = msc.ExecuteReader();
                             String carName = null;
                             String regNumber = null;
                             String tonnage = null;
+                            String carKey = null;
                             while (dataReader.Read())
                             {
                                 carName = dataReader[0].ToString();
                                 regNumber = dataReader[1].ToString();
                                 tonnage = dataReader[2].ToString();
+                                carKey = dataReader[3].ToString();
                                 String truck = carName + "(" + regNumber + ") " + tonnage + "т";
                                 //MessageBox.Show(truck);
                                 //comboBox3.Items.Add(truck);
                                 trucks.Add(truck);
+                                trucksKey.Add(carKey);
                             }
                             dataReader.Close();
                             //comboBox3.SelectedIndex = 0;
@@ -589,7 +873,7 @@ namespace Delivery
             //
             resultTrucks();
             //
-        }
+        }*/
 
         public void insertMaterial()
         {
@@ -620,6 +904,7 @@ namespace Delivery
             string userName = "dbadmin"; // Имя пользователя
             string dbName = "Test"; //Имя базы данных
             string port = "6565"; // Порт для подключения
+            //string port = "9570"; // Порт для подключения
             string password = "dbadmin"; // Пароль для подключения
             string charset = "utf8";
             String connStr = "server=" + serverName +
@@ -633,7 +918,14 @@ namespace Delivery
             InitializeComponent();
             //
             resultCost();
+            /*List<Tuple<String, String>> cars = allCars();
+            foreach(var car in cars)
+            {
+                trucks.Add(car.Item1);
+                trucksKey.Add(car.Item2);
+            }*/
             resultCar();
+            resultTrucks();
             insertMaterial();
             //
         }
@@ -914,9 +1206,6 @@ namespace Delivery
             resultCost();
             //
         }
-
-
-       
 
         private void comboBox4_SelectionChangeCommitted(object sender, EventArgs e)
         {
