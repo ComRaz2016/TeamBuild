@@ -105,6 +105,28 @@ namespace Delivery
             if (radioButton4.Checked == true)
             {
                 // Доставка двумя машинами
+                if (tabControl1.SelectedTab == tabPage1)
+                {
+                    double materialTonn = Convert.ToDouble(numericUpDown1.Value);
+
+                    numericUpDown4.Maximum = Convert.ToDecimal(materialTonn);
+                    numericUpDown5.Maximum = Convert.ToDecimal(materialTonn);
+
+                    numericUpDown4.Value = Convert.ToDecimal(materialTonn / 2);
+                    numericUpDown5.Value = Convert.ToDecimal(materialTonn / 2);
+                }
+                if (tabControl1.SelectedTab == tabPage3)
+                {
+                    double materialTonn = Convert.ToDouble(numericUpDown2.Value) * 0.05;
+                    //materialTonn = materialTonnage(materialTonn);
+                    //
+                    numericUpDown4.Maximum = Convert.ToDecimal(materialTonn);
+                    numericUpDown5.Maximum = Convert.ToDecimal(materialTonn);
+                    //
+                    double test = materialTonn / 2;
+                    numericUpDown4.Value = Convert.ToDecimal(test);
+                    numericUpDown5.Value = Convert.ToDecimal(test);
+                }
             }
             else
             {
@@ -113,10 +135,9 @@ namespace Delivery
                     double materialTonn = Convert.ToDouble(numericUpDown1.Value);
                     String selectedTruck = comboBox3.SelectedItem.ToString();
                     double truckTonn = truckTonnage(selectedTruck);
-                    numericUpDown4.Maximum = Convert.ToDecimal(truckTonn);
+                    numericUpDown4.Value = 0;
                     if (materialTonn <= truckTonn)
                     {
-                        numericUpDown4.Value = Convert.ToDecimal(materialTonn);
                         textBox2.Text = "1";
                     }
                     else
@@ -130,7 +151,6 @@ namespace Delivery
                         {
                             countTrip = (int)(materialTonn / truckTonn);
                         }
-                        numericUpDown4.Value = Convert.ToDecimal(truckTonn);
                         textBox2.Text = Convert.ToString(countTrip);
                     }
                 }
@@ -140,10 +160,9 @@ namespace Delivery
                     materialTonn = materialTonnage(materialTonn);
                     String selectedTruck = comboBox3.SelectedItem.ToString();
                     double truckTonn = truckTonnage(selectedTruck);
-                    numericUpDown4.Maximum = Convert.ToDecimal(truckTonn);
+                    numericUpDown4.Value = 0;
                     if (materialTonn <= truckTonn)
                     {
-                        numericUpDown4.Value = Convert.ToDecimal(materialTonn);
                         textBox2.Text = "1";
                     }
                     else
@@ -157,7 +176,6 @@ namespace Delivery
                         {
                             countTrip = (int)(materialTonn / truckTonn);
                         }
-                        numericUpDown4.Value = Convert.ToDecimal(truckTonn);
                         textBox2.Text = Convert.ToString(countTrip);
                     }
                 }
@@ -216,6 +234,8 @@ namespace Delivery
             result += workerCost;
             result += truckCost;
             textBox8.Text = Convert.ToString(result);
+            int firmProcent = 15;
+            textBox9.Text = Convert.ToString((int)(result / firmProcent));
         }
 
         // Выбор машин, удовлетворяющих требованиям 
@@ -779,6 +799,8 @@ namespace Delivery
             this.Height = 705;
             panel5.Location = new Point(14, 409);
             panel4.Visible = true;
+            numericUpDown4.Enabled = true;
+            label7.Enabled = true;
             //
             resultCar();
             //
@@ -786,6 +808,8 @@ namespace Delivery
 
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
         {
+            numericUpDown4.Enabled = false;
+            label7.Enabled = false;
             panel4.Visible = false;
             this.Height = 625;
             panel5.Location = new Point(14, 328);
@@ -828,6 +852,7 @@ namespace Delivery
                     count++;
                     cost += Convert.ToDouble(dataReader[0].ToString());
                 }
+                dataReader.Close();
                 if (count == 0)
                 {
                     //
@@ -860,7 +885,6 @@ namespace Delivery
                     materialCost = Convert.ToDouble(numericUpDown1.Value) * tonnCost;
                     //
                 }
-                dataReader.Close();
                 //
                 resultCost();
                 //
@@ -1152,6 +1176,28 @@ namespace Delivery
 
         private void numericUpDown4_ValueChanged(object sender, EventArgs e)
         {
+            
+            if (tabControl1.SelectedTab == tabPage1)
+            {
+                numericUpDown4.Maximum = numericUpDown1.Value;
+                double materialTonn = Convert.ToDouble(numericUpDown1.Value);
+                if (Convert.ToDouble(numericUpDown4.Value) <= materialTonn)
+                {
+                    numericUpDown5.Value = Convert.ToDecimal(materialTonn - Convert.ToDouble(numericUpDown4.Value));
+                }
+            }
+            if (tabControl1.SelectedTab == tabPage3)
+            {
+                
+                double materialTonn = Convert.ToDouble(numericUpDown2.Value) * 0.05;
+                numericUpDown4.Maximum = Convert.ToDecimal(materialTonn);
+                //materialTonn = materialTonnage(materialTonn);
+                
+                if (Convert.ToDouble(numericUpDown4.Value) <= materialTonn)
+                {
+                    numericUpDown5.Value = Convert.ToDecimal(materialTonn - Convert.ToDouble(numericUpDown4.Value));
+                }
+            }
         }
 
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
@@ -1159,6 +1205,40 @@ namespace Delivery
             //
             resultTonnage();
             //
+        }
+
+        private void label15_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numericUpDown5_ValueChanged(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedTab == tabPage1)
+            {
+                numericUpDown5.Maximum = numericUpDown1.Value;
+                double materialTonn = Convert.ToDouble(numericUpDown1.Value);
+                if (Convert.ToDouble(numericUpDown5.Value) <= materialTonn)
+                {
+                    numericUpDown4.Value = Convert.ToDecimal(materialTonn - Convert.ToDouble(numericUpDown5.Value));
+                }
+            }
+            if (tabControl1.SelectedTab == tabPage3)
+            {
+                
+                double materialTonn = Convert.ToDouble(numericUpDown2.Value) * 0.05;
+                numericUpDown4.Maximum = Convert.ToDecimal(materialTonn);
+                //materialTonn = materialTonnage(materialTonn);
+                if (Convert.ToDouble(numericUpDown5.Value) <= materialTonn)
+                {
+                    numericUpDown4.Value = Convert.ToDecimal(materialTonn - Convert.ToDouble(numericUpDown5.Value));
+                }
+            }
+        }
+
+        private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
