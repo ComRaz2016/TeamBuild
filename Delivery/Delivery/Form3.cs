@@ -456,9 +456,9 @@ namespace Delivery
             result += materialCost;
             result += workerCost;
             result += truckCost;
-            textBox8.Text = Convert.ToString(result);
-            int firmProcent = 15;
-            textBox9.Text = Convert.ToString((int)(result / firmProcent));
+            double firmProcent = 0.15;
+            textBox8.Text = Convert.ToString((int)result*(1+ firmProcent)); //мы делаем надбавку вообщето, а не просто отбираем у всех ценников по чуть-чуть
+            textBox9.Text = Convert.ToString((int)(result * firmProcent)); //это чему равны наши 15%
         }
 
         //возвращает массив ключей автомобилей, которые могут перевозить query
