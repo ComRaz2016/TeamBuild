@@ -191,7 +191,6 @@
             this.comboBox4.Name = "comboBox4";
             this.comboBox4.Size = new System.Drawing.Size(152, 21);
             this.comboBox4.TabIndex = 16;
-            this.comboBox4.SelectedIndexChanged += new System.EventHandler(this.comboBox4_SelectedIndexChanged);
             this.comboBox4.SelectionChangeCommitted += new System.EventHandler(this.comboBox4_SelectionChangeCommitted);
             // 
             // label11
@@ -674,7 +673,7 @@
             this.panel5.Controls.Add(this.textBox5);
             this.panel5.Controls.Add(this.textBox4);
             this.panel5.Enabled = false;
-            this.panel5.Location = new System.Drawing.Point(12, 328);
+            this.panel5.Location = new System.Drawing.Point(14, 328);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(555, 245);
             this.panel5.TabIndex = 47;
@@ -889,6 +888,7 @@
             this.checkBox4.TabIndex = 10;
             this.checkBox4.Text = "Бортовая";
             this.checkBox4.UseVisualStyleBackColor = true;
+            this.checkBox4.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
             // 
             // checkBox5
             // 
@@ -899,6 +899,7 @@
             this.checkBox5.TabIndex = 11;
             this.checkBox5.Text = "Самопогрузчик";
             this.checkBox5.UseVisualStyleBackColor = true;
+            this.checkBox5.CheckedChanged += new System.EventHandler(this.checkBox5_CheckedChanged);
             // 
             // Form3
             // 

@@ -444,7 +444,8 @@ namespace Delivery
                 {
                     comboBox3.Items.Add(truck);
                 }
-                comboBox3.SelectedIndex = 0;
+                if (comboBox3.Items.Count != 0)
+                    comboBox3.SelectedIndex = 0;
             }
         }
 
@@ -460,12 +461,17 @@ namespace Delivery
             textBox9.Text = Convert.ToString((int)(result / firmProcent));
         }
 
-        //возвращает массив ключей автомобилей, которые могут перевозить насыпь
-        public List<String> bulkCars()
+        //возвращает массив ключей автомобилей, которые могут перевозить query
+        public List<String> instructionCars(String query)
         {
             List<String> cars = new List<String>();
             MySqlCommand msc = new MySqlCommand();
-            msc.CommandText = "SELECT pk_car  FROM Car  WHERE delivery_bulk  = 1";
+            String q = null;
+            if (query == "bag")
+                q = "delivery_bag";
+            if (query == "bulk")
+                q = "delivery_bulk";
+            msc.CommandText = "SELECT pk_car  FROM Car  WHERE " + q + " = 1";
             msc.Connection = ConnectionToMySQL;
             MySqlDataReader dataReader = msc.ExecuteReader();
             //String car = null;
@@ -478,129 +484,77 @@ namespace Delivery
             return cars;
         }
 
-        //возвращает массив ключей машин, которые могут перевозить мешки
-        public List<String> bagCars()
-        {
-            List<String> cars = new List<String>();
-            MySqlCommand msc = new MySqlCommand();
-            msc.CommandText = "SELECT pk_car  FROM Car  WHERE delivery_bag  = 1";
-            msc.Connection = ConnectionToMySQL;
-            MySqlDataReader dataReader = msc.ExecuteReader();
-            //String car = null;
-            while (dataReader.Read())
-            {
-                cars.Add(dataReader[0].ToString());
-                //MessageBox.Show(dataReader[0].ToString());
-            }
-            dataReader.Close();
-            return cars;
-        }
 
-        
-        public List<Tuple<String,String>> compactCars(List<String> cars)
+        //массив пк для требований
+        public List<String> getCarInstructionsPk(String car)
         {
             List<String> instructions = new List<String>();
-            List<Tuple<String, String>> rezult = new List<Tuple<String, String>>();
             MySqlCommand msc = new MySqlCommand();
-            foreach (String car in cars)
+            msc.CommandText = "SELECT pk_instruction  FROM instruction_car  WHERE pk_car  = '" + car + "'";
+            msc.Connection = ConnectionToMySQL;
+            MySqlDataReader dataReader = msc.ExecuteReader();
+            while (dataReader.Read())
             {
-                instructions.Clear();
-                msc.CommandText = "SELECT pk_instruction  FROM instruction_car  WHERE pk_car  = '" + car + "'";
-                msc.Connection = ConnectionToMySQL;
-                MySqlDataReader dataReader = msc.ExecuteReader();
-                while (dataReader.Read())
-                {
-                    instructions.Add(dataReader[0].ToString());
-                    //MessageBox.Show(dataReader[0].ToString());
-                }
-                dataReader.Close();
-                foreach (String instruction in instructions)
-                {
-                    msc.CommandText = "SELECT desc_instruction  FROM instruction  WHERE pk_instruction  = '" + instruction + "'";
-                    msc.Connection = ConnectionToMySQL;
-                    dataReader = msc.ExecuteReader();
-                    String instructionName = null;
-                    while (dataReader.Read())
-                    {
-                        instructionName = dataReader[0].ToString();
-                        //MessageBox.Show(dataReader[0].ToString());
-                    }
-                    dataReader.Close();
-                    if (instructionName == "Compact")
-                    {
-                        msc.CommandText = "SELECT mark_car,regist_number, tonnage  FROM Car  WHERE pk_car  = '" + car + "'";
-                        msc.Connection = ConnectionToMySQL;
-                        dataReader = msc.ExecuteReader();
-                        String carName = null;
-                        String regNumber = null;
-                        String tonnage = null;
-                        while (dataReader.Read())
-                        {
-                            carName = dataReader[0].ToString();
-                            regNumber = dataReader[1].ToString();
-                            tonnage = dataReader[2].ToString();
-                        }
-                        dataReader.Close();
-                        String truck = carName + "(" + regNumber + ") " + tonnage + "т";
-                        //MessageBox.Show(truck);
-                        /*trucks.Add(truck);
-                        trucksKey.Add(car);*/
-                        rezult.Add(new Tuple<String,String>(truck,car));
-                    }
-                }
-
+                instructions.Add(dataReader[0].ToString());
+                //MessageBox.Show(dataReader[0].ToString());
             }
+            dataReader.Close();
+            return instructions;
+        }
+
+        //название требования по пк
+        public String getInstructionsName(String pk_instr)
+        {
+            String rezult = null;
+            MySqlCommand msc = new MySqlCommand();
+            MySqlDataReader dataReader;
+            msc.CommandText = "SELECT desc_instruction  FROM instruction  WHERE pk_instruction  = '" + pk_instr + "'";
+            msc.Connection = ConnectionToMySQL;
+            dataReader = msc.ExecuteReader();
+            while (dataReader.Read())
+            {
+                rezult = dataReader[0].ToString();
+                //MessageBox.Show(dataReader[0].ToString());
+            }
+            dataReader.Close();
             return rezult;
         }
 
-        public List<Tuple<String, String>> tipperCars(List<String> cars)
+        //Получить строку для вывода машины по ключу
+        public String getOutputStringForCar(String pk_car)
         {
-            List<String> instructions = new List<String>();
-            List<Tuple<String, String>> rezult = new List<Tuple<String, String>>();
             MySqlCommand msc = new MySqlCommand();
+            msc.CommandText = "SELECT mark_car,regist_number, tonnage  FROM Car  WHERE pk_car  = '" + pk_car + "'";
+            msc.Connection = ConnectionToMySQL;
+            MySqlDataReader dataReader = msc.ExecuteReader();
+            String carName = null;
+            String regNumber = null;
+            String tonnage = null;
+            while (dataReader.Read())
+            {
+                carName = dataReader[0].ToString();
+                regNumber = dataReader[1].ToString();
+                tonnage = dataReader[2].ToString();
+            }
+            dataReader.Close();
+            return carName + "(" + regNumber + ") " + tonnage + "т";
+        }
+
+
+        //возвращает картеж, в котором первый элемент - это строка для вывода, второй - пк выведенных машин.
+        //машины должны поддерживать требование inst, пк которых передаются в параметре cars
+        public List<Tuple<String, String>> instructionCars(List<String> cars, String inst)
+        {
+            List<Tuple<String, String>> rezult = new List<Tuple<String, String>>();
             foreach (String car in cars)
             {
-                instructions.Clear();
-                msc.CommandText = "SELECT pk_instruction  FROM instruction_car  WHERE pk_car  = '" + car + "'";
-                msc.Connection = ConnectionToMySQL;
-                MySqlDataReader dataReader = msc.ExecuteReader();
-                while (dataReader.Read())
-                {
-                    instructions.Add(dataReader[0].ToString());
-                    //MessageBox.Show(dataReader[0].ToString());
-                }
-                dataReader.Close();
+                List<String> instructions = getCarInstructionsPk(car);
                 foreach (String instruction in instructions)
                 {
-                    msc.CommandText = "SELECT desc_instruction  FROM instruction  WHERE pk_instruction  = '" + instruction + "'";
-                    msc.Connection = ConnectionToMySQL;
-                    dataReader = msc.ExecuteReader();
-                    String instructionName = null;
-                    while (dataReader.Read())
+                    String instructionName = getInstructionsName(instruction);
+                    if (instructionName == inst)
                     {
-                        instructionName = dataReader[0].ToString();
-                        //MessageBox.Show(dataReader[0].ToString());
-                    }
-                    dataReader.Close();
-                    if (instructionName == "Tipper")
-                    {
-                        msc.CommandText = "SELECT mark_car,regist_number, tonnage  FROM Car  WHERE pk_car  = '" + car + "'";
-                        msc.Connection = ConnectionToMySQL;
-                        dataReader = msc.ExecuteReader();
-                        String carName = null;
-                        String regNumber = null;
-                        String tonnage = null;
-                        while (dataReader.Read())
-                        {
-                            carName = dataReader[0].ToString();
-                            regNumber = dataReader[1].ToString();
-                            tonnage = dataReader[2].ToString();
-                        }
-                        dataReader.Close();
-                        String truck = carName + "(" + regNumber + ") " + tonnage + "т";
-                        //MessageBox.Show(truck);
-                        /*trucks.Add(truck);
-                        trucksKey.Add(car);*/
+                        String truck = getOutputStringForCar(car);
                         rezult.Add(new Tuple<String, String>(truck, car));
                     }
                 }
@@ -609,34 +563,21 @@ namespace Delivery
             return rezult;
         }
 
+
+        //возвращает картеж, в котором первый элемент - это строка для вывода, второй - пк выведенных машин.
+        //машины, пк которых передаются в параметре cars
         public List<Tuple<String,String>> allCars(List<String> cars)
         {
             List<Tuple<String, String>> rezult = new List<Tuple<String, String>>();
             MySqlCommand msc = new MySqlCommand();
             foreach(var car in cars)
             {
-                msc.CommandText = "SELECT mark_car,regist_number, tonnage, pk_car  FROM Car WHERE pk_car = '" + car +"'";
-                msc.Connection = ConnectionToMySQL;
-                MySqlDataReader dataReader = msc.ExecuteReader();
-                String carName = null;
-                String regNumber = null;
-                String tonnage = null;
-                String carKey = null;
-                while (dataReader.Read())
-                {
-                    carName = dataReader[0].ToString();
-                    regNumber = dataReader[1].ToString();
-                    tonnage = dataReader[2].ToString();
-                    carKey = dataReader[3].ToString();
-                    String truck = carName + "(" + regNumber + ") " + tonnage + "т";
-                    //MessageBox.Show(truck);
-                    //comboBox3.Items.Add(truck);
-                    rezult.Add(new Tuple<String, String>(truck, carKey));
-                }
-                dataReader.Close();
+                String truck = getOutputStringForCar(car);
+                rezult.Add(new Tuple<String, String>(truck, car));
             }
             return rezult;
         }
+
 
         public void resultCar()
         {
@@ -651,6 +592,8 @@ namespace Delivery
 
             bool compact = false;  // требование на малогабаритное ТС
             bool tipper = false;   // требование на самосвал
+            bool onboard = false;  // требование на бортовой автомобиль
+            bool selfloader = false;  // требование на самопогрузчик автомобиль
 
             if (tabControl1.SelectedTab == tabPage1)
             {
@@ -668,70 +611,71 @@ namespace Delivery
             {
                 tipper = true;
             }
+            if (checkBox4.Checked == true)
+            {
+                onboard = true;
+            }
+            if (checkBox5.Checked == true)
+            {
+                selfloader = true;
+            }
             if (bag)
             {
-                cars = bagCars();
+                cars = instructionCars("bag");
             }
             else
             {
-                cars = bulkCars();
+                cars = instructionCars("bulk");
             }
-            List<Tuple<String, String>> rezultCompact = null;
-            List<Tuple<String, String>> rezultTipper = null;
+            List<Tuple<String, String>> rezultCompact = new List<Tuple<string, string>>();
+            List<Tuple<String, String>> rezultTipper = new List<Tuple<string, string>>();
+            List<Tuple<String, String>> rezultOnboard = new List<Tuple<string, string>>();
+            List<Tuple<String, String>> rezultSelfloader = new List<Tuple<string, string>>();
+            IEnumerable<Tuple<String, String>> rez;
             if (compact)
             {
-                rezultCompact = compactCars(cars);
+                rezultCompact = instructionCars(cars,"Compact");
             }
             if (tipper)
             {
-                rezultTipper = tipperCars(cars);
+                rezultTipper = instructionCars(cars, "Tipper");
+            }
+            if (onboard)
+            {
+                rezultOnboard = instructionCars(cars, "Onboard");
+            }
+            if (selfloader)
+            {
+                rezultSelfloader = instructionCars(cars, "Selfloader");
             }
             trucks.Clear();
             trucksKey.Clear();
-            if (compact && tipper)
+           
+            if (!compact && !tipper && !onboard && !selfloader)
             {
-                foreach(var com in rezultCompact)
-                {
-                    if (rezultTipper.Contains(com))
-                    {
-                        trucks.Add(com.Item1);
-                        trucksKey.Add(com.Item2);
-                        
-                    }
-                }
-                resultTrucks();
-                return;
+                rez = allCars(cars);   
             }
-            if (compact)
+            else
             {
-                foreach (var com in rezultCompact)
-                {
-                    trucks.Add(com.Item1);
-                    trucksKey.Add(com.Item2);
-                    
-                }
-                resultTrucks();
-                return;
+                rez = rezultCompact.Union(rezultOnboard.Union(rezultSelfloader.Union(rezultTipper)));
+                if (compact)
+                    rez = rez.Intersect(rezultCompact);
+                if (onboard)
+                    rez = rez.Intersect(rezultOnboard);
+                if (tipper)
+                    rez = rez.Intersect(rezultTipper);
+                if (selfloader)
+                    rez = rez.Intersect(rezultSelfloader);
+
             }
-            if (tipper)
-            {
-                foreach (var tip in rezultTipper)
-                {
-                    trucks.Add(tip.Item1);
-                    trucksKey.Add(tip.Item2);
-                }
-                resultTrucks();
-                return;
-            }
-            List<Tuple<String, String>> rezultAll = allCars(cars);
-            foreach (var car in rezultAll)
+            foreach (var car in rez)
             {
                 trucks.Add(car.Item1);
                 trucksKey.Add(car.Item2);
-                
+
             }
             resultTrucks();
-            return;
+            return;       
         }
 
 
@@ -1247,9 +1191,25 @@ namespace Delivery
             }
         }
 
-        private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
-        {
 
+        private void checkBox4_CheckedChanged(object sender, EventArgs e)
+        {
+            //
+            resultCar();
+            //
+            //
+            resultTonnage();
+            //
+        }
+
+        private void checkBox5_CheckedChanged(object sender, EventArgs e)
+        {
+            //
+            resultCar();
+            //
+            //
+            resultTonnage();
+            //
         }
     }
 }
