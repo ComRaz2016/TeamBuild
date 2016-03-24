@@ -1,0 +1,4 @@
+Delivery/Delivery/bin/**/*.exe
+Delivery/Delivery/bin/**/*.pdb
+Delivery/Delivery/obj/**/*.exe
+Delivery/Delivery/obj/**/*.pdb
