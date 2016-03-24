@@ -1604,8 +1604,19 @@ namespace Delivery
             }
         }
 
+        //Получение даты и времени доставки
+        public String getDataTime()
+        {
+            String dateTime = dateTimePicker1.Value.ToString("dd/MM/yyyy HH:mm");
+            //MessageBox.Show(dateTime);
+            return dateTime;
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
+            //Получение даты и времени доставки
+            String dataTimeOrder = getDataTime();
+
             //Получение первичного ключа материала
             String materialPk = getPkMaterial();
 
@@ -1621,6 +1632,13 @@ namespace Delivery
             // Подсчет количества грузчиков
             String countWorkers = getCountWorkers();
 
+            String adressOrder = null;
+            String telefoneOrder = null;
+            String clientOrder = null;
+            String commentOrder = null;
+            String costOrder = null;
+            String pkStatusOrder = null;
+
             if (checkNumberZone())
             {
                 // Получение зоны доставки
@@ -1632,7 +1650,11 @@ namespace Delivery
 
                 // Проверка номера телефона, адреса доставки и заказчика
                 if (checkAdressFIOTelefone())
-        {
+                {
+                    MySqlCommand msc = new MySqlCommand();
+                    msc.CommandText = "INSERT INTO Order (nomer, volume, date_time, adress, contact, number_contact, comment, Numberzone, Exstendway, worker, cost_order, pk_status, pk_material, pk_measure) VALUES ('" + numberOrder + "', '" + volumeOrder + "', '" + dataTimeOrder + "', '" + adressOrder + "', '" + clientOrder + "', '" + telefoneOrder + "', '" + commentOrder + "', '" + numberZone + "', '" + extendedKm + "', '" + countWorkers + "', '" + costOrder + "', '" + pkStatusOrder + "', '" + materialPk + "', '" + measurePk + "')";
+                    msc.Connection = ConnectionToMySQL;
+                    msc.ExecuteNonQuery();
                 }
             }
             //increaseOrderNumber(getOrderNumber());
