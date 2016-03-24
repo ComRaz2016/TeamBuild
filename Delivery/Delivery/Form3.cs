@@ -1684,10 +1684,21 @@ namespace Delivery
             
         }
 
+        public bool checkTrucks()
+        {
+            if (comboBox3.Items.Count == 0)
+            {
+                MessageBox.Show("Отсутствуют машины, которые могут осуществить доставку","Отсутствие машин");
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
-            
-
             //Получение первичного ключа материала
             String materialPk = getPkMaterial();
 
@@ -1708,48 +1719,57 @@ namespace Delivery
 
             String pkStatusOrder = getPkStatus();
 
-            if (checkNumberZone())
+            if (checkTrucks())
             {
-                // Получение зоны доставки
-                String numberZone = getNumberZone();
-
-                // Если Зона 3+, то получить дополнительные км
-                String extendedKm = getExtendedKm();
-
-                if (checkDataTime())
+                if (checkNumberZone())
                 {
-                    //Получение даты и времени доставки
-                    String dataTimeOrder = getDataTime();
+                    // Получение зоны доставки
+                    String numberZone = getNumberZone();
 
-                    // Проверка номера телефона, адреса доставки и заказчика
-                    if (checkAdressFIOTelefone())
+                    // Если Зона 3+, то получить дополнительные км
+                    String extendedKm = getExtendedKm();
+
+                    if (checkDataTime())
                     {
-                        String adressOrder = textBox6.Text;
-                        String telefoneOrder = textBox5.Text;
-                        String clientOrder = textBox4.Text;
-                        String commentOrder = null;
-                        if (textBox7.Text.Trim() == "")
+                        //Получение даты и времени доставки
+                        String dataTimeOrder = getDataTime();
+
+                        // Проверка номера телефона, адреса доставки и заказчика
+                        if (checkAdressFIOTelefone())
                         {
-                           commentOrder = null;
+                            String adressOrder = textBox6.Text;
+                            String telefoneOrder = textBox5.Text;
+                            String clientOrder = textBox4.Text;
+                            String commentOrder = null;
+                            if (textBox7.Text.Trim() == "")
+                            {
+                                commentOrder = null;
+                            }
+                            else
+                            {
+                                commentOrder = textBox7.Text;
+                            }
+
+                            //
+                            MySqlCommand msc = new MySqlCommand();
+                            msc.CommandText = "INSERT INTO `Order` (`nomer`, `volume`, `date_time`, `adress`, `contact`, `number_contact`, `comment`, `Numberzone`, `Exstendway`, `worker`, `cost_order`, `pk_status`, `pk_material`, `pk_measure`) VALUES ('" + numberOrder + "', '" + volumeOrder + "', '" + dataTimeOrder + "', '" + adressOrder + "', '" + clientOrder + "', '" + telefoneOrder + "', '" + commentOrder + "', '" + numberZone + "', '" + extendedKm + "', '" + countWorkers + "', '" + costOrder + "', '" + pkStatusOrder + "', '" + materialPk + "', '" + measurePk + "')";
+                            msc.Connection = ConnectionToMySQL;
+                            msc.ExecuteNonQuery();
+                            //Добавление машин в расшивочную таблицу
+                            createCarsOrder(numberOrder);
+                            createInstructionsOrder(numberOrder);
+                            // Увеличение номера заказа
+                            increaseOrderNumber(getOrderNumber());
+                            MessageBox.Show("Заказ успешно оформлен! Спасибо, что выбрали нас!", "Заказ оформлен");
+                            ConnectionToMySQL.Close();
+                            this.Close();
                         }
-                        else
-                        {
-                            commentOrder = textBox7.Text;
-                        }
-                        
-                        //
-                        MySqlCommand msc = new MySqlCommand();
-                        msc.CommandText = "INSERT INTO `Order` (`nomer`, `volume`, `date_time`, `adress`, `contact`, `number_contact`, `comment`, `Numberzone`, `Exstendway`, `worker`, `cost_order`, `pk_status`, `pk_material`, `pk_measure`) VALUES ('" + numberOrder + "', '" + volumeOrder + "', '" + dataTimeOrder + "', '" + adressOrder + "', '" + clientOrder + "', '" + telefoneOrder + "', '" + commentOrder + "', '" + numberZone + "', '" + extendedKm + "', '" + countWorkers + "', '" + costOrder + "', '" + pkStatusOrder + "', '" + materialPk + "', '" + measurePk + "')";
-                        msc.Connection = ConnectionToMySQL;
-                        msc.ExecuteNonQuery();
-             
-                        createCarsOrder(numberOrder);
-                        increaseOrderNumber(getOrderNumber());
                     }
                 }
             }
         }
 
+        //Добавление машин в расшивочную таблицу
         public void createCarsOrder(String numberOrder)
         {
             MySqlCommand msc = new MySqlCommand();
@@ -1808,9 +1828,91 @@ namespace Delivery
             
         }
 
+        public void createInstructionsOrder(String numberOrder)
+        {
+            MySqlCommand msc = new MySqlCommand();
+            msc.CommandText = "SELECT pk_order FROM `Order` WHERE `nomer`  = '" + numberOrder + "'";
+            msc.Connection = ConnectionToMySQL;
+            MySqlDataReader dataReader = msc.ExecuteReader();
+            String orderPk = null;
+            while (dataReader.Read())
+            {
+                orderPk = dataReader[0].ToString();
+            }
+            dataReader.Close();
+            if (orderPk == null)
+            {
+                MessageBox.Show("Ошибка при добавлении заказа");
+            }
+            else
+            {
+                if (checkBox2.Checked == true)
+                {
+                    String instructionPk = getInstructionPk("Compact");
+                    if (instructionPk != null)
+                    {
+                        msc.CommandText = "INSERT INTO `Instuction_zone` (`pk_instruction`, `pk_order`) VALUES ('" + instructionPk + "', '" + orderPk + "')";
+                        msc.Connection = ConnectionToMySQL;
+                        msc.ExecuteNonQuery();
+                    }
+                }
+                if (checkBox3.Checked == true)
+                {
+                    String instructionPk = getInstructionPk("Tipper");
+                    if (instructionPk != null)
+                    {
+                        msc.CommandText = "INSERT INTO `Instuction_zone` (`pk_instruction`, `pk_order`) VALUES ('" + instructionPk + "', '" + orderPk + "')";
+                        msc.Connection = ConnectionToMySQL;
+                        msc.ExecuteNonQuery();
+                    }
+                }
+                if (checkBox4.Checked == true)
+                {
+                    String instructionPk = getInstructionPk("Onboard");
+                    if (instructionPk != null)
+                    {
+                        msc.CommandText = "INSERT INTO `Instuction_zone` (`pk_instruction`, `pk_order`) VALUES ('" + instructionPk + "', '" + orderPk + "')";
+                        msc.Connection = ConnectionToMySQL;
+                        msc.ExecuteNonQuery();
+                    }
+                }
+                if (checkBox5.Checked == true)
+                {
+                    String instructionPk = getInstructionPk("Selfloader");
+                    if (instructionPk != null)
+                    {
+                        msc.CommandText = "INSERT INTO `Instuction_zone` (`pk_instruction`, `pk_order`) VALUES ('" + instructionPk + "', '" + orderPk + "')";
+                        msc.Connection = ConnectionToMySQL;
+                        msc.ExecuteNonQuery();
+                    }
+                }
+            }
+        }
+
+        public String getInstructionPk(String instructionDesc)
+        {
+            MySqlCommand msc = new MySqlCommand();
+            msc.CommandText = "SELECT pk_instruction FROM `instruction` WHERE `desc_instruction`  = '" + instructionDesc + "'";
+            msc.Connection = ConnectionToMySQL;
+            MySqlDataReader dataReader = msc.ExecuteReader();
+            String instructionPk = null;
+            while (dataReader.Read())
+            {
+                instructionPk = dataReader[0].ToString();
+            }
+            dataReader.Close();
+            return instructionPk;
+        }
+
         private void numericUpDown6_ValueChanged(object sender, EventArgs e)
         {
             resultCost();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            ConnectionToMySQL.Close();
+            this.Close();
         }
     }
 }
