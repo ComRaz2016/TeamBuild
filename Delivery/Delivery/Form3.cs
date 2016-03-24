@@ -917,8 +917,8 @@ namespace Delivery
             String serverName = "127.0.0.1"; // Адрес сервера (для локальной базы пишите "localhost")
             string userName = "dbadmin"; // Имя пользователя
             string dbName = "Test"; //Имя базы данных
-            string port = "6565"; // Порт для подключения
-            //string port = "9570"; // Порт для подключения
+            //string port = "6565"; // Порт для подключения
+            string port = "9570"; // Порт для подключения
             string password = "dbadmin"; // Пароль для подключения
             string charset = "utf8";
             String connStr = "server=" + serverName +
@@ -1486,6 +1486,45 @@ namespace Delivery
         }
 
         // Получение первичного ключа товара на доставку
+        public String getPkStatus()
+        {
+            int dayOrder = Convert.ToInt32(dateTimePicker1.Value.ToString("dd"));
+            int dayNow = DateTime.Now.Day;
+            if (dayOrder == dayNow)
+            {
+                String status = "Active";
+                MySqlCommand msc = new MySqlCommand();
+                msc.CommandText = "SELECT pk_status  FROM order_status  WHERE name_status  = '" + status + "'";
+                msc.Connection = ConnectionToMySQL;
+                MySqlDataReader dataReader = msc.ExecuteReader();
+                String statusPk = null;
+                while (dataReader.Read())
+                {
+                    statusPk = dataReader[0].ToString();
+                    //MessageBox.Show(materialPk);
+                }
+                dataReader.Close();
+                return statusPk;
+            }
+            else
+            {
+                String status = "Inactive";
+                MySqlCommand msc = new MySqlCommand();
+                msc.CommandText = "SELECT pk_status  FROM order_status  WHERE name_status  = '" + status + "'";
+                msc.Connection = ConnectionToMySQL;
+                MySqlDataReader dataReader = msc.ExecuteReader();
+                String statusPk = null;
+                while (dataReader.Read())
+                {
+                    statusPk = dataReader[0].ToString();
+                    //MessageBox.Show(materialPk);
+                }
+                dataReader.Close();
+                return statusPk;
+            }
+        }
+
+        // Получение первичного ключа товара на доставку
         public String getPkMaterial()
         {
             if (tabControl1.SelectedTab == tabPage1)
@@ -1604,18 +1643,41 @@ namespace Delivery
             }
         }
 
-        //Получение даты и времени доставки
         public String getDataTime()
         {
             String dateTime = dateTimePicker1.Value.ToString("dd/MM/yyyy HH:mm");
-            //MessageBox.Show(dateTime);
             return dateTime;
+        }
+
+        //Получение даты и времени доставки
+        public bool checkDataTime()
+        {
+            int hourOrder = Convert.ToInt32(dateTimePicker1.Value.ToString("HH"));
+            int minuteOrder = Convert.ToInt32(dateTimePicker1.Value.ToString("mm"));
+
+            DateTime nowTime = DateTime.Now.AddHours(1);
+            int hourNow = nowTime.Hour;
+            int minuteNow = nowTime.Minute;
+            if (hourNow > hourOrder)
+            {
+                MessageBox.Show("Необходимо изменить время заказа. Минимальное время доставки - 1 час", "Ошибка в часах");
+                return false;
+            }
+            if (hourNow == hourOrder)
+            {
+                if (minuteNow > minuteOrder)
+                {
+                    MessageBox.Show("Необходимо изменить время заказа. Минимальное время доставки - 1 час", "Ошибка в минутах");
+                    return false;
+                }
+            }
+            return true;
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //Получение даты и времени доставки
-            String dataTimeOrder = getDataTime();
+            
 
             //Получение первичного ключа материала
             String materialPk = getPkMaterial();
@@ -1632,12 +1694,10 @@ namespace Delivery
             // Подсчет количества грузчиков
             String countWorkers = getCountWorkers();
 
-            String adressOrder = null;
-            String telefoneOrder = null;
-            String clientOrder = null;
-            String commentOrder = null;
-            String costOrder = null;
-            String pkStatusOrder = null;
+            // Стоимость доставки
+            String costOrder = textBox8.Text;
+
+            String pkStatusOrder = getPkStatus();
 
             if (checkNumberZone())
             {
@@ -1646,15 +1706,36 @@ namespace Delivery
 
                 // Если Зона 3+, то получить дополнительные км
                 String extendedKm = getExtendedKm();
-                //MessageBox.Show(extendedKm);
 
-                // Проверка номера телефона, адреса доставки и заказчика
-                if (checkAdressFIOTelefone())
+                if (checkDataTime())
                 {
-                    MySqlCommand msc = new MySqlCommand();
-                    msc.CommandText = "INSERT INTO Order (nomer, volume, date_time, adress, contact, number_contact, comment, Numberzone, Exstendway, worker, cost_order, pk_status, pk_material, pk_measure) VALUES ('" + numberOrder + "', '" + volumeOrder + "', '" + dataTimeOrder + "', '" + adressOrder + "', '" + clientOrder + "', '" + telefoneOrder + "', '" + commentOrder + "', '" + numberZone + "', '" + extendedKm + "', '" + countWorkers + "', '" + costOrder + "', '" + pkStatusOrder + "', '" + materialPk + "', '" + measurePk + "')";
-                    msc.Connection = ConnectionToMySQL;
-                    msc.ExecuteNonQuery();
+                    //Получение даты и времени доставки
+                    String dataTimeOrder = getDataTime();
+
+                    // Проверка номера телефона, адреса доставки и заказчика
+                    if (checkAdressFIOTelefone())
+                    {
+                        String adressOrder = textBox6.Text;
+                        String telefoneOrder = textBox5.Text;
+                        String clientOrder = textBox4.Text;
+                        String commentOrder = null;
+                        if (textBox7.Text.Trim() == "")
+                        {
+                           commentOrder = null;
+                        }
+                        else
+                        {
+                            commentOrder = textBox7.Text;
+                        }
+                        
+                        //
+                        MySqlCommand msc = new MySqlCommand();
+                        msc.CommandText = "INSERT INTO `Order` (`nomer`, `volume`, `date_time`, `adress`, `contact`, `number_contact`, `comment`, `Numberzone`, `Exstendway`, `worker`, `cost_order`, `pk_status`, `pk_material`, `pk_measure`) VALUES ('" + numberOrder + "', '" + volumeOrder + "', '" + dataTimeOrder + "', '" + adressOrder + "', '" + clientOrder + "', '" + telefoneOrder + "', '" + commentOrder + "', '" + numberZone + "', '" + extendedKm + "', '" + countWorkers + "', '" + costOrder + "', '" + pkStatusOrder + "', '" + materialPk + "', '" + measurePk + "')";
+                        //msc.CommandText = "INSERT INTO Order (nomer, volume_order, date_time, adress, contact, number_contact, comment, Numberzone, Exstendway, worker, cost_order, pk_status, pk_material, pk_measure) VALUES ('" + numberOrder + "', '" + volumeOrder + "', '" + dataTimeOrder + "', '" + adressOrder + "', '" + clientOrder + "', '" + telefoneOrder + "', '" + commentOrder + "', '" + numberZone + "', '" + extendedKm + "', '" + countWorkers + "', '" + costOrder + "', '" + pkStatusOrder + "', '" + materialPk + "', '" + measurePk + "')";
+                        //msc.CommandText = "INSERT INTO Order (nomer) VALUES (?number)";
+                        msc.Connection = ConnectionToMySQL;
+                        msc.ExecuteNonQuery();
+                    }
                 }
             }
             //increaseOrderNumber(getOrderNumber());
