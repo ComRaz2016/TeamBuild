@@ -36,7 +36,7 @@ namespace Delivery
         public String getOrderNumber()
         {
             MySqlCommand msc = new MySqlCommand();
-            msc.CommandText = "SELECT number_order  FROM order_number  WHERE pk_order_number  = 0";
+            msc.CommandText = "SELECT number_order  FROM order_number  WHERE pk_order_number  = 1";
             msc.Connection = ConnectionToMySQL;
             MySqlDataReader dataReader = msc.ExecuteReader();
             String orderNumber = null;
@@ -54,7 +54,7 @@ namespace Delivery
         {
             String nextNumber = Convert.ToString(Convert.ToInt32(orderNumber) + 1);
             MySqlCommand msc = new MySqlCommand();
-            msc.CommandText = "UPDATE order_number  SET number_order = '" + nextNumber + "' WHERE pk_order_number = 0";
+            msc.CommandText = "UPDATE order_number  SET number_order = '" + nextNumber + "' WHERE pk_order_number = 1";
             msc.Connection = ConnectionToMySQL;
             msc.ExecuteNonQuery();
         }
@@ -1652,26 +1652,35 @@ namespace Delivery
         //Получение даты и времени доставки
         public bool checkDataTime()
         {
-            int hourOrder = Convert.ToInt32(dateTimePicker1.Value.ToString("HH"));
-            int minuteOrder = Convert.ToInt32(dateTimePicker1.Value.ToString("mm"));
+            int dayOrder = Convert.ToInt32(dateTimePicker1.Value.ToString("dd"));
+            int dayNow = DateTime.Now.Day;
+            if (dayOrder == dayNow)
+            {
+                int hourOrder = Convert.ToInt32(dateTimePicker1.Value.ToString("HH"));
+                int minuteOrder = Convert.ToInt32(dateTimePicker1.Value.ToString("mm"));
 
-            DateTime nowTime = DateTime.Now.AddHours(1);
-            int hourNow = nowTime.Hour;
-            int minuteNow = nowTime.Minute;
-            if (hourNow > hourOrder)
-            {
-                MessageBox.Show("Необходимо изменить время заказа. Минимальное время доставки - 1 час", "Ошибка в часах");
-                return false;
-            }
-            if (hourNow == hourOrder)
-            {
-                if (minuteNow > minuteOrder)
+                DateTime nowTime = DateTime.Now.AddHours(1);
+                int hourNow = nowTime.Hour;
+                int minuteNow = nowTime.Minute;
+                if (hourNow > hourOrder)
                 {
-                    MessageBox.Show("Необходимо изменить время заказа. Минимальное время доставки - 1 час", "Ошибка в минутах");
+                    MessageBox.Show("Необходимо изменить время заказа. Минимальное время доставки - 1 час", "Ошибка в часах");
                     return false;
                 }
+                if (hourNow == hourOrder)
+                {
+                    if (minuteNow > minuteOrder)
+                    {
+                        MessageBox.Show("Необходимо изменить время заказа. Минимальное время доставки - 1 час", "Ошибка в минутах");
+                        return false;
+                    }
+                }
+                return true;
             }
-            return true;
+            else
+            {
+                return true;
+            }
             
         }
 
@@ -1731,14 +1740,72 @@ namespace Delivery
                         //
                         MySqlCommand msc = new MySqlCommand();
                         msc.CommandText = "INSERT INTO `Order` (`nomer`, `volume`, `date_time`, `adress`, `contact`, `number_contact`, `comment`, `Numberzone`, `Exstendway`, `worker`, `cost_order`, `pk_status`, `pk_material`, `pk_measure`) VALUES ('" + numberOrder + "', '" + volumeOrder + "', '" + dataTimeOrder + "', '" + adressOrder + "', '" + clientOrder + "', '" + telefoneOrder + "', '" + commentOrder + "', '" + numberZone + "', '" + extendedKm + "', '" + countWorkers + "', '" + costOrder + "', '" + pkStatusOrder + "', '" + materialPk + "', '" + measurePk + "')";
-                        //msc.CommandText = "INSERT INTO Order (nomer, volume_order, date_time, adress, contact, number_contact, comment, Numberzone, Exstendway, worker, cost_order, pk_status, pk_material, pk_measure) VALUES ('" + numberOrder + "', '" + volumeOrder + "', '" + dataTimeOrder + "', '" + adressOrder + "', '" + clientOrder + "', '" + telefoneOrder + "', '" + commentOrder + "', '" + numberZone + "', '" + extendedKm + "', '" + countWorkers + "', '" + costOrder + "', '" + pkStatusOrder + "', '" + materialPk + "', '" + measurePk + "')";
-                        //msc.CommandText = "INSERT INTO Order (nomer) VALUES (?number)";
+                        msc.Connection = ConnectionToMySQL;
+                        msc.ExecuteNonQuery();
+             
+                        createCarsOrder(numberOrder);
+                        increaseOrderNumber(getOrderNumber());
+                    }
+                }
+            }
+        }
+
+        public void createCarsOrder(String numberOrder)
+        {
+            MySqlCommand msc = new MySqlCommand();
+            msc.CommandText = "SELECT pk_order FROM `Order` WHERE `nomer`  = '" + numberOrder + "'";
+            msc.Connection = ConnectionToMySQL;
+            MySqlDataReader dataReader = msc.ExecuteReader();
+            String orderPk = null;
+            while (dataReader.Read())
+            {
+                orderPk = dataReader[0].ToString();
+            }
+            dataReader.Close();
+            if (orderPk == null)
+            {
+                MessageBox.Show("Ошибка при добавлении заказа");
+            }
+            else
+            {
+                String keyFirstTruck = null;
+                String keySecondTruck = null;
+
+                String countTripFirstTruck = null;
+                String countTripSecondTruck = null;
+
+                if (radioButton4.Checked == true)
+                {
+                    if (comboBox3.SelectedItem != null)
+                    {
+                        countTripFirstTruck = textBox2.Text;
+                        keyFirstTruck = trucksKey[trucks.IndexOf(comboBox3.SelectedItem.ToString())];
+                        msc.CommandText = "INSERT INTO `order_car` (`pk_car`, `pk_order`, `count_trip`) VALUES ('" + keyFirstTruck + "', '" + orderPk + "', '" + countTripFirstTruck + "')";
+                        msc.Connection = ConnectionToMySQL;
+                        msc.ExecuteNonQuery();
+                    }
+                    if (comboBox4.SelectedItem != null)
+                    {
+                        countTripSecondTruck = textBox3.Text;
+                        keySecondTruck = trucksKey[trucks.IndexOf(comboBox4.SelectedItem.ToString())];
+                        msc.CommandText = "INSERT INTO `order_car` (`pk_car`, `pk_order`, `count_trip`) VALUES ('" + keySecondTruck + "', '" + orderPk + "', '" + countTripSecondTruck + "')";
+                        msc.Connection = ConnectionToMySQL;
+                        msc.ExecuteNonQuery();
+                    }
+                }
+                else
+                {
+                    if (comboBox3.SelectedItem != null)
+                    {
+                        countTripFirstTruck = textBox2.Text;
+                        keyFirstTruck = trucksKey[trucks.IndexOf(comboBox3.SelectedItem.ToString())];
+                        msc.CommandText = "INSERT INTO `order_car` (`pk_car`, `pk_order`, `count_trip`) VALUES ('" + keyFirstTruck + "', '" + orderPk + "', '" + countTripFirstTruck + "')";
                         msc.Connection = ConnectionToMySQL;
                         msc.ExecuteNonQuery();
                     }
                 }
             }
-            //increaseOrderNumber(getOrderNumber());
+            
         }
 
         private void numericUpDown6_ValueChanged(object sender, EventArgs e)
