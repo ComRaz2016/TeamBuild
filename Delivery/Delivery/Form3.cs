@@ -32,6 +32,33 @@ namespace Delivery
         List<String> trucksKey = new List<String>();    // Первичные ключи машин, подходящих для доставки
         List<String> trucksDriver = new List<String>();    // водители машин
 
+        // Получение номера заказа
+        public String getOrderNumber()
+        {
+            MySqlCommand msc = new MySqlCommand();
+            msc.CommandText = "SELECT number_order  FROM order_number  WHERE pk_order_number  = 0";
+            msc.Connection = ConnectionToMySQL;
+            MySqlDataReader dataReader = msc.ExecuteReader();
+            String orderNumber = null;
+            while (dataReader.Read())
+            {
+                orderNumber = dataReader[0].ToString();
+            }
+            dataReader.Close();
+            textBox10.Text = orderNumber;
+            return orderNumber;
+        }
+
+        // Увеличение номера заказа на единицу, если заказ оформлен
+        public void increaseOrderNumber(String orderNumber)
+        {
+            String nextNumber = Convert.ToString(Convert.ToInt32(orderNumber) + 1);
+            MySqlCommand msc = new MySqlCommand();
+            msc.CommandText = "UPDATE order_number  SET number_order = '" + nextNumber + "' WHERE pk_order_number = 0";
+            msc.Connection = ConnectionToMySQL;
+            msc.ExecuteNonQuery();
+        }
+
         // Обеспечивает блокировку части формы, которая не отвечает за выбор материала доставки
         public void changeEnabled()
         {
@@ -72,99 +99,6 @@ namespace Delivery
             String[] splitTruck = truck.Split('(', ')');
             String[] tonnage = splitTruck[2].Split('т');
             return Convert.ToDouble(tonnage[0]);
-        }
-
-        //получаем стоимость доставки в машины с пк car в зону zone
-        public int getTruckCoastZone(String car, int zone)
-        {
-            MySqlCommand msc = new MySqlCommand();
-            String query;
-            switch (zone) {
-                case 1:
-                    query = "Costfistzone";
-                    break;
-                case 2:
-                    query = "Costsecondzone";
-                    break;
-                case 3:
-                    query = "Costthirdzone";
-                    break;
-                default:
-                    query = null;
-                    break;
-            }
-            if (query != null)
-            {
-                int rez = 0;
-                msc.CommandText = "SELECT " + query + " FROM Car  WHERE " + car + " = pk_car";
-                msc.Connection = ConnectionToMySQL;
-                MySqlDataReader dataReader = msc.ExecuteReader();
-                while (dataReader.Read())
-                {
-                    rez = Convert.ToInt32(dataReader[0].ToString());
-                }
-                dataReader.Close();
-                return rez;
-            }
-            else
-            {
-                return -1;
-            }
-            
-        }
-
-        //стоимость доп км машины car за dop километров
-        public int getCostDopKm(String car, int dop)
-        {
-            MySqlCommand msc = new MySqlCommand();
-            msc.CommandText = "SELECT Costdopkm FROM Car  WHERE " + car + " = pk_car";
-            msc.Connection = ConnectionToMySQL;
-            MySqlDataReader dataReader = msc.ExecuteReader();
-            int costDopKm = 0;
-            while (dataReader.Read())
-            {
-                costDopKm = Convert.ToInt32(dataReader[0].ToString());
-            }
-            dataReader.Close();
-            return costDopKm * dop;
-
-        }
-
-        //получает стоимоть автомобиля по ключу car, с учетом выбранной зоны в combobox5 и если зона "Зона 3+", то так же учитывается
-        //стоимость доп километров, а так же учитывается количество рейсов kol
-        public double getTruckCoas(String car, int kol)
-        {
-            double rez = 0;
-            switch (comboBox5.Text)
-            {
-                case "Зона 1":
-                    rez += getTruckCoastZone(car, 1);
-                    break;
-                case "Зона 2":
-                    rez += getTruckCoastZone(car, 2);
-                    break;
-                case "Зона 3":
-                case "Зона 3+":
-                    rez += getTruckCoastZone(car, 3);
-                    break;
-            }
-            if (comboBox5.Text.Equals("Зона 3+"))
-                rez += getCostDopKm(car, Convert.ToInt32(numericUpDown6.Value));
-            rez *= kol;
-            return rez;
-        }
-
-        public void calculationTruckCost()
-        {
-            truckCost = 0;
-            if (comboBox3.SelectedItem != null)
-            {
-                truckCost += getTruckCoas(trucksKey[trucks.IndexOf(comboBox3.Text)],Convert.ToInt32(textBox2.Text));
-            }
-            if (panel4.Visible = true && comboBox4.SelectedItem != null)
-            {
-                truckCost += getTruckCoas(trucksKey[trucks.IndexOf(comboBox4.Text)], Convert.ToInt32(textBox3.Text));
-            }
         }
 
         // Рассчет тоннажа мешков
@@ -225,7 +159,10 @@ namespace Delivery
                         textBox2.Text = Convert.ToString(countTrip);
                     }
                 }
-                calculationTruckCost();
+            }
+            else
+            {
+                textBox2.Text = "0";
             }
             //
         }
@@ -264,7 +201,10 @@ namespace Delivery
                         textBox3.Text = Convert.ToString(countTrip);
                     }
                 }
-                calculationTruckCost();
+            }
+            else
+            {
+                textBox3.Text = "0";
             }
             //
         }
@@ -316,6 +256,10 @@ namespace Delivery
                             }
                         }
                     }
+                    else
+                    {
+                        textBox2.Text = "0";
+                    }
                     // Рассчет рейсов для второй машины
                     if (comboBox4.SelectedItem != null)
                     {
@@ -347,6 +291,10 @@ namespace Delivery
                                 textBox3.Text = Convert.ToString(countTrip);
                             }
                         }
+                    }
+                    else
+                    {
+                        textBox3.Text = "0";
                     }
                     //
 
@@ -393,6 +341,10 @@ namespace Delivery
                             }
                         }
                     }
+                    else
+                    {
+                        textBox2.Text = "0";
+                    }
                     // Рассчет рейсов для второй машины
                     if (comboBox4.SelectedItem != null)
                     {
@@ -424,6 +376,10 @@ namespace Delivery
                                 textBox3.Text = Convert.ToString(countTrip);
                             }
                         }
+                    }
+                    else
+                    {
+                        textBox3.Text = "0";
                     }
                     //
                 }
@@ -463,6 +419,10 @@ namespace Delivery
                             }
                         }
                     }
+                    else
+                    {
+                        textBox2.Text = "0";
+                }
                 }
                 if (tabControl1.SelectedTab == tabPage3)
                 {
@@ -498,9 +458,12 @@ namespace Delivery
                             }
                         }
                     }
+                    else
+                    {
+                        textBox2.Text = "0";
                 }
             }
-            calculationTruckCost();
+        }
         }
 
         // Заполнение combobox доступными машинами
@@ -563,9 +526,9 @@ namespace Delivery
                             comboBox4.Items.Add(trucks.ElementAt(i));
                         }
                     }*/
-
+                           
                 //}
-            }
+                }
             else
             {
                 comboBox3.Items.Clear();
@@ -577,7 +540,6 @@ namespace Delivery
                 if (comboBox3.Items.Count != 0)
                     comboBox3.SelectedIndex = 0;
             }
-            
         }
 
         // Расчет стоимости заказа
@@ -586,7 +548,6 @@ namespace Delivery
             double result = 0;
             result += materialCost;
             result += workerCost;
-            calculationTruckCost();
             result += truckCost;
             double firmProcent = 0.15;
             textBox8.Text = Convert.ToString((int)result*(1+ firmProcent)); //мы делаем надбавку вообщето, а не просто отбираем у всех ценников по чуть-чуть
@@ -739,7 +700,7 @@ namespace Delivery
             List<String> cars = new List<String>();
             bool bulk = false;  //заказ на груз насыпью
             bool bag = false;   //заказ на груз в мешках
-           // List<Tuple<String, String>> rezult;
+            List<Tuple<String, String>> rezult;
 
             bool compact = false;  // требование на малогабаритное ТС
             bool tipper = false;   // требование на самосвал
@@ -850,8 +811,8 @@ namespace Delivery
                 comboBox1.Items.Add(material);
                 comboBox2.Items.Add(material);
             }
-            //comboBox1.SelectedIndex = 0;
-            //comboBox2.SelectedIndex = 0;
+            comboBox1.SelectedIndex = 0;
+            comboBox2.SelectedIndex = 0;
         }
 
         public Form3()
@@ -859,8 +820,8 @@ namespace Delivery
             String serverName = "127.0.0.1"; // Адрес сервера (для локальной базы пишите "localhost")
             string userName = "dbadmin"; // Имя пользователя
             string dbName = "Test"; //Имя базы данных
-            string port = "6565"; // Порт для подключения
-            //string port = "9570"; // Порт для подключения
+            //string port = "6565"; // Порт для подключения
+            string port = "9570"; // Порт для подключения
             string password = "dbadmin"; // Пароль для подключения
             string charset = "utf8";
             String connStr = "server=" + serverName +
@@ -872,7 +833,10 @@ namespace Delivery
             ConnectionToMySQL = new MySqlConnection(connStr);
             ConnectionToMySQL.Open();
             InitializeComponent();
-            comboBox5.SelectedIndex = 0;
+            //Установка минимальной датой сегодняшнюю дату
+            dateTimePicker1.MinDate = dateTimePicker1.Value.Date;
+            //
+            getOrderNumber();
             //
             resultCost();
             /*List<Tuple<String, String>> cars = allCars();
@@ -884,7 +848,6 @@ namespace Delivery
             resultCar();
             resultTrucks();
             insertMaterial();
-            
             //
         }
 
@@ -895,6 +858,8 @@ namespace Delivery
             panel4.Visible = true;
             numericUpDown4.Enabled = true;
             label7.Enabled = true;
+            numericUpDown4.Visible = true;
+            label7.Visible = true;
             //
             resultCar();
             //
@@ -907,6 +872,8 @@ namespace Delivery
         {
             numericUpDown4.Enabled = false;
             label7.Enabled = false;
+            numericUpDown4.Visible = false;
+            label7.Visible = false;
             panel4.Visible = false;
             this.Height = 625;
             panel5.Location = new Point(14, 328);
@@ -1116,7 +1083,6 @@ namespace Delivery
                 label12.Visible = false;
                 numericUpDown6.Visible = false;
             }
-            resultCost();
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -1196,6 +1162,9 @@ namespace Delivery
             materialCost = Convert.ToDouble(numericUpDown2.Value) * bagCost;
             resultCost();
                 //
+                //
+                resultTonnage();
+                //
             }
             else
             {
@@ -1213,7 +1182,6 @@ namespace Delivery
             resultCar();
             //
             
-
         }
 
         private void tabPage1_Enter(object sender, EventArgs e)
@@ -1249,7 +1217,6 @@ namespace Delivery
             resultCar();
             //
             
-
         }
 
         private void comboBox4_SelectionChangeCommitted(object sender, EventArgs e)
@@ -1264,9 +1231,6 @@ namespace Delivery
                     comboBox3.Items.Add(truck);
             }
             comboBox3.SelectedItem = currentItems;
-            resultCost();
-
-
         }
 
         private void comboBox3_SelectionChangeCommitted(object sender, EventArgs e)
@@ -1281,9 +1245,6 @@ namespace Delivery
                     comboBox4.Items.Add(truck);
             }
             comboBox4.SelectedItem = currentItems;
-            resultCost();
-
-
         }
 
         private void numericUpDown4_ValueChanged(object sender, EventArgs e)
@@ -1300,7 +1261,6 @@ namespace Delivery
                 //
                 resultTonnageFirstTruck();
                 //
-                
             }
             if (tabControl1.SelectedTab == tabPage3)
             {
@@ -1316,7 +1276,6 @@ namespace Delivery
                 //
                 resultTonnageFirstTruck();
                 //
-                
             }
         }
 
@@ -1325,7 +1284,6 @@ namespace Delivery
             //
             resultTonnage();
             //
-            
         }
 
         private void label15_Click(object sender, EventArgs e)
@@ -1346,7 +1304,6 @@ namespace Delivery
                 //
                 resultTonnageSecondTruck();
                 //
-                
             }
             if (tabControl1.SelectedTab == tabPage3)
             {
@@ -1361,7 +1318,6 @@ namespace Delivery
                 //
                 resultTonnageSecondTruck();
                 //
-                
             }
         }
 
@@ -1389,9 +1345,196 @@ namespace Delivery
             resultCost();
         }
 
-        private void numericUpDown6_ValueChanged(object sender, EventArgs e)
+        // Получение первичного ключа единиц измерения
+        public String getMeasurePk()
         {
-            resultCost();
+            // Насыпь
+            if (tabControl1.SelectedTab == tabPage1)
+            {
+                String measure = "Bulk";
+                MySqlCommand msc = new MySqlCommand();
+                msc.CommandText = "SELECT pk_measure  FROM Measure  WHERE Nazv  = '" + measure + "'";
+                msc.Connection = ConnectionToMySQL;
+                MySqlDataReader dataReader = msc.ExecuteReader();
+                String measurePk = null;
+                while (dataReader.Read())
+                {
+                    measurePk = dataReader[0].ToString();
+                    //MessageBox.Show(measurePk);
+                }
+                dataReader.Close();
+                return measurePk;
+            }
+            // Мешок
+            else
+            {
+                String measure = "Bag";
+                MySqlCommand msc = new MySqlCommand();
+                msc.CommandText = "SELECT pk_measure  FROM Measure  WHERE Nazv  = '" + measure + "'";
+                msc.Connection = ConnectionToMySQL;
+                MySqlDataReader dataReader = msc.ExecuteReader();
+                String measurePk = null;
+                while (dataReader.Read())
+                {
+                    measurePk = dataReader[0].ToString();
+                    //MessageBox.Show(measurePk);
+                }
+                dataReader.Close();
+                return measurePk;
+            }
+        }
+
+        // Получение первичного ключа товара на доставку
+        public String getPkMaterial()
+        {
+            if (tabControl1.SelectedTab == tabPage1)
+            {
+                String material = comboBox1.SelectedItem.ToString();
+                MySqlCommand msc = new MySqlCommand();
+                msc.CommandText = "SELECT pk_material  FROM Material  WHERE name  = '" + material + "'";
+                msc.Connection = ConnectionToMySQL;
+                MySqlDataReader dataReader = msc.ExecuteReader();
+                String materialPk = null;
+                while (dataReader.Read())
+                {
+                    materialPk = dataReader[0].ToString();
+                    //MessageBox.Show(materialPk);
+                }
+                dataReader.Close();
+                return materialPk;
+            }
+            else
+            {
+                String material = comboBox2.SelectedItem.ToString();
+                MySqlCommand msc = new MySqlCommand();
+                msc.CommandText = "SELECT pk_material  FROM Material  WHERE name  = '" + material + "'";
+                msc.Connection = ConnectionToMySQL;
+                MySqlDataReader dataReader = msc.ExecuteReader();
+                String materialPk = null;
+                while (dataReader.Read())
+                {
+                    materialPk = dataReader[0].ToString();
+                    //MessageBox.Show(materialPk);
+                }
+                dataReader.Close();
+                return materialPk;
+            }
+        }
+
+        // Проверка адреса доставки, ФИО, телефона
+        public bool checkAdressFIOTelefone()
+        {
+            if (textBox4.Text.Trim() == "")
+            {
+                MessageBox.Show("Необходимо ввести Заказчика", "Пустое поле");
+                return false;
+            }
+            if (textBox5.Text.Trim() == "")
+            {
+                MessageBox.Show("Необходимо ввести Номер телефона", "Пустое поле");
+                return false;
+            }
+            if (textBox6.Text.Trim() == "")
+            {
+                MessageBox.Show("Необходимо ввести Адрес доставки", "Пустое поле");
+                return false;
+            }
+            return true;
+        }
+
+        // Подсчет количества грузчиков
+        public String getCountWorkers()
+        {
+            if (checkBox1.Checked == true)
+            {
+
+                return numericUpDown3.Value.ToString();
+            }
+            else
+            {
+                return "0";
+            }
+        }
+
+        // Получение объема заказа
+        public String getVolumeOrder()
+        {
+            if (tabControl1.SelectedTab == tabPage1)
+            {
+                return numericUpDown1.Value.ToString();
+            }
+            else
+            {
+                return numericUpDown2.Value.ToString();
+            }
+        }
+
+        // Проверка выбора зоны доставки
+        public bool checkNumberZone()
+        {
+            if (comboBox5.SelectedItem == null)
+            {
+                MessageBox.Show("Необходимо выбрать Зону доставки", "Пустое поле");
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        // Получение зоны доставки
+        public String getNumberZone()
+        {
+            int numberZone = comboBox5.SelectedIndex + 1;
+            return numberZone.ToString();
+        }
+
+        // Получение дополнительных километров
+        public String getExtendedKm()
+        {
+            if (comboBox5.SelectedIndex == 3)
+            {
+                return numericUpDown6.Value.ToString();
+            }
+            else
+            {
+                return "0";
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //Получение первичного ключа материала
+            String materialPk = getPkMaterial();
+
+            //Получение первичного ключа единиц измерения
+            String measurePk = getMeasurePk();
+
+            //Получение номеpa заказа
+            String numberOrder = getOrderNumber();
+
+            // Получение объема заказа
+            String volumeOrder = getVolumeOrder();
+
+            // Подсчет количества грузчиков
+            String countWorkers = getCountWorkers();
+
+            if (checkNumberZone())
+            {
+                // Получение зоны доставки
+                String numberZone = getNumberZone();
+
+                // Если Зона 3+, то получить дополнительные км
+                String extendedKm = getExtendedKm();
+                //MessageBox.Show(extendedKm);
+
+                // Проверка номера телефона, адреса доставки и заказчика
+                if (checkAdressFIOTelefone())
+        {
+                }
+            }
+            //increaseOrderNumber(getOrderNumber());
         }
     }
 }

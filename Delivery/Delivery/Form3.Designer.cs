@@ -97,6 +97,7 @@
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.driverTableAdapter1 = new Delivery.TestDataSetTableAdapters.DriverTableAdapter();
+            this.textBox10 = new System.Windows.Forms.TextBox();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
             this.panel3.SuspendLayout();
@@ -247,6 +248,7 @@
             this.label7.Size = new System.Drawing.Size(54, 13);
             this.label7.TabIndex = 18;
             this.label7.Text = "Масса (т)";
+            this.label7.Visible = false;
             // 
             // numericUpDown4
             // 
@@ -267,6 +269,7 @@
             0,
             0,
             0});
+            this.numericUpDown4.Visible = false;
             this.numericUpDown4.ValueChanged += new System.EventHandler(this.numericUpDown4_ValueChanged);
             // 
             // comboBox3
@@ -661,12 +664,13 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.Location = new System.Drawing.Point(11, 9);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(83, 13);
+            this.label1.Size = new System.Drawing.Size(91, 15);
             this.label1.TabIndex = 21;
-            this.label1.Text = "Номер заказа ";
+            this.label1.Text = "Номер заказа:";
             // 
             // materialTableAdapter
             // 
@@ -744,6 +748,7 @@
             this.button1.TabIndex = 62;
             this.button1.Text = "Оформить заказ";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // textBox8
             // 
@@ -845,7 +850,6 @@
             0,
             0});
             this.numericUpDown6.Visible = false;
-            this.numericUpDown6.ValueChanged += new System.EventHandler(this.numericUpDown6_ValueChanged);
             // 
             // label12
             // 
@@ -902,11 +906,20 @@
             // 
             this.driverTableAdapter1.ClearBeforeFill = true;
             // 
+            // textBox10
+            // 
+            this.textBox10.Location = new System.Drawing.Point(100, 8);
+            this.textBox10.Name = "textBox10";
+            this.textBox10.ReadOnly = true;
+            this.textBox10.Size = new System.Drawing.Size(72, 20);
+            this.textBox10.TabIndex = 48;
+            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(581, 587);
+            this.Controls.Add(this.textBox10);
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
@@ -1022,5 +1035,6 @@
         private System.Windows.Forms.CheckBox checkBox5;
         private System.Windows.Forms.CheckBox checkBox4;
         private TestDataSetTableAdapters.DriverTableAdapter driverTableAdapter1;
+        private System.Windows.Forms.TextBox textBox10;
     }
 }
