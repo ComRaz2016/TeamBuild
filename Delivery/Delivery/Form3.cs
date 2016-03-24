@@ -99,14 +99,14 @@ namespace Delivery
             return materialTonn;
         }
 
-        // Рассчет для первой машины
+        // Рассчет количества рейсов для первой
         public void resultTonnageFirstTruck()
         {
             //
             double materialTonnFirstTruck = Convert.ToDouble(numericUpDown4.Value);
             String selectedTruck = comboBox3.SelectedItem.ToString();
             double truckTonn = truckTonnage(selectedTruck);
-            //numericUpDown4.Value = 0;
+
             if (materialTonnFirstTruck == 0)
             {
                 textBox2.Text = "0";
@@ -133,7 +133,7 @@ namespace Delivery
             //
         }
 
-        // Рассчет для второй машины
+        // Рассчет количства рейсов для второй машины
         public void resultTonnageSecondTruck()
         {
             //
