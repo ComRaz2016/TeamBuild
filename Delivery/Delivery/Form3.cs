@@ -592,10 +592,14 @@ namespace Delivery
                 foreach (String truck in comboBox3.Items)
                 {
                     int i = trucks.IndexOf(truck.ToString());
-                    int j = trucks.IndexOf(comboBox4.SelectedItem.ToString());
-                    if (trucksDriver[i] ==
-                        trucksDriver[j])
-                        listForDelete.Add(truck);
+                    if (comboBox4.SelectedItem != null)
+                    {
+                        int j = trucks.IndexOf(comboBox4.SelectedItem.ToString());
+                        if (trucksDriver[i] == trucksDriver[j])
+                        {
+                            listForDelete.Add(truck);
+                        }
+                    }
                 }
                 foreach(var deleteElem in listForDelete)
                 {
