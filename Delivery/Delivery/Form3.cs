@@ -1384,6 +1384,7 @@ namespace Delivery
                 resultTonnageFirstTruck();
                 //
             }
+            resultCost();
         }
 
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
@@ -1426,6 +1427,7 @@ namespace Delivery
                 resultTonnageSecondTruck();
                 //
             }
+            resultCost();
         }
 
 
