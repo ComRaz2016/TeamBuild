@@ -125,6 +125,99 @@ namespace Delivery
             }
             return materialTonn;
         }
+        //получаем стоимость доставки в машины с пк car в зону zone
+        public int getTruckCoastZone(String car, int zone)
+        {
+            MySqlCommand msc = new MySqlCommand();
+            String query;
+            switch (zone)
+            {
+                case 1:
+                    query = "Costfistzone";
+                    break;
+                case 2:
+                    query = "Costsecondzone";
+                    break;
+                case 3:
+                    query = "Costthirdzone";
+                    break;
+                default:
+                    query = null;
+                    break;
+            }
+            if (query != null)
+            {
+                int rez = 0;
+                msc.CommandText = "SELECT " + query + " FROM Car  WHERE " + car + " = pk_car";
+                msc.Connection = ConnectionToMySQL;
+                MySqlDataReader dataReader = msc.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    rez = Convert.ToInt32(dataReader[0].ToString());
+                }
+                dataReader.Close();
+                return rez;
+            }
+            else
+            {
+                return -1;
+            }
+
+        }
+
+        //стоимость доп км машины car за dop километров
+        public int getCostDopKm(String car, int dop)
+        {
+            MySqlCommand msc = new MySqlCommand();
+            msc.CommandText = "SELECT Costdopkm FROM Car  WHERE " + car + " = pk_car";
+            msc.Connection = ConnectionToMySQL;
+            MySqlDataReader dataReader = msc.ExecuteReader();
+            int costDopKm = 0;
+            while (dataReader.Read())
+            {
+                costDopKm = Convert.ToInt32(dataReader[0].ToString());
+            }
+            dataReader.Close();
+            return costDopKm * dop;
+
+        }
+
+        //получает стоимоть автомобиля по ключу car, с учетом выбранной зоны в combobox5 и если зона "Зона 3+", то так же учитывается
+        //стоимость доп километров, а так же учитывается количество рейсов kol
+        public double getTruckCoas(String car, int kol)
+        {
+            double rez = 0;
+            switch (comboBox5.Text)
+            {
+                case "Зона 1":
+                    rez += getTruckCoastZone(car, 1);
+                    break;
+                case "Зона 2":
+                    rez += getTruckCoastZone(car, 2);
+                    break;
+                case "Зона 3":
+                case "Зона 3+":
+                    rez += getTruckCoastZone(car, 3);
+                    break;
+            }
+            if (comboBox5.Text.Equals("Зона 3+"))
+                rez += getCostDopKm(car, Convert.ToInt32(numericUpDown6.Value));
+            rez *= kol;
+            return rez;
+        }
+
+        public void calculationTruckCost()
+        {
+            truckCost = 0;
+            if (comboBox3.SelectedItem != null)
+            {
+                truckCost += getTruckCoas(trucksKey[trucks.IndexOf(comboBox3.Text)], Convert.ToInt32(textBox2.Text));
+            }
+            if (panel4.Visible = true && comboBox4.SelectedItem != null)
+            {
+                truckCost += getTruckCoas(trucksKey[trucks.IndexOf(comboBox4.Text)], Convert.ToInt32(textBox3.Text));
+            }
+        }
 
         // Рассчет количества рейсов для первой
         public void resultTonnageFirstTruck()
@@ -164,6 +257,7 @@ namespace Delivery
             {
                 textBox2.Text = "0";
             }
+            calculationTruckCost();
             //
         }
 
@@ -206,6 +300,7 @@ namespace Delivery
             {
                 textBox3.Text = "0";
             }
+            calculationTruckCost();
             //
         }
 
@@ -464,6 +559,7 @@ namespace Delivery
                 }
             }
         }
+            calculationTruckCost();
         }
 
         // Заполнение combobox доступными машинами
@@ -548,6 +644,7 @@ namespace Delivery
             double result = 0;
             result += materialCost;
             result += workerCost;
+            calculationTruckCost();
             result += truckCost;
             double firmProcent = 0.15;
             textBox8.Text = Convert.ToString((int)result*(1+ firmProcent)); //мы делаем надбавку вообщето, а не просто отбираем у всех ценников по чуть-чуть
@@ -811,8 +908,8 @@ namespace Delivery
                 comboBox1.Items.Add(material);
                 comboBox2.Items.Add(material);
             }
-            comboBox1.SelectedIndex = 0;
-            comboBox2.SelectedIndex = 0;
+            //comboBox1.SelectedIndex = 0;
+            //comboBox2.SelectedIndex = 0;
         }
 
         public Form3()
@@ -820,8 +917,8 @@ namespace Delivery
             String serverName = "127.0.0.1"; // Адрес сервера (для локальной базы пишите "localhost")
             string userName = "dbadmin"; // Имя пользователя
             string dbName = "Test"; //Имя базы данных
-            //string port = "6565"; // Порт для подключения
-            string port = "9570"; // Порт для подключения
+            string port = "6565"; // Порт для подключения
+            //string port = "9570"; // Порт для подключения
             string password = "dbadmin"; // Пароль для подключения
             string charset = "utf8";
             String connStr = "server=" + serverName +
@@ -833,6 +930,7 @@ namespace Delivery
             ConnectionToMySQL = new MySqlConnection(connStr);
             ConnectionToMySQL.Open();
             InitializeComponent();
+            comboBox5.SelectedIndex = 0;
             //Установка минимальной датой сегодняшнюю дату
             dateTimePicker1.MinDate = dateTimePicker1.Value.Date;
             //
@@ -1083,6 +1181,7 @@ namespace Delivery
                 label12.Visible = false;
                 numericUpDown6.Visible = false;
             }
+            resultCost();
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -1231,6 +1330,7 @@ namespace Delivery
                     comboBox3.Items.Add(truck);
             }
             comboBox3.SelectedItem = currentItems;
+            resultCost();
         }
 
         private void comboBox3_SelectionChangeCommitted(object sender, EventArgs e)
@@ -1245,6 +1345,7 @@ namespace Delivery
                     comboBox4.Items.Add(truck);
             }
             comboBox4.SelectedItem = currentItems;
+            resultCost();
         }
 
         private void numericUpDown4_ValueChanged(object sender, EventArgs e)
@@ -1535,6 +1636,11 @@ namespace Delivery
                 }
             }
             //increaseOrderNumber(getOrderNumber());
+        }
+
+        private void numericUpDown6_ValueChanged(object sender, EventArgs e)
+        {
+            resultCost();
         }
     }
 }
