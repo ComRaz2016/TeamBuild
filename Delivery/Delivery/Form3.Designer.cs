@@ -94,6 +94,9 @@
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
+            this.driverTableAdapter1 = new Delivery.TestDataSetTableAdapters.DriverTableAdapter();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
             this.panel3.SuspendLayout();
@@ -188,7 +191,6 @@
             this.comboBox4.Name = "comboBox4";
             this.comboBox4.Size = new System.Drawing.Size(152, 21);
             this.comboBox4.TabIndex = 16;
-            this.comboBox4.SelectedIndexChanged += new System.EventHandler(this.comboBox4_SelectedIndexChanged);
             this.comboBox4.SelectionChangeCommitted += new System.EventHandler(this.comboBox4_SelectionChangeCommitted);
             // 
             // label11
@@ -367,6 +369,8 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.checkBox5);
+            this.panel1.Controls.Add(this.checkBox4);
             this.panel1.Controls.Add(this.checkBox3);
             this.panel1.Controls.Add(this.checkBox2);
             this.panel1.Enabled = false;
@@ -498,8 +502,6 @@
             // 
             // comboBox1
             // 
-            this.comboBox1.DataSource = this.materialBindingSource;
-            this.comboBox1.DisplayMember = "name";
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(18, 17);
@@ -625,8 +627,6 @@
             // 
             // comboBox2
             // 
-            this.comboBox2.DataSource = this.materialBindingSource1;
-            this.comboBox2.DisplayMember = "name";
             this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox2.FormattingEnabled = true;
             this.comboBox2.Location = new System.Drawing.Point(18, 17);
@@ -673,7 +673,7 @@
             this.panel5.Controls.Add(this.textBox5);
             this.panel5.Controls.Add(this.textBox4);
             this.panel5.Enabled = false;
-            this.panel5.Location = new System.Drawing.Point(12, 328);
+            this.panel5.Location = new System.Drawing.Point(14, 328);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(555, 245);
             this.panel5.TabIndex = 47;
@@ -875,6 +875,32 @@
             this.textBox4.Size = new System.Drawing.Size(193, 20);
             this.textBox4.TabIndex = 49;
             // 
+            // driverTableAdapter1
+            // 
+            this.driverTableAdapter1.ClearBeforeFill = true;
+            // 
+            // checkBox4
+            // 
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.Location = new System.Drawing.Point(146, 3);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(74, 17);
+            this.checkBox4.TabIndex = 10;
+            this.checkBox4.Text = "Бортовая";
+            this.checkBox4.UseVisualStyleBackColor = true;
+            this.checkBox4.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
+            // 
+            // checkBox5
+            // 
+            this.checkBox5.AutoSize = true;
+            this.checkBox5.Location = new System.Drawing.Point(146, 24);
+            this.checkBox5.Name = "checkBox5";
+            this.checkBox5.Size = new System.Drawing.Size(104, 17);
+            this.checkBox5.TabIndex = 11;
+            this.checkBox5.Text = "Самопогрузчик";
+            this.checkBox5.UseVisualStyleBackColor = true;
+            this.checkBox5.CheckedChanged += new System.EventHandler(this.checkBox5_CheckedChanged);
+            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -992,5 +1018,8 @@
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.TextBox textBox9;
+        private System.Windows.Forms.CheckBox checkBox5;
+        private System.Windows.Forms.CheckBox checkBox4;
+        private TestDataSetTableAdapters.DriverTableAdapter driverTableAdapter1;
     }
 }
