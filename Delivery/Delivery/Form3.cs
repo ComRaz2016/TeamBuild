@@ -30,7 +30,7 @@ namespace Delivery
 
         List<String> trucks = new List<String>();   // Машины, подходящие для доставки
         List<String> trucksKey = new List<String>();    // Первичные ключи машин, подходящих для доставки
-        //List<String> trucksTonnage = new List<String>();    // Тоннаж машин, подходящих для доставки
+        List<String> trucksDriver = new List<String>();    // водители машин
 
         // Получение номера заказа
         public String getOrderNumber()
@@ -125,6 +125,99 @@ namespace Delivery
             }
             return materialTonn;
         }
+        //получаем стоимость доставки в машины с пк car в зону zone
+        public int getTruckCoastZone(String car, int zone)
+        {
+            MySqlCommand msc = new MySqlCommand();
+            String query;
+            switch (zone)
+            {
+                case 1:
+                    query = "Costfistzone";
+                    break;
+                case 2:
+                    query = "Costsecondzone";
+                    break;
+                case 3:
+                    query = "Costthirdzone";
+                    break;
+                default:
+                    query = null;
+                    break;
+            }
+            if (query != null)
+            {
+                int rez = 0;
+                msc.CommandText = "SELECT " + query + " FROM Car  WHERE " + car + " = pk_car";
+                msc.Connection = ConnectionToMySQL;
+                MySqlDataReader dataReader = msc.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    rez = Convert.ToInt32(dataReader[0].ToString());
+                }
+                dataReader.Close();
+                return rez;
+            }
+            else
+            {
+                return -1;
+            }
+
+        }
+
+        //стоимость доп км машины car за dop километров
+        public int getCostDopKm(String car, int dop)
+        {
+            MySqlCommand msc = new MySqlCommand();
+            msc.CommandText = "SELECT Costdopkm FROM Car  WHERE " + car + " = pk_car";
+            msc.Connection = ConnectionToMySQL;
+            MySqlDataReader dataReader = msc.ExecuteReader();
+            int costDopKm = 0;
+            while (dataReader.Read())
+            {
+                costDopKm = Convert.ToInt32(dataReader[0].ToString());
+            }
+            dataReader.Close();
+            return costDopKm * dop;
+
+        }
+
+        //получает стоимоть автомобиля по ключу car, с учетом выбранной зоны в combobox5 и если зона "Зона 3+", то так же учитывается
+        //стоимость доп километров, а так же учитывается количество рейсов kol
+        public double getTruckCoas(String car, int kol)
+        {
+            double rez = 0;
+            switch (comboBox5.Text)
+            {
+                case "Зона 1":
+                    rez += getTruckCoastZone(car, 1);
+                    break;
+                case "Зона 2":
+                    rez += getTruckCoastZone(car, 2);
+                    break;
+                case "Зона 3":
+                case "Зона 3+":
+                    rez += getTruckCoastZone(car, 3);
+                    break;
+            }
+            if (comboBox5.Text.Equals("Зона 3+"))
+                rez += getCostDopKm(car, Convert.ToInt32(numericUpDown6.Value));
+            rez *= kol;
+            return rez;
+        }
+
+        public void calculationTruckCost()
+        {
+            truckCost = 0;
+            if (comboBox3.SelectedItem != null)
+            {
+                truckCost += getTruckCoas(trucksKey[trucks.IndexOf(comboBox3.Text)], Convert.ToInt32(textBox2.Text));
+            }
+            if (panel4.Visible = true && comboBox4.SelectedItem != null)
+            {
+                truckCost += getTruckCoas(trucksKey[trucks.IndexOf(comboBox4.Text)], Convert.ToInt32(textBox3.Text));
+            }
+        }
 
         // Рассчет количества рейсов для первой
         public void resultTonnageFirstTruck()
@@ -164,6 +257,7 @@ namespace Delivery
             {
                 textBox2.Text = "0";
             }
+            calculationTruckCost();
             //
         }
 
@@ -206,6 +300,7 @@ namespace Delivery
             {
                 textBox3.Text = "0";
             }
+            calculationTruckCost();
             //
         }
 
@@ -422,7 +517,7 @@ namespace Delivery
                     else
                     {
                         textBox2.Text = "0";
-                    }
+                }
                 }
                 if (tabControl1.SelectedTab == tabPage3)
                 {
@@ -461,9 +556,10 @@ namespace Delivery
                     else
                     {
                         textBox2.Text = "0";
-                    }
                 }
             }
+        }
+            calculationTruckCost();
         }
 
         // Заполнение combobox доступными машинами
@@ -475,8 +571,39 @@ namespace Delivery
                 comboBox3.Text = "";
                 comboBox4.Items.Clear();
                 comboBox4.Text = "";
-                for (int i = 0; i < trucks.Count; i++)
+                foreach (String truck in trucks)
                 {
+                    comboBox3.Items.Add(truck);
+                }
+                if (comboBox3.Items.Count != 0)
+                    comboBox3.SelectedIndex = 0;
+                foreach (String truck in trucks)
+                {
+                    int i = trucks.IndexOf(truck);
+                    int j = trucks.IndexOf(comboBox3.SelectedItem.ToString());
+                    if (trucksDriver[i] != 
+                        trucksDriver[j])
+                        comboBox4.Items.Add(truck);
+                }
+                if (comboBox4.Items.Count != 0)
+                    comboBox4.SelectedIndex = 0;
+                
+                List<String> listForDelete = new List<String>();
+                foreach (String truck in comboBox3.Items)
+                {
+                    int i = trucks.IndexOf(truck.ToString());
+                    int j = trucks.IndexOf(comboBox4.SelectedItem.ToString());
+                    if (trucksDriver[i] ==
+                        trucksDriver[j])
+                        listForDelete.Add(truck);
+                }
+                foreach(var deleteElem in listForDelete)
+                {
+                    comboBox3.Items.Remove(deleteElem);
+                }
+                /*for (int i = 0; i < trucks.Count; i++)
+                {
+                    comboBox3.Items.Add(trucks.ElementAt(i));
                     if (i == 0)
                     {
                         comboBox3.Items.Add(trucks.ElementAt(i));
@@ -494,10 +621,10 @@ namespace Delivery
                             comboBox3.Items.Add(trucks.ElementAt(i));
                             comboBox4.Items.Add(trucks.ElementAt(i));
                         }
-                    }
+                    }*/
                            
+                //}
                 }
-            }
             else
             {
                 comboBox3.Items.Clear();
@@ -517,6 +644,7 @@ namespace Delivery
             double result = 0;
             result += materialCost;
             result += workerCost;
+            calculationTruckCost();
             result += truckCost;
             double firmProcent = 0.15;
             textBox8.Text = Convert.ToString((int)result*(1+ firmProcent)); //мы делаем надбавку вообщето, а не просто отбираем у всех ценников по чуть-чуть
@@ -602,12 +730,28 @@ namespace Delivery
             return carName + "(" + regNumber + ") " + tonnage + "т";
         }
 
-
-        //возвращает картеж, в котором первый элемент - это строка для вывода, второй - пк выведенных машин.
-        //машины должны поддерживать требование inst, пк которых передаются в параметре cars
-        public List<Tuple<String, String>> instructionCars(List<String> cars, String inst)
+        public String getPkDriver(String car)
         {
-            List<Tuple<String, String>> rezult = new List<Tuple<String, String>>();
+            String rezult = null;
+            MySqlCommand msc = new MySqlCommand();
+            MySqlDataReader dataReader;
+            msc.CommandText = "SELECT pk_driver  FROM Car  WHERE pk_car  = '" + car + "'";
+            msc.Connection = ConnectionToMySQL;
+            dataReader = msc.ExecuteReader();
+            while (dataReader.Read())
+            {
+                rezult = dataReader[0].ToString();
+                //MessageBox.Show(dataReader[0].ToString());
+            }
+            dataReader.Close();
+            return rezult;
+        }
+
+        //возвращает картеж, в котором первый элемент - это строка для вывода, второй - пк выведенных машин, третий - пк водилы.
+        //машины должны поддерживать требование inst, пк которых передаются в параметре cars
+        public List<Tuple<String, String, String>> instructionCars(List<String> cars, String inst)
+        {
+            List<Tuple<String, String, String>> rezult = new List<Tuple<String, String, String>>();
             foreach (String car in cars)
             {
                 List<String> instructions = getCarInstructionsPk(car);
@@ -617,7 +761,8 @@ namespace Delivery
                     if (instructionName == inst)
                     {
                         String truck = getOutputStringForCar(car);
-                        rezult.Add(new Tuple<String, String>(truck, car));
+                        String driver = getPkDriver(car);
+                        rezult.Add(new Tuple<String, String, String>(truck, car, driver));
                     }
                 }
 
@@ -628,14 +773,15 @@ namespace Delivery
 
         //возвращает картеж, в котором первый элемент - это строка для вывода, второй - пк выведенных машин.
         //машины, пк которых передаются в параметре cars
-        public List<Tuple<String,String>> allCars(List<String> cars)
+        public List<Tuple<String,String, String>> allCars(List<String> cars)
         {
-            List<Tuple<String, String>> rezult = new List<Tuple<String, String>>();
+            List<Tuple<String, String, String>> rezult = new List<Tuple<String, String, String>>();
             MySqlCommand msc = new MySqlCommand();
             foreach(var car in cars)
             {
                 String truck = getOutputStringForCar(car);
-                rezult.Add(new Tuple<String, String>(truck, car));
+                String driver = getPkDriver(car);
+                rezult.Add(new Tuple<String, String,String>(truck, car, driver));
             }
             return rezult;
         }
@@ -646,6 +792,7 @@ namespace Delivery
             comboBox3.Items.Clear();
             trucks.Clear();
             trucksKey.Clear();
+            trucksDriver.Clear();
             //trucksTonnage.Clear();
             List<String> cars = new List<String>();
             bool bulk = false;  //заказ на груз насыпью
@@ -689,11 +836,11 @@ namespace Delivery
             {
                 cars = instructionCars("bulk");
             }
-            List<Tuple<String, String>> rezultCompact = new List<Tuple<string, string>>();
-            List<Tuple<String, String>> rezultTipper = new List<Tuple<string, string>>();
-            List<Tuple<String, String>> rezultOnboard = new List<Tuple<string, string>>();
-            List<Tuple<String, String>> rezultSelfloader = new List<Tuple<string, string>>();
-            IEnumerable<Tuple<String, String>> rez;
+            List<Tuple<String, String, String>> rezultCompact = new List<Tuple<string, string, string>>();
+            List<Tuple<String, String, String>> rezultTipper = new List<Tuple<string, string, string>>();
+            List<Tuple<String, String, String>> rezultOnboard = new List<Tuple<string, string, string>>();
+            List<Tuple<String, String, String>> rezultSelfloader = new List<Tuple<string, string, string>>();
+            IEnumerable<Tuple<String, String, String>> rez;
             if (compact)
             {
                 rezultCompact = instructionCars(cars,"Compact");
@@ -734,6 +881,7 @@ namespace Delivery
             {
                 trucks.Add(car.Item1);
                 trucksKey.Add(car.Item2);
+                trucksDriver.Add(car.Item3);
 
             }
             resultTrucks();
@@ -760,8 +908,8 @@ namespace Delivery
                 comboBox1.Items.Add(material);
                 comboBox2.Items.Add(material);
             }
-            comboBox1.SelectedIndex = 0;
-            comboBox2.SelectedIndex = 0;
+            //comboBox1.SelectedIndex = 0;
+            //comboBox2.SelectedIndex = 0;
         }
 
         public Form3()
@@ -782,6 +930,7 @@ namespace Delivery
             ConnectionToMySQL = new MySqlConnection(connStr);
             ConnectionToMySQL.Open();
             InitializeComponent();
+            comboBox5.SelectedIndex = 0;
             //Установка минимальной датой сегодняшнюю дату
             dateTimePicker1.MinDate = dateTimePicker1.Value.Date;
             //
@@ -1032,6 +1181,7 @@ namespace Delivery
                 label12.Visible = false;
                 numericUpDown6.Visible = false;
             }
+            resultCost();
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -1082,6 +1232,8 @@ namespace Delivery
             //
             resultTonnage();
             //
+            resultCost();
+
         }
 
         private void checkBox3_CheckedChanged(object sender, EventArgs e)
@@ -1092,6 +1244,8 @@ namespace Delivery
             //
             resultTonnage();
             //
+            resultCost();
+
         }
 
         private void tabPage3_Enter(object sender, EventArgs e)
@@ -1171,10 +1325,12 @@ namespace Delivery
             comboBox3.Text = "";
             foreach (String truck in trucks)
             {
-                if (!String.Equals(comboBox4.SelectedItem, truck))
+                if (!String.Equals(comboBox4.SelectedItem, truck) &&
+                     !String.Equals(trucksDriver[trucks.IndexOf(truck)], trucksDriver[trucks.IndexOf(comboBox4.SelectedItem.ToString())]))
                     comboBox3.Items.Add(truck);
             }
             comboBox3.SelectedItem = currentItems;
+            resultCost();
         }
 
         private void comboBox3_SelectionChangeCommitted(object sender, EventArgs e)
@@ -1184,10 +1340,12 @@ namespace Delivery
             comboBox4.Text = "";
             foreach (String truck in trucks)
             {
-                if (!String.Equals(comboBox3.SelectedItem.ToString(), truck))
+                if (!String.Equals(comboBox3.SelectedItem.ToString(), truck) &&
+                    !String.Equals(trucksDriver[trucks.IndexOf(truck)], trucksDriver[trucks.IndexOf(comboBox3.SelectedItem.ToString())]))
                     comboBox4.Items.Add(truck);
             }
             comboBox4.SelectedItem = currentItems;
+            resultCost();
         }
 
         private void numericUpDown4_ValueChanged(object sender, EventArgs e)
@@ -1273,6 +1431,8 @@ namespace Delivery
             //
             resultTonnage();
             //
+            resultCost();
+
         }
 
         private void checkBox5_CheckedChanged(object sender, EventArgs e)
@@ -1283,6 +1443,7 @@ namespace Delivery
             //
             resultTonnage();
             //
+            resultCost();
         }
 
         // Получение первичного ключа единиц измерения
@@ -1443,19 +1604,8 @@ namespace Delivery
             }
         }
 
-        //Получение даты и времени доставки
-        public String getDataTime()
-        {
-            String dateTime = dateTimePicker1.Value.ToString("dd/MM/yyyy HH:mm");
-            //MessageBox.Show(dateTime);
-            return dateTime;  
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
-            //Получение даты и времени доставки
-            String dataTimeOrder = getDataTime();
-
             //Получение первичного ключа материала
             String materialPk = getPkMaterial();
 
@@ -1471,13 +1621,6 @@ namespace Delivery
             // Подсчет количества грузчиков
             String countWorkers = getCountWorkers();
 
-            String adressOrder = null;
-            String telefoneOrder = null;
-            String clientOrder = null;
-            String commentOrder = null;
-            String costOrder = null;
-            String pkStatusOrder = null;
-
             if (checkNumberZone())
             {
                 // Получение зоны доставки
@@ -1489,16 +1632,15 @@ namespace Delivery
 
                 // Проверка номера телефона, адреса доставки и заказчика
                 if (checkAdressFIOTelefone())
-                {
-                    MySqlCommand msc = new MySqlCommand();
-                    msc.CommandText = "INSERT INTO Order (nomer, volume, date_time, adress, contact, number_contact, comment, Numberzone, Exstendway, worker, cost_order, pk_status, pk_material, pk_measure) VALUES ('" + numberOrder + "', '" + volumeOrder + "', '" + dataTimeOrder + "', '" + adressOrder + "', '" + clientOrder + "', '" + telefoneOrder + "', '" + commentOrder + "', '" + numberZone + "', '" + extendedKm + "', '" + countWorkers + "', '" + costOrder + "', '" + pkStatusOrder + "', '" + materialPk + "', '" + measurePk + "')";
-                    msc.Connection = ConnectionToMySQL;
-                    msc.ExecuteNonQuery();
-                } 
+        {
+                }
             }
-
-            
             //increaseOrderNumber(getOrderNumber());
+        }
+
+        private void numericUpDown6_ValueChanged(object sender, EventArgs e)
+        {
+            resultCost();
         }
     }
 }

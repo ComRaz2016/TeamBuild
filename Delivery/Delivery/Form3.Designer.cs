@@ -842,6 +842,7 @@
             0,
             0});
             this.numericUpDown6.Visible = false;
+            this.numericUpDown6.ValueChanged += new System.EventHandler(this.numericUpDown6_ValueChanged);
             // 
             // label12
             // 
