@@ -78,7 +78,6 @@
             this.panel5 = new System.Windows.Forms.Panel();
             this.textBox9 = new System.Windows.Forms.TextBox();
             this.label23 = new System.Windows.Forms.Label();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.textBox8 = new System.Windows.Forms.TextBox();
@@ -680,7 +679,6 @@
             // 
             this.panel5.Controls.Add(this.textBox9);
             this.panel5.Controls.Add(this.label23);
-            this.panel5.Controls.Add(this.dateTimePicker2);
             this.panel5.Controls.Add(this.button2);
             this.panel5.Controls.Add(this.button1);
             this.panel5.Controls.Add(this.textBox8);
@@ -720,14 +718,6 @@
             this.label23.Size = new System.Drawing.Size(61, 13);
             this.label23.TabIndex = 65;
             this.label23.Text = "Комиссия:";
-            // 
-            // dateTimePicker2
-            // 
-            this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dateTimePicker2.Location = new System.Drawing.Point(158, 113);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(78, 20);
-            this.dateTimePicker2.TabIndex = 64;
             // 
             // button2
             // 
@@ -826,10 +816,12 @@
             // 
             // dateTimePicker1
             // 
+            this.dateTimePicker1.CustomFormat = "dd/MM/yyyy HH:mm";
+            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePicker1.Location = new System.Drawing.Point(10, 113);
             this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(2);
             this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(139, 20);
+            this.dateTimePicker1.Size = new System.Drawing.Size(227, 20);
             this.dateTimePicker1.TabIndex = 53;
             // 
             // numericUpDown6
@@ -1029,7 +1021,6 @@
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.TextBox textBox9;
         private System.Windows.Forms.CheckBox checkBox5;
