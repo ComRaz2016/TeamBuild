@@ -213,7 +213,7 @@ namespace Delivery
             {
                 truckCost += getTruckCoas(trucksKey[trucks.IndexOf(comboBox3.Text)], Convert.ToInt32(textBox2.Text));
             }
-            if (panel4.Visible = true && comboBox4.SelectedItem != null)
+            if (panel4.Visible == true && comboBox4.SelectedItem != null)
             {
                 truckCost += getTruckCoas(trucksKey[trucks.IndexOf(comboBox4.Text)], Convert.ToInt32(textBox3.Text));
             }
@@ -917,8 +917,8 @@ namespace Delivery
             String serverName = "127.0.0.1"; // Адрес сервера (для локальной базы пишите "localhost")
             string userName = "dbadmin"; // Имя пользователя
             string dbName = "Test"; //Имя базы данных
-            //string port = "6565"; // Порт для подключения
-            string port = "9570"; // Порт для подключения
+            string port = "6565"; // Порт для подключения
+            //string port = "9570"; // Порт для подключения
             string password = "dbadmin"; // Пароль для подключения
             string charset = "utf8";
             String connStr = "server=" + serverName +
