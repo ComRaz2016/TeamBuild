@@ -841,6 +841,7 @@
             this.tabPage10.TabIndex = 0;
             this.tabPage10.Text = "Добавление";
             this.tabPage10.UseVisualStyleBackColor = true;
+            this.tabPage10.Leave += new System.EventHandler(this.tabPage10_Leave);
             // 
             // buttonMaterialAdd
             // 
@@ -906,6 +907,7 @@
             this.tabPage11.TabIndex = 1;
             this.tabPage11.Text = "Изменение";
             this.tabPage11.UseVisualStyleBackColor = true;
+            this.tabPage11.Leave += new System.EventHandler(this.tabPage11_Leave);
             // 
             // buttonMaterialChange
             // 
@@ -967,6 +969,7 @@
             this.tabPage12.TabIndex = 2;
             this.tabPage12.Text = "Удаление";
             this.tabPage12.UseVisualStyleBackColor = true;
+            this.tabPage12.Leave += new System.EventHandler(this.tabPage12_Leave);
             // 
             // buttonMaterialDelete
             // 

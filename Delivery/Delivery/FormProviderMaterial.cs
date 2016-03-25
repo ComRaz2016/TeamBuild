@@ -496,7 +496,49 @@ namespace Delivery
 
         private void buttonMaterialDelete_Click(object sender, EventArgs e)
         {
+            String nameMaterial = textBoxMaterialDelete.Text;
 
+            MySqlCommand msc = new MySqlCommand();
+            msc.CommandText = "SELECT `pk_material`  FROM `Material`  WHERE `name`  = '" + nameMaterial + "'";
+            msc.Connection = ConnectionToMySQL;
+            MySqlDataReader dataReader = msc.ExecuteReader();
+            String materialPk = null;
+            while (dataReader.Read())
+            {
+                materialPk = dataReader[0].ToString();
+            }
+            dataReader.Close();
+
+            msc.CommandText = "SELECT `pk_provider`  FROM `provider_material`  WHERE `pk_material`  = '" + materialPk + "'";
+            msc.Connection = ConnectionToMySQL;
+            dataReader = msc.ExecuteReader();
+            String anything = null;
+            int count = 0;
+            while (dataReader.Read())
+            {
+                count++;
+                anything = dataReader[0].ToString();
+            }
+            dataReader.Close();
+            if (count == 0)
+            {
+                msc.CommandText = "DELETE FROM `Material` WHERE `name` = '" + nameMaterial + "'";
+                msc.Connection = ConnectionToMySQL;
+                msc.ExecuteNonQuery();
+
+                textBoxMaterialDelete.Clear();
+
+                this.materialTableAdapter.Fill(this.testDataSet.Material);
+
+                MessageBox.Show("Удаление записи успешно произведено.");
+            }
+            else
+            {
+                textBoxMaterialDelete.Clear();
+
+                MessageBox.Show("Удаление материала невозможно, так как он предоставляет поставщиками для доставки.");
+            }
+            buttonMaterialDelete.Enabled = false;
         }
 
         private void dataGridViewMaterialChange(object sender, DataGridViewCellEventArgs e)
@@ -513,6 +555,23 @@ namespace Delivery
             textBoxMaterialDelete.Text = dataGridView9[0, e.RowIndex].Value.ToString();
 
             buttonMaterialDelete.Enabled = true;
+        }
+
+        private void tabPage12_Leave(object sender, EventArgs e)
+        {
+            textBoxMaterialDelete.Clear();
+            buttonMaterialDelete.Enabled = false;
+        }
+
+        private void tabPage11_Leave(object sender, EventArgs e)
+        {
+            textBoxMaterialChange.Clear();
+            buttonMaterialChange.Enabled = false;
+        }
+
+        private void tabPage10_Leave(object sender, EventArgs e)
+        {
+            textBoxMaterialAdd.Clear();
         }
     }
 }
