@@ -42,3 +42,4 @@ C:\AGTU\ComRaz\TeamBuild\Delivery\Delivery\obj\Debug\Delivery.Form1.resources
 C:\AGTU\ComRaz\TeamBuild\Delivery\Delivery\obj\Debug\Delivery.Form3.resources
 C:\AGTU\ComRaz\TeamBuild\Delivery\Delivery\obj\Debug\Delivery.Properties.Resources.resources
 C:\AGTU\ComRaz\TeamBuild\Delivery\Delivery\obj\Debug\Delivery.csproj.GenerateResource.Cache
+C:\Users\Danil\Source\Repos\TeamRep\Delivery\Delivery\obj\Debug\Delivery.FormProviderMaterial.resources
