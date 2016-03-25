@@ -153,17 +153,35 @@ namespace Delivery
                     else
                     {
                         MySqlCommand msc = new MySqlCommand();
-                        msc.CommandText = "INSERT INTO `Provider` (`name_firm`,`adress_firm`,`tel_number_firm`) VALUES ('" + nameFirm + "', '" + adressFirm + "' , '" + telefoneFirm + "')";
+                        msc.CommandText = "SELECT `pk_provider`  FROM `Provider`  WHERE `name_firm`  = '" + nameFirm + "'";
                         msc.Connection = ConnectionToMySQL;
-                        msc.ExecuteNonQuery();
+                        MySqlDataReader dataReader = msc.ExecuteReader();
+                        String providerPk = null;
+                        while (dataReader.Read())
+                        {
+                            providerPk = dataReader[0].ToString();
+                        }
+                        dataReader.Close();
 
-                        textBoxNameFirmAdd.Clear();
-                        textBoxAdressFirmAdd.Clear();
-                        textBoxTelefoneFirmAdd.Clear();
+                        if (providerPk == null)
+                        {
+                            msc.CommandText = "INSERT INTO `Provider` (`name_firm`,`adress_firm`,`tel_number_firm`) VALUES ('" + nameFirm + "', '" + adressFirm + "' , '" + telefoneFirm + "')";
+                            msc.Connection = ConnectionToMySQL;
+                            msc.ExecuteNonQuery();
 
-                        this.providerTableAdapter.Fill(this.testDataSet.Provider);
+                            textBoxNameFirmAdd.Clear();
+                            textBoxAdressFirmAdd.Clear();
+                            textBoxTelefoneFirmAdd.Clear();
 
-                        MessageBox.Show("Добавление записи успешно произведено.");
+                            this.providerTableAdapter.Fill(this.testDataSet.Provider);
+
+                            MessageBox.Show("Добавление записи успешно произведено.");
+                        }
+                        else
+                        {
+                            textBoxNameFirmAdd.Clear();
+                            MessageBox.Show("Запись не добавлена, так как фирма с таким названием существует.");
+                        }
                     }
                 }
             }
@@ -219,22 +237,41 @@ namespace Delivery
                     else
                     {
                         MySqlCommand msc = new MySqlCommand();
-                        msc.CommandText = "UPDATE `Provider`  SET `name_firm` = '" + nameFirm + "', `tel_number_firm` = '" + telefoneFirm + "' , `adress_firm` = '" + adressFirm + "' WHERE `name_firm` = '" + lastNameFirm + "' AND `tel_number_firm` = '" + lastTelefoneFirm + "' AND `adress_firm` = '" + lastAdressFirm + "'";
+                        msc.CommandText = "SELECT `pk_provider`  FROM `Provider`  WHERE `name_firm`  = '" + nameFirm + "'";
                         msc.Connection = ConnectionToMySQL;
-                        msc.ExecuteNonQuery();
-                        textBoxNameFirmChange.Clear();
-                        textBoxAdressFirmChange.Clear();
-                        textBoxTelefoneFirmChange.Clear();
+                        MySqlDataReader dataReader = msc.ExecuteReader();
+                        String providerPk = null;
+                        while (dataReader.Read())
+                        {
+                            providerPk = dataReader[0].ToString();
+                        }
+                        dataReader.Close();
 
-                        lastAdressFirm = null;
-                        lastNameFirm = null;
-                        lastTelefoneFirm = null;
+                        if (providerPk == null)
+                        {
+                            //MySqlCommand msc = new MySqlCommand();
+                            msc.CommandText = "UPDATE `Provider`  SET `name_firm` = '" + nameFirm + "', `tel_number_firm` = '" + telefoneFirm + "' , `adress_firm` = '" + adressFirm + "' WHERE `name_firm` = '" + lastNameFirm + "' AND `tel_number_firm` = '" + lastTelefoneFirm + "' AND `adress_firm` = '" + lastAdressFirm + "'";
+                            msc.Connection = ConnectionToMySQL;
+                            msc.ExecuteNonQuery();
+                            textBoxNameFirmChange.Clear();
+                            textBoxAdressFirmChange.Clear();
+                            textBoxTelefoneFirmChange.Clear();
 
-                        this.providerTableAdapter.Fill(this.testDataSet.Provider);
+                            lastAdressFirm = null;
+                            lastNameFirm = null;
+                            lastTelefoneFirm = null;
 
-                        buttonProviderChange.Enabled = false;
+                            this.providerTableAdapter.Fill(this.testDataSet.Provider);
 
-                        MessageBox.Show("Изменение записи успешно произведено.");
+                            buttonProviderChange.Enabled = false;
+
+                            MessageBox.Show("Изменение записи успешно произведено.");
+                        }
+                        else
+                        {
+                            textBoxNameFirmChange.Clear();
+                            MessageBox.Show("Запись не изменена, так как фирма с таким названием существует.");
+                        }
                     }
                 }
             }
