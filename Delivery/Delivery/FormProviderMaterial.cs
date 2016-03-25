@@ -41,6 +41,8 @@ namespace Delivery
 
         private void FormProviderMaterial_Load(object sender, EventArgs e)
         {
+            // TODO: данная строка кода позволяет загрузить данные в таблицу "testDataSet.Material". При необходимости она может быть перемещена или удалена.
+            this.materialTableAdapter.Fill(this.testDataSet.Material);
             // TODO: данная строка кода позволяет загрузить данные в таблицу "testDataSet.provider_material". При необходимости она может быть перемещена или удалена.
             this.provider_materialTableAdapter.Fill(this.testDataSet.provider_material);
             // TODO: данная строка кода позволяет загрузить данные в таблицу "testDataSet.Provider". При необходимости она может быть перемещена или удалена.
@@ -214,6 +216,7 @@ namespace Delivery
             buttonProviderDelete.Enabled = false;
         }
 
+        // Изменение поставщика
         private void buttonProviderChange_Click(object sender, EventArgs e)
         {
             String nameFirm = textBoxNameFirmChange.Text;
@@ -251,7 +254,6 @@ namespace Delivery
 
                         if (providerPk == null)
                         {
-                            //MySqlCommand msc = new MySqlCommand();
                             msc.CommandText = "UPDATE `Provider`  SET `name_firm` = '" + nameFirm + "', `tel_number_firm` = '" + telefoneFirm + "' , `adress_firm` = '" + adressFirm + "' WHERE `name_firm` = '" + lastNameFirm + "' AND `tel_number_firm` = '" + lastTelefoneFirm + "' AND `adress_firm` = '" + lastAdressFirm + "'";
                             msc.Connection = ConnectionToMySQL;
                             msc.ExecuteNonQuery();
@@ -279,6 +281,7 @@ namespace Delivery
             }
         }
 
+        // Заполнение первичных ключей поставщиков для добавления
         public void insertProviderAddTable()
         {
             int count = dataGridView4.RowCount - 1;
@@ -301,6 +304,7 @@ namespace Delivery
             dataGridView4.Update();
         }
 
+        // Заполнение первичных ключей материалов для добавления
         public void insertMaterialAddTable()
         {
             int count = dataGridView4.RowCount - 1;
@@ -323,6 +327,7 @@ namespace Delivery
             dataGridView4.Update();
         }
 
+        // Заполнение первичных ключей поставщиков в таблице для изменения
         public void insertProviderChangeTable()
         {
             int count = dataGridView5.RowCount - 1;
@@ -345,6 +350,7 @@ namespace Delivery
             dataGridView5.Update();
         }
 
+        // Заполнение первичных ключей материалов в таблице для изменения
         public void insertMaterialChangeTable()
         {
             int count = dataGridView5.RowCount - 1;
@@ -367,6 +373,7 @@ namespace Delivery
             dataGridView5.Update();
         }
 
+        // Заполнение первичных ключей поставщиков в таблице для удаления
         public void insertProviderDeleteTable()
         {
             int count = dataGridView6.RowCount - 1;
@@ -389,6 +396,7 @@ namespace Delivery
             dataGridView6.Update();
         }
 
+        // Заполнение первичных ключей материалов в таблице для удаления
         public void insertMaterialDeleteTable()
         {
             int count = dataGridView6.RowCount - 1;
@@ -411,22 +419,35 @@ namespace Delivery
             dataGridView6.Update();
         }
 
+        // Заполнение первичных ключей материалов и поставщиков в таблице для добавления
         private void dataGridView4_Paint(object sender, PaintEventArgs e)
         {
             insertProviderAddTable();
             insertMaterialAddTable();
         }
 
+        // Заполнение первичных ключей материалов и поставщиков в таблице для удаления 
         private void dataGridView6_Paint(object sender, PaintEventArgs e)
         {
             insertProviderDeleteTable();
             insertMaterialDeleteTable();
         }
 
+        // Заполнение первичных ключей материалов и поставщиков в таблице для изменения
         private void dataGridView5_Paint(object sender, PaintEventArgs e)
         {
             insertProviderChangeTable();
             insertMaterialChangeTable();
+        }
+
+        private void FormProviderMaterial_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            ConnectionToMySQL.Close();
+        }
+
+        private void buttonMaterialAdd_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
