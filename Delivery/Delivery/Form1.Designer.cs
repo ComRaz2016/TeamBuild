@@ -29,89 +29,122 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.testDataSet = new Delivery.TestDataSet();
             this.driverBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.testDataSet = new Delivery.TestDataSet();
             this.driverTableAdapter = new Delivery.TestDataSetTableAdapters.DriverTableAdapter();
-            this.fiodriverDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nomberdriverDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.telnumberdriverDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.testDataSet)).BeginInit();
+            this.buttonCreateOrder = new System.Windows.Forms.Button();
+            this.buttonProviderMaterial = new System.Windows.Forms.Button();
+            this.buttonDriverTS = new System.Windows.Forms.Button();
+            this.buttonStatistics = new System.Windows.Forms.Button();
+            this.buttonObserverOrder = new System.Windows.Forms.Button();
+            this.buttonCheckCost = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.driverBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.testDataSet)).BeginInit();
             this.SuspendLayout();
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.AutoGenerateColumns = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.fiodriverDataGridViewTextBoxColumn,
-            this.nomberdriverDataGridViewTextBoxColumn,
-            this.telnumberdriverDataGridViewTextBoxColumn});
-            this.dataGridView1.DataSource = this.driverBindingSource;
-            this.dataGridView1.Location = new System.Drawing.Point(59, 31);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(351, 150);
-            this.dataGridView1.TabIndex = 0;
-            // 
-            // testDataSet
-            // 
-            this.testDataSet.DataSetName = "TestDataSet";
-            this.testDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // driverBindingSource
             // 
             this.driverBindingSource.DataMember = "Driver";
             this.driverBindingSource.DataSource = this.testDataSet;
             // 
+            // testDataSet
+            // 
+            this.testDataSet.DataSetName = "TestDataSet";
+            this.testDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
             // driverTableAdapter
             // 
             this.driverTableAdapter.ClearBeforeFill = true;
             // 
-            // fiodriverDataGridViewTextBoxColumn
+            // buttonCreateOrder
             // 
-            this.fiodriverDataGridViewTextBoxColumn.DataPropertyName = "fio_driver";
-            this.fiodriverDataGridViewTextBoxColumn.HeaderText = "fio_driver";
-            this.fiodriverDataGridViewTextBoxColumn.Name = "fiodriverDataGridViewTextBoxColumn";
+            this.buttonCreateOrder.Location = new System.Drawing.Point(37, 12);
+            this.buttonCreateOrder.Name = "buttonCreateOrder";
+            this.buttonCreateOrder.Size = new System.Drawing.Size(200, 67);
+            this.buttonCreateOrder.TabIndex = 0;
+            this.buttonCreateOrder.Text = "Оформление заказа";
+            this.buttonCreateOrder.UseVisualStyleBackColor = true;
+            this.buttonCreateOrder.Click += new System.EventHandler(this.buttonCreateOrder_Click);
             // 
-            // nomberdriverDataGridViewTextBoxColumn
+            // buttonProviderMaterial
             // 
-            this.nomberdriverDataGridViewTextBoxColumn.DataPropertyName = "nomber_driver";
-            this.nomberdriverDataGridViewTextBoxColumn.HeaderText = "nomber_driver";
-            this.nomberdriverDataGridViewTextBoxColumn.Name = "nomberdriverDataGridViewTextBoxColumn";
+            this.buttonProviderMaterial.Location = new System.Drawing.Point(37, 231);
+            this.buttonProviderMaterial.Name = "buttonProviderMaterial";
+            this.buttonProviderMaterial.Size = new System.Drawing.Size(200, 67);
+            this.buttonProviderMaterial.TabIndex = 3;
+            this.buttonProviderMaterial.Text = "Поставщики и материалы";
+            this.buttonProviderMaterial.UseVisualStyleBackColor = true;
+            this.buttonProviderMaterial.Click += new System.EventHandler(this.buttonProviderMaterial_Click);
             // 
-            // telnumberdriverDataGridViewTextBoxColumn
+            // buttonDriverTS
             // 
-            this.telnumberdriverDataGridViewTextBoxColumn.DataPropertyName = "tel_number_driver";
-            this.telnumberdriverDataGridViewTextBoxColumn.HeaderText = "tel_number_driver";
-            this.telnumberdriverDataGridViewTextBoxColumn.Name = "telnumberdriverDataGridViewTextBoxColumn";
+            this.buttonDriverTS.Location = new System.Drawing.Point(37, 304);
+            this.buttonDriverTS.Name = "buttonDriverTS";
+            this.buttonDriverTS.Size = new System.Drawing.Size(200, 67);
+            this.buttonDriverTS.TabIndex = 4;
+            this.buttonDriverTS.Text = "Водители и ТС";
+            this.buttonDriverTS.UseVisualStyleBackColor = true;
+            this.buttonDriverTS.Click += new System.EventHandler(this.buttonDriverTS_Click);
+            // 
+            // buttonStatistics
+            // 
+            this.buttonStatistics.Location = new System.Drawing.Point(37, 377);
+            this.buttonStatistics.Name = "buttonStatistics";
+            this.buttonStatistics.Size = new System.Drawing.Size(200, 67);
+            this.buttonStatistics.TabIndex = 5;
+            this.buttonStatistics.Text = "Статистика";
+            this.buttonStatistics.UseVisualStyleBackColor = true;
+            this.buttonStatistics.Click += new System.EventHandler(this.buttonStatistics_Click);
+            // 
+            // buttonObserverOrder
+            // 
+            this.buttonObserverOrder.Location = new System.Drawing.Point(37, 85);
+            this.buttonObserverOrder.Name = "buttonObserverOrder";
+            this.buttonObserverOrder.Size = new System.Drawing.Size(200, 67);
+            this.buttonObserverOrder.TabIndex = 1;
+            this.buttonObserverOrder.Text = "Отслеживание заказов";
+            this.buttonObserverOrder.UseVisualStyleBackColor = true;
+            this.buttonObserverOrder.Click += new System.EventHandler(this.buttonObserverOrder_Click);
+            // 
+            // buttonCheckCost
+            // 
+            this.buttonCheckCost.Location = new System.Drawing.Point(37, 158);
+            this.buttonCheckCost.Name = "buttonCheckCost";
+            this.buttonCheckCost.Size = new System.Drawing.Size(200, 67);
+            this.buttonCheckCost.TabIndex = 2;
+            this.buttonCheckCost.Text = "Предварительный рассчет стоимости";
+            this.buttonCheckCost.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(596, 262);
-            this.Controls.Add(this.dataGridView1);
+            this.ClientSize = new System.Drawing.Size(287, 467);
+            this.Controls.Add(this.buttonCheckCost);
+            this.Controls.Add(this.buttonObserverOrder);
+            this.Controls.Add(this.buttonStatistics);
+            this.Controls.Add(this.buttonDriverTS);
+            this.Controls.Add(this.buttonProviderMaterial);
+            this.Controls.Add(this.buttonCreateOrder);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Главное окно";
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.testDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.driverBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.testDataSet)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.DataGridView dataGridView1;
         private TestDataSet testDataSet;
         private System.Windows.Forms.BindingSource driverBindingSource;
         private TestDataSetTableAdapters.DriverTableAdapter driverTableAdapter;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fiodriverDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nomberdriverDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn telnumberdriverDataGridViewTextBoxColumn;
+        private System.Windows.Forms.Button buttonCreateOrder;
+        private System.Windows.Forms.Button buttonProviderMaterial;
+        private System.Windows.Forms.Button buttonDriverTS;
+        private System.Windows.Forms.Button buttonStatistics;
+        private System.Windows.Forms.Button buttonObserverOrder;
+        private System.Windows.Forms.Button buttonCheckCost;
     }
 }
 

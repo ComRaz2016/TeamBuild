@@ -23,5 +23,36 @@ namespace Delivery
             this.driverTableAdapter.Fill(this.testDataSet.Driver);
 
         }
+
+        private void buttonCreateOrder_Click(object sender, EventArgs e)
+        {
+            Form f3 = new Form3();
+            f3.Show();
+        }
+
+        private void buttonProviderMaterial_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonDriverTS_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonStatistics_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonObserverOrder_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonCheckCost_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
