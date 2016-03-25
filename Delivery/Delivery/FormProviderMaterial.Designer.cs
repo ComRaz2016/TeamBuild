@@ -74,17 +74,14 @@
             this.tabControl3 = new System.Windows.Forms.TabControl();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.dataGridView4 = new System.Windows.Forms.DataGridView();
-            this.providermaterialBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tabPage7 = new System.Windows.Forms.TabPage();
-            this.tabPage8 = new System.Windows.Forms.TabPage();
-            this.providerTableAdapter = new Delivery.TestDataSetTableAdapters.ProviderTableAdapter();
-            this.provider_materialTableAdapter = new Delivery.TestDataSetTableAdapters.provider_materialTableAdapter();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pkmaterialDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.costbagDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pkproviderDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.costtonnaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.providermaterialBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.tabPage7 = new System.Windows.Forms.TabPage();
             this.dataGridView5 = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -92,6 +89,7 @@
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabPage8 = new System.Windows.Forms.TabPage();
             this.dataGridView6 = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -102,25 +100,27 @@
             this.tabPage9 = new System.Windows.Forms.TabPage();
             this.tabControl4 = new System.Windows.Forms.TabControl();
             this.tabPage10 = new System.Windows.Forms.TabPage();
-            this.tabPage11 = new System.Windows.Forms.TabPage();
-            this.tabPage12 = new System.Windows.Forms.TabPage();
-            this.dataGridView7 = new System.Windows.Forms.DataGridView();
-            this.materialBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.materialTableAdapter = new Delivery.TestDataSetTableAdapters.MaterialTableAdapter();
-            this.labelMaterialAdd = new System.Windows.Forms.Label();
-            this.textBoxMaterialAdd = new System.Windows.Forms.TextBox();
             this.buttonMaterialAdd = new System.Windows.Forms.Button();
+            this.textBoxMaterialAdd = new System.Windows.Forms.TextBox();
+            this.labelMaterialAdd = new System.Windows.Forms.Label();
+            this.dataGridView7 = new System.Windows.Forms.DataGridView();
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.materialBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.tabPage11 = new System.Windows.Forms.TabPage();
             this.buttonMaterialChange = new System.Windows.Forms.Button();
             this.textBoxMaterialChange = new System.Windows.Forms.TextBox();
             this.labelMaterialChange = new System.Windows.Forms.Label();
             this.dataGridView8 = new System.Windows.Forms.DataGridView();
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabPage12 = new System.Windows.Forms.TabPage();
             this.buttonMaterialDelete = new System.Windows.Forms.Button();
             this.textBoxMaterialDelete = new System.Windows.Forms.TextBox();
             this.labelMaterialDelete = new System.Windows.Forms.Label();
             this.dataGridView9 = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn20 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.providerTableAdapter = new Delivery.TestDataSetTableAdapters.ProviderTableAdapter();
+            this.provider_materialTableAdapter = new Delivery.TestDataSetTableAdapters.provider_materialTableAdapter();
+            this.materialTableAdapter = new Delivery.TestDataSetTableAdapters.MaterialTableAdapter();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabControl2.SuspendLayout();
@@ -138,17 +138,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.providermaterialBindingSource)).BeginInit();
             this.tabPage7.SuspendLayout();
-            this.tabPage8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView5)).BeginInit();
+            this.tabPage8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView6)).BeginInit();
             this.tabPage9.SuspendLayout();
             this.tabControl4.SuspendLayout();
             this.tabPage10.SuspendLayout();
-            this.tabPage11.SuspendLayout();
-            this.tabPage12.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.materialBindingSource)).BeginInit();
+            this.tabPage11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView8)).BeginInit();
+            this.tabPage12.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView9)).BeginInit();
             this.SuspendLayout();
             // 
@@ -595,40 +595,6 @@
             this.dataGridView4.TabIndex = 0;
             this.dataGridView4.Paint += new System.Windows.Forms.PaintEventHandler(this.dataGridView4_Paint);
             // 
-            // providermaterialBindingSource
-            // 
-            this.providermaterialBindingSource.DataMember = "provider_material";
-            this.providermaterialBindingSource.DataSource = this.testDataSet;
-            // 
-            // tabPage7
-            // 
-            this.tabPage7.Controls.Add(this.dataGridView5);
-            this.tabPage7.Location = new System.Drawing.Point(4, 22);
-            this.tabPage7.Name = "tabPage7";
-            this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage7.Size = new System.Drawing.Size(677, 350);
-            this.tabPage7.TabIndex = 1;
-            this.tabPage7.Text = "Изменение";
-            this.tabPage7.UseVisualStyleBackColor = true;
-            // 
-            // tabPage8
-            // 
-            this.tabPage8.Controls.Add(this.dataGridView6);
-            this.tabPage8.Location = new System.Drawing.Point(4, 22);
-            this.tabPage8.Name = "tabPage8";
-            this.tabPage8.Size = new System.Drawing.Size(677, 350);
-            this.tabPage8.TabIndex = 2;
-            this.tabPage8.Text = "Удаление";
-            this.tabPage8.UseVisualStyleBackColor = true;
-            // 
-            // providerTableAdapter
-            // 
-            this.providerTableAdapter.ClearBeforeFill = true;
-            // 
-            // provider_materialTableAdapter
-            // 
-            this.provider_materialTableAdapter.ClearBeforeFill = true;
-            // 
             // Column1
             // 
             this.Column1.HeaderText = "Поставщик";
@@ -678,6 +644,22 @@
             this.costtonnaDataGridViewTextBoxColumn.Name = "costtonnaDataGridViewTextBoxColumn";
             this.costtonnaDataGridViewTextBoxColumn.ReadOnly = true;
             this.costtonnaDataGridViewTextBoxColumn.Width = 130;
+            // 
+            // providermaterialBindingSource
+            // 
+            this.providermaterialBindingSource.DataMember = "provider_material";
+            this.providermaterialBindingSource.DataSource = this.testDataSet;
+            // 
+            // tabPage7
+            // 
+            this.tabPage7.Controls.Add(this.dataGridView5);
+            this.tabPage7.Location = new System.Drawing.Point(4, 22);
+            this.tabPage7.Name = "tabPage7";
+            this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage7.Size = new System.Drawing.Size(677, 350);
+            this.tabPage7.TabIndex = 1;
+            this.tabPage7.Text = "Изменение";
+            this.tabPage7.UseVisualStyleBackColor = true;
             // 
             // dataGridView5
             // 
@@ -746,6 +728,16 @@
             this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
             this.dataGridViewTextBoxColumn12.ReadOnly = true;
             this.dataGridViewTextBoxColumn12.Width = 130;
+            // 
+            // tabPage8
+            // 
+            this.tabPage8.Controls.Add(this.dataGridView6);
+            this.tabPage8.Location = new System.Drawing.Point(4, 22);
+            this.tabPage8.Name = "tabPage8";
+            this.tabPage8.Size = new System.Drawing.Size(677, 350);
+            this.tabPage8.TabIndex = 2;
+            this.tabPage8.Text = "Удаление";
+            this.tabPage8.UseVisualStyleBackColor = true;
             // 
             // dataGridView6
             // 
@@ -850,6 +842,57 @@
             this.tabPage10.Text = "Добавление";
             this.tabPage10.UseVisualStyleBackColor = true;
             // 
+            // buttonMaterialAdd
+            // 
+            this.buttonMaterialAdd.Location = new System.Drawing.Point(295, 291);
+            this.buttonMaterialAdd.Name = "buttonMaterialAdd";
+            this.buttonMaterialAdd.Size = new System.Drawing.Size(75, 23);
+            this.buttonMaterialAdd.TabIndex = 3;
+            this.buttonMaterialAdd.Text = "Добавить";
+            this.buttonMaterialAdd.UseVisualStyleBackColor = true;
+            this.buttonMaterialAdd.Click += new System.EventHandler(this.buttonMaterialAdd_Click);
+            // 
+            // textBoxMaterialAdd
+            // 
+            this.textBoxMaterialAdd.Location = new System.Drawing.Point(277, 229);
+            this.textBoxMaterialAdd.Name = "textBoxMaterialAdd";
+            this.textBoxMaterialAdd.Size = new System.Drawing.Size(234, 20);
+            this.textBoxMaterialAdd.TabIndex = 2;
+            // 
+            // labelMaterialAdd
+            // 
+            this.labelMaterialAdd.AutoSize = true;
+            this.labelMaterialAdd.Location = new System.Drawing.Point(156, 232);
+            this.labelMaterialAdd.Name = "labelMaterialAdd";
+            this.labelMaterialAdd.Size = new System.Drawing.Size(115, 13);
+            this.labelMaterialAdd.TabIndex = 1;
+            this.labelMaterialAdd.Text = "Название материала";
+            // 
+            // dataGridView7
+            // 
+            this.dataGridView7.AutoGenerateColumns = false;
+            this.dataGridView7.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView7.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.nameDataGridViewTextBoxColumn});
+            this.dataGridView7.DataSource = this.materialBindingSource;
+            this.dataGridView7.Location = new System.Drawing.Point(159, 6);
+            this.dataGridView7.Name = "dataGridView7";
+            this.dataGridView7.Size = new System.Drawing.Size(352, 204);
+            this.dataGridView7.TabIndex = 0;
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "name";
+            this.nameDataGridViewTextBoxColumn.HeaderText = "Название материала";
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
+            this.nameDataGridViewTextBoxColumn.Width = 300;
+            // 
+            // materialBindingSource
+            // 
+            this.materialBindingSource.DataMember = "Material";
+            this.materialBindingSource.DataSource = this.testDataSet;
+            // 
             // tabPage11
             // 
             this.tabPage11.Controls.Add(this.buttonMaterialChange);
@@ -864,66 +907,6 @@
             this.tabPage11.Text = "Изменение";
             this.tabPage11.UseVisualStyleBackColor = true;
             // 
-            // tabPage12
-            // 
-            this.tabPage12.Controls.Add(this.buttonMaterialDelete);
-            this.tabPage12.Controls.Add(this.textBoxMaterialDelete);
-            this.tabPage12.Controls.Add(this.labelMaterialDelete);
-            this.tabPage12.Controls.Add(this.dataGridView9);
-            this.tabPage12.Location = new System.Drawing.Point(4, 22);
-            this.tabPage12.Name = "tabPage12";
-            this.tabPage12.Size = new System.Drawing.Size(677, 350);
-            this.tabPage12.TabIndex = 2;
-            this.tabPage12.Text = "Удаление";
-            this.tabPage12.UseVisualStyleBackColor = true;
-            // 
-            // dataGridView7
-            // 
-            this.dataGridView7.AutoGenerateColumns = false;
-            this.dataGridView7.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView7.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.nameDataGridViewTextBoxColumn});
-            this.dataGridView7.DataSource = this.materialBindingSource;
-            this.dataGridView7.Location = new System.Drawing.Point(159, 6);
-            this.dataGridView7.Name = "dataGridView7";
-            this.dataGridView7.Size = new System.Drawing.Size(352, 204);
-            this.dataGridView7.TabIndex = 0;
-            // 
-            // materialBindingSource
-            // 
-            this.materialBindingSource.DataMember = "Material";
-            this.materialBindingSource.DataSource = this.testDataSet;
-            // 
-            // materialTableAdapter
-            // 
-            this.materialTableAdapter.ClearBeforeFill = true;
-            // 
-            // labelMaterialAdd
-            // 
-            this.labelMaterialAdd.AutoSize = true;
-            this.labelMaterialAdd.Location = new System.Drawing.Point(156, 232);
-            this.labelMaterialAdd.Name = "labelMaterialAdd";
-            this.labelMaterialAdd.Size = new System.Drawing.Size(115, 13);
-            this.labelMaterialAdd.TabIndex = 1;
-            this.labelMaterialAdd.Text = "Название материала";
-            // 
-            // textBoxMaterialAdd
-            // 
-            this.textBoxMaterialAdd.Location = new System.Drawing.Point(277, 229);
-            this.textBoxMaterialAdd.Name = "textBoxMaterialAdd";
-            this.textBoxMaterialAdd.Size = new System.Drawing.Size(234, 20);
-            this.textBoxMaterialAdd.TabIndex = 2;
-            // 
-            // buttonMaterialAdd
-            // 
-            this.buttonMaterialAdd.Location = new System.Drawing.Point(295, 291);
-            this.buttonMaterialAdd.Name = "buttonMaterialAdd";
-            this.buttonMaterialAdd.Size = new System.Drawing.Size(75, 23);
-            this.buttonMaterialAdd.TabIndex = 3;
-            this.buttonMaterialAdd.Text = "Добавить";
-            this.buttonMaterialAdd.UseVisualStyleBackColor = true;
-            this.buttonMaterialAdd.Click += new System.EventHandler(this.buttonMaterialAdd_Click);
-            // 
             // buttonMaterialChange
             // 
             this.buttonMaterialChange.Enabled = false;
@@ -933,6 +916,7 @@
             this.buttonMaterialChange.TabIndex = 7;
             this.buttonMaterialChange.Text = "Изменить";
             this.buttonMaterialChange.UseVisualStyleBackColor = true;
+            this.buttonMaterialChange.Click += new System.EventHandler(this.buttonMaterialChange_Click);
             // 
             // textBoxMaterialChange
             // 
@@ -961,14 +945,7 @@
             this.dataGridView8.Name = "dataGridView8";
             this.dataGridView8.Size = new System.Drawing.Size(352, 204);
             this.dataGridView8.TabIndex = 4;
-            // 
-            // nameDataGridViewTextBoxColumn
-            // 
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "name";
-            this.nameDataGridViewTextBoxColumn.HeaderText = "Название материала";
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
-            this.nameDataGridViewTextBoxColumn.Width = 300;
+            this.dataGridView8.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewMaterialChange);
             // 
             // dataGridViewTextBoxColumn19
             // 
@@ -977,6 +954,19 @@
             this.dataGridViewTextBoxColumn19.Name = "dataGridViewTextBoxColumn19";
             this.dataGridViewTextBoxColumn19.ReadOnly = true;
             this.dataGridViewTextBoxColumn19.Width = 300;
+            // 
+            // tabPage12
+            // 
+            this.tabPage12.Controls.Add(this.buttonMaterialDelete);
+            this.tabPage12.Controls.Add(this.textBoxMaterialDelete);
+            this.tabPage12.Controls.Add(this.labelMaterialDelete);
+            this.tabPage12.Controls.Add(this.dataGridView9);
+            this.tabPage12.Location = new System.Drawing.Point(4, 22);
+            this.tabPage12.Name = "tabPage12";
+            this.tabPage12.Size = new System.Drawing.Size(677, 350);
+            this.tabPage12.TabIndex = 2;
+            this.tabPage12.Text = "Удаление";
+            this.tabPage12.UseVisualStyleBackColor = true;
             // 
             // buttonMaterialDelete
             // 
@@ -987,6 +977,7 @@
             this.buttonMaterialDelete.TabIndex = 11;
             this.buttonMaterialDelete.Text = "Удалить";
             this.buttonMaterialDelete.UseVisualStyleBackColor = true;
+            this.buttonMaterialDelete.Click += new System.EventHandler(this.buttonMaterialDelete_Click);
             // 
             // textBoxMaterialDelete
             // 
@@ -1016,6 +1007,7 @@
             this.dataGridView9.Name = "dataGridView9";
             this.dataGridView9.Size = new System.Drawing.Size(352, 204);
             this.dataGridView9.TabIndex = 8;
+            this.dataGridView9.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewMaterialDelete);
             // 
             // dataGridViewTextBoxColumn20
             // 
@@ -1024,6 +1016,18 @@
             this.dataGridViewTextBoxColumn20.Name = "dataGridViewTextBoxColumn20";
             this.dataGridViewTextBoxColumn20.ReadOnly = true;
             this.dataGridViewTextBoxColumn20.Width = 300;
+            // 
+            // providerTableAdapter
+            // 
+            this.providerTableAdapter.ClearBeforeFill = true;
+            // 
+            // provider_materialTableAdapter
+            // 
+            this.provider_materialTableAdapter.ClearBeforeFill = true;
+            // 
+            // materialTableAdapter
+            // 
+            this.materialTableAdapter.ClearBeforeFill = true;
             // 
             // FormProviderMaterial
             // 
@@ -1055,20 +1059,20 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.providermaterialBindingSource)).EndInit();
             this.tabPage7.ResumeLayout(false);
-            this.tabPage8.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView5)).EndInit();
+            this.tabPage8.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView6)).EndInit();
             this.tabPage9.ResumeLayout(false);
             this.tabControl4.ResumeLayout(false);
             this.tabPage10.ResumeLayout(false);
             this.tabPage10.PerformLayout();
-            this.tabPage11.ResumeLayout(false);
-            this.tabPage11.PerformLayout();
-            this.tabPage12.ResumeLayout(false);
-            this.tabPage12.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.materialBindingSource)).EndInit();
+            this.tabPage11.ResumeLayout(false);
+            this.tabPage11.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView8)).EndInit();
+            this.tabPage12.ResumeLayout(false);
+            this.tabPage12.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView9)).EndInit();
             this.ResumeLayout(false);
 

@@ -19,6 +19,8 @@ namespace Delivery
         String lastAdressFirm = null;
         String lastTelefoneFirm = null;
 
+        String lastNameMaterial = null;
+
         public FormProviderMaterial()
         {
             String serverName = "127.0.0.1"; // Адрес сервера (для локальной базы пишите "localhost")
@@ -445,9 +447,72 @@ namespace Delivery
             ConnectionToMySQL.Close();
         }
 
+        // Добавление названия материала
         private void buttonMaterialAdd_Click(object sender, EventArgs e)
         {
+            String nameMaterial = textBoxMaterialAdd.Text;
+            
+            if (nameMaterial.Trim() == "")
+            {
+                MessageBox.Show("Необходимо заполнить поле 'Название материала'.");
+            }
+            else
+            {
+                MySqlCommand msc = new MySqlCommand();
+                msc.CommandText = "SELECT `pk_material`  FROM `Material`  WHERE `name`  = '" + nameMaterial + "'";
+                msc.Connection = ConnectionToMySQL;
+                MySqlDataReader dataReader = msc.ExecuteReader();
+                String materialPk = null;
+                while (dataReader.Read())
+                {
+                    materialPk = dataReader[0].ToString();
+                }
+                dataReader.Close();
 
+                if (materialPk == null)
+                {
+                    msc.CommandText = "INSERT INTO `Material` (`name`) VALUES ('" + nameMaterial + "')";
+                    msc.Connection = ConnectionToMySQL;
+                    msc.ExecuteNonQuery();
+
+                    textBoxMaterialAdd.Clear();
+
+                    this.materialTableAdapter.Fill(this.testDataSet.Material);
+
+                    MessageBox.Show("Добавление записи успешно произведено.");
+                }
+                else
+                {
+                    textBoxMaterialAdd.Clear();
+                    MessageBox.Show("Запись не добавлена, так как материал с таким названием существует.");
+                }
+            }
+        }
+
+        private void buttonMaterialChange_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonMaterialDelete_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridViewMaterialChange(object sender, DataGridViewCellEventArgs e)
+        {
+            lastNameMaterial = dataGridView8[0, e.RowIndex].Value.ToString();
+
+            textBoxMaterialChange.Text = lastNameMaterial;
+
+            buttonMaterialChange.Enabled = true;
+        }
+
+        private void dataGridViewMaterialDelete(object sender, DataGridViewCellEventArgs e)
+        {
+            textBoxMaterialDelete.Text = dataGridView9[0, e.RowIndex].Value.ToString();
+
+            buttonMaterialDelete.Enabled = true;
         }
     }
 }
