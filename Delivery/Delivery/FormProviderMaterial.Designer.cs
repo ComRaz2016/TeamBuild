@@ -616,6 +616,7 @@
             this.tabPage6.TabIndex = 0;
             this.tabPage6.Text = "Добавление";
             this.tabPage6.UseVisualStyleBackColor = true;
+            this.tabPage6.Leave += new System.EventHandler(this.tabPage6_Leave);
             // 
             // buttonMaterialProviderAdd
             // 
@@ -799,6 +800,7 @@
             this.tabPage7.TabIndex = 1;
             this.tabPage7.Text = "Изменение";
             this.tabPage7.UseVisualStyleBackColor = true;
+            this.tabPage7.Leave += new System.EventHandler(this.tabPage7_Leave);
             // 
             // buttonProviderMaterialChange
             // 
@@ -847,6 +849,7 @@
             // 
             this.comboBoxMaterialChange.DataSource = this.materialBindingSource1;
             this.comboBoxMaterialChange.DisplayMember = "name";
+            this.comboBoxMaterialChange.Enabled = false;
             this.comboBoxMaterialChange.FormattingEnabled = true;
             this.comboBoxMaterialChange.Location = new System.Drawing.Point(147, 253);
             this.comboBoxMaterialChange.Name = "comboBoxMaterialChange";
@@ -857,6 +860,7 @@
             // 
             this.comboBoxProviderChange.DataSource = this.providerBindingSource1;
             this.comboBoxProviderChange.DisplayMember = "name_firm";
+            this.comboBoxProviderChange.Enabled = false;
             this.comboBoxProviderChange.FormattingEnabled = true;
             this.comboBoxProviderChange.Location = new System.Drawing.Point(147, 228);
             this.comboBoxProviderChange.Name = "comboBoxProviderChange";
@@ -968,6 +972,7 @@
             this.tabPage8.TabIndex = 2;
             this.tabPage8.Text = "Удаление";
             this.tabPage8.UseVisualStyleBackColor = true;
+            this.tabPage8.Leave += new System.EventHandler(this.tabPage8_Leave);
             // 
             // buttonProviderMaterialDelete
             // 
@@ -1018,6 +1023,7 @@
             // 
             this.comboBoxMaterialDelete.DataSource = this.materialBindingSource1;
             this.comboBoxMaterialDelete.DisplayMember = "name";
+            this.comboBoxMaterialDelete.Enabled = false;
             this.comboBoxMaterialDelete.FormattingEnabled = true;
             this.comboBoxMaterialDelete.Location = new System.Drawing.Point(147, 253);
             this.comboBoxMaterialDelete.Name = "comboBoxMaterialDelete";
@@ -1028,6 +1034,7 @@
             // 
             this.comboBoxProviderDelete.DataSource = this.providerBindingSource1;
             this.comboBoxProviderDelete.DisplayMember = "name_firm";
+            this.comboBoxProviderDelete.Enabled = false;
             this.comboBoxProviderDelete.FormattingEnabled = true;
             this.comboBoxProviderDelete.Location = new System.Drawing.Point(147, 228);
             this.comboBoxProviderDelete.Name = "comboBoxProviderDelete";

@@ -21,6 +21,12 @@ namespace Delivery
 
         String lastNameMaterial = null;
 
+        String lastBagCost = null;
+        String lastTonnCost = null;
+        String lastNameFirmMaterial = null;
+        String lastMaterialFirm = null;
+
+
         public FormProviderMaterial()
         {
             String serverName = "127.0.0.1"; // Адрес сервера (для локальной базы пишите "localhost")
@@ -275,7 +281,12 @@ namespace Delivery
                         }
                         else
                         {
+                            lastAdressFirm = null;
+                            lastNameFirm = null;
+                            lastTelefoneFirm = null;
+
                             textBoxNameFirmChange.Clear();
+
                             MessageBox.Show("Запись не изменена, так как фирма с таким названием существует.");
                         }
                     }
@@ -620,12 +631,13 @@ namespace Delivery
             textBoxMaterialAdd.Clear();
         }
 
+        // Добавление материалов поставщиков
         private void buttonMaterialProviderAdd_Click(object sender, EventArgs e)
         {
-            String nameFirm = comboBoxProviderAdd.Text;
-            String nameMaterial = comboBoxMaterialAdd.Text;
-            String bagCost = textBoxBagCostAdd.Text;
-            String tonnCost = textBoxTonnCostAdd.Text;
+            String nameFirm = comboBoxProviderAdd.Text.Trim();
+            String nameMaterial = comboBoxMaterialAdd.Text.Trim();
+            String bagCost = textBoxBagCostAdd.Text.Trim();
+            String tonnCost = textBoxTonnCostAdd.Text.Trim();
             if (comboBoxProviderAdd.Items.Count == 0)
             {
                 MessageBox.Show("Необходимо выбрать поставщика.");
@@ -704,22 +716,175 @@ namespace Delivery
 
         private void buttonProviderMaterialChange_Click(object sender, EventArgs e)
         {
+            String nameMaterial = comboBoxMaterialChange.Text.Trim();
+            String nameFirm = comboBoxProviderChange.Text.Trim();
+            String bagCost = textBoxBagCostChange.Text.Trim();
+            String tonnCost = textBoxTonnCostChange.Text.Trim();
 
+            if (comboBoxProviderChange.Items.Count == 0)
+            {
+                MessageBox.Show("Необходимо выбрать поставщика.");
+            }
+            else
+            {
+                if (comboBoxMaterialChange.Items.Count == 0)
+                {
+                    MessageBox.Show("Необходимо выбрать материал.");
+                }
+                else
+                {
+                    if (bagCost.Trim() == "" && tonnCost.Trim() == "")
+                    {
+                        MessageBox.Show("Необходимо заполнить поле 'Цена за тонну' или 'Цена за мешок'.");
+                    }
+                    else
+                    {
+                        MySqlCommand msc = new MySqlCommand();
+                        msc.CommandText = "SELECT `pk_provider`  FROM `Provider`  WHERE `name_firm`  = '" + nameFirm + "'";
+                        msc.Connection = ConnectionToMySQL;
+                        MySqlDataReader dataReader = msc.ExecuteReader();
+                        String providerPk = null;
+                        while (dataReader.Read())
+                        {
+                            providerPk = dataReader[0].ToString();
+                        }
+                        dataReader.Close();
+
+                        msc.CommandText = "SELECT `pk_material`  FROM `Material`  WHERE `name`  = '" + nameMaterial + "'";
+                        msc.Connection = ConnectionToMySQL;
+                        dataReader = msc.ExecuteReader();
+                        String materialPk = null;
+                        while (dataReader.Read())
+                        {
+                            materialPk = dataReader[0].ToString();
+                        }
+                        dataReader.Close();
+
+                        msc.CommandText = "UPDATE `provider_material`  SET `cost_bag` = '" + bagCost + "', `cost_tonna` = '" + tonnCost + "' WHERE `pk_provider` = '" + providerPk + "' AND `pk_material` = '" + materialPk + "'";
+                        msc.Connection = ConnectionToMySQL;
+                        msc.ExecuteNonQuery();
+
+                        textBoxTonnCostChange.Clear();
+                        textBoxBagCostChange.Clear();
+
+                        this.provider_materialTableAdapter.Fill(this.testDataSet.provider_material);
+
+                        MessageBox.Show("Изменение записи успешно произведено.");
+
+                        buttonProviderMaterialChange.Enabled = false;
+                    }
+                }
+            }
         }
 
         private void buttonProviderMaterialDelete_Click(object sender, EventArgs e)
         {
+            String nameMaterial = comboBoxMaterialDelete.Text.Trim();
+            String nameFirm = comboBoxProviderDelete.Text.Trim();
+            String bagCost = textBoxBagCostDelete.Text.Trim();
+            String tonnCost = textBoxTonnCostDelete.Text.Trim();
 
+            if (comboBoxProviderDelete.Items.Count == 0)
+            {
+                MessageBox.Show("Необходимо выбрать поставщика.");
+            }
+            else
+            {
+                if (comboBoxMaterialDelete.Items.Count == 0)
+                {
+                    MessageBox.Show("Необходимо выбрать материал.");
+                }
+                else
+                {
+                    if (bagCost.Trim() == "" && tonnCost.Trim() == "")
+                    {
+                        MessageBox.Show("Необходимо заполнить поле 'Цена за тонну' или 'Цена за мешок'.");
+                    }
+                    else
+                    {
+                        MySqlCommand msc = new MySqlCommand();
+                        msc.CommandText = "SELECT `pk_provider`  FROM `Provider`  WHERE `name_firm`  = '" + nameFirm + "'";
+                        msc.Connection = ConnectionToMySQL;
+                        MySqlDataReader dataReader = msc.ExecuteReader();
+                        String providerPk = null;
+                        while (dataReader.Read())
+                        {
+                            providerPk = dataReader[0].ToString();
+                        }
+                        dataReader.Close();
+
+                        msc.CommandText = "SELECT `pk_material`  FROM `Material`  WHERE `name`  = '" + nameMaterial + "'";
+                        msc.Connection = ConnectionToMySQL;
+                        dataReader = msc.ExecuteReader();
+                        String materialPk = null;
+                        while (dataReader.Read())
+                        {
+                            materialPk = dataReader[0].ToString();
+                        }
+                        dataReader.Close();
+
+                        msc.CommandText = "DELETE FROM `provider_material` WHERE `pk_material` = '" + materialPk + "' AND `pk_provider` = '" + providerPk + "'";
+                        msc.Connection = ConnectionToMySQL;
+                        msc.ExecuteNonQuery();
+
+                        textBoxTonnCostDelete.Clear();
+                        textBoxBagCostDelete.Clear();
+
+                        this.provider_materialTableAdapter.Fill(this.testDataSet.provider_material);
+
+                        MessageBox.Show("Удаление записи успешно произведено.");
+
+                        buttonProviderMaterialDelete.Enabled = false;
+                    }
+                }
+            }
         }
 
         private void dataGridViewProviderMaterialChange(object sender, DataGridViewCellEventArgs e)
         {
+            lastBagCost = dataGridView5[3, e.RowIndex].Value.ToString();
+            lastTonnCost = dataGridView5[5, e.RowIndex].Value.ToString();
+            lastNameFirmMaterial = dataGridView5[0, e.RowIndex].Value.ToString();
+            lastMaterialFirm = dataGridView5[1, e.RowIndex].Value.ToString();
 
+            textBoxBagCostChange.Text = lastBagCost;
+            textBoxTonnCostChange.Text = lastTonnCost;
+            comboBoxProviderChange.Text = lastNameFirmMaterial;
+            comboBoxMaterialChange.Text = lastMaterialFirm;
+
+            buttonProviderMaterialChange.Enabled = true;
         }
 
         private void dataGridViewProviderMaterialDelete(object sender, DataGridViewCellEventArgs e)
         {
+            textBoxBagCostDelete.Text = dataGridView6[3, e.RowIndex].Value.ToString();
+            textBoxTonnCostDelete.Text = dataGridView6[5, e.RowIndex].Value.ToString();
+            comboBoxProviderDelete.Text = dataGridView6[0, e.RowIndex].Value.ToString();
+            comboBoxMaterialDelete.Text = dataGridView6[1, e.RowIndex].Value.ToString();
 
+            buttonProviderMaterialDelete.Enabled = true;
+        }
+
+        private void tabPage8_Leave(object sender, EventArgs e)
+        {
+            textBoxBagCostDelete.Clear();
+            textBoxTonnCostDelete.Clear();
+
+            buttonProviderMaterialDelete.Enabled = false;
+        }
+
+        private void tabPage7_Leave(object sender, EventArgs e)
+        {
+            textBoxBagCostChange.Clear();
+            textBoxTonnCostChange.Clear();
+
+            buttonProviderMaterialChange.Enabled = false;
+        }
+
+        private void tabPage6_Leave(object sender, EventArgs e)
+        {
+            textBoxBagCostAdd.Clear();
+            textBoxTonnCostAdd.Clear();
         }
     }
 }
