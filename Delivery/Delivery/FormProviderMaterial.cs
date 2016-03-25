@@ -55,9 +55,9 @@ namespace Delivery
         // Удаление поставщика
         private void buttonProviderDelete_Click(object sender, EventArgs e)
         {
-            String nameFirm = textBoxNameFirmDelete.Text;
-            String adressFirm = textBoxAdressFirmDelete.Text;
-            String telefoneFirm = textBoxTelefoneFirmDelete.Text;
+            String nameFirm = textBoxNameFirmDelete.Text.Trim();
+            String adressFirm = textBoxAdressFirmDelete.Text.Trim();
+            String telefoneFirm = textBoxTelefoneFirmDelete.Text.Trim();
 
             MySqlCommand msc = new MySqlCommand();
             msc.CommandText = "SELECT `pk_provider`  FROM `Provider`  WHERE `name_firm`  = '" + nameFirm + "' AND `tel_number_firm` = '" + telefoneFirm + "'";
@@ -137,9 +137,9 @@ namespace Delivery
         // Добавление поставщика
         private void buttonProviderAdd_Click(object sender, EventArgs e)
         {
-            String nameFirm = textBoxNameFirmAdd.Text;
-            String adressFirm = textBoxAdressFirmAdd.Text;
-            String telefoneFirm = textBoxTelefoneFirmAdd.Text;
+            String nameFirm = textBoxNameFirmAdd.Text.Trim();
+            String adressFirm = textBoxAdressFirmAdd.Text.Trim();
+            String telefoneFirm = textBoxTelefoneFirmAdd.Text.Trim();
             if (nameFirm.Trim() == "")
             {
                 MessageBox.Show("Необходимо заполнить поле 'Название фирмы'.");
@@ -221,9 +221,9 @@ namespace Delivery
         // Изменение поставщика
         private void buttonProviderChange_Click(object sender, EventArgs e)
         {
-            String nameFirm = textBoxNameFirmChange.Text;
-            String adressFirm = textBoxAdressFirmChange.Text;
-            String telefoneFirm = textBoxTelefoneFirmChange.Text;
+            String nameFirm = textBoxNameFirmChange.Text.Trim();
+            String adressFirm = textBoxAdressFirmChange.Text.Trim();
+            String telefoneFirm = textBoxTelefoneFirmChange.Text.Trim();
 
             if (nameFirm.Trim() == "")
             {
@@ -489,14 +489,58 @@ namespace Delivery
             }
         }
 
+        // Изменение названия материала
         private void buttonMaterialChange_Click(object sender, EventArgs e)
         {
+            String nameMaterial = textBoxMaterialChange.Text.Trim();
 
+            if (nameMaterial.Trim() == "")
+            {
+                MessageBox.Show("Необходимо заполнить поле 'Название материала'.");
+            }
+            else
+            {
+                MySqlCommand msc = new MySqlCommand();
+                msc.CommandText = "SELECT `pk_material`  FROM `Material`  WHERE `name`  = '" + nameMaterial + "'";
+                msc.Connection = ConnectionToMySQL;
+                MySqlDataReader dataReader = msc.ExecuteReader();
+                String materialPk = null;
+                while (dataReader.Read())
+                {
+                    materialPk = dataReader[0].ToString();
+                }
+                dataReader.Close();
+
+                if (materialPk == null)
+                {
+                    msc.CommandText = "UPDATE `Material`  SET `name` = '" + nameMaterial + "' WHERE `name` = '" + lastNameMaterial + "'";
+                    msc.Connection = ConnectionToMySQL;
+                    msc.ExecuteNonQuery();
+                    textBoxMaterialChange.Clear();
+
+                    lastNameMaterial = null;
+
+                    this.materialTableAdapter.Fill(this.testDataSet.Material);
+
+                    buttonMaterialChange.Enabled = false;
+
+                    MessageBox.Show("Изменение записи успешно произведено.");
+                }
+                else
+                {
+                    lastNameMaterial = null;
+
+                    textBoxMaterialChange.Clear();
+
+                    MessageBox.Show("Запись не изменена, так как материал с таким названием существует.");
+                }
+            }
         }
 
+        // Удаление названия материала
         private void buttonMaterialDelete_Click(object sender, EventArgs e)
         {
-            String nameMaterial = textBoxMaterialDelete.Text;
+            String nameMaterial = textBoxMaterialDelete.Text.Trim();
 
             MySqlCommand msc = new MySqlCommand();
             msc.CommandText = "SELECT `pk_material`  FROM `Material`  WHERE `name`  = '" + nameMaterial + "'";
