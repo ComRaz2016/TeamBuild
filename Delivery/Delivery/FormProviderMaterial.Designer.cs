@@ -386,11 +386,13 @@
             this.buttonProviderDelete.TabIndex = 14;
             this.buttonProviderDelete.Text = "Удалить";
             this.buttonProviderDelete.UseVisualStyleBackColor = true;
+            this.buttonProviderDelete.Click += new System.EventHandler(this.buttonProviderDelete_Click_1);
             // 
             // textBoxAdressFirmDelete
             // 
             this.textBoxAdressFirmDelete.Location = new System.Drawing.Point(166, 266);
             this.textBoxAdressFirmDelete.Name = "textBoxAdressFirmDelete";
+            this.textBoxAdressFirmDelete.ReadOnly = true;
             this.textBoxAdressFirmDelete.Size = new System.Drawing.Size(505, 20);
             this.textBoxAdressFirmDelete.TabIndex = 13;
             // 
@@ -407,6 +409,7 @@
             // 
             this.textBoxTelefoneFirmDelete.Location = new System.Drawing.Point(510, 231);
             this.textBoxTelefoneFirmDelete.Name = "textBoxTelefoneFirmDelete";
+            this.textBoxTelefoneFirmDelete.ReadOnly = true;
             this.textBoxTelefoneFirmDelete.Size = new System.Drawing.Size(161, 20);
             this.textBoxTelefoneFirmDelete.TabIndex = 11;
             // 
@@ -423,6 +426,7 @@
             // 
             this.textBoxNameFirmDelete.Location = new System.Drawing.Point(108, 231);
             this.textBoxNameFirmDelete.Name = "textBoxNameFirmDelete";
+            this.textBoxNameFirmDelete.ReadOnly = true;
             this.textBoxNameFirmDelete.Size = new System.Drawing.Size(216, 20);
             this.textBoxNameFirmDelete.TabIndex = 9;
             // 

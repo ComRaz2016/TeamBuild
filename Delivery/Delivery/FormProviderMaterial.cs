@@ -70,13 +70,10 @@ namespace Delivery
 
         private void dataGridViewProviderDelete(object sender, DataGridViewCellEventArgs e)
         {
-            checkNameFirm = dataGridView3[0, e.RowIndex].Value.ToString();
-            checkAdressFirm = dataGridView3[1, e.RowIndex].Value.ToString();
-            checkTelefoneFirm = dataGridView3[2, e.RowIndex].Value.ToString();
+            textBoxNameFirmDelete.Text = dataGridView3[0, e.RowIndex].Value.ToString();
+            textBoxAdressFirmDelete.Text = dataGridView3[1, e.RowIndex].Value.ToString();
+            textBoxTelefoneFirmDelete.Text = dataGridView3[2, e.RowIndex].Value.ToString();
 
-            textBoxNameFirmDelete.Text = checkNameFirm;
-            textBoxAdressFirmDelete.Text = checkAdressFirm;
-            textBoxTelefoneFirmDelete.Text = checkTelefoneFirm;
             buttonProviderDelete.Enabled = true;
         }
 
@@ -114,9 +111,28 @@ namespace Delivery
                         this.providerTableAdapter.Fill(this.testDataSet.Provider);
                         //this.vodTableAdapter.Fill(this.drivers.vod);
                         //checkNull();
+                        buttonProviderAdd.Enabled = false;
                     }
                 }
             }
+        }
+
+        private void buttonProviderDelete_Click_1(object sender, EventArgs e)
+        {
+            String nameFirm = textBoxNameFirmDelete.Text;
+            String adressFirm = textBoxAdressFirmDelete.Text;
+            String telefoneFirm = textBoxTelefoneFirmDelete.Text;
+
+            MySqlCommand msc = new MySqlCommand();
+            msc.CommandText = "DELETE FROM `Provider` WHERE `name_firm` = '" + nameFirm + "' AND `tel_number_firm` = '" + telefoneFirm + "'";
+            msc.Connection = ConnectionToMySQL;
+            msc.ExecuteNonQuery();
+            textBoxNameFirmDelete.Clear();
+            textBoxAdressFirmDelete.Clear();
+            textBoxTelefoneFirmDelete.Clear();
+            this.providerTableAdapter.Fill(this.testDataSet.Provider);
+            //checkNull();
+            buttonProviderDelete.Enabled = false;
         }
     }
 }
