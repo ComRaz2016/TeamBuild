@@ -15,9 +15,9 @@ namespace Delivery
     {
         MySqlConnection ConnectionToMySQL;
 
-        String checkNameFirm = null;
-        String checkAdressFirm = null;
-        String checkTelefoneFirm = null;
+        String lastNameFirm = null;
+        String lastAdressFirm = null;
+        String lastTelefoneFirm = null;
 
         public FormProviderMaterial()
         {
@@ -46,6 +46,7 @@ namespace Delivery
 
         }
 
+        // Удаление поставщика
         private void buttonProviderDelete_Click(object sender, EventArgs e)
         {
             String nameFirm = textBoxNameFirmDelete.Text;
@@ -79,19 +80,23 @@ namespace Delivery
                 msc.CommandText = "DELETE FROM `Provider` WHERE `name_firm` = '" + nameFirm + "' AND `tel_number_firm` = '" + telefoneFirm + "'";
                 msc.Connection = ConnectionToMySQL;
                 msc.ExecuteNonQuery();
+
                 textBoxNameFirmDelete.Clear();
                 textBoxAdressFirmDelete.Clear();
                 textBoxTelefoneFirmDelete.Clear();
+
                 this.providerTableAdapter.Fill(this.testDataSet.Provider);
+
+                MessageBox.Show("Удаление записи успешно произведено.");
             }
             else
             {
-                MessageBox.Show("Удаление поставщика невозможно, так как он предоставляет материалы для доставки");
                 textBoxNameFirmDelete.Clear();
                 textBoxAdressFirmDelete.Clear();
                 textBoxTelefoneFirmDelete.Clear();
+
+                MessageBox.Show("Удаление поставщика невозможно, так как он предоставляет материалы для доставки");
             }
-            //checkNull();
             buttonProviderDelete.Enabled = false;
         }
 
@@ -100,18 +105,20 @@ namespace Delivery
             // Не используется
         }
 
+        // Выбор поставщика для изменения
         private void dataGridViewProviderChange(object sender, DataGridViewCellEventArgs e)
         {
-            checkNameFirm = dataGridView2[0, e.RowIndex].Value.ToString();
-            checkAdressFirm = dataGridView2[1, e.RowIndex].Value.ToString();
-            checkTelefoneFirm = dataGridView2[2, e.RowIndex].Value.ToString();
+            lastNameFirm = dataGridView2[0, e.RowIndex].Value.ToString();
+            lastAdressFirm = dataGridView2[1, e.RowIndex].Value.ToString();
+            lastTelefoneFirm = dataGridView2[2, e.RowIndex].Value.ToString();
 
-            textBoxNameFirmChange.Text = checkNameFirm;
-            textBoxAdressFirmChange.Text = checkAdressFirm;
-            textBoxTelefoneFirmChange.Text = checkTelefoneFirm;
+            textBoxNameFirmChange.Text = lastNameFirm;
+            textBoxAdressFirmChange.Text = lastAdressFirm;
+            textBoxTelefoneFirmChange.Text = lastTelefoneFirm;
             buttonProviderChange.Enabled = true;
         }
 
+        // Выбор поставщика для удаления
         private void dataGridViewProviderDelete(object sender, DataGridViewCellEventArgs e)
         {
             textBoxNameFirmDelete.Text = dataGridView3[0, e.RowIndex].Value.ToString();
@@ -121,7 +128,7 @@ namespace Delivery
             buttonProviderDelete.Enabled = true;
         }
 
-        // Добавление поставщика материалов
+        // Добавление поставщика
         private void buttonProviderAdd_Click(object sender, EventArgs e)
         {
             String nameFirm = textBoxNameFirmAdd.Text;
@@ -149,13 +156,85 @@ namespace Delivery
                         msc.CommandText = "INSERT INTO `Provider` (`name_firm`,`adress_firm`,`tel_number_firm`) VALUES ('" + nameFirm + "', '" + adressFirm + "' , '" + telefoneFirm + "')";
                         msc.Connection = ConnectionToMySQL;
                         msc.ExecuteNonQuery();
+
                         textBoxNameFirmAdd.Clear();
                         textBoxAdressFirmAdd.Clear();
                         textBoxTelefoneFirmAdd.Clear();
+
                         this.providerTableAdapter.Fill(this.testDataSet.Provider);
-                        //this.vodTableAdapter.Fill(this.drivers.vod);
-                        //checkNull();
-                        buttonProviderAdd.Enabled = false;
+
+                        MessageBox.Show("Добавление записи успешно произведено.");
+                    }
+                }
+            }
+        }
+
+        private void tabPage3_Leave(object sender, EventArgs e)
+        {
+            textBoxNameFirmAdd.Clear();
+            textBoxAdressFirmAdd.Clear();
+            textBoxTelefoneFirmAdd.Clear();
+        }
+
+        private void tabPage4_Leave(object sender, EventArgs e)
+        {
+            textBoxNameFirmChange.Clear();
+            textBoxAdressFirmChange.Clear();
+            textBoxTelefoneFirmChange.Clear();
+
+            buttonProviderChange.Enabled = false;
+        }
+
+        private void tabPage5_Leave(object sender, EventArgs e)
+        {
+            textBoxNameFirmDelete.Clear();
+            textBoxAdressFirmDelete.Clear();
+            textBoxTelefoneFirmDelete.Clear();
+
+            buttonProviderDelete.Enabled = false;
+        }
+
+        private void buttonProviderChange_Click(object sender, EventArgs e)
+        {
+            String nameFirm = textBoxNameFirmChange.Text;
+            String adressFirm = textBoxAdressFirmChange.Text;
+            String telefoneFirm = textBoxTelefoneFirmChange.Text;
+
+            if (nameFirm.Trim() == "")
+            {
+                MessageBox.Show("Необходимо заполнить поле 'Название фирмы'.");
+            }
+            else
+            {
+                if (telefoneFirm.Trim() == "")
+                {
+                    MessageBox.Show("Необходимо заполнить поле 'Телефонный номер фирмы'.");
+                }
+                else
+                {
+                    if (adressFirm.Trim() == "")
+                    {
+                        MessageBox.Show("Необходимо заполнить поле 'Адрес расположения фирмы'.");
+                    }
+                    else
+                    {
+                        MySqlCommand msc = new MySqlCommand();
+                        msc.CommandText = "UPDATE `Provider`  SET `name_firm` = '" + nameFirm + "', `tel_number_firm` = '" + telefoneFirm + "' , `adress_firm` = '" + adressFirm + "' WHERE `name_firm` = '" + lastNameFirm + "' AND `tel_number_firm` = '" + lastTelefoneFirm + "' AND `adress_firm` = '" + lastAdressFirm + "'";
+                        msc.Connection = ConnectionToMySQL;
+                        msc.ExecuteNonQuery();
+                        textBoxNameFirmChange.Clear();
+                        textBoxAdressFirmChange.Clear();
+                        textBoxTelefoneFirmChange.Clear();
+
+                        lastAdressFirm = null;
+                        lastNameFirm = null;
+                        lastTelefoneFirm = null;
+
+                        this.providerTableAdapter.Fill(this.testDataSet.Provider);
+
+                        buttonProviderChange.Enabled = false;
+
+                        MessageBox.Show("Изменение записи успешно произведено.");
                     }
                 }
             }

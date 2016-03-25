@@ -140,6 +140,7 @@
             this.tabPage3.TabIndex = 0;
             this.tabPage3.Text = "Добавление";
             this.tabPage3.UseVisualStyleBackColor = true;
+            this.tabPage3.Leave += new System.EventHandler(this.tabPage3_Leave);
             // 
             // buttonProviderAdd
             // 
@@ -264,6 +265,7 @@
             this.tabPage4.TabIndex = 1;
             this.tabPage4.Text = "Изменение";
             this.tabPage4.UseVisualStyleBackColor = true;
+            this.tabPage4.Leave += new System.EventHandler(this.tabPage4_Leave);
             // 
             // buttonProviderChange
             // 
@@ -274,6 +276,7 @@
             this.buttonProviderChange.TabIndex = 21;
             this.buttonProviderChange.Text = "Изменить";
             this.buttonProviderChange.UseVisualStyleBackColor = true;
+            this.buttonProviderChange.Click += new System.EventHandler(this.buttonProviderChange_Click);
             // 
             // textBoxAdressFirmChange
             // 
@@ -377,9 +380,11 @@
             this.tabPage5.TabIndex = 2;
             this.tabPage5.Text = "Удаление";
             this.tabPage5.UseVisualStyleBackColor = true;
+            this.tabPage5.Leave += new System.EventHandler(this.tabPage5_Leave);
             // 
             // buttonProviderDelete
             // 
+            this.buttonProviderDelete.Enabled = false;
             this.buttonProviderDelete.Location = new System.Drawing.Point(289, 309);
             this.buttonProviderDelete.Name = "buttonProviderDelete";
             this.buttonProviderDelete.Size = new System.Drawing.Size(75, 23);
