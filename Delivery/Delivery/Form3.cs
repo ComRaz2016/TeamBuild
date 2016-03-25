@@ -1496,23 +1496,62 @@ namespace Delivery
         // Получение первичного ключа товара на доставку
         public String getPkStatus()
         {
-            int dayOrder = Convert.ToInt32(dateTimePicker1.Value.ToString("dd"));
-            int dayNow = DateTime.Now.Day;
-            if (dayOrder == dayNow)
+            int differenceYear = dateTimePicker1.Value.Year.CompareTo(DateTime.Now.Year);
+            if (differenceYear == 0)
             {
-                String status = "Active";
-                MySqlCommand msc = new MySqlCommand();
-                msc.CommandText = "SELECT pk_status  FROM order_status  WHERE name_status  = '" + status + "'";
-                msc.Connection = ConnectionToMySQL;
-                MySqlDataReader dataReader = msc.ExecuteReader();
-                String statusPk = null;
-                while (dataReader.Read())
+                int differenceMonth = dateTimePicker1.Value.Month.CompareTo(DateTime.Now.Month);
+                if (differenceMonth == 0)
                 {
-                    statusPk = dataReader[0].ToString();
-                    //MessageBox.Show(materialPk);
+                    int differenceDay = dateTimePicker1.Value.Day.CompareTo(DateTime.Now.Day);
+                    if (differenceDay == 0)
+                    {
+                        String status = "Active";
+                        MySqlCommand msc = new MySqlCommand();
+                        msc.CommandText = "SELECT pk_status  FROM order_status  WHERE name_status  = '" + status + "'";
+                        msc.Connection = ConnectionToMySQL;
+                        MySqlDataReader dataReader = msc.ExecuteReader();
+                        String statusPk = null;
+                        while (dataReader.Read())
+                        {
+                            statusPk = dataReader[0].ToString();
+                            //MessageBox.Show(materialPk);
+                        }
+                        dataReader.Close();
+                        return statusPk;
+                    }
+                    else
+                    {
+                        String status = "Inactive";
+                        MySqlCommand msc = new MySqlCommand();
+                        msc.CommandText = "SELECT pk_status  FROM order_status  WHERE name_status  = '" + status + "'";
+                        msc.Connection = ConnectionToMySQL;
+                        MySqlDataReader dataReader = msc.ExecuteReader();
+                        String statusPk = null;
+                        while (dataReader.Read())
+                        {
+                            statusPk = dataReader[0].ToString();
+                            //MessageBox.Show(materialPk);
+                        }
+                        dataReader.Close();
+                        return statusPk;
+                    }
                 }
-                dataReader.Close();
-                return statusPk;
+                else
+                {
+                    String status = "Inactive";
+                    MySqlCommand msc = new MySqlCommand();
+                    msc.CommandText = "SELECT pk_status  FROM order_status  WHERE name_status  = '" + status + "'";
+                    msc.Connection = ConnectionToMySQL;
+                    MySqlDataReader dataReader = msc.ExecuteReader();
+                    String statusPk = null;
+                    while (dataReader.Read())
+                    {
+                        statusPk = dataReader[0].ToString();
+                        //MessageBox.Show(materialPk);
+                    }
+                    dataReader.Close();
+                    return statusPk;
+                }
             }
             else
             {
@@ -1530,6 +1569,49 @@ namespace Delivery
                 dataReader.Close();
                 return statusPk;
             }
+            //int differenceMonth = dateTimePicker1.Value.Month.CompareTo(DateTime.Now.Month);
+            //if (difference == 0)
+            //{
+            //    return null;
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Необходимо изменить время заказа. Минимальное время доставки - 1 час", "Ошибка во времени");
+            //    return null;
+
+            //}
+            //if (dayOrder == dayNow)
+            //{
+            //    String status = "Active";
+            //    MySqlCommand msc = new MySqlCommand();
+            //    msc.CommandText = "SELECT pk_status  FROM order_status  WHERE name_status  = '" + status + "'";
+            //    msc.Connection = ConnectionToMySQL;
+            //    MySqlDataReader dataReader = msc.ExecuteReader();
+            //    String statusPk = null;
+            //    while (dataReader.Read())
+            //    {
+            //        statusPk = dataReader[0].ToString();
+            //        //MessageBox.Show(materialPk);
+            //    }
+            //    dataReader.Close();
+            //    return statusPk;
+            //}
+            //else
+            //{
+            //    String status = "Inactive";
+            //    MySqlCommand msc = new MySqlCommand();
+            //    msc.CommandText = "SELECT pk_status  FROM order_status  WHERE name_status  = '" + status + "'";
+            //    msc.Connection = ConnectionToMySQL;
+            //    MySqlDataReader dataReader = msc.ExecuteReader();
+            //    String statusPk = null;
+            //    while (dataReader.Read())
+            //    {
+            //        statusPk = dataReader[0].ToString();
+            //        //MessageBox.Show(materialPk);
+            //    }
+            //    dataReader.Close();
+            //    return statusPk;
+            //}
         }
 
         // Получение первичного ключа товара на доставку
@@ -1736,8 +1818,6 @@ namespace Delivery
             // Стоимость доставки
             String costOrder = textBox8.Text;
 
-            String pkStatusOrder = getPkStatus();
-
             if (checkTrucks())
             {
                 if (checkNumberZone())
@@ -1750,6 +1830,8 @@ namespace Delivery
 
                     if (checkDataTime())
                     {
+                        String pkStatusOrder = getPkStatus();
+
                         //Получение даты и времени доставки
                         String dataTimeOrder = getDataTime();
 
