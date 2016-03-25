@@ -41,6 +41,8 @@ namespace Delivery
 
         private void FormProviderMaterial_Load(object sender, EventArgs e)
         {
+            // TODO: данная строка кода позволяет загрузить данные в таблицу "testDataSet.provider_material". При необходимости она может быть перемещена или удалена.
+            this.provider_materialTableAdapter.Fill(this.testDataSet.provider_material);
             // TODO: данная строка кода позволяет загрузить данные в таблицу "testDataSet.Provider". При необходимости она может быть перемещена или удалена.
             this.providerTableAdapter.Fill(this.testDataSet.Provider);
 
@@ -275,6 +277,156 @@ namespace Delivery
                     }
                 }
             }
+        }
+
+        public void insertProviderAddTable()
+        {
+            int count = dataGridView4.RowCount - 1;
+            for (int i = 0; i < count; i++)
+            {
+                String providerPk = null;
+                providerPk = dataGridView4.Rows[i].Cells[4].Value.ToString();
+                MySqlCommand msc = new MySqlCommand();
+                msc.CommandText = "SELECT `name_firm`  FROM `Provider`  WHERE `pk_provider`  = '" + providerPk + "'";
+                msc.Connection = ConnectionToMySQL;
+                MySqlDataReader dataReader = msc.ExecuteReader();
+                String nameFirm = null;
+                while (dataReader.Read())
+                {
+                    nameFirm = dataReader[0].ToString();
+                }
+                dataReader.Close();
+                dataGridView4.Rows[i].Cells[0].Value = nameFirm;
+            }
+            dataGridView4.Update();
+        }
+
+        public void insertMaterialAddTable()
+        {
+            int count = dataGridView4.RowCount - 1;
+            for (int i = 0; i < count; i++)
+            {
+                String materialPk = null;
+                materialPk = dataGridView4.Rows[i].Cells[2].Value.ToString();
+                MySqlCommand msc = new MySqlCommand();
+                msc.CommandText = "SELECT `name`  FROM `Material`  WHERE `pk_material`  = '" + materialPk + "'";
+                msc.Connection = ConnectionToMySQL;
+                MySqlDataReader dataReader = msc.ExecuteReader();
+                String nameMaterial = null;
+                while (dataReader.Read())
+                {
+                    nameMaterial = dataReader[0].ToString();
+                }
+                dataReader.Close();
+                dataGridView4.Rows[i].Cells[1].Value = nameMaterial;
+            }
+            dataGridView4.Update();
+        }
+
+        public void insertProviderChangeTable()
+        {
+            int count = dataGridView5.RowCount - 1;
+            for (int i = 0; i < count; i++)
+            {
+                String providerPk = null;
+                providerPk = dataGridView5.Rows[i].Cells[4].Value.ToString();
+                MySqlCommand msc = new MySqlCommand();
+                msc.CommandText = "SELECT `name_firm`  FROM `Provider`  WHERE `pk_provider`  = '" + providerPk + "'";
+                msc.Connection = ConnectionToMySQL;
+                MySqlDataReader dataReader = msc.ExecuteReader();
+                String nameFirm = null;
+                while (dataReader.Read())
+                {
+                    nameFirm = dataReader[0].ToString();
+                }
+                dataReader.Close();
+                dataGridView5.Rows[i].Cells[0].Value = nameFirm;
+            }
+            dataGridView5.Update();
+        }
+
+        public void insertMaterialChangeTable()
+        {
+            int count = dataGridView5.RowCount - 1;
+            for (int i = 0; i < count; i++)
+            {
+                String materialPk = null;
+                materialPk = dataGridView5.Rows[i].Cells[2].Value.ToString();
+                MySqlCommand msc = new MySqlCommand();
+                msc.CommandText = "SELECT `name`  FROM `Material`  WHERE `pk_material`  = '" + materialPk + "'";
+                msc.Connection = ConnectionToMySQL;
+                MySqlDataReader dataReader = msc.ExecuteReader();
+                String nameMaterial = null;
+                while (dataReader.Read())
+                {
+                    nameMaterial = dataReader[0].ToString();
+                }
+                dataReader.Close();
+                dataGridView5.Rows[i].Cells[1].Value = nameMaterial;
+            }
+            dataGridView5.Update();
+        }
+
+        public void insertProviderDeleteTable()
+        {
+            int count = dataGridView6.RowCount - 1;
+            for (int i = 0; i < count; i++)
+            {
+                String providerPk = null;
+                providerPk = dataGridView6.Rows[i].Cells[4].Value.ToString();
+                MySqlCommand msc = new MySqlCommand();
+                msc.CommandText = "SELECT `name_firm`  FROM `Provider`  WHERE `pk_provider`  = '" + providerPk + "'";
+                msc.Connection = ConnectionToMySQL;
+                MySqlDataReader dataReader = msc.ExecuteReader();
+                String nameFirm = null;
+                while (dataReader.Read())
+                {
+                    nameFirm = dataReader[0].ToString();
+                }
+                dataReader.Close();
+                dataGridView6.Rows[i].Cells[0].Value = nameFirm;
+            }
+            dataGridView6.Update();
+        }
+
+        public void insertMaterialDeleteTable()
+        {
+            int count = dataGridView6.RowCount - 1;
+            for (int i = 0; i < count; i++)
+            {
+                String materialPk = null;
+                materialPk = dataGridView6.Rows[i].Cells[2].Value.ToString();
+                MySqlCommand msc = new MySqlCommand();
+                msc.CommandText = "SELECT `name`  FROM `Material`  WHERE `pk_material`  = '" + materialPk + "'";
+                msc.Connection = ConnectionToMySQL;
+                MySqlDataReader dataReader = msc.ExecuteReader();
+                String nameMaterial = null;
+                while (dataReader.Read())
+                {
+                    nameMaterial = dataReader[0].ToString();
+                }
+                dataReader.Close();
+                dataGridView6.Rows[i].Cells[1].Value = nameMaterial;
+            }
+            dataGridView6.Update();
+        }
+
+        private void dataGridView4_Paint(object sender, PaintEventArgs e)
+        {
+            insertProviderAddTable();
+            insertMaterialAddTable();
+        }
+
+        private void dataGridView6_Paint(object sender, PaintEventArgs e)
+        {
+            insertProviderDeleteTable();
+            insertMaterialDeleteTable();
+        }
+
+        private void dataGridView5_Paint(object sender, PaintEventArgs e)
+        {
+            insertProviderChangeTable();
+            insertMaterialChangeTable();
         }
     }
 }
