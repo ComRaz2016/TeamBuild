@@ -921,8 +921,8 @@ namespace Delivery
             String serverName = "127.0.0.1"; // Адрес сервера (для локальной базы пишите "localhost")
             string userName = "dbadmin"; // Имя пользователя
             string dbName = "Test"; //Имя базы данных
-            string port = "6565"; // Порт для подключения
-            //string port = "9570"; // Порт для подключения
+            //string port = "6565"; // Порт для подключения
+            string port = "9570"; // Порт для подключения
             string password = "dbadmin"; // Пароль для подключения
             string charset = "utf8";
             String connStr = "server=" + serverName +
@@ -1660,36 +1660,47 @@ namespace Delivery
         //Получение даты и времени доставки
         public bool checkDataTime()
         {
-            int dayOrder = Convert.ToInt32(dateTimePicker1.Value.ToString("dd"));
-            int dayNow = DateTime.Now.Day;
-            if (dayOrder == dayNow)
+            int difference = dateTimePicker1.Value.CompareTo(DateTime.Now.AddHours(1));
+            //int dateOrder = Convert.ToInt32(dateTimePicker1.Value.ToString("dd/MM/yyyy HH:mm:ss"));//.ToString("dd"));
+            //int dateNow = Convert.ToInt32(DateTime.Now.AddHours(1));
+            if (difference>=0 )
             {
-                int hourOrder = Convert.ToInt32(dateTimePicker1.Value.ToString("HH"));
-                int minuteOrder = Convert.ToInt32(dateTimePicker1.Value.ToString("mm"));
-
-                DateTime nowTime = DateTime.Now.AddHours(1);
-                int hourNow = nowTime.Hour;
-                int minuteNow = nowTime.Minute;
-                if (hourNow > hourOrder)
-                {
-                    MessageBox.Show("Необходимо изменить время заказа. Минимальное время доставки - 1 час", "Ошибка в часах");
-                    return false;
-                }
-                if (hourNow == hourOrder)
-                {
-                    if (minuteNow > minuteOrder)
-                    {
-                        MessageBox.Show("Необходимо изменить время заказа. Минимальное время доставки - 1 час", "Ошибка в минутах");
-                        return false;
-                    }
-                }
                 return true;
             }
             else
             {
-                return true;
+                MessageBox.Show("Необходимо изменить время заказа. Минимальное время доставки - 1 час", "Ошибка во времени");
+                return false;
+
             }
-            
+            /* if (dayOrder == dayNow)
+             {
+                 int hourOrder = Convert.ToInt32(dateTimePicker1.Value.ToString("HH"));
+                 int minuteOrder = Convert.ToInt32(dateTimePicker1.Value.ToString("mm"));
+
+                 DateTime nowTime = DateTime.Now.AddHours(1);
+                 int hourNow = nowTime.Hour;
+                 int minuteNow = nowTime.Minute;
+                 if (hourNow > hourOrder)
+                 {
+                     MessageBox.Show("Необходимо изменить время заказа. Минимальное время доставки - 1 час", "Ошибка в часах");
+                     return false;
+                 }
+                 if (hourNow == hourOrder)
+                 {
+                     if (minuteNow > minuteOrder)
+                     {
+                         MessageBox.Show("Необходимо изменить время заказа. Минимальное время доставки - 1 час", "Ошибка в минутах");
+                         return false;
+                     }
+                 }
+                 return true;
+             }
+             else
+             {
+                 return true;
+             }*/
+
         }
 
         public bool checkTrucks()

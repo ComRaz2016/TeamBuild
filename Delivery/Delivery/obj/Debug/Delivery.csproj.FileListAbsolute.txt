@@ -31,3 +31,14 @@ C:\Users\Danil\Source\Repos\TeamRep\Delivery\Delivery\obj\Debug\Delivery.Form3.r
 C:\Users\Danil\Source\Repos\TeamRep\Delivery\Delivery\obj\Debug\Delivery.Properties.Resources.resources
 C:\Users\Danil\Source\Repos\TeamRep\Delivery\Delivery\obj\Debug\Delivery.csproj.GenerateResource.Cache
 C:\Users\Данил\Source\Repos\TeamBuild\Delivery\Delivery\obj\Debug\Delivery.csprojResolveAssemblyReference.cache
+C:\AGTU\ComRaz\TeamBuild\Delivery\Delivery\bin\Debug\Delivery.exe.config
+C:\AGTU\ComRaz\TeamBuild\Delivery\Delivery\obj\Debug\Delivery.exe
+C:\AGTU\ComRaz\TeamBuild\Delivery\Delivery\obj\Debug\Delivery.pdb
+C:\AGTU\ComRaz\TeamBuild\Delivery\Delivery\bin\Debug\Delivery.exe
+C:\AGTU\ComRaz\TeamBuild\Delivery\Delivery\bin\Debug\Delivery.pdb
+C:\AGTU\ComRaz\TeamBuild\Delivery\Delivery\bin\Debug\MySql.Data.dll
+C:\AGTU\ComRaz\TeamBuild\Delivery\Delivery\obj\Debug\Delivery.csprojResolveAssemblyReference.cache
+C:\AGTU\ComRaz\TeamBuild\Delivery\Delivery\obj\Debug\Delivery.Form1.resources
+C:\AGTU\ComRaz\TeamBuild\Delivery\Delivery\obj\Debug\Delivery.Form3.resources
+C:\AGTU\ComRaz\TeamBuild\Delivery\Delivery\obj\Debug\Delivery.Properties.Resources.resources
+C:\AGTU\ComRaz\TeamBuild\Delivery\Delivery\obj\Debug\Delivery.csproj.GenerateResource.Cache
