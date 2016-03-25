@@ -585,6 +585,7 @@ namespace Delivery
             buttonMaterialDelete.Enabled = false;
         }
 
+        // Выбор названия материала для изменения
         private void dataGridViewMaterialChange(object sender, DataGridViewCellEventArgs e)
         {
             lastNameMaterial = dataGridView8[0, e.RowIndex].Value.ToString();
@@ -594,6 +595,7 @@ namespace Delivery
             buttonMaterialChange.Enabled = true;
         }
 
+        // Выбор названия материала для удаления
         private void dataGridViewMaterialDelete(object sender, DataGridViewCellEventArgs e)
         {
             textBoxMaterialDelete.Text = dataGridView9[0, e.RowIndex].Value.ToString();
