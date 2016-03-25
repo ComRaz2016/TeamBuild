@@ -619,5 +619,107 @@ namespace Delivery
         {
             textBoxMaterialAdd.Clear();
         }
+
+        private void buttonMaterialProviderAdd_Click(object sender, EventArgs e)
+        {
+            String nameFirm = comboBoxProviderAdd.Text;
+            String nameMaterial = comboBoxMaterialAdd.Text;
+            String bagCost = textBoxBagCostAdd.Text;
+            String tonnCost = textBoxTonnCostAdd.Text;
+            if (comboBoxProviderAdd.Items.Count == 0)
+            {
+                MessageBox.Show("Необходимо выбрать поставщика.");
+            }
+            else
+            {
+                if (comboBoxMaterialAdd.Items.Count == 0)
+                {
+                    MessageBox.Show("Необходимо выбрать материал.");
+                }
+                else
+                {
+                    if (bagCost.Trim() == "" && tonnCost.Trim() == "")
+                    {
+                        MessageBox.Show("Необходимо заполнить поле 'Цена за тонну' или 'Цена за мешок'.");
+                    }
+                    else
+                    {
+                        MySqlCommand msc = new MySqlCommand();
+                        msc.CommandText = "SELECT `pk_provider`  FROM `Provider`  WHERE `name_firm`  = '" + nameFirm + "'";
+                        msc.Connection = ConnectionToMySQL;
+                        MySqlDataReader dataReader = msc.ExecuteReader();
+                        String providerPk = null;
+                        while (dataReader.Read())
+                        {
+                            providerPk = dataReader[0].ToString();
+                        }
+                        dataReader.Close();
+
+                        msc.CommandText = "SELECT `pk_material`  FROM `Material`  WHERE `name`  = '" + nameMaterial + "'";
+                        msc.Connection = ConnectionToMySQL;
+                        dataReader = msc.ExecuteReader();
+                        String materialPk = null;
+                        while (dataReader.Read())
+                        {
+                            materialPk = dataReader[0].ToString();
+                        }
+                        dataReader.Close();
+
+                        msc.CommandText = "SELECT `cost_bag`  FROM `provider_material`  WHERE `pk_provider`  = '" + providerPk + "' AND `pk_material`  = '" + materialPk + "'";
+                        msc.Connection = ConnectionToMySQL;
+                        dataReader = msc.ExecuteReader();
+                        String anything = null;
+                        int count = 0;
+                        while (dataReader.Read())
+                        {
+                            count++;
+                            anything = dataReader[0].ToString();
+                        }
+                        dataReader.Close();
+
+                        if (count == 0)
+                        {
+                            msc.CommandText = "INSERT INTO `provider_material` (`pk_provider`,`pk_material`,`cost_bag`, `cost_tonna`) VALUES ('" + providerPk + "', '" + materialPk + "' , '" + bagCost + "', '" + tonnCost + "')";
+                            msc.Connection = ConnectionToMySQL;
+                            msc.ExecuteNonQuery();
+
+                            this.provider_materialTableAdapter.Fill(this.testDataSet.provider_material);
+
+                            MessageBox.Show("Добавление записи успешно произведено.");
+
+                            textBoxBagCostAdd.Clear();
+                            textBoxTonnCostAdd.Clear();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Поставщик уже предоставляет данный материал для доставки.");
+
+                            textBoxBagCostAdd.Clear();
+                            textBoxTonnCostAdd.Clear();
+                        }
+                    }
+                }
+            }
+        }
+
+        private void buttonProviderMaterialChange_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonProviderMaterialDelete_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridViewProviderMaterialChange(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dataGridViewProviderMaterialDelete(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

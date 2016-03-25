@@ -73,6 +73,17 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabControl3 = new System.Windows.Forms.TabControl();
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.buttonMaterialProviderAdd = new System.Windows.Forms.Button();
+            this.textBoxTonnCostAdd = new System.Windows.Forms.TextBox();
+            this.textBoxBagCostAdd = new System.Windows.Forms.TextBox();
+            this.labelTonnCostAdd = new System.Windows.Forms.Label();
+            this.labelBagCostAdd = new System.Windows.Forms.Label();
+            this.comboBoxMaterialAdd = new System.Windows.Forms.ComboBox();
+            this.materialBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.comboBoxProviderAdd = new System.Windows.Forms.ComboBox();
+            this.providerBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.labelMaterialProviderAdd = new System.Windows.Forms.Label();
+            this.labelProviderMaterialAdd = new System.Windows.Forms.Label();
             this.dataGridView4 = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -82,6 +93,15 @@
             this.costtonnaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.providermaterialBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.buttonProviderMaterialChange = new System.Windows.Forms.Button();
+            this.textBoxTonnCostChange = new System.Windows.Forms.TextBox();
+            this.textBoxBagCostChange = new System.Windows.Forms.TextBox();
+            this.labelTonnCostChange = new System.Windows.Forms.Label();
+            this.labelBagCostChange = new System.Windows.Forms.Label();
+            this.comboBoxMaterialChange = new System.Windows.Forms.ComboBox();
+            this.comboBoxProviderChange = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.labelProviderMaterialChange = new System.Windows.Forms.Label();
             this.dataGridView5 = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -90,6 +110,15 @@
             this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.buttonProviderMaterialDelete = new System.Windows.Forms.Button();
+            this.textBoxTonnCostDelete = new System.Windows.Forms.TextBox();
+            this.textBoxBagCostDelete = new System.Windows.Forms.TextBox();
+            this.labelTonnCostDelete = new System.Windows.Forms.Label();
+            this.labelBagCostDelete = new System.Windows.Forms.Label();
+            this.comboBoxMaterialDelete = new System.Windows.Forms.ComboBox();
+            this.comboBoxProviderDelete = new System.Windows.Forms.ComboBox();
+            this.labelMaterialProviderDelete = new System.Windows.Forms.Label();
+            this.labelProviderMaterialDelete = new System.Windows.Forms.Label();
             this.dataGridView6 = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -121,35 +150,6 @@
             this.providerTableAdapter = new Delivery.TestDataSetTableAdapters.ProviderTableAdapter();
             this.provider_materialTableAdapter = new Delivery.TestDataSetTableAdapters.provider_materialTableAdapter();
             this.materialTableAdapter = new Delivery.TestDataSetTableAdapters.MaterialTableAdapter();
-            this.labelProviderMaterialAdd = new System.Windows.Forms.Label();
-            this.labelMaterialProviderAdd = new System.Windows.Forms.Label();
-            this.comboBoxProviderAdd = new System.Windows.Forms.ComboBox();
-            this.comboBoxMaterialAdd = new System.Windows.Forms.ComboBox();
-            this.providerBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.materialBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.labelBagCostAdd = new System.Windows.Forms.Label();
-            this.labelTonnCostAdd = new System.Windows.Forms.Label();
-            this.textBoxBagCostAdd = new System.Windows.Forms.TextBox();
-            this.textBoxTonnCostAdd = new System.Windows.Forms.TextBox();
-            this.buttonMaterialProviderAdd = new System.Windows.Forms.Button();
-            this.buttonProviderMaterialChange = new System.Windows.Forms.Button();
-            this.textBoxTonnCostChange = new System.Windows.Forms.TextBox();
-            this.textBoxBagCostChange = new System.Windows.Forms.TextBox();
-            this.labelTonnCostChange = new System.Windows.Forms.Label();
-            this.labelBagCostChange = new System.Windows.Forms.Label();
-            this.comboBoxMaterialChange = new System.Windows.Forms.ComboBox();
-            this.comboBoxProviderChange = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.labelProviderMaterialChange = new System.Windows.Forms.Label();
-            this.buttonProviderMaterialDelete = new System.Windows.Forms.Button();
-            this.textBoxTonnCostDelete = new System.Windows.Forms.TextBox();
-            this.textBoxBagCostDelete = new System.Windows.Forms.TextBox();
-            this.labelTonnCostDelete = new System.Windows.Forms.Label();
-            this.labelBagCostDelete = new System.Windows.Forms.Label();
-            this.comboBoxMaterialDelete = new System.Windows.Forms.ComboBox();
-            this.comboBoxProviderDelete = new System.Windows.Forms.ComboBox();
-            this.labelMaterialProviderDelete = new System.Windows.Forms.Label();
-            this.labelProviderMaterialDelete = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabControl2.SuspendLayout();
@@ -164,6 +164,8 @@
             this.tabPage2.SuspendLayout();
             this.tabControl3.SuspendLayout();
             this.tabPage6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.materialBindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.providerBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.providermaterialBindingSource)).BeginInit();
             this.tabPage7.SuspendLayout();
@@ -179,8 +181,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView8)).BeginInit();
             this.tabPage12.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.providerBindingSource1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.materialBindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -617,6 +617,96 @@
             this.tabPage6.Text = "Добавление";
             this.tabPage6.UseVisualStyleBackColor = true;
             // 
+            // buttonMaterialProviderAdd
+            // 
+            this.buttonMaterialProviderAdd.Location = new System.Drawing.Point(295, 301);
+            this.buttonMaterialProviderAdd.Name = "buttonMaterialProviderAdd";
+            this.buttonMaterialProviderAdd.Size = new System.Drawing.Size(75, 23);
+            this.buttonMaterialProviderAdd.TabIndex = 9;
+            this.buttonMaterialProviderAdd.Text = "Добавить";
+            this.buttonMaterialProviderAdd.UseVisualStyleBackColor = true;
+            this.buttonMaterialProviderAdd.Click += new System.EventHandler(this.buttonMaterialProviderAdd_Click);
+            // 
+            // textBoxTonnCostAdd
+            // 
+            this.textBoxTonnCostAdd.Location = new System.Drawing.Point(485, 253);
+            this.textBoxTonnCostAdd.Name = "textBoxTonnCostAdd";
+            this.textBoxTonnCostAdd.Size = new System.Drawing.Size(112, 20);
+            this.textBoxTonnCostAdd.TabIndex = 8;
+            // 
+            // textBoxBagCostAdd
+            // 
+            this.textBoxBagCostAdd.Location = new System.Drawing.Point(485, 228);
+            this.textBoxBagCostAdd.Name = "textBoxBagCostAdd";
+            this.textBoxBagCostAdd.Size = new System.Drawing.Size(112, 20);
+            this.textBoxBagCostAdd.TabIndex = 7;
+            // 
+            // labelTonnCostAdd
+            // 
+            this.labelTonnCostAdd.AutoSize = true;
+            this.labelTonnCostAdd.Location = new System.Drawing.Point(371, 256);
+            this.labelTonnCostAdd.Name = "labelTonnCostAdd";
+            this.labelTonnCostAdd.Size = new System.Drawing.Size(102, 13);
+            this.labelTonnCostAdd.TabIndex = 6;
+            this.labelTonnCostAdd.Text = "Цена за тонну(руб)";
+            // 
+            // labelBagCostAdd
+            // 
+            this.labelBagCostAdd.AutoSize = true;
+            this.labelBagCostAdd.Location = new System.Drawing.Point(371, 231);
+            this.labelBagCostAdd.Name = "labelBagCostAdd";
+            this.labelBagCostAdd.Size = new System.Drawing.Size(108, 13);
+            this.labelBagCostAdd.TabIndex = 5;
+            this.labelBagCostAdd.Text = "Цена за мешок(руб)";
+            // 
+            // comboBoxMaterialAdd
+            // 
+            this.comboBoxMaterialAdd.DataSource = this.materialBindingSource1;
+            this.comboBoxMaterialAdd.DisplayMember = "name";
+            this.comboBoxMaterialAdd.FormattingEnabled = true;
+            this.comboBoxMaterialAdd.Location = new System.Drawing.Point(147, 253);
+            this.comboBoxMaterialAdd.Name = "comboBoxMaterialAdd";
+            this.comboBoxMaterialAdd.Size = new System.Drawing.Size(153, 21);
+            this.comboBoxMaterialAdd.TabIndex = 4;
+            // 
+            // materialBindingSource1
+            // 
+            this.materialBindingSource1.DataMember = "Material";
+            this.materialBindingSource1.DataSource = this.testDataSet;
+            // 
+            // comboBoxProviderAdd
+            // 
+            this.comboBoxProviderAdd.DataSource = this.providerBindingSource1;
+            this.comboBoxProviderAdd.DisplayMember = "name_firm";
+            this.comboBoxProviderAdd.FormattingEnabled = true;
+            this.comboBoxProviderAdd.Location = new System.Drawing.Point(147, 228);
+            this.comboBoxProviderAdd.Name = "comboBoxProviderAdd";
+            this.comboBoxProviderAdd.Size = new System.Drawing.Size(153, 21);
+            this.comboBoxProviderAdd.TabIndex = 3;
+            // 
+            // providerBindingSource1
+            // 
+            this.providerBindingSource1.DataMember = "Provider";
+            this.providerBindingSource1.DataSource = this.testDataSet;
+            // 
+            // labelMaterialProviderAdd
+            // 
+            this.labelMaterialProviderAdd.AutoSize = true;
+            this.labelMaterialProviderAdd.Location = new System.Drawing.Point(73, 256);
+            this.labelMaterialProviderAdd.Name = "labelMaterialProviderAdd";
+            this.labelMaterialProviderAdd.Size = new System.Drawing.Size(63, 13);
+            this.labelMaterialProviderAdd.TabIndex = 2;
+            this.labelMaterialProviderAdd.Text = "Материал: ";
+            // 
+            // labelProviderMaterialAdd
+            // 
+            this.labelProviderMaterialAdd.AutoSize = true;
+            this.labelProviderMaterialAdd.Location = new System.Drawing.Point(73, 231);
+            this.labelProviderMaterialAdd.Name = "labelProviderMaterialAdd";
+            this.labelProviderMaterialAdd.Size = new System.Drawing.Size(68, 13);
+            this.labelProviderMaterialAdd.TabIndex = 1;
+            this.labelProviderMaterialAdd.Text = "Поставщик:";
+            // 
             // dataGridView4
             // 
             this.dataGridView4.AutoGenerateColumns = false;
@@ -710,6 +800,87 @@
             this.tabPage7.Text = "Изменение";
             this.tabPage7.UseVisualStyleBackColor = true;
             // 
+            // buttonProviderMaterialChange
+            // 
+            this.buttonProviderMaterialChange.Enabled = false;
+            this.buttonProviderMaterialChange.Location = new System.Drawing.Point(295, 301);
+            this.buttonProviderMaterialChange.Name = "buttonProviderMaterialChange";
+            this.buttonProviderMaterialChange.Size = new System.Drawing.Size(75, 23);
+            this.buttonProviderMaterialChange.TabIndex = 18;
+            this.buttonProviderMaterialChange.Text = "Изменить";
+            this.buttonProviderMaterialChange.UseVisualStyleBackColor = true;
+            this.buttonProviderMaterialChange.Click += new System.EventHandler(this.buttonProviderMaterialChange_Click);
+            // 
+            // textBoxTonnCostChange
+            // 
+            this.textBoxTonnCostChange.Location = new System.Drawing.Point(485, 253);
+            this.textBoxTonnCostChange.Name = "textBoxTonnCostChange";
+            this.textBoxTonnCostChange.Size = new System.Drawing.Size(112, 20);
+            this.textBoxTonnCostChange.TabIndex = 17;
+            // 
+            // textBoxBagCostChange
+            // 
+            this.textBoxBagCostChange.Location = new System.Drawing.Point(485, 228);
+            this.textBoxBagCostChange.Name = "textBoxBagCostChange";
+            this.textBoxBagCostChange.Size = new System.Drawing.Size(112, 20);
+            this.textBoxBagCostChange.TabIndex = 16;
+            // 
+            // labelTonnCostChange
+            // 
+            this.labelTonnCostChange.AutoSize = true;
+            this.labelTonnCostChange.Location = new System.Drawing.Point(371, 256);
+            this.labelTonnCostChange.Name = "labelTonnCostChange";
+            this.labelTonnCostChange.Size = new System.Drawing.Size(102, 13);
+            this.labelTonnCostChange.TabIndex = 15;
+            this.labelTonnCostChange.Text = "Цена за тонну(руб)";
+            // 
+            // labelBagCostChange
+            // 
+            this.labelBagCostChange.AutoSize = true;
+            this.labelBagCostChange.Location = new System.Drawing.Point(371, 231);
+            this.labelBagCostChange.Name = "labelBagCostChange";
+            this.labelBagCostChange.Size = new System.Drawing.Size(108, 13);
+            this.labelBagCostChange.TabIndex = 14;
+            this.labelBagCostChange.Text = "Цена за мешок(руб)";
+            // 
+            // comboBoxMaterialChange
+            // 
+            this.comboBoxMaterialChange.DataSource = this.materialBindingSource1;
+            this.comboBoxMaterialChange.DisplayMember = "name";
+            this.comboBoxMaterialChange.FormattingEnabled = true;
+            this.comboBoxMaterialChange.Location = new System.Drawing.Point(147, 253);
+            this.comboBoxMaterialChange.Name = "comboBoxMaterialChange";
+            this.comboBoxMaterialChange.Size = new System.Drawing.Size(153, 21);
+            this.comboBoxMaterialChange.TabIndex = 13;
+            // 
+            // comboBoxProviderChange
+            // 
+            this.comboBoxProviderChange.DataSource = this.providerBindingSource1;
+            this.comboBoxProviderChange.DisplayMember = "name_firm";
+            this.comboBoxProviderChange.FormattingEnabled = true;
+            this.comboBoxProviderChange.Location = new System.Drawing.Point(147, 228);
+            this.comboBoxProviderChange.Name = "comboBoxProviderChange";
+            this.comboBoxProviderChange.Size = new System.Drawing.Size(153, 21);
+            this.comboBoxProviderChange.TabIndex = 12;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(73, 256);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(63, 13);
+            this.label3.TabIndex = 11;
+            this.label3.Text = "Материал: ";
+            // 
+            // labelProviderMaterialChange
+            // 
+            this.labelProviderMaterialChange.AutoSize = true;
+            this.labelProviderMaterialChange.Location = new System.Drawing.Point(73, 231);
+            this.labelProviderMaterialChange.Name = "labelProviderMaterialChange";
+            this.labelProviderMaterialChange.Size = new System.Drawing.Size(68, 13);
+            this.labelProviderMaterialChange.TabIndex = 10;
+            this.labelProviderMaterialChange.Text = "Поставщик:";
+            // 
             // dataGridView5
             // 
             this.dataGridView5.AutoGenerateColumns = false;
@@ -726,6 +897,7 @@
             this.dataGridView5.Name = "dataGridView5";
             this.dataGridView5.Size = new System.Drawing.Size(665, 204);
             this.dataGridView5.TabIndex = 1;
+            this.dataGridView5.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewProviderMaterialChange);
             this.dataGridView5.Paint += new System.Windows.Forms.PaintEventHandler(this.dataGridView5_Paint);
             // 
             // dataGridViewTextBoxColumn7
@@ -797,6 +969,89 @@
             this.tabPage8.Text = "Удаление";
             this.tabPage8.UseVisualStyleBackColor = true;
             // 
+            // buttonProviderMaterialDelete
+            // 
+            this.buttonProviderMaterialDelete.Enabled = false;
+            this.buttonProviderMaterialDelete.Location = new System.Drawing.Point(295, 301);
+            this.buttonProviderMaterialDelete.Name = "buttonProviderMaterialDelete";
+            this.buttonProviderMaterialDelete.Size = new System.Drawing.Size(75, 23);
+            this.buttonProviderMaterialDelete.TabIndex = 18;
+            this.buttonProviderMaterialDelete.Text = "Удалить";
+            this.buttonProviderMaterialDelete.UseVisualStyleBackColor = true;
+            this.buttonProviderMaterialDelete.Click += new System.EventHandler(this.buttonProviderMaterialDelete_Click);
+            // 
+            // textBoxTonnCostDelete
+            // 
+            this.textBoxTonnCostDelete.Location = new System.Drawing.Point(485, 253);
+            this.textBoxTonnCostDelete.Name = "textBoxTonnCostDelete";
+            this.textBoxTonnCostDelete.ReadOnly = true;
+            this.textBoxTonnCostDelete.Size = new System.Drawing.Size(112, 20);
+            this.textBoxTonnCostDelete.TabIndex = 17;
+            // 
+            // textBoxBagCostDelete
+            // 
+            this.textBoxBagCostDelete.Location = new System.Drawing.Point(485, 228);
+            this.textBoxBagCostDelete.Name = "textBoxBagCostDelete";
+            this.textBoxBagCostDelete.ReadOnly = true;
+            this.textBoxBagCostDelete.Size = new System.Drawing.Size(112, 20);
+            this.textBoxBagCostDelete.TabIndex = 16;
+            // 
+            // labelTonnCostDelete
+            // 
+            this.labelTonnCostDelete.AutoSize = true;
+            this.labelTonnCostDelete.Location = new System.Drawing.Point(371, 256);
+            this.labelTonnCostDelete.Name = "labelTonnCostDelete";
+            this.labelTonnCostDelete.Size = new System.Drawing.Size(102, 13);
+            this.labelTonnCostDelete.TabIndex = 15;
+            this.labelTonnCostDelete.Text = "Цена за тонну(руб)";
+            // 
+            // labelBagCostDelete
+            // 
+            this.labelBagCostDelete.AutoSize = true;
+            this.labelBagCostDelete.Location = new System.Drawing.Point(371, 231);
+            this.labelBagCostDelete.Name = "labelBagCostDelete";
+            this.labelBagCostDelete.Size = new System.Drawing.Size(108, 13);
+            this.labelBagCostDelete.TabIndex = 14;
+            this.labelBagCostDelete.Text = "Цена за мешок(руб)";
+            // 
+            // comboBoxMaterialDelete
+            // 
+            this.comboBoxMaterialDelete.DataSource = this.materialBindingSource1;
+            this.comboBoxMaterialDelete.DisplayMember = "name";
+            this.comboBoxMaterialDelete.FormattingEnabled = true;
+            this.comboBoxMaterialDelete.Location = new System.Drawing.Point(147, 253);
+            this.comboBoxMaterialDelete.Name = "comboBoxMaterialDelete";
+            this.comboBoxMaterialDelete.Size = new System.Drawing.Size(153, 21);
+            this.comboBoxMaterialDelete.TabIndex = 13;
+            // 
+            // comboBoxProviderDelete
+            // 
+            this.comboBoxProviderDelete.DataSource = this.providerBindingSource1;
+            this.comboBoxProviderDelete.DisplayMember = "name_firm";
+            this.comboBoxProviderDelete.FormattingEnabled = true;
+            this.comboBoxProviderDelete.Location = new System.Drawing.Point(147, 228);
+            this.comboBoxProviderDelete.Name = "comboBoxProviderDelete";
+            this.comboBoxProviderDelete.Size = new System.Drawing.Size(153, 21);
+            this.comboBoxProviderDelete.TabIndex = 12;
+            // 
+            // labelMaterialProviderDelete
+            // 
+            this.labelMaterialProviderDelete.AutoSize = true;
+            this.labelMaterialProviderDelete.Location = new System.Drawing.Point(73, 256);
+            this.labelMaterialProviderDelete.Name = "labelMaterialProviderDelete";
+            this.labelMaterialProviderDelete.Size = new System.Drawing.Size(63, 13);
+            this.labelMaterialProviderDelete.TabIndex = 11;
+            this.labelMaterialProviderDelete.Text = "Материал: ";
+            // 
+            // labelProviderMaterialDelete
+            // 
+            this.labelProviderMaterialDelete.AutoSize = true;
+            this.labelProviderMaterialDelete.Location = new System.Drawing.Point(73, 231);
+            this.labelProviderMaterialDelete.Name = "labelProviderMaterialDelete";
+            this.labelProviderMaterialDelete.Size = new System.Drawing.Size(68, 13);
+            this.labelProviderMaterialDelete.TabIndex = 10;
+            this.labelProviderMaterialDelete.Text = "Поставщик:";
+            // 
             // dataGridView6
             // 
             this.dataGridView6.AutoGenerateColumns = false;
@@ -813,6 +1068,7 @@
             this.dataGridView6.Name = "dataGridView6";
             this.dataGridView6.Size = new System.Drawing.Size(665, 204);
             this.dataGridView6.TabIndex = 1;
+            this.dataGridView6.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewProviderMaterialDelete);
             this.dataGridView6.Paint += new System.Windows.Forms.PaintEventHandler(this.dataGridView6_Paint);
             // 
             // dataGridViewTextBoxColumn13
@@ -1090,257 +1346,6 @@
             // 
             this.materialTableAdapter.ClearBeforeFill = true;
             // 
-            // labelProviderMaterialAdd
-            // 
-            this.labelProviderMaterialAdd.AutoSize = true;
-            this.labelProviderMaterialAdd.Location = new System.Drawing.Point(73, 231);
-            this.labelProviderMaterialAdd.Name = "labelProviderMaterialAdd";
-            this.labelProviderMaterialAdd.Size = new System.Drawing.Size(68, 13);
-            this.labelProviderMaterialAdd.TabIndex = 1;
-            this.labelProviderMaterialAdd.Text = "Поставщик:";
-            // 
-            // labelMaterialProviderAdd
-            // 
-            this.labelMaterialProviderAdd.AutoSize = true;
-            this.labelMaterialProviderAdd.Location = new System.Drawing.Point(73, 256);
-            this.labelMaterialProviderAdd.Name = "labelMaterialProviderAdd";
-            this.labelMaterialProviderAdd.Size = new System.Drawing.Size(63, 13);
-            this.labelMaterialProviderAdd.TabIndex = 2;
-            this.labelMaterialProviderAdd.Text = "Материал: ";
-            // 
-            // comboBoxProviderAdd
-            // 
-            this.comboBoxProviderAdd.DataSource = this.providerBindingSource1;
-            this.comboBoxProviderAdd.DisplayMember = "name_firm";
-            this.comboBoxProviderAdd.FormattingEnabled = true;
-            this.comboBoxProviderAdd.Location = new System.Drawing.Point(147, 228);
-            this.comboBoxProviderAdd.Name = "comboBoxProviderAdd";
-            this.comboBoxProviderAdd.Size = new System.Drawing.Size(153, 21);
-            this.comboBoxProviderAdd.TabIndex = 3;
-            // 
-            // comboBoxMaterialAdd
-            // 
-            this.comboBoxMaterialAdd.DataSource = this.materialBindingSource1;
-            this.comboBoxMaterialAdd.DisplayMember = "name";
-            this.comboBoxMaterialAdd.FormattingEnabled = true;
-            this.comboBoxMaterialAdd.Location = new System.Drawing.Point(147, 253);
-            this.comboBoxMaterialAdd.Name = "comboBoxMaterialAdd";
-            this.comboBoxMaterialAdd.Size = new System.Drawing.Size(153, 21);
-            this.comboBoxMaterialAdd.TabIndex = 4;
-            // 
-            // providerBindingSource1
-            // 
-            this.providerBindingSource1.DataMember = "Provider";
-            this.providerBindingSource1.DataSource = this.testDataSet;
-            // 
-            // materialBindingSource1
-            // 
-            this.materialBindingSource1.DataMember = "Material";
-            this.materialBindingSource1.DataSource = this.testDataSet;
-            // 
-            // labelBagCostAdd
-            // 
-            this.labelBagCostAdd.AutoSize = true;
-            this.labelBagCostAdd.Location = new System.Drawing.Point(371, 231);
-            this.labelBagCostAdd.Name = "labelBagCostAdd";
-            this.labelBagCostAdd.Size = new System.Drawing.Size(108, 13);
-            this.labelBagCostAdd.TabIndex = 5;
-            this.labelBagCostAdd.Text = "Цена за мешок(руб)";
-            // 
-            // labelTonnCostAdd
-            // 
-            this.labelTonnCostAdd.AutoSize = true;
-            this.labelTonnCostAdd.Location = new System.Drawing.Point(371, 256);
-            this.labelTonnCostAdd.Name = "labelTonnCostAdd";
-            this.labelTonnCostAdd.Size = new System.Drawing.Size(102, 13);
-            this.labelTonnCostAdd.TabIndex = 6;
-            this.labelTonnCostAdd.Text = "Цена за тонну(руб)";
-            // 
-            // textBoxBagCostAdd
-            // 
-            this.textBoxBagCostAdd.Location = new System.Drawing.Point(485, 228);
-            this.textBoxBagCostAdd.Name = "textBoxBagCostAdd";
-            this.textBoxBagCostAdd.Size = new System.Drawing.Size(112, 20);
-            this.textBoxBagCostAdd.TabIndex = 7;
-            // 
-            // textBoxTonnCostAdd
-            // 
-            this.textBoxTonnCostAdd.Location = new System.Drawing.Point(485, 253);
-            this.textBoxTonnCostAdd.Name = "textBoxTonnCostAdd";
-            this.textBoxTonnCostAdd.Size = new System.Drawing.Size(112, 20);
-            this.textBoxTonnCostAdd.TabIndex = 8;
-            // 
-            // buttonMaterialProviderAdd
-            // 
-            this.buttonMaterialProviderAdd.Location = new System.Drawing.Point(295, 301);
-            this.buttonMaterialProviderAdd.Name = "buttonMaterialProviderAdd";
-            this.buttonMaterialProviderAdd.Size = new System.Drawing.Size(75, 23);
-            this.buttonMaterialProviderAdd.TabIndex = 9;
-            this.buttonMaterialProviderAdd.Text = "Добавить";
-            this.buttonMaterialProviderAdd.UseVisualStyleBackColor = true;
-            // 
-            // buttonProviderMaterialChange
-            // 
-            this.buttonProviderMaterialChange.Enabled = false;
-            this.buttonProviderMaterialChange.Location = new System.Drawing.Point(295, 301);
-            this.buttonProviderMaterialChange.Name = "buttonProviderMaterialChange";
-            this.buttonProviderMaterialChange.Size = new System.Drawing.Size(75, 23);
-            this.buttonProviderMaterialChange.TabIndex = 18;
-            this.buttonProviderMaterialChange.Text = "Изменить";
-            this.buttonProviderMaterialChange.UseVisualStyleBackColor = true;
-            // 
-            // textBoxTonnCostChange
-            // 
-            this.textBoxTonnCostChange.Location = new System.Drawing.Point(485, 253);
-            this.textBoxTonnCostChange.Name = "textBoxTonnCostChange";
-            this.textBoxTonnCostChange.Size = new System.Drawing.Size(112, 20);
-            this.textBoxTonnCostChange.TabIndex = 17;
-            // 
-            // textBoxBagCostChange
-            // 
-            this.textBoxBagCostChange.Location = new System.Drawing.Point(485, 228);
-            this.textBoxBagCostChange.Name = "textBoxBagCostChange";
-            this.textBoxBagCostChange.Size = new System.Drawing.Size(112, 20);
-            this.textBoxBagCostChange.TabIndex = 16;
-            // 
-            // labelTonnCostChange
-            // 
-            this.labelTonnCostChange.AutoSize = true;
-            this.labelTonnCostChange.Location = new System.Drawing.Point(371, 256);
-            this.labelTonnCostChange.Name = "labelTonnCostChange";
-            this.labelTonnCostChange.Size = new System.Drawing.Size(102, 13);
-            this.labelTonnCostChange.TabIndex = 15;
-            this.labelTonnCostChange.Text = "Цена за тонну(руб)";
-            // 
-            // labelBagCostChange
-            // 
-            this.labelBagCostChange.AutoSize = true;
-            this.labelBagCostChange.Location = new System.Drawing.Point(371, 231);
-            this.labelBagCostChange.Name = "labelBagCostChange";
-            this.labelBagCostChange.Size = new System.Drawing.Size(108, 13);
-            this.labelBagCostChange.TabIndex = 14;
-            this.labelBagCostChange.Text = "Цена за мешок(руб)";
-            // 
-            // comboBoxMaterialChange
-            // 
-            this.comboBoxMaterialChange.DataSource = this.materialBindingSource1;
-            this.comboBoxMaterialChange.DisplayMember = "name";
-            this.comboBoxMaterialChange.FormattingEnabled = true;
-            this.comboBoxMaterialChange.Location = new System.Drawing.Point(147, 253);
-            this.comboBoxMaterialChange.Name = "comboBoxMaterialChange";
-            this.comboBoxMaterialChange.Size = new System.Drawing.Size(153, 21);
-            this.comboBoxMaterialChange.TabIndex = 13;
-            // 
-            // comboBoxProviderChange
-            // 
-            this.comboBoxProviderChange.DataSource = this.providerBindingSource1;
-            this.comboBoxProviderChange.DisplayMember = "name_firm";
-            this.comboBoxProviderChange.FormattingEnabled = true;
-            this.comboBoxProviderChange.Location = new System.Drawing.Point(147, 228);
-            this.comboBoxProviderChange.Name = "comboBoxProviderChange";
-            this.comboBoxProviderChange.Size = new System.Drawing.Size(153, 21);
-            this.comboBoxProviderChange.TabIndex = 12;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(73, 256);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(63, 13);
-            this.label3.TabIndex = 11;
-            this.label3.Text = "Материал: ";
-            // 
-            // labelProviderMaterialChange
-            // 
-            this.labelProviderMaterialChange.AutoSize = true;
-            this.labelProviderMaterialChange.Location = new System.Drawing.Point(73, 231);
-            this.labelProviderMaterialChange.Name = "labelProviderMaterialChange";
-            this.labelProviderMaterialChange.Size = new System.Drawing.Size(68, 13);
-            this.labelProviderMaterialChange.TabIndex = 10;
-            this.labelProviderMaterialChange.Text = "Поставщик:";
-            // 
-            // buttonProviderMaterialDelete
-            // 
-            this.buttonProviderMaterialDelete.Enabled = false;
-            this.buttonProviderMaterialDelete.Location = new System.Drawing.Point(295, 301);
-            this.buttonProviderMaterialDelete.Name = "buttonProviderMaterialDelete";
-            this.buttonProviderMaterialDelete.Size = new System.Drawing.Size(75, 23);
-            this.buttonProviderMaterialDelete.TabIndex = 18;
-            this.buttonProviderMaterialDelete.Text = "Удалить";
-            this.buttonProviderMaterialDelete.UseVisualStyleBackColor = true;
-            // 
-            // textBoxTonnCostDelete
-            // 
-            this.textBoxTonnCostDelete.Location = new System.Drawing.Point(485, 253);
-            this.textBoxTonnCostDelete.Name = "textBoxTonnCostDelete";
-            this.textBoxTonnCostDelete.ReadOnly = true;
-            this.textBoxTonnCostDelete.Size = new System.Drawing.Size(112, 20);
-            this.textBoxTonnCostDelete.TabIndex = 17;
-            // 
-            // textBoxBagCostDelete
-            // 
-            this.textBoxBagCostDelete.Location = new System.Drawing.Point(485, 228);
-            this.textBoxBagCostDelete.Name = "textBoxBagCostDelete";
-            this.textBoxBagCostDelete.ReadOnly = true;
-            this.textBoxBagCostDelete.Size = new System.Drawing.Size(112, 20);
-            this.textBoxBagCostDelete.TabIndex = 16;
-            // 
-            // labelTonnCostDelete
-            // 
-            this.labelTonnCostDelete.AutoSize = true;
-            this.labelTonnCostDelete.Location = new System.Drawing.Point(371, 256);
-            this.labelTonnCostDelete.Name = "labelTonnCostDelete";
-            this.labelTonnCostDelete.Size = new System.Drawing.Size(102, 13);
-            this.labelTonnCostDelete.TabIndex = 15;
-            this.labelTonnCostDelete.Text = "Цена за тонну(руб)";
-            // 
-            // labelBagCostDelete
-            // 
-            this.labelBagCostDelete.AutoSize = true;
-            this.labelBagCostDelete.Location = new System.Drawing.Point(371, 231);
-            this.labelBagCostDelete.Name = "labelBagCostDelete";
-            this.labelBagCostDelete.Size = new System.Drawing.Size(108, 13);
-            this.labelBagCostDelete.TabIndex = 14;
-            this.labelBagCostDelete.Text = "Цена за мешок(руб)";
-            // 
-            // comboBoxMaterialDelete
-            // 
-            this.comboBoxMaterialDelete.DataSource = this.materialBindingSource1;
-            this.comboBoxMaterialDelete.DisplayMember = "name";
-            this.comboBoxMaterialDelete.FormattingEnabled = true;
-            this.comboBoxMaterialDelete.Location = new System.Drawing.Point(147, 253);
-            this.comboBoxMaterialDelete.Name = "comboBoxMaterialDelete";
-            this.comboBoxMaterialDelete.Size = new System.Drawing.Size(153, 21);
-            this.comboBoxMaterialDelete.TabIndex = 13;
-            // 
-            // comboBoxProviderDelete
-            // 
-            this.comboBoxProviderDelete.DataSource = this.providerBindingSource1;
-            this.comboBoxProviderDelete.DisplayMember = "name_firm";
-            this.comboBoxProviderDelete.FormattingEnabled = true;
-            this.comboBoxProviderDelete.Location = new System.Drawing.Point(147, 228);
-            this.comboBoxProviderDelete.Name = "comboBoxProviderDelete";
-            this.comboBoxProviderDelete.Size = new System.Drawing.Size(153, 21);
-            this.comboBoxProviderDelete.TabIndex = 12;
-            // 
-            // labelMaterialProviderDelete
-            // 
-            this.labelMaterialProviderDelete.AutoSize = true;
-            this.labelMaterialProviderDelete.Location = new System.Drawing.Point(73, 256);
-            this.labelMaterialProviderDelete.Name = "labelMaterialProviderDelete";
-            this.labelMaterialProviderDelete.Size = new System.Drawing.Size(63, 13);
-            this.labelMaterialProviderDelete.TabIndex = 11;
-            this.labelMaterialProviderDelete.Text = "Материал: ";
-            // 
-            // labelProviderMaterialDelete
-            // 
-            this.labelProviderMaterialDelete.AutoSize = true;
-            this.labelProviderMaterialDelete.Location = new System.Drawing.Point(73, 231);
-            this.labelProviderMaterialDelete.Name = "labelProviderMaterialDelete";
-            this.labelProviderMaterialDelete.Size = new System.Drawing.Size(68, 13);
-            this.labelProviderMaterialDelete.TabIndex = 10;
-            this.labelProviderMaterialDelete.Text = "Поставщик:";
-            // 
             // FormProviderMaterial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1369,6 +1374,8 @@
             this.tabControl3.ResumeLayout(false);
             this.tabPage6.ResumeLayout(false);
             this.tabPage6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.materialBindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.providerBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.providermaterialBindingSource)).EndInit();
             this.tabPage7.ResumeLayout(false);
@@ -1389,8 +1396,6 @@
             this.tabPage12.ResumeLayout(false);
             this.tabPage12.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.providerBindingSource1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.materialBindingSource1)).EndInit();
             this.ResumeLayout(false);
 
         }
