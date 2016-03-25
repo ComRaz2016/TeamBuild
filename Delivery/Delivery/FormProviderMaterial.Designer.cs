@@ -386,7 +386,7 @@
             this.buttonProviderDelete.TabIndex = 14;
             this.buttonProviderDelete.Text = "Удалить";
             this.buttonProviderDelete.UseVisualStyleBackColor = true;
-            this.buttonProviderDelete.Click += new System.EventHandler(this.buttonProviderDelete_Click_1);
+            this.buttonProviderDelete.Click += new System.EventHandler(this.buttonProviderDelete_Click);
             // 
             // textBoxAdressFirmDelete
             // 

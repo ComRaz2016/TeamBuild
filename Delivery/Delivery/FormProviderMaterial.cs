@@ -48,7 +48,51 @@ namespace Delivery
 
         private void buttonProviderDelete_Click(object sender, EventArgs e)
         {
+            String nameFirm = textBoxNameFirmDelete.Text;
+            String adressFirm = textBoxAdressFirmDelete.Text;
+            String telefoneFirm = textBoxTelefoneFirmDelete.Text;
 
+            MySqlCommand msc = new MySqlCommand();
+            msc.CommandText = "SELECT `pk_provider`  FROM `Provider`  WHERE `name_firm`  = '" + nameFirm + "' AND `tel_number_firm` = '" + telefoneFirm + "'";
+            msc.Connection = ConnectionToMySQL;
+            MySqlDataReader dataReader = msc.ExecuteReader();
+            String providerPk = null;
+            while (dataReader.Read())
+            {
+                providerPk = dataReader[0].ToString();
+            }
+            dataReader.Close();
+
+            msc.CommandText = "SELECT `pk_material`  FROM `provider_material`  WHERE `pk_provider`  = '" + providerPk + "'";
+            msc.Connection = ConnectionToMySQL;
+            dataReader = msc.ExecuteReader();
+            String anything = null;
+            int count = 0;
+            while (dataReader.Read())
+            {
+                count++;
+                anything = dataReader[0].ToString();
+            }
+            dataReader.Close();
+            if (count == 0)
+            {
+                msc.CommandText = "DELETE FROM `Provider` WHERE `name_firm` = '" + nameFirm + "' AND `tel_number_firm` = '" + telefoneFirm + "'";
+                msc.Connection = ConnectionToMySQL;
+                msc.ExecuteNonQuery();
+                textBoxNameFirmDelete.Clear();
+                textBoxAdressFirmDelete.Clear();
+                textBoxTelefoneFirmDelete.Clear();
+                this.providerTableAdapter.Fill(this.testDataSet.Provider);
+            }
+            else
+            {
+                MessageBox.Show("Удаление поставщика невозможно, так как он предоставляет материалы для доставки");
+                textBoxNameFirmDelete.Clear();
+                textBoxAdressFirmDelete.Clear();
+                textBoxTelefoneFirmDelete.Clear();
+            }
+            //checkNull();
+            buttonProviderDelete.Enabled = false;
         }
 
         private void dataGridViewProviderAdd(object sender, DataGridViewCellEventArgs e)
@@ -115,24 +159,6 @@ namespace Delivery
                     }
                 }
             }
-        }
-
-        private void buttonProviderDelete_Click_1(object sender, EventArgs e)
-        {
-            String nameFirm = textBoxNameFirmDelete.Text;
-            String adressFirm = textBoxAdressFirmDelete.Text;
-            String telefoneFirm = textBoxTelefoneFirmDelete.Text;
-
-            MySqlCommand msc = new MySqlCommand();
-            msc.CommandText = "DELETE FROM `Provider` WHERE `name_firm` = '" + nameFirm + "' AND `tel_number_firm` = '" + telefoneFirm + "'";
-            msc.Connection = ConnectionToMySQL;
-            msc.ExecuteNonQuery();
-            textBoxNameFirmDelete.Clear();
-            textBoxAdressFirmDelete.Clear();
-            textBoxTelefoneFirmDelete.Clear();
-            this.providerTableAdapter.Fill(this.testDataSet.Provider);
-            //checkNull();
-            buttonProviderDelete.Enabled = false;
         }
     }
 }
