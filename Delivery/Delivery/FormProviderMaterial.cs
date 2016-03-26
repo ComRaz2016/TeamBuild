@@ -107,7 +107,7 @@ namespace Delivery
                 textBoxAdressFirmDelete.Clear();
                 textBoxTelefoneFirmDelete.Clear();
 
-                MessageBox.Show("Удаление поставщика невозможно, так как он предоставляет материалы для доставки");
+                MessageBox.Show("Удаление поставщика невозможно, так как он предоставляет материалы для доставки.");
             }
             buttonProviderDelete.Enabled = false;
         }

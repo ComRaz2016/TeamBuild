@@ -48,7 +48,7 @@ namespace Delivery
             this.carTableAdapter.Fill(this.testDataSet.Car);
 
         }
-
+        // Добавление водителя
         private void buttonDriverAdd_Click(object sender, EventArgs e)
         {
             String driverFIO = textBoxDriverFIOAdd.Text.Trim();
@@ -112,9 +112,78 @@ namespace Delivery
 
         }
 
+        // Удаление водителя
         private void buttonDriverDelete_Click(object sender, EventArgs e)
         {
+            String driverFIO = textBoxDriverFIODelete.Text.Trim();
+            String driverNumber = textBoxDriverNumberDelete.Text.Trim();
+            String driverTelefone = textBoxDriverTelefoneDelete.Text.Trim();
+            if (driverFIO.Trim() == "")
+            {
+                MessageBox.Show("Необходимо заполнить поле 'ФИО водителя'.");
+            }
+            else
+            {
+                if (driverNumber.Trim() == "")
+                {
+                    MessageBox.Show("Необходимо заполнить поле 'Номер водительского удостоверения'.");
+                }
+                else
+                {
+                    if (driverTelefone.Trim() == "")
+                    {
+                        MessageBox.Show("Необходимо заполнить поле 'Номер телефона водителя'.");
+                    }
+                    else
+                    {
+                        MySqlCommand msc = new MySqlCommand();
+                        msc.CommandText = "SELECT `pk_driver`  FROM `Driver`  WHERE `nomber_driver`  = '" + driverNumber + "' AND `fio_driver` = '" + driverFIO + "'";
+                        msc.Connection = ConnectionToMySQL;
+                        MySqlDataReader dataReader = msc.ExecuteReader();
+                        String driverPk = null;
+                        while (dataReader.Read())
+                        {
+                            driverPk = dataReader[0].ToString();
+                        }
+                        dataReader.Close();
 
+                        msc.CommandText = "SELECT `pk_car`  FROM `Car`  WHERE `pk_driver`  = '" + driverPk + "'";
+                        msc.Connection = ConnectionToMySQL;
+                        dataReader = msc.ExecuteReader();
+                        String anything = null;
+                        int count = 0;
+                        while (dataReader.Read())
+                        {
+                            count++;
+                            anything = dataReader[0].ToString();
+                        }
+                        dataReader.Close();
+                        if (count == 0)
+                        {
+                            msc.CommandText = "DELETE FROM `Driver` WHERE `fio_driver` = '" + driverFIO + "' AND `nomber_driver` = '" + driverNumber + "'";
+                            msc.Connection = ConnectionToMySQL;
+                            msc.ExecuteNonQuery();
+
+                            textBoxDriverFIODelete.Clear();
+                            textBoxDriverNumberDelete.Clear();
+                            textBoxDriverTelefoneDelete.Clear();
+
+                            this.driverTableAdapter.Fill(this.testDataSet.Driver);
+
+                            MessageBox.Show("Удаление записи успешно произведено.");
+                        }
+                        else
+                        {
+                            textBoxDriverFIODelete.Clear();
+                            textBoxDriverNumberDelete.Clear();
+                            textBoxDriverTelefoneDelete.Clear();
+
+                            MessageBox.Show("Удаление водителя невозможно, так как он предоставляет ТС для доставки материалов.");
+                        }
+                    }
+                }
+            }
+            buttonDriverDelete.Enabled = false;
         }
 
         private void dataGridViewDriverChange(object sender, DataGridViewCellEventArgs e)
