@@ -258,6 +258,7 @@ namespace Delivery
             }
         }
 
+        // Выбор водителя для изменения
         private void dataGridViewDriverChange(object sender, DataGridViewCellEventArgs e)
         {
             lastDriverFIO = dataGridView6[0, e.RowIndex].Value.ToString();
@@ -271,6 +272,7 @@ namespace Delivery
             buttonDriverChange.Enabled = true;
         }
 
+        // Выбор водителя для удаления
         private void dataGridViewDriverDelete(object sender, DataGridViewCellEventArgs e)
         {
             textBoxDriverFIODelete.Text = dataGridView6[0, e.RowIndex].Value.ToString();
@@ -303,6 +305,102 @@ namespace Delivery
             textBoxDriverTelefoneDelete.Clear();
 
             buttonDriverDelete.Enabled = false;
+        }
+
+        // Заполнение первичных ключей водителей
+        public void insertDriverAddTable()
+        {
+            int count = dataGridView3.RowCount - 1;
+            for (int i = 0; i < count; i++)
+            {
+                String driverPk = null;
+                driverPk = dataGridView3.Rows[i].Cells[4].Value.ToString();
+                MySqlCommand msc = new MySqlCommand();
+                msc.CommandText = "SELECT `fio_driver`, `nomber_driver`  FROM `Driver`  WHERE `pk_driver`  = '" + driverPk + "'";
+                msc.Connection = ConnectionToMySQL;
+                MySqlDataReader dataReader = msc.ExecuteReader();
+                String driverFIO = null;
+                String driverNumber = null;
+                while (dataReader.Read())
+                {
+                    driverFIO = dataReader[0].ToString();
+                    driverNumber = dataReader[1].ToString();
+                }
+                dataReader.Close();
+                dataGridView3.Rows[i].Cells[1].Value = driverFIO;
+                dataGridView3.Rows[i].Cells[2].Value = driverNumber;
+            }
+            dataGridView3.Update();
+        }
+
+        // Заполнение первичных ключей водителей
+        public void insertDriverChangeTable()
+        {
+            int count = dataGridView2.RowCount - 1;
+            for (int i = 0; i < count; i++)
+            {
+                String driverPk = null;
+                driverPk = dataGridView2.Rows[i].Cells[4].Value.ToString();
+                MySqlCommand msc = new MySqlCommand();
+                msc.CommandText = "SELECT `fio_driver`, `nomber_driver`  FROM `Driver`  WHERE `pk_driver`  = '" + driverPk + "'";
+                msc.Connection = ConnectionToMySQL;
+                MySqlDataReader dataReader = msc.ExecuteReader();
+                String driverFIO = null;
+                String driverNumber = null;
+                while (dataReader.Read())
+                {
+                    driverFIO = dataReader[0].ToString();
+                    driverNumber = dataReader[1].ToString();
+                }
+                dataReader.Close();
+                dataGridView2.Rows[i].Cells[1].Value = driverFIO;
+                dataGridView2.Rows[i].Cells[2].Value = driverNumber;
+            }
+            dataGridView2.Update();
+        }
+
+        // Заполнение первичных ключей водителей
+        public void insertDriverDeleteTable()
+        {
+            int count = dataGridView1.RowCount - 1;
+            for (int i = 0; i < count; i++)
+            {
+                String driverPk = null;
+                driverPk = dataGridView1.Rows[i].Cells[4].Value.ToString();
+                MySqlCommand msc = new MySqlCommand();
+                msc.CommandText = "SELECT `fio_driver`, `nomber_driver`  FROM `Driver`  WHERE `pk_driver`  = '" + driverPk + "'";
+                msc.Connection = ConnectionToMySQL;
+                MySqlDataReader dataReader = msc.ExecuteReader();
+                String driverFIO = null;
+                String driverNumber = null;
+                while (dataReader.Read())
+                {
+                    driverFIO = dataReader[0].ToString();
+                    driverNumber = dataReader[1].ToString();
+                }
+                dataReader.Close();
+                dataGridView1.Rows[i].Cells[1].Value = driverFIO;
+                dataGridView1.Rows[i].Cells[2].Value = driverNumber;
+            }
+            dataGridView1.Update();
+        }
+
+        // Заполнение первичных ключей водителей в таблице для добавления
+        private void dataGridView3_Paint(object sender, PaintEventArgs e)
+        {
+            insertDriverAddTable();
+        }
+
+        // Заполнение первичных ключей водителей в таблице для изменения
+        private void dataGridView2_Paint(object sender, PaintEventArgs e)
+        {
+            insertDriverChangeTable();
+        }
+
+        // Заполнение первичных ключей водителей в таблице для удаления
+        private void dataGridView1_Paint(object sender, PaintEventArgs e)
+        {
+            insertDriverDeleteTable();
         }
     }
 }
