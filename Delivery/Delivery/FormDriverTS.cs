@@ -402,5 +402,15 @@ namespace Delivery
         {
             insertDriverDeleteTable();
         }
+
+        private void comboBoxDriverNumberAdd_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            comboBoxDriverFIOAdd.SelectedIndex = comboBoxDriverNumberAdd.SelectedIndex;
+        }
+
+        private void comboBoxDriverNumberAdd_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            comboBoxDriverNumberAdd.SelectedIndex = comboBoxDriverFIOAdd.SelectedIndex;
+        }
     }
 }
