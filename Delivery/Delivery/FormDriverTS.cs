@@ -412,5 +412,169 @@ namespace Delivery
         {
             comboBoxDriverNumberAdd.SelectedIndex = comboBoxDriverFIOAdd.SelectedIndex;
         }
+
+        private void dataGridViewTSChange(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dataGridViewTSDelete(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        // Добавление ТС
+        private void buttonTSAdd_Click(object sender, EventArgs e)
+        {
+            String driverFIO = comboBoxDriverFIOAdd.Text.Trim();
+            String driverNumber = comboBoxDriverNumberAdd.Text.Trim();
+            String tsMark = textBoxTSMarkAdd.Text.Trim();
+            String tsNumber = textBoxTSNumberAdd.Text.Trim();
+            String tsBag = null;
+            if (checkBoxTSBagAdd.Checked == true)
+            {
+                tsBag = "1";
+            }
+            else
+            {
+                tsBag = "0";
+            }
+            String tsBulk = null;
+            if (checkBoxTSBulkAdd.Checked == true)
+            {
+                tsBulk = "1";
+            }
+            else
+            {
+                tsBulk = "0";
+            }
+            String tsTonn = textBoxTSTonnAdd.Text.Trim();
+            String tsZone1 = textBoxTSZone1Add.Text.Trim();
+            String tsZone2 = textBoxTSZone2Add.Text.Trim();
+            String tsZone3 = textBoxTSZone3Add.Text.Trim();
+            String tsDopKm = textBoxTSDopKmAdd.Text.Trim();
+
+            if (driverFIO.Trim() == "")
+            {
+                MessageBox.Show("Необходимо выбрать водителя в 'Водитель'.");
+            }
+            else
+            {
+                if (driverNumber.Trim() == "")
+                {
+                    MessageBox.Show("Необходимо выбрать водительское удостоверение в 'Водительское удостоверение'.");
+                }
+                else
+                {
+                    if (tsMark.Trim() == "")
+                    {
+                        MessageBox.Show("Необходимо заполнить поле 'Марка ТС'.");
+                    }
+                    else
+                    {
+                        if (tsNumber.Trim() == "")
+                        {
+                            MessageBox.Show("Необходимо заполнить поле 'Регистрационный номер'.");
+                        }
+                        else
+                        {
+                            if (checkBoxTSBagAdd.Checked == false && checkBoxTSBulkAdd.Checked == false)
+                            {
+                                MessageBox.Show("Необходимо выбрать виды доставок 'Насыпь или мешок'.");
+                            }
+                            else
+                            {
+                                if (tsTonn.Trim() == "")
+                                {
+                                    MessageBox.Show("Необходимо заполнить поле 'Тоннаж'.");
+                                }
+                                else
+                                {
+                                    if (tsZone1.Trim() == "")
+                                    {
+                                        MessageBox.Show("Необходимо заполнить поле 'Зона 1'.");
+                                    }
+                                    else
+                                    {
+                                        if (tsZone2.Trim() == "")
+                                        {
+                                            MessageBox.Show("Необходимо заполнить поле 'Зона 2'.");
+                                        }
+                                        else
+                                        {
+                                            if (tsZone3.Trim() == "")
+                                            {
+                                                MessageBox.Show("Необходимо заполнить поле 'Зона 3'.");
+                                            }
+                                            else
+                                            {
+                                                if (tsDopKm.Trim() == "")
+                                                {
+                                                    MessageBox.Show("Необходимо заполнить поле 'Доп. км'.");
+                                                }
+                                                else
+                                                {
+                                                    MySqlCommand msc = new MySqlCommand();
+                                                    msc.CommandText = "SELECT `pk_car`  FROM `Car`  WHERE `regist_number`  = '" + tsNumber + "'";
+                                                    msc.Connection = ConnectionToMySQL;
+                                                    MySqlDataReader dataReader = msc.ExecuteReader();
+                                                    String carPk = null;
+                                                    while (dataReader.Read())
+                                                    {
+                                                        carPk = dataReader[0].ToString();
+                                                    }
+                                                    dataReader.Close();
+
+                                                    if (carPk == null)
+                                                    {
+                                                        msc.CommandText = "SELECT `pk_driver`  FROM `Driver`  WHERE `nomber_driver`  = '" + driverNumber + "'";
+                                                        msc.Connection = ConnectionToMySQL;
+                                                        dataReader = msc.ExecuteReader();
+                                                        String driverPk = null;
+                                                        while (dataReader.Read())
+                                                        {
+                                                            driverPk = dataReader[0].ToString();
+                                                        }
+                                                        dataReader.Close();
+
+                                                        msc.CommandText = "INSERT INTO `Car` (`mark_car`,`regist_number`,`delivery_bag`, `delivery_bulk`, `tonnage`, `Costfistzone`, `Costsecondzone`, `Costthirdzone`, `Costdopkm`, `pk_driver`) VALUES ('" + tsMark + "', '" + tsNumber + "' , '" + tsBag + "', '" + tsBulk + "' , '" + tsTonn + "', '" + tsZone1 + "' , '" + tsZone2 + "', '" + tsZone3 + "' , '" + tsDopKm + "', '" + driverPk + "')";
+                                                        msc.Connection = ConnectionToMySQL;
+                                                        msc.ExecuteNonQuery();
+
+                                                        textBoxTSDopKmAdd.Clear();
+                                                        textBoxTSZone1Add.Clear();
+                                                        textBoxTSZone2Add.Clear();
+                                                        textBoxTSZone3Add.Clear();
+                                                        textBoxTSTonnAdd.Clear();
+                                                        textBoxTSMarkAdd.Clear();
+                                                        textBoxTSNumberAdd.Clear();
+
+                                                        this.carTableAdapter.Fill(this.testDataSet.Car);
+
+                                                        MessageBox.Show("Добавление записи успешно произведено.");
+                                                    }
+                                                    else
+                                                    {
+                                                        textBoxTSDopKmAdd.Clear();
+                                                        textBoxTSZone1Add.Clear();
+                                                        textBoxTSZone2Add.Clear();
+                                                        textBoxTSZone3Add.Clear();
+                                                        textBoxTSTonnAdd.Clear();
+                                                        textBoxTSMarkAdd.Clear();
+                                                        textBoxTSNumberAdd.Clear();
+
+                                                        MessageBox.Show("Запись не добавлена, так как ТС с таким регистрационным номером существует.");
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

@@ -73,75 +73,34 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabControl3 = new System.Windows.Forms.TabControl();
             this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.buttonTSAdd = new System.Windows.Forms.Button();
-            this.textBoxTSTonnAdd = new System.Windows.Forms.TextBox();
-            this.labelTSTonnAdd = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.labelTSDopKmAdd = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.labelTSZone3Add = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.labelTSZone2Add = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.labelTSZone1Add = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.checkBoxTSBagAdd = new System.Windows.Forms.CheckBox();
-            this.checkBoxTSBulkAdd = new System.Windows.Forms.CheckBox();
-            this.labelDriverTSFIO = new System.Windows.Forms.Label();
-            this.labelDriverTSFIOAdd = new System.Windows.Forms.Label();
-            this.comboBoxDriverFIOAdd = new System.Windows.Forms.ComboBox();
-            this.driverBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.buttonTSAdd = new System.Windows.Forms.Button();
+            this.labelTSMarkAdd = new System.Windows.Forms.Label();
+            this.textBoxTSTonnAdd = new System.Windows.Forms.TextBox();
+            this.textBoxTSMarkAdd = new System.Windows.Forms.TextBox();
+            this.labelTSTonnAdd = new System.Windows.Forms.Label();
+            this.labelTSNumberAdd = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBoxTSDopKmAdd = new System.Windows.Forms.TextBox();
+            this.labelTSDopKmAdd = new System.Windows.Forms.Label();
+            this.textBoxTSZone3Add = new System.Windows.Forms.TextBox();
+            this.labelTSZone3Add = new System.Windows.Forms.Label();
+            this.textBoxTSZone2Add = new System.Windows.Forms.TextBox();
+            this.labelTSZone2Add = new System.Windows.Forms.Label();
+            this.textBoxTSZone1Add = new System.Windows.Forms.TextBox();
+            this.labelTSZone1Add = new System.Windows.Forms.Label();
+            this.textBoxTSNumberAdd = new System.Windows.Forms.TextBox();
             this.comboBoxDriverNumberAdd = new System.Windows.Forms.ComboBox();
             this.driverBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
-            this.textBoxTSNumberAdd = new System.Windows.Forms.TextBox();
-            this.labelTSNumberAdd = new System.Windows.Forms.Label();
-            this.textBoxTSMarkAdd = new System.Windows.Forms.TextBox();
-            this.labelTSMarkAdd = new System.Windows.Forms.Label();
+            this.checkBoxTSBulkAdd = new System.Windows.Forms.CheckBox();
+            this.comboBoxDriverFIOAdd = new System.Windows.Forms.ComboBox();
+            this.driverBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.labelDriverTSFIO = new System.Windows.Forms.Label();
+            this.labelDriverTSFIOAdd = new System.Windows.Forms.Label();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewCheckBoxColumn3 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.dataGridViewCheckBoxColumn4 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn24 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.carBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabPage7 = new System.Windows.Forms.TabPage();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.dataGridViewCheckBoxColumn2 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn23 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tabPage8 = new System.Windows.Forms.TabPage();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.markcarDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.registnumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pkdriverDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.deliverybagDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.deliverybulkDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.tonnageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.costfistzoneDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.costsecondzoneDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.costthirdzoneDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.costdopkmDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.carTableAdapter = new Delivery.TestDataSetTableAdapters.CarTableAdapter();
-            this.driverTableAdapter = new Delivery.TestDataSetTableAdapters.DriverTableAdapter();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.checkBoxTSBagChange = new System.Windows.Forms.CheckBox();
             this.buttonTSChange = new System.Windows.Forms.Button();
@@ -165,6 +124,8 @@
             this.comboBoxTSDriverFIOChange = new System.Windows.Forms.ComboBox();
             this.labelTSTSDriverChange = new System.Windows.Forms.Label();
             this.labelTSDriverNumberChange = new System.Windows.Forms.Label();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.tabPage8 = new System.Windows.Forms.TabPage();
             this.panel3 = new System.Windows.Forms.Panel();
             this.checkBoxTSBagDelete = new System.Windows.Forms.CheckBox();
             this.buttonTSDelete = new System.Windows.Forms.Button();
@@ -188,6 +149,45 @@
             this.comboBoxTSDriverFIODelete = new System.Windows.Forms.ComboBox();
             this.labelTSDriverFIODelete = new System.Windows.Forms.Label();
             this.labelTSDriverNumberDelete = new System.Windows.Forms.Label();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.carTableAdapter = new Delivery.TestDataSetTableAdapters.CarTableAdapter();
+            this.driverTableAdapter = new Delivery.TestDataSetTableAdapters.DriverTableAdapter();
+            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewCheckBoxColumn3 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.dataGridViewCheckBoxColumn4 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn24 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.dataGridViewCheckBoxColumn2 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn23 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.markcarDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.registnumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pkdriverDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.deliverybagDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.deliverybulkDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.tonnageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.costfistzoneDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.costsecondzoneDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.costthirdzoneDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.costdopkmDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabControl2.SuspendLayout();
@@ -202,20 +202,20 @@
             this.tabPage2.SuspendLayout();
             this.tabControl3.SuspendLayout();
             this.tabPage6.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.driverBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.driverBindingSource2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.driverBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.carBindingSource)).BeginInit();
             this.tabPage7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
-            this.tabPage8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.groupBoxTSDopKmChange.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            this.tabPage8.SuspendLayout();
             this.panel3.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -645,111 +645,26 @@
             this.tabPage6.Text = "Добавление";
             this.tabPage6.UseVisualStyleBackColor = true;
             // 
-            // buttonTSAdd
+            // panel1
             // 
-            this.buttonTSAdd.Location = new System.Drawing.Point(465, 86);
-            this.buttonTSAdd.Name = "buttonTSAdd";
-            this.buttonTSAdd.Size = new System.Drawing.Size(75, 23);
-            this.buttonTSAdd.TabIndex = 17;
-            this.buttonTSAdd.Text = "Добавить";
-            this.buttonTSAdd.UseVisualStyleBackColor = true;
-            // 
-            // textBoxTSTonnAdd
-            // 
-            this.textBoxTSTonnAdd.Location = new System.Drawing.Point(571, 45);
-            this.textBoxTSTonnAdd.Name = "textBoxTSTonnAdd";
-            this.textBoxTSTonnAdd.Size = new System.Drawing.Size(109, 20);
-            this.textBoxTSTonnAdd.TabIndex = 16;
-            // 
-            // labelTSTonnAdd
-            // 
-            this.labelTSTonnAdd.AutoSize = true;
-            this.labelTSTonnAdd.Location = new System.Drawing.Point(519, 48);
-            this.labelTSTonnAdd.Name = "labelTSTonnAdd";
-            this.labelTSTonnAdd.Size = new System.Drawing.Size(46, 13);
-            this.labelTSTonnAdd.TabIndex = 15;
-            this.labelTSTonnAdd.Text = "Тоннаж";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.textBox4);
-            this.groupBox1.Controls.Add(this.labelTSDopKmAdd);
-            this.groupBox1.Controls.Add(this.textBox3);
-            this.groupBox1.Controls.Add(this.labelTSZone3Add);
-            this.groupBox1.Controls.Add(this.textBox2);
-            this.groupBox1.Controls.Add(this.labelTSZone2Add);
-            this.groupBox1.Controls.Add(this.textBox1);
-            this.groupBox1.Controls.Add(this.labelTSZone1Add);
-            this.groupBox1.Location = new System.Drawing.Point(723, 18);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(284, 91);
-            this.groupBox1.TabIndex = 14;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Стоимость доставка";
-            // 
-            // textBox4
-            // 
-            this.textBox4.Location = new System.Drawing.Point(201, 55);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(66, 20);
-            this.textBox4.TabIndex = 7;
-            // 
-            // labelTSDopKmAdd
-            // 
-            this.labelTSDopKmAdd.AutoSize = true;
-            this.labelTSDopKmAdd.Location = new System.Drawing.Point(154, 58);
-            this.labelTSDopKmAdd.Name = "labelTSDopKmAdd";
-            this.labelTSDopKmAdd.Size = new System.Drawing.Size(48, 13);
-            this.labelTSDopKmAdd.TabIndex = 6;
-            this.labelTSDopKmAdd.Text = "Доп. км";
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(201, 24);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(66, 20);
-            this.textBox3.TabIndex = 5;
-            // 
-            // labelTSZone3Add
-            // 
-            this.labelTSZone3Add.AutoSize = true;
-            this.labelTSZone3Add.Location = new System.Drawing.Point(154, 27);
-            this.labelTSZone3Add.Name = "labelTSZone3Add";
-            this.labelTSZone3Add.Size = new System.Drawing.Size(41, 13);
-            this.labelTSZone3Add.TabIndex = 4;
-            this.labelTSZone3Add.Text = "Зона 3";
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(63, 55);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(66, 20);
-            this.textBox2.TabIndex = 3;
-            // 
-            // labelTSZone2Add
-            // 
-            this.labelTSZone2Add.AutoSize = true;
-            this.labelTSZone2Add.Location = new System.Drawing.Point(16, 58);
-            this.labelTSZone2Add.Name = "labelTSZone2Add";
-            this.labelTSZone2Add.Size = new System.Drawing.Size(41, 13);
-            this.labelTSZone2Add.TabIndex = 2;
-            this.labelTSZone2Add.Text = "Зона 2";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(63, 24);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(66, 20);
-            this.textBox1.TabIndex = 1;
-            // 
-            // labelTSZone1Add
-            // 
-            this.labelTSZone1Add.AutoSize = true;
-            this.labelTSZone1Add.Location = new System.Drawing.Point(16, 27);
-            this.labelTSZone1Add.Name = "labelTSZone1Add";
-            this.labelTSZone1Add.Size = new System.Drawing.Size(41, 13);
-            this.labelTSZone1Add.TabIndex = 0;
-            this.labelTSZone1Add.Text = "Зона 1";
+            this.panel1.Controls.Add(this.checkBoxTSBagAdd);
+            this.panel1.Controls.Add(this.buttonTSAdd);
+            this.panel1.Controls.Add(this.labelTSMarkAdd);
+            this.panel1.Controls.Add(this.textBoxTSTonnAdd);
+            this.panel1.Controls.Add(this.textBoxTSMarkAdd);
+            this.panel1.Controls.Add(this.labelTSTonnAdd);
+            this.panel1.Controls.Add(this.labelTSNumberAdd);
+            this.panel1.Controls.Add(this.groupBox1);
+            this.panel1.Controls.Add(this.textBoxTSNumberAdd);
+            this.panel1.Controls.Add(this.comboBoxDriverNumberAdd);
+            this.panel1.Controls.Add(this.checkBoxTSBulkAdd);
+            this.panel1.Controls.Add(this.comboBoxDriverFIOAdd);
+            this.panel1.Controls.Add(this.labelDriverTSFIO);
+            this.panel1.Controls.Add(this.labelDriverTSFIOAdd);
+            this.panel1.Location = new System.Drawing.Point(6, 207);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1019, 126);
+            this.panel1.TabIndex = 18;
             // 
             // checkBoxTSBagAdd
             // 
@@ -761,6 +676,162 @@
             this.checkBoxTSBagAdd.Text = "Мешок";
             this.checkBoxTSBagAdd.UseVisualStyleBackColor = true;
             // 
+            // buttonTSAdd
+            // 
+            this.buttonTSAdd.Location = new System.Drawing.Point(465, 86);
+            this.buttonTSAdd.Name = "buttonTSAdd";
+            this.buttonTSAdd.Size = new System.Drawing.Size(75, 23);
+            this.buttonTSAdd.TabIndex = 17;
+            this.buttonTSAdd.Text = "Добавить";
+            this.buttonTSAdd.UseVisualStyleBackColor = true;
+            this.buttonTSAdd.Click += new System.EventHandler(this.buttonTSAdd_Click);
+            // 
+            // labelTSMarkAdd
+            // 
+            this.labelTSMarkAdd.AutoSize = true;
+            this.labelTSMarkAdd.Location = new System.Drawing.Point(10, 19);
+            this.labelTSMarkAdd.Name = "labelTSMarkAdd";
+            this.labelTSMarkAdd.Size = new System.Drawing.Size(57, 13);
+            this.labelTSMarkAdd.TabIndex = 2;
+            this.labelTSMarkAdd.Text = "Марка ТС";
+            // 
+            // textBoxTSTonnAdd
+            // 
+            this.textBoxTSTonnAdd.Location = new System.Drawing.Point(571, 45);
+            this.textBoxTSTonnAdd.Name = "textBoxTSTonnAdd";
+            this.textBoxTSTonnAdd.Size = new System.Drawing.Size(109, 20);
+            this.textBoxTSTonnAdd.TabIndex = 16;
+            // 
+            // textBoxTSMarkAdd
+            // 
+            this.textBoxTSMarkAdd.Location = new System.Drawing.Point(73, 16);
+            this.textBoxTSMarkAdd.Name = "textBoxTSMarkAdd";
+            this.textBoxTSMarkAdd.Size = new System.Drawing.Size(121, 20);
+            this.textBoxTSMarkAdd.TabIndex = 3;
+            // 
+            // labelTSTonnAdd
+            // 
+            this.labelTSTonnAdd.AutoSize = true;
+            this.labelTSTonnAdd.Location = new System.Drawing.Point(519, 48);
+            this.labelTSTonnAdd.Name = "labelTSTonnAdd";
+            this.labelTSTonnAdd.Size = new System.Drawing.Size(46, 13);
+            this.labelTSTonnAdd.TabIndex = 15;
+            this.labelTSTonnAdd.Text = "Тоннаж";
+            // 
+            // labelTSNumberAdd
+            // 
+            this.labelTSNumberAdd.AutoSize = true;
+            this.labelTSNumberAdd.Location = new System.Drawing.Point(235, 48);
+            this.labelTSNumberAdd.Name = "labelTSNumberAdd";
+            this.labelTSNumberAdd.Size = new System.Drawing.Size(133, 13);
+            this.labelTSNumberAdd.TabIndex = 4;
+            this.labelTSNumberAdd.Text = "Регистрационный номер";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.textBoxTSDopKmAdd);
+            this.groupBox1.Controls.Add(this.labelTSDopKmAdd);
+            this.groupBox1.Controls.Add(this.textBoxTSZone3Add);
+            this.groupBox1.Controls.Add(this.labelTSZone3Add);
+            this.groupBox1.Controls.Add(this.textBoxTSZone2Add);
+            this.groupBox1.Controls.Add(this.labelTSZone2Add);
+            this.groupBox1.Controls.Add(this.textBoxTSZone1Add);
+            this.groupBox1.Controls.Add(this.labelTSZone1Add);
+            this.groupBox1.Location = new System.Drawing.Point(723, 18);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(284, 91);
+            this.groupBox1.TabIndex = 14;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Стоимость доставка";
+            // 
+            // textBoxTSDopKmAdd
+            // 
+            this.textBoxTSDopKmAdd.Location = new System.Drawing.Point(201, 55);
+            this.textBoxTSDopKmAdd.Name = "textBoxTSDopKmAdd";
+            this.textBoxTSDopKmAdd.Size = new System.Drawing.Size(66, 20);
+            this.textBoxTSDopKmAdd.TabIndex = 7;
+            // 
+            // labelTSDopKmAdd
+            // 
+            this.labelTSDopKmAdd.AutoSize = true;
+            this.labelTSDopKmAdd.Location = new System.Drawing.Point(154, 58);
+            this.labelTSDopKmAdd.Name = "labelTSDopKmAdd";
+            this.labelTSDopKmAdd.Size = new System.Drawing.Size(48, 13);
+            this.labelTSDopKmAdd.TabIndex = 6;
+            this.labelTSDopKmAdd.Text = "Доп. км";
+            // 
+            // textBoxTSZone3Add
+            // 
+            this.textBoxTSZone3Add.Location = new System.Drawing.Point(201, 24);
+            this.textBoxTSZone3Add.Name = "textBoxTSZone3Add";
+            this.textBoxTSZone3Add.Size = new System.Drawing.Size(66, 20);
+            this.textBoxTSZone3Add.TabIndex = 5;
+            // 
+            // labelTSZone3Add
+            // 
+            this.labelTSZone3Add.AutoSize = true;
+            this.labelTSZone3Add.Location = new System.Drawing.Point(154, 27);
+            this.labelTSZone3Add.Name = "labelTSZone3Add";
+            this.labelTSZone3Add.Size = new System.Drawing.Size(41, 13);
+            this.labelTSZone3Add.TabIndex = 4;
+            this.labelTSZone3Add.Text = "Зона 3";
+            // 
+            // textBoxTSZone2Add
+            // 
+            this.textBoxTSZone2Add.Location = new System.Drawing.Point(63, 55);
+            this.textBoxTSZone2Add.Name = "textBoxTSZone2Add";
+            this.textBoxTSZone2Add.Size = new System.Drawing.Size(66, 20);
+            this.textBoxTSZone2Add.TabIndex = 3;
+            // 
+            // labelTSZone2Add
+            // 
+            this.labelTSZone2Add.AutoSize = true;
+            this.labelTSZone2Add.Location = new System.Drawing.Point(16, 58);
+            this.labelTSZone2Add.Name = "labelTSZone2Add";
+            this.labelTSZone2Add.Size = new System.Drawing.Size(41, 13);
+            this.labelTSZone2Add.TabIndex = 2;
+            this.labelTSZone2Add.Text = "Зона 2";
+            // 
+            // textBoxTSZone1Add
+            // 
+            this.textBoxTSZone1Add.Location = new System.Drawing.Point(63, 24);
+            this.textBoxTSZone1Add.Name = "textBoxTSZone1Add";
+            this.textBoxTSZone1Add.Size = new System.Drawing.Size(66, 20);
+            this.textBoxTSZone1Add.TabIndex = 1;
+            // 
+            // labelTSZone1Add
+            // 
+            this.labelTSZone1Add.AutoSize = true;
+            this.labelTSZone1Add.Location = new System.Drawing.Point(16, 27);
+            this.labelTSZone1Add.Name = "labelTSZone1Add";
+            this.labelTSZone1Add.Size = new System.Drawing.Size(41, 13);
+            this.labelTSZone1Add.TabIndex = 0;
+            this.labelTSZone1Add.Text = "Зона 1";
+            // 
+            // textBoxTSNumberAdd
+            // 
+            this.textBoxTSNumberAdd.Location = new System.Drawing.Point(374, 45);
+            this.textBoxTSNumberAdd.Name = "textBoxTSNumberAdd";
+            this.textBoxTSNumberAdd.Size = new System.Drawing.Size(121, 20);
+            this.textBoxTSNumberAdd.TabIndex = 5;
+            // 
+            // comboBoxDriverNumberAdd
+            // 
+            this.comboBoxDriverNumberAdd.DataSource = this.driverBindingSource2;
+            this.comboBoxDriverNumberAdd.DisplayMember = "nomber_driver";
+            this.comboBoxDriverNumberAdd.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxDriverNumberAdd.FormattingEnabled = true;
+            this.comboBoxDriverNumberAdd.Location = new System.Drawing.Point(374, 15);
+            this.comboBoxDriverNumberAdd.Name = "comboBoxDriverNumberAdd";
+            this.comboBoxDriverNumberAdd.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxDriverNumberAdd.TabIndex = 6;
+            this.comboBoxDriverNumberAdd.SelectedIndexChanged += new System.EventHandler(this.comboBoxDriverNumberAdd_SelectedIndexChanged);
+            // 
+            // driverBindingSource2
+            // 
+            this.driverBindingSource2.DataMember = "Driver";
+            this.driverBindingSource2.DataSource = this.testDataSet;
+            // 
             // checkBoxTSBulkAdd
             // 
             this.checkBoxTSBulkAdd.AutoSize = true;
@@ -770,6 +841,23 @@
             this.checkBoxTSBulkAdd.TabIndex = 12;
             this.checkBoxTSBulkAdd.Text = "Насыпь";
             this.checkBoxTSBulkAdd.UseVisualStyleBackColor = true;
+            // 
+            // comboBoxDriverFIOAdd
+            // 
+            this.comboBoxDriverFIOAdd.DataSource = this.driverBindingSource1;
+            this.comboBoxDriverFIOAdd.DisplayMember = "fio_driver";
+            this.comboBoxDriverFIOAdd.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxDriverFIOAdd.FormattingEnabled = true;
+            this.comboBoxDriverFIOAdd.Location = new System.Drawing.Point(73, 42);
+            this.comboBoxDriverFIOAdd.Name = "comboBoxDriverFIOAdd";
+            this.comboBoxDriverFIOAdd.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxDriverFIOAdd.TabIndex = 7;
+            this.comboBoxDriverFIOAdd.SelectedIndexChanged += new System.EventHandler(this.comboBoxDriverNumberAdd_SelectedIndexChanged_1);
+            // 
+            // driverBindingSource1
+            // 
+            this.driverBindingSource1.DataMember = "Driver";
+            this.driverBindingSource1.DataSource = this.testDataSet;
             // 
             // labelDriverTSFIO
             // 
@@ -788,70 +876,6 @@
             this.labelDriverTSFIOAdd.Size = new System.Drawing.Size(158, 13);
             this.labelDriverTSFIOAdd.TabIndex = 8;
             this.labelDriverTSFIOAdd.Text = "Водительское удостоверение";
-            // 
-            // comboBoxDriverFIOAdd
-            // 
-            this.comboBoxDriverFIOAdd.DataSource = this.driverBindingSource1;
-            this.comboBoxDriverFIOAdd.DisplayMember = "fio_driver";
-            this.comboBoxDriverFIOAdd.FormattingEnabled = true;
-            this.comboBoxDriverFIOAdd.Location = new System.Drawing.Point(73, 42);
-            this.comboBoxDriverFIOAdd.Name = "comboBoxDriverFIOAdd";
-            this.comboBoxDriverFIOAdd.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxDriverFIOAdd.TabIndex = 7;
-            this.comboBoxDriverFIOAdd.SelectedIndexChanged += new System.EventHandler(this.comboBoxDriverNumberAdd_SelectedIndexChanged_1);
-            // 
-            // driverBindingSource1
-            // 
-            this.driverBindingSource1.DataMember = "Driver";
-            this.driverBindingSource1.DataSource = this.testDataSet;
-            // 
-            // comboBoxDriverNumberAdd
-            // 
-            this.comboBoxDriverNumberAdd.DataSource = this.driverBindingSource2;
-            this.comboBoxDriverNumberAdd.DisplayMember = "nomber_driver";
-            this.comboBoxDriverNumberAdd.FormattingEnabled = true;
-            this.comboBoxDriverNumberAdd.Location = new System.Drawing.Point(374, 15);
-            this.comboBoxDriverNumberAdd.Name = "comboBoxDriverNumberAdd";
-            this.comboBoxDriverNumberAdd.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxDriverNumberAdd.TabIndex = 6;
-            this.comboBoxDriverNumberAdd.SelectedIndexChanged += new System.EventHandler(this.comboBoxDriverNumberAdd_SelectedIndexChanged);
-            // 
-            // driverBindingSource2
-            // 
-            this.driverBindingSource2.DataMember = "Driver";
-            this.driverBindingSource2.DataSource = this.testDataSet;
-            // 
-            // textBoxTSNumberAdd
-            // 
-            this.textBoxTSNumberAdd.Location = new System.Drawing.Point(374, 45);
-            this.textBoxTSNumberAdd.Name = "textBoxTSNumberAdd";
-            this.textBoxTSNumberAdd.Size = new System.Drawing.Size(121, 20);
-            this.textBoxTSNumberAdd.TabIndex = 5;
-            // 
-            // labelTSNumberAdd
-            // 
-            this.labelTSNumberAdd.AutoSize = true;
-            this.labelTSNumberAdd.Location = new System.Drawing.Point(235, 48);
-            this.labelTSNumberAdd.Name = "labelTSNumberAdd";
-            this.labelTSNumberAdd.Size = new System.Drawing.Size(133, 13);
-            this.labelTSNumberAdd.TabIndex = 4;
-            this.labelTSNumberAdd.Text = "Регистрационный номер";
-            // 
-            // textBoxTSMarkAdd
-            // 
-            this.textBoxTSMarkAdd.Location = new System.Drawing.Point(73, 16);
-            this.textBoxTSMarkAdd.Name = "textBoxTSMarkAdd";
-            this.textBoxTSMarkAdd.Size = new System.Drawing.Size(121, 20);
-            this.textBoxTSMarkAdd.TabIndex = 3;
-            // 
-            // labelTSMarkAdd
-            // 
-            this.labelTSMarkAdd.AutoSize = true;
-            this.labelTSMarkAdd.Location = new System.Drawing.Point(10, 19);
-            this.labelTSMarkAdd.Name = "labelTSMarkAdd";
-            this.labelTSMarkAdd.Size = new System.Drawing.Size(57, 13);
-            this.labelTSMarkAdd.TabIndex = 2;
-            this.labelTSMarkAdd.Text = "Марка ТС";
             // 
             // dataGridView3
             // 
@@ -877,99 +901,6 @@
             this.dataGridView3.TabIndex = 1;
             this.dataGridView3.Paint += new System.Windows.Forms.PaintEventHandler(this.dataGridView3_Paint);
             // 
-            // dataGridViewTextBoxColumn9
-            // 
-            this.dataGridViewTextBoxColumn9.DataPropertyName = "mark_car";
-            this.dataGridViewTextBoxColumn9.HeaderText = "Марка ТС";
-            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
-            this.dataGridViewTextBoxColumn9.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn10
-            // 
-            this.dataGridViewTextBoxColumn10.HeaderText = "Водитель";
-            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
-            this.dataGridViewTextBoxColumn10.Width = 110;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Водительское удостоверение";
-            this.Column2.Name = "Column2";
-            // 
-            // dataGridViewTextBoxColumn11
-            // 
-            this.dataGridViewTextBoxColumn11.DataPropertyName = "regist_number";
-            this.dataGridViewTextBoxColumn11.HeaderText = "Регистрационный номер";
-            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
-            this.dataGridViewTextBoxColumn11.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn12
-            // 
-            this.dataGridViewTextBoxColumn12.DataPropertyName = "pk_driver";
-            this.dataGridViewTextBoxColumn12.HeaderText = "pk_driver";
-            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
-            this.dataGridViewTextBoxColumn12.ReadOnly = true;
-            this.dataGridViewTextBoxColumn12.Visible = false;
-            this.dataGridViewTextBoxColumn12.Width = 5;
-            // 
-            // dataGridViewCheckBoxColumn3
-            // 
-            this.dataGridViewCheckBoxColumn3.DataPropertyName = "delivery_bag";
-            this.dataGridViewCheckBoxColumn3.HeaderText = "Насыпь";
-            this.dataGridViewCheckBoxColumn3.Name = "dataGridViewCheckBoxColumn3";
-            this.dataGridViewCheckBoxColumn3.ReadOnly = true;
-            this.dataGridViewCheckBoxColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewCheckBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.dataGridViewCheckBoxColumn3.Width = 55;
-            // 
-            // dataGridViewCheckBoxColumn4
-            // 
-            this.dataGridViewCheckBoxColumn4.DataPropertyName = "delivery_bulk";
-            this.dataGridViewCheckBoxColumn4.HeaderText = "Мешок";
-            this.dataGridViewCheckBoxColumn4.Name = "dataGridViewCheckBoxColumn4";
-            this.dataGridViewCheckBoxColumn4.ReadOnly = true;
-            this.dataGridViewCheckBoxColumn4.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewCheckBoxColumn4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.dataGridViewCheckBoxColumn4.Width = 55;
-            // 
-            // dataGridViewTextBoxColumn13
-            // 
-            this.dataGridViewTextBoxColumn13.DataPropertyName = "tonnage";
-            this.dataGridViewTextBoxColumn13.HeaderText = "Тоннаж(т)";
-            this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
-            this.dataGridViewTextBoxColumn13.ReadOnly = true;
-            this.dataGridViewTextBoxColumn13.Width = 70;
-            // 
-            // dataGridViewTextBoxColumn14
-            // 
-            this.dataGridViewTextBoxColumn14.DataPropertyName = "Costfistzone";
-            this.dataGridViewTextBoxColumn14.HeaderText = "Зона 1(руб)";
-            this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
-            this.dataGridViewTextBoxColumn14.ReadOnly = true;
-            this.dataGridViewTextBoxColumn14.Width = 90;
-            // 
-            // dataGridViewTextBoxColumn15
-            // 
-            this.dataGridViewTextBoxColumn15.DataPropertyName = "Costsecondzone";
-            this.dataGridViewTextBoxColumn15.HeaderText = "Зона 2(руб)";
-            this.dataGridViewTextBoxColumn15.Name = "dataGridViewTextBoxColumn15";
-            this.dataGridViewTextBoxColumn15.ReadOnly = true;
-            this.dataGridViewTextBoxColumn15.Width = 90;
-            // 
-            // dataGridViewTextBoxColumn16
-            // 
-            this.dataGridViewTextBoxColumn16.DataPropertyName = "Costthirdzone";
-            this.dataGridViewTextBoxColumn16.HeaderText = "Зона 3(руб)";
-            this.dataGridViewTextBoxColumn16.Name = "dataGridViewTextBoxColumn16";
-            this.dataGridViewTextBoxColumn16.ReadOnly = true;
-            this.dataGridViewTextBoxColumn16.Width = 90;
-            // 
-            // dataGridViewTextBoxColumn24
-            // 
-            this.dataGridViewTextBoxColumn24.DataPropertyName = "Costdopkm";
-            this.dataGridViewTextBoxColumn24.HeaderText = "Доп. км(руб)";
-            this.dataGridViewTextBoxColumn24.Name = "dataGridViewTextBoxColumn24";
-            this.dataGridViewTextBoxColumn24.ReadOnly = true;
-            // 
             // carBindingSource
             // 
             this.carBindingSource.DataMember = "Car";
@@ -986,280 +917,6 @@
             this.tabPage7.TabIndex = 1;
             this.tabPage7.Text = "Изменение";
             this.tabPage7.UseVisualStyleBackColor = true;
-            // 
-            // dataGridView2
-            // 
-            this.dataGridView2.AutoGenerateColumns = false;
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn2,
-            this.Column3,
-            this.dataGridViewTextBoxColumn3,
-            this.dataGridViewTextBoxColumn4,
-            this.dataGridViewCheckBoxColumn1,
-            this.dataGridViewCheckBoxColumn2,
-            this.dataGridViewTextBoxColumn5,
-            this.dataGridViewTextBoxColumn6,
-            this.dataGridViewTextBoxColumn7,
-            this.dataGridViewTextBoxColumn8,
-            this.dataGridViewTextBoxColumn23});
-            this.dataGridView2.DataSource = this.carBindingSource;
-            this.dataGridView2.Location = new System.Drawing.Point(6, 6);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(1019, 195);
-            this.dataGridView2.TabIndex = 1;
-            this.dataGridView2.Paint += new System.Windows.Forms.PaintEventHandler(this.dataGridView2_Paint);
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "mark_car";
-            this.dataGridViewTextBoxColumn1.HeaderText = "Марка ТС";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "Водитель";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.Width = 110;
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "Водительское удостоверение";
-            this.Column3.Name = "Column3";
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "regist_number";
-            this.dataGridViewTextBoxColumn3.HeaderText = "Регистрационный номер";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "pk_driver";
-            this.dataGridViewTextBoxColumn4.HeaderText = "pk_driver";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            this.dataGridViewTextBoxColumn4.Visible = false;
-            this.dataGridViewTextBoxColumn4.Width = 5;
-            // 
-            // dataGridViewCheckBoxColumn1
-            // 
-            this.dataGridViewCheckBoxColumn1.DataPropertyName = "delivery_bag";
-            this.dataGridViewCheckBoxColumn1.HeaderText = "Насыпь";
-            this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
-            this.dataGridViewCheckBoxColumn1.ReadOnly = true;
-            this.dataGridViewCheckBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewCheckBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.dataGridViewCheckBoxColumn1.Width = 55;
-            // 
-            // dataGridViewCheckBoxColumn2
-            // 
-            this.dataGridViewCheckBoxColumn2.DataPropertyName = "delivery_bulk";
-            this.dataGridViewCheckBoxColumn2.HeaderText = "Мешок";
-            this.dataGridViewCheckBoxColumn2.Name = "dataGridViewCheckBoxColumn2";
-            this.dataGridViewCheckBoxColumn2.ReadOnly = true;
-            this.dataGridViewCheckBoxColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewCheckBoxColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.dataGridViewCheckBoxColumn2.Width = 55;
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.DataPropertyName = "tonnage";
-            this.dataGridViewTextBoxColumn5.HeaderText = "Тоннаж(т)";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.ReadOnly = true;
-            this.dataGridViewTextBoxColumn5.Width = 70;
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            this.dataGridViewTextBoxColumn6.DataPropertyName = "Costfistzone";
-            this.dataGridViewTextBoxColumn6.HeaderText = "Зона 1(руб)";
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            this.dataGridViewTextBoxColumn6.ReadOnly = true;
-            this.dataGridViewTextBoxColumn6.Width = 90;
-            // 
-            // dataGridViewTextBoxColumn7
-            // 
-            this.dataGridViewTextBoxColumn7.DataPropertyName = "Costsecondzone";
-            this.dataGridViewTextBoxColumn7.HeaderText = "Зона 2(руб)";
-            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-            this.dataGridViewTextBoxColumn7.ReadOnly = true;
-            this.dataGridViewTextBoxColumn7.Width = 90;
-            // 
-            // dataGridViewTextBoxColumn8
-            // 
-            this.dataGridViewTextBoxColumn8.DataPropertyName = "Costthirdzone";
-            this.dataGridViewTextBoxColumn8.HeaderText = "Зона 3(руб)";
-            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
-            this.dataGridViewTextBoxColumn8.ReadOnly = true;
-            this.dataGridViewTextBoxColumn8.Width = 90;
-            // 
-            // dataGridViewTextBoxColumn23
-            // 
-            this.dataGridViewTextBoxColumn23.DataPropertyName = "Costdopkm";
-            this.dataGridViewTextBoxColumn23.HeaderText = "Доп. км(руб)";
-            this.dataGridViewTextBoxColumn23.Name = "dataGridViewTextBoxColumn23";
-            this.dataGridViewTextBoxColumn23.ReadOnly = true;
-            // 
-            // tabPage8
-            // 
-            this.tabPage8.Controls.Add(this.panel3);
-            this.tabPage8.Controls.Add(this.dataGridView1);
-            this.tabPage8.Location = new System.Drawing.Point(4, 22);
-            this.tabPage8.Name = "tabPage8";
-            this.tabPage8.Size = new System.Drawing.Size(1031, 336);
-            this.tabPage8.TabIndex = 2;
-            this.tabPage8.Text = "Удаление";
-            this.tabPage8.UseVisualStyleBackColor = true;
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.AutoGenerateColumns = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.markcarDataGridViewTextBoxColumn,
-            this.Column1,
-            this.Column4,
-            this.registnumberDataGridViewTextBoxColumn,
-            this.pkdriverDataGridViewTextBoxColumn,
-            this.deliverybagDataGridViewTextBoxColumn,
-            this.deliverybulkDataGridViewTextBoxColumn,
-            this.tonnageDataGridViewTextBoxColumn,
-            this.costfistzoneDataGridViewTextBoxColumn,
-            this.costsecondzoneDataGridViewTextBoxColumn,
-            this.costthirdzoneDataGridViewTextBoxColumn,
-            this.costdopkmDataGridViewTextBoxColumn});
-            this.dataGridView1.DataSource = this.carBindingSource;
-            this.dataGridView1.Location = new System.Drawing.Point(6, 6);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(1019, 195);
-            this.dataGridView1.TabIndex = 0;
-            this.dataGridView1.Paint += new System.Windows.Forms.PaintEventHandler(this.dataGridView1_Paint);
-            // 
-            // markcarDataGridViewTextBoxColumn
-            // 
-            this.markcarDataGridViewTextBoxColumn.DataPropertyName = "mark_car";
-            this.markcarDataGridViewTextBoxColumn.HeaderText = "Марка ТС";
-            this.markcarDataGridViewTextBoxColumn.Name = "markcarDataGridViewTextBoxColumn";
-            this.markcarDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Водитель";
-            this.Column1.Name = "Column1";
-            this.Column1.Width = 110;
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "Водительское удостоверение";
-            this.Column4.Name = "Column4";
-            // 
-            // registnumberDataGridViewTextBoxColumn
-            // 
-            this.registnumberDataGridViewTextBoxColumn.DataPropertyName = "regist_number";
-            this.registnumberDataGridViewTextBoxColumn.HeaderText = "Регистрационный номер";
-            this.registnumberDataGridViewTextBoxColumn.Name = "registnumberDataGridViewTextBoxColumn";
-            this.registnumberDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // pkdriverDataGridViewTextBoxColumn
-            // 
-            this.pkdriverDataGridViewTextBoxColumn.DataPropertyName = "pk_driver";
-            this.pkdriverDataGridViewTextBoxColumn.HeaderText = "pk_driver";
-            this.pkdriverDataGridViewTextBoxColumn.Name = "pkdriverDataGridViewTextBoxColumn";
-            this.pkdriverDataGridViewTextBoxColumn.ReadOnly = true;
-            this.pkdriverDataGridViewTextBoxColumn.Visible = false;
-            this.pkdriverDataGridViewTextBoxColumn.Width = 5;
-            // 
-            // deliverybagDataGridViewTextBoxColumn
-            // 
-            this.deliverybagDataGridViewTextBoxColumn.DataPropertyName = "delivery_bag";
-            this.deliverybagDataGridViewTextBoxColumn.HeaderText = "Насыпь";
-            this.deliverybagDataGridViewTextBoxColumn.Name = "deliverybagDataGridViewTextBoxColumn";
-            this.deliverybagDataGridViewTextBoxColumn.ReadOnly = true;
-            this.deliverybagDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.deliverybagDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.deliverybagDataGridViewTextBoxColumn.Width = 55;
-            // 
-            // deliverybulkDataGridViewTextBoxColumn
-            // 
-            this.deliverybulkDataGridViewTextBoxColumn.DataPropertyName = "delivery_bulk";
-            this.deliverybulkDataGridViewTextBoxColumn.HeaderText = "Мешок";
-            this.deliverybulkDataGridViewTextBoxColumn.Name = "deliverybulkDataGridViewTextBoxColumn";
-            this.deliverybulkDataGridViewTextBoxColumn.ReadOnly = true;
-            this.deliverybulkDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.deliverybulkDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.deliverybulkDataGridViewTextBoxColumn.Width = 55;
-            // 
-            // tonnageDataGridViewTextBoxColumn
-            // 
-            this.tonnageDataGridViewTextBoxColumn.DataPropertyName = "tonnage";
-            this.tonnageDataGridViewTextBoxColumn.HeaderText = "Тоннаж(т)";
-            this.tonnageDataGridViewTextBoxColumn.Name = "tonnageDataGridViewTextBoxColumn";
-            this.tonnageDataGridViewTextBoxColumn.ReadOnly = true;
-            this.tonnageDataGridViewTextBoxColumn.Width = 70;
-            // 
-            // costfistzoneDataGridViewTextBoxColumn
-            // 
-            this.costfistzoneDataGridViewTextBoxColumn.DataPropertyName = "Costfistzone";
-            this.costfistzoneDataGridViewTextBoxColumn.HeaderText = "Зона 1(руб)";
-            this.costfistzoneDataGridViewTextBoxColumn.Name = "costfistzoneDataGridViewTextBoxColumn";
-            this.costfistzoneDataGridViewTextBoxColumn.ReadOnly = true;
-            this.costfistzoneDataGridViewTextBoxColumn.Width = 90;
-            // 
-            // costsecondzoneDataGridViewTextBoxColumn
-            // 
-            this.costsecondzoneDataGridViewTextBoxColumn.DataPropertyName = "Costsecondzone";
-            this.costsecondzoneDataGridViewTextBoxColumn.HeaderText = "Зона 2(руб)";
-            this.costsecondzoneDataGridViewTextBoxColumn.Name = "costsecondzoneDataGridViewTextBoxColumn";
-            this.costsecondzoneDataGridViewTextBoxColumn.ReadOnly = true;
-            this.costsecondzoneDataGridViewTextBoxColumn.Width = 90;
-            // 
-            // costthirdzoneDataGridViewTextBoxColumn
-            // 
-            this.costthirdzoneDataGridViewTextBoxColumn.DataPropertyName = "Costthirdzone";
-            this.costthirdzoneDataGridViewTextBoxColumn.HeaderText = "Зона 3(руб)";
-            this.costthirdzoneDataGridViewTextBoxColumn.Name = "costthirdzoneDataGridViewTextBoxColumn";
-            this.costthirdzoneDataGridViewTextBoxColumn.ReadOnly = true;
-            this.costthirdzoneDataGridViewTextBoxColumn.Width = 90;
-            // 
-            // costdopkmDataGridViewTextBoxColumn
-            // 
-            this.costdopkmDataGridViewTextBoxColumn.DataPropertyName = "Costdopkm";
-            this.costdopkmDataGridViewTextBoxColumn.HeaderText = "Доп. км(руб)";
-            this.costdopkmDataGridViewTextBoxColumn.Name = "costdopkmDataGridViewTextBoxColumn";
-            this.costdopkmDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // carTableAdapter
-            // 
-            this.carTableAdapter.ClearBeforeFill = true;
-            // 
-            // driverTableAdapter
-            // 
-            this.driverTableAdapter.ClearBeforeFill = true;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.checkBoxTSBagAdd);
-            this.panel1.Controls.Add(this.buttonTSAdd);
-            this.panel1.Controls.Add(this.labelTSMarkAdd);
-            this.panel1.Controls.Add(this.textBoxTSTonnAdd);
-            this.panel1.Controls.Add(this.textBoxTSMarkAdd);
-            this.panel1.Controls.Add(this.labelTSTonnAdd);
-            this.panel1.Controls.Add(this.labelTSNumberAdd);
-            this.panel1.Controls.Add(this.groupBox1);
-            this.panel1.Controls.Add(this.textBoxTSNumberAdd);
-            this.panel1.Controls.Add(this.comboBoxDriverNumberAdd);
-            this.panel1.Controls.Add(this.checkBoxTSBulkAdd);
-            this.panel1.Controls.Add(this.comboBoxDriverFIOAdd);
-            this.panel1.Controls.Add(this.labelDriverTSFIO);
-            this.panel1.Controls.Add(this.labelDriverTSFIOAdd);
-            this.panel1.Location = new System.Drawing.Point(6, 207);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1019, 126);
-            this.panel1.TabIndex = 18;
             // 
             // panel2
             // 
@@ -1435,6 +1092,7 @@
             // 
             this.comboBoxTSDriverNumberChange.DataSource = this.driverBindingSource2;
             this.comboBoxTSDriverNumberChange.DisplayMember = "nomber_driver";
+            this.comboBoxTSDriverNumberChange.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTSDriverNumberChange.FormattingEnabled = true;
             this.comboBoxTSDriverNumberChange.Location = new System.Drawing.Point(374, 15);
             this.comboBoxTSDriverNumberChange.Name = "comboBoxTSDriverNumberChange";
@@ -1455,6 +1113,7 @@
             // 
             this.comboBoxTSDriverFIOChange.DataSource = this.driverBindingSource1;
             this.comboBoxTSDriverFIOChange.DisplayMember = "fio_driver";
+            this.comboBoxTSDriverFIOChange.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTSDriverFIOChange.FormattingEnabled = true;
             this.comboBoxTSDriverFIOChange.Location = new System.Drawing.Point(73, 42);
             this.comboBoxTSDriverFIOChange.Name = "comboBoxTSDriverFIOChange";
@@ -1478,6 +1137,42 @@
             this.labelTSDriverNumberChange.Size = new System.Drawing.Size(158, 13);
             this.labelTSDriverNumberChange.TabIndex = 8;
             this.labelTSDriverNumberChange.Text = "Водительское удостоверение";
+            // 
+            // dataGridView2
+            // 
+            this.dataGridView2.AutoGenerateColumns = false;
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2,
+            this.Column3,
+            this.dataGridViewTextBoxColumn3,
+            this.dataGridViewTextBoxColumn4,
+            this.dataGridViewCheckBoxColumn1,
+            this.dataGridViewCheckBoxColumn2,
+            this.dataGridViewTextBoxColumn5,
+            this.dataGridViewTextBoxColumn6,
+            this.dataGridViewTextBoxColumn7,
+            this.dataGridViewTextBoxColumn8,
+            this.dataGridViewTextBoxColumn23});
+            this.dataGridView2.DataSource = this.carBindingSource;
+            this.dataGridView2.Location = new System.Drawing.Point(6, 6);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.Size = new System.Drawing.Size(1019, 195);
+            this.dataGridView2.TabIndex = 1;
+            this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewTSChange);
+            this.dataGridView2.Paint += new System.Windows.Forms.PaintEventHandler(this.dataGridView2_Paint);
+            // 
+            // tabPage8
+            // 
+            this.tabPage8.Controls.Add(this.panel3);
+            this.tabPage8.Controls.Add(this.dataGridView1);
+            this.tabPage8.Location = new System.Drawing.Point(4, 22);
+            this.tabPage8.Name = "tabPage8";
+            this.tabPage8.Size = new System.Drawing.Size(1031, 336);
+            this.tabPage8.TabIndex = 2;
+            this.tabPage8.Text = "Удаление";
+            this.tabPage8.UseVisualStyleBackColor = true;
             // 
             // panel3
             // 
@@ -1653,6 +1348,7 @@
             // 
             this.comboBoxTSDriverNumberDelete.DataSource = this.driverBindingSource2;
             this.comboBoxTSDriverNumberDelete.DisplayMember = "nomber_driver";
+            this.comboBoxTSDriverNumberDelete.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTSDriverNumberDelete.FormattingEnabled = true;
             this.comboBoxTSDriverNumberDelete.Location = new System.Drawing.Point(374, 15);
             this.comboBoxTSDriverNumberDelete.Name = "comboBoxTSDriverNumberDelete";
@@ -1673,6 +1369,7 @@
             // 
             this.comboBoxTSDriverFIODelete.DataSource = this.driverBindingSource1;
             this.comboBoxTSDriverFIODelete.DisplayMember = "fio_driver";
+            this.comboBoxTSDriverFIODelete.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTSDriverFIODelete.FormattingEnabled = true;
             this.comboBoxTSDriverFIODelete.Location = new System.Drawing.Point(73, 42);
             this.comboBoxTSDriverFIODelete.Name = "comboBoxTSDriverFIODelete";
@@ -1696,6 +1393,324 @@
             this.labelTSDriverNumberDelete.Size = new System.Drawing.Size(158, 13);
             this.labelTSDriverNumberDelete.TabIndex = 8;
             this.labelTSDriverNumberDelete.Text = "Водительское удостоверение";
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AutoGenerateColumns = false;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.markcarDataGridViewTextBoxColumn,
+            this.Column1,
+            this.Column4,
+            this.registnumberDataGridViewTextBoxColumn,
+            this.pkdriverDataGridViewTextBoxColumn,
+            this.deliverybagDataGridViewTextBoxColumn,
+            this.deliverybulkDataGridViewTextBoxColumn,
+            this.tonnageDataGridViewTextBoxColumn,
+            this.costfistzoneDataGridViewTextBoxColumn,
+            this.costsecondzoneDataGridViewTextBoxColumn,
+            this.costthirdzoneDataGridViewTextBoxColumn,
+            this.costdopkmDataGridViewTextBoxColumn});
+            this.dataGridView1.DataSource = this.carBindingSource;
+            this.dataGridView1.Location = new System.Drawing.Point(6, 6);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(1019, 195);
+            this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewTSDelete);
+            this.dataGridView1.Paint += new System.Windows.Forms.PaintEventHandler(this.dataGridView1_Paint);
+            // 
+            // carTableAdapter
+            // 
+            this.carTableAdapter.ClearBeforeFill = true;
+            // 
+            // driverTableAdapter
+            // 
+            this.driverTableAdapter.ClearBeforeFill = true;
+            // 
+            // dataGridViewTextBoxColumn9
+            // 
+            this.dataGridViewTextBoxColumn9.DataPropertyName = "mark_car";
+            this.dataGridViewTextBoxColumn9.HeaderText = "Марка ТС";
+            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            this.dataGridViewTextBoxColumn9.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn10
+            // 
+            this.dataGridViewTextBoxColumn10.HeaderText = "Водитель";
+            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            this.dataGridViewTextBoxColumn10.ReadOnly = true;
+            this.dataGridViewTextBoxColumn10.Width = 110;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Водительское удостоверение";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn11
+            // 
+            this.dataGridViewTextBoxColumn11.DataPropertyName = "regist_number";
+            this.dataGridViewTextBoxColumn11.HeaderText = "Регистрационный номер";
+            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
+            this.dataGridViewTextBoxColumn11.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn12
+            // 
+            this.dataGridViewTextBoxColumn12.DataPropertyName = "pk_driver";
+            this.dataGridViewTextBoxColumn12.HeaderText = "pk_driver";
+            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
+            this.dataGridViewTextBoxColumn12.ReadOnly = true;
+            this.dataGridViewTextBoxColumn12.Visible = false;
+            this.dataGridViewTextBoxColumn12.Width = 5;
+            // 
+            // dataGridViewCheckBoxColumn3
+            // 
+            this.dataGridViewCheckBoxColumn3.DataPropertyName = "delivery_bag";
+            this.dataGridViewCheckBoxColumn3.HeaderText = "Мешок";
+            this.dataGridViewCheckBoxColumn3.Name = "dataGridViewCheckBoxColumn3";
+            this.dataGridViewCheckBoxColumn3.ReadOnly = true;
+            this.dataGridViewCheckBoxColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewCheckBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridViewCheckBoxColumn3.Width = 55;
+            // 
+            // dataGridViewCheckBoxColumn4
+            // 
+            this.dataGridViewCheckBoxColumn4.DataPropertyName = "delivery_bulk";
+            this.dataGridViewCheckBoxColumn4.HeaderText = "Насыпь";
+            this.dataGridViewCheckBoxColumn4.Name = "dataGridViewCheckBoxColumn4";
+            this.dataGridViewCheckBoxColumn4.ReadOnly = true;
+            this.dataGridViewCheckBoxColumn4.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewCheckBoxColumn4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridViewCheckBoxColumn4.Width = 55;
+            // 
+            // dataGridViewTextBoxColumn13
+            // 
+            this.dataGridViewTextBoxColumn13.DataPropertyName = "tonnage";
+            this.dataGridViewTextBoxColumn13.HeaderText = "Тоннаж(т)";
+            this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
+            this.dataGridViewTextBoxColumn13.ReadOnly = true;
+            this.dataGridViewTextBoxColumn13.Width = 70;
+            // 
+            // dataGridViewTextBoxColumn14
+            // 
+            this.dataGridViewTextBoxColumn14.DataPropertyName = "Costfistzone";
+            this.dataGridViewTextBoxColumn14.HeaderText = "Зона 1(руб)";
+            this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
+            this.dataGridViewTextBoxColumn14.ReadOnly = true;
+            this.dataGridViewTextBoxColumn14.Width = 90;
+            // 
+            // dataGridViewTextBoxColumn15
+            // 
+            this.dataGridViewTextBoxColumn15.DataPropertyName = "Costsecondzone";
+            this.dataGridViewTextBoxColumn15.HeaderText = "Зона 2(руб)";
+            this.dataGridViewTextBoxColumn15.Name = "dataGridViewTextBoxColumn15";
+            this.dataGridViewTextBoxColumn15.ReadOnly = true;
+            this.dataGridViewTextBoxColumn15.Width = 90;
+            // 
+            // dataGridViewTextBoxColumn16
+            // 
+            this.dataGridViewTextBoxColumn16.DataPropertyName = "Costthirdzone";
+            this.dataGridViewTextBoxColumn16.HeaderText = "Зона 3(руб)";
+            this.dataGridViewTextBoxColumn16.Name = "dataGridViewTextBoxColumn16";
+            this.dataGridViewTextBoxColumn16.ReadOnly = true;
+            this.dataGridViewTextBoxColumn16.Width = 90;
+            // 
+            // dataGridViewTextBoxColumn24
+            // 
+            this.dataGridViewTextBoxColumn24.DataPropertyName = "Costdopkm";
+            this.dataGridViewTextBoxColumn24.HeaderText = "Доп. км(руб)";
+            this.dataGridViewTextBoxColumn24.Name = "dataGridViewTextBoxColumn24";
+            this.dataGridViewTextBoxColumn24.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "mark_car";
+            this.dataGridViewTextBoxColumn1.HeaderText = "Марка ТС";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.HeaderText = "Водитель";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.Width = 110;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "Водительское удостоверение";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "regist_number";
+            this.dataGridViewTextBoxColumn3.HeaderText = "Регистрационный номер";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "pk_driver";
+            this.dataGridViewTextBoxColumn4.HeaderText = "pk_driver";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            this.dataGridViewTextBoxColumn4.Visible = false;
+            this.dataGridViewTextBoxColumn4.Width = 5;
+            // 
+            // dataGridViewCheckBoxColumn1
+            // 
+            this.dataGridViewCheckBoxColumn1.DataPropertyName = "delivery_bag";
+            this.dataGridViewCheckBoxColumn1.HeaderText = "Мешок";
+            this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
+            this.dataGridViewCheckBoxColumn1.ReadOnly = true;
+            this.dataGridViewCheckBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewCheckBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridViewCheckBoxColumn1.Width = 55;
+            // 
+            // dataGridViewCheckBoxColumn2
+            // 
+            this.dataGridViewCheckBoxColumn2.DataPropertyName = "delivery_bulk";
+            this.dataGridViewCheckBoxColumn2.HeaderText = "Насыпь";
+            this.dataGridViewCheckBoxColumn2.Name = "dataGridViewCheckBoxColumn2";
+            this.dataGridViewCheckBoxColumn2.ReadOnly = true;
+            this.dataGridViewCheckBoxColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewCheckBoxColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridViewCheckBoxColumn2.Width = 55;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.DataPropertyName = "tonnage";
+            this.dataGridViewTextBoxColumn5.HeaderText = "Тоннаж(т)";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            this.dataGridViewTextBoxColumn5.Width = 70;
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.DataPropertyName = "Costfistzone";
+            this.dataGridViewTextBoxColumn6.HeaderText = "Зона 1(руб)";
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            this.dataGridViewTextBoxColumn6.ReadOnly = true;
+            this.dataGridViewTextBoxColumn6.Width = 90;
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            this.dataGridViewTextBoxColumn7.DataPropertyName = "Costsecondzone";
+            this.dataGridViewTextBoxColumn7.HeaderText = "Зона 2(руб)";
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            this.dataGridViewTextBoxColumn7.ReadOnly = true;
+            this.dataGridViewTextBoxColumn7.Width = 90;
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.DataPropertyName = "Costthirdzone";
+            this.dataGridViewTextBoxColumn8.HeaderText = "Зона 3(руб)";
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            this.dataGridViewTextBoxColumn8.ReadOnly = true;
+            this.dataGridViewTextBoxColumn8.Width = 90;
+            // 
+            // dataGridViewTextBoxColumn23
+            // 
+            this.dataGridViewTextBoxColumn23.DataPropertyName = "Costdopkm";
+            this.dataGridViewTextBoxColumn23.HeaderText = "Доп. км(руб)";
+            this.dataGridViewTextBoxColumn23.Name = "dataGridViewTextBoxColumn23";
+            this.dataGridViewTextBoxColumn23.ReadOnly = true;
+            // 
+            // markcarDataGridViewTextBoxColumn
+            // 
+            this.markcarDataGridViewTextBoxColumn.DataPropertyName = "mark_car";
+            this.markcarDataGridViewTextBoxColumn.HeaderText = "Марка ТС";
+            this.markcarDataGridViewTextBoxColumn.Name = "markcarDataGridViewTextBoxColumn";
+            this.markcarDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Водитель";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Width = 110;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "Водительское удостоверение";
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            // 
+            // registnumberDataGridViewTextBoxColumn
+            // 
+            this.registnumberDataGridViewTextBoxColumn.DataPropertyName = "regist_number";
+            this.registnumberDataGridViewTextBoxColumn.HeaderText = "Регистрационный номер";
+            this.registnumberDataGridViewTextBoxColumn.Name = "registnumberDataGridViewTextBoxColumn";
+            this.registnumberDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // pkdriverDataGridViewTextBoxColumn
+            // 
+            this.pkdriverDataGridViewTextBoxColumn.DataPropertyName = "pk_driver";
+            this.pkdriverDataGridViewTextBoxColumn.HeaderText = "pk_driver";
+            this.pkdriverDataGridViewTextBoxColumn.Name = "pkdriverDataGridViewTextBoxColumn";
+            this.pkdriverDataGridViewTextBoxColumn.ReadOnly = true;
+            this.pkdriverDataGridViewTextBoxColumn.Visible = false;
+            this.pkdriverDataGridViewTextBoxColumn.Width = 5;
+            // 
+            // deliverybagDataGridViewTextBoxColumn
+            // 
+            this.deliverybagDataGridViewTextBoxColumn.DataPropertyName = "delivery_bag";
+            this.deliverybagDataGridViewTextBoxColumn.HeaderText = "Мешок";
+            this.deliverybagDataGridViewTextBoxColumn.Name = "deliverybagDataGridViewTextBoxColumn";
+            this.deliverybagDataGridViewTextBoxColumn.ReadOnly = true;
+            this.deliverybagDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.deliverybagDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.deliverybagDataGridViewTextBoxColumn.Width = 55;
+            // 
+            // deliverybulkDataGridViewTextBoxColumn
+            // 
+            this.deliverybulkDataGridViewTextBoxColumn.DataPropertyName = "delivery_bulk";
+            this.deliverybulkDataGridViewTextBoxColumn.HeaderText = "Насыпь";
+            this.deliverybulkDataGridViewTextBoxColumn.Name = "deliverybulkDataGridViewTextBoxColumn";
+            this.deliverybulkDataGridViewTextBoxColumn.ReadOnly = true;
+            this.deliverybulkDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.deliverybulkDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.deliverybulkDataGridViewTextBoxColumn.Width = 55;
+            // 
+            // tonnageDataGridViewTextBoxColumn
+            // 
+            this.tonnageDataGridViewTextBoxColumn.DataPropertyName = "tonnage";
+            this.tonnageDataGridViewTextBoxColumn.HeaderText = "Тоннаж(т)";
+            this.tonnageDataGridViewTextBoxColumn.Name = "tonnageDataGridViewTextBoxColumn";
+            this.tonnageDataGridViewTextBoxColumn.ReadOnly = true;
+            this.tonnageDataGridViewTextBoxColumn.Width = 70;
+            // 
+            // costfistzoneDataGridViewTextBoxColumn
+            // 
+            this.costfistzoneDataGridViewTextBoxColumn.DataPropertyName = "Costfistzone";
+            this.costfistzoneDataGridViewTextBoxColumn.HeaderText = "Зона 1(руб)";
+            this.costfistzoneDataGridViewTextBoxColumn.Name = "costfistzoneDataGridViewTextBoxColumn";
+            this.costfistzoneDataGridViewTextBoxColumn.ReadOnly = true;
+            this.costfistzoneDataGridViewTextBoxColumn.Width = 90;
+            // 
+            // costsecondzoneDataGridViewTextBoxColumn
+            // 
+            this.costsecondzoneDataGridViewTextBoxColumn.DataPropertyName = "Costsecondzone";
+            this.costsecondzoneDataGridViewTextBoxColumn.HeaderText = "Зона 2(руб)";
+            this.costsecondzoneDataGridViewTextBoxColumn.Name = "costsecondzoneDataGridViewTextBoxColumn";
+            this.costsecondzoneDataGridViewTextBoxColumn.ReadOnly = true;
+            this.costsecondzoneDataGridViewTextBoxColumn.Width = 90;
+            // 
+            // costthirdzoneDataGridViewTextBoxColumn
+            // 
+            this.costthirdzoneDataGridViewTextBoxColumn.DataPropertyName = "Costthirdzone";
+            this.costthirdzoneDataGridViewTextBoxColumn.HeaderText = "Зона 3(руб)";
+            this.costthirdzoneDataGridViewTextBoxColumn.Name = "costthirdzoneDataGridViewTextBoxColumn";
+            this.costthirdzoneDataGridViewTextBoxColumn.ReadOnly = true;
+            this.costthirdzoneDataGridViewTextBoxColumn.Width = 90;
+            // 
+            // costdopkmDataGridViewTextBoxColumn
+            // 
+            this.costdopkmDataGridViewTextBoxColumn.DataPropertyName = "Costdopkm";
+            this.costdopkmDataGridViewTextBoxColumn.HeaderText = "Доп. км(руб)";
+            this.costdopkmDataGridViewTextBoxColumn.Name = "costdopkmDataGridViewTextBoxColumn";
+            this.costdopkmDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // FormDriverTS
             // 
@@ -1723,26 +1738,26 @@
             this.tabPage2.ResumeLayout(false);
             this.tabControl3.ResumeLayout(false);
             this.tabPage6.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.driverBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.driverBindingSource2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.driverBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.carBindingSource)).EndInit();
             this.tabPage7.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
-            this.tabPage8.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.groupBoxTSDopKmChange.ResumeLayout(false);
             this.groupBoxTSDopKmChange.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            this.tabPage8.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1801,53 +1816,17 @@
         private System.Windows.Forms.Label labelDriverFIODelete;
         private System.Windows.Forms.DataGridView dataGridView3;
         private System.Windows.Forms.DataGridView dataGridView2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn3;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn15;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn16;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn24;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn23;
-        private System.Windows.Forms.DataGridViewTextBoxColumn markcarDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn registnumberDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn pkdriverDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn deliverybagDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn deliverybulkDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn tonnageDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn costfistzoneDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn costsecondzoneDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn costthirdzoneDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn costdopkmDataGridViewTextBoxColumn;
         private System.Windows.Forms.Button buttonTSAdd;
         private System.Windows.Forms.TextBox textBoxTSTonnAdd;
         private System.Windows.Forms.Label labelTSTonnAdd;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox textBoxTSDopKmAdd;
         private System.Windows.Forms.Label labelTSDopKmAdd;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textBoxTSZone3Add;
         private System.Windows.Forms.Label labelTSZone3Add;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBoxTSZone2Add;
         private System.Windows.Forms.Label labelTSZone2Add;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxTSZone1Add;
         private System.Windows.Forms.Label labelTSZone1Add;
         private System.Windows.Forms.CheckBox checkBoxTSBagAdd;
         private System.Windows.Forms.CheckBox checkBoxTSBulkAdd;
@@ -1908,5 +1887,41 @@
         private System.Windows.Forms.ComboBox comboBoxTSDriverFIODelete;
         private System.Windows.Forms.Label labelTSDriverFIODelete;
         private System.Windows.Forms.Label labelTSDriverNumberDelete;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn3;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn15;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn16;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn24;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn23;
+        private System.Windows.Forms.DataGridViewTextBoxColumn markcarDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn registnumberDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn pkdriverDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn deliverybagDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn deliverybulkDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tonnageDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn costfistzoneDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn costsecondzoneDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn costthirdzoneDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn costdopkmDataGridViewTextBoxColumn;
     }
 }
