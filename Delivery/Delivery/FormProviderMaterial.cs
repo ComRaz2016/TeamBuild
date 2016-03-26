@@ -265,6 +265,7 @@ namespace Delivery
                             msc.CommandText = "UPDATE `Provider`  SET `name_firm` = '" + nameFirm + "', `tel_number_firm` = '" + telefoneFirm + "' , `adress_firm` = '" + adressFirm + "' WHERE `name_firm` = '" + lastNameFirm + "' AND `tel_number_firm` = '" + lastTelefoneFirm + "' AND `adress_firm` = '" + lastAdressFirm + "'";
                             msc.Connection = ConnectionToMySQL;
                             msc.ExecuteNonQuery();
+
                             textBoxNameFirmChange.Clear();
                             textBoxAdressFirmChange.Clear();
                             textBoxTelefoneFirmChange.Clear();
@@ -275,9 +276,9 @@ namespace Delivery
 
                             this.providerTableAdapter.Fill(this.testDataSet.Provider);
 
-                            buttonProviderChange.Enabled = false;
-
                             MessageBox.Show("Изменение записи успешно произведено.");
+
+                            buttonProviderChange.Enabled = false;
                         }
                         else
                         {
@@ -286,8 +287,12 @@ namespace Delivery
                             lastTelefoneFirm = null;
 
                             textBoxNameFirmChange.Clear();
+                            textBoxAdressFirmChange.Clear();
+                            textBoxTelefoneFirmChange.Clear();
 
                             MessageBox.Show("Запись не изменена, так как фирма с таким названием существует.");
+
+                            buttonProviderChange.Enabled = false;
                         }
                     }
                 }
@@ -533,9 +538,9 @@ namespace Delivery
 
                     this.materialTableAdapter.Fill(this.testDataSet.Material);
 
-                    buttonMaterialChange.Enabled = false;
-
                     MessageBox.Show("Изменение записи успешно произведено.");
+
+                    buttonMaterialChange.Enabled = false;
                 }
                 else
                 {
@@ -544,6 +549,8 @@ namespace Delivery
                     textBoxMaterialChange.Clear();
 
                     MessageBox.Show("Запись не изменена, так как материал с таким названием существует.");
+
+                    buttonMaterialChange.Enabled = false;
                 }
             }
         }
@@ -714,6 +721,7 @@ namespace Delivery
             }
         }
 
+        // Изменение материалов поставщиков
         private void buttonProviderMaterialChange_Click(object sender, EventArgs e)
         {
             String nameMaterial = comboBoxMaterialChange.Text.Trim();
@@ -777,6 +785,7 @@ namespace Delivery
             }
         }
 
+        // Удаление материалов поставщиков
         private void buttonProviderMaterialDelete_Click(object sender, EventArgs e)
         {
             String nameMaterial = comboBoxMaterialDelete.Text.Trim();

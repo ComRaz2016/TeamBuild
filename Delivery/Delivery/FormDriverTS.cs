@@ -107,9 +107,78 @@ namespace Delivery
             }
         }
 
+        // Изменение водителя
         private void buttonDriverChange_Click(object sender, EventArgs e)
         {
+            String driverFIO = textBoxDriverFIOChange.Text.Trim();
+            String driverNumber = textBoxDriverNumberChange.Text.Trim();
+            String driverTelefone = textBoxDriverTelefoneChange.Text.Trim();
+            if (driverFIO.Trim() == "")
+            {
+                MessageBox.Show("Необходимо заполнить поле 'ФИО водителя'.");
+            }
+            else
+            {
+                if (driverNumber.Trim() == "")
+                {
+                    MessageBox.Show("Необходимо заполнить поле 'Номер водительского удостоверения'.");
+                }
+                else
+                {
+                    if (driverTelefone.Trim() == "")
+                    {
+                        MessageBox.Show("Необходимо заполнить поле 'Номер телефона водителя'.");
+                    }
+                    else
+                    {
+                        MySqlCommand msc = new MySqlCommand();
+                        msc.CommandText = "SELECT `pk_driver`  FROM `Driver`  WHERE `nomber_driver`  = '" + driverNumber + "' AND `fio_driver`  = '" + driverFIO + "'";
+                        msc.Connection = ConnectionToMySQL;
+                        MySqlDataReader dataReader = msc.ExecuteReader();
+                        String driverPk = null;
+                        while (dataReader.Read())
+                        {
+                            driverPk = dataReader[0].ToString();
+                        }
+                        dataReader.Close();
 
+                        if (driverPk == null)
+                        {
+                            msc.CommandText = "UPDATE `Driver`  SET `fio_driver` = '" + driverFIO + "', `nomber_driver` = '" + driverNumber + "' , `tel_number_driver` = '" + driverTelefone + "' WHERE `fio_driver` = '" + lastDriverFIO + "' AND `nomber_driver` = '" + lastDriverNumber + "' AND `tel_number_driver` = '" + lastDriverTelefone + "'";
+                            msc.Connection = ConnectionToMySQL;
+                            msc.ExecuteNonQuery();
+
+                            textBoxDriverFIOChange.Clear();
+                            textBoxDriverTelefoneChange.Clear();
+                            textBoxDriverNumberChange.Clear();
+
+                            lastDriverFIO = null;
+                            lastDriverTelefone = null;
+                            lastDriverNumber = null;
+
+                            this.driverTableAdapter.Fill(this.testDataSet.Driver);
+
+                            MessageBox.Show("Изменение записи успешно произведено.");
+
+                            buttonDriverChange.Enabled = false;
+                        }
+                        else
+                        {
+                            lastDriverFIO = null;
+                            lastDriverTelefone = null;
+                            lastDriverNumber = null;
+
+                            textBoxDriverFIOChange.Clear();
+                            textBoxDriverTelefoneChange.Clear();
+                            textBoxDriverNumberChange.Clear();
+
+                            MessageBox.Show("Запись не изменена, так как водитель с таким удостоверением существует.");
+
+                            buttonDriverChange.Enabled = false;
+                        }
+                    }
+                }
+            }
         }
 
         // Удаление водителя
@@ -171,6 +240,8 @@ namespace Delivery
                             this.driverTableAdapter.Fill(this.testDataSet.Driver);
 
                             MessageBox.Show("Удаление записи успешно произведено.");
+
+                            buttonDriverDelete.Enabled = false;
                         }
                         else
                         {
@@ -179,11 +250,12 @@ namespace Delivery
                             textBoxDriverTelefoneDelete.Clear();
 
                             MessageBox.Show("Удаление водителя невозможно, так как он предоставляет ТС для доставки материалов.");
+
+                            buttonDriverDelete.Enabled = false;
                         }
                     }
                 }
             }
-            buttonDriverDelete.Enabled = false;
         }
 
         private void dataGridViewDriverChange(object sender, DataGridViewCellEventArgs e)
