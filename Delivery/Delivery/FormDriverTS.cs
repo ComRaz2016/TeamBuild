@@ -19,6 +19,8 @@ namespace Delivery
 
         private void FormDriverTS_Load(object sender, EventArgs e)
         {
+            // TODO: данная строка кода позволяет загрузить данные в таблицу "testDataSet.Driver". При необходимости она может быть перемещена или удалена.
+            this.driverTableAdapter.Fill(this.testDataSet.Driver);
             // TODO: данная строка кода позволяет загрузить данные в таблицу "testDataSet.Car". При необходимости она может быть перемещена или удалена.
             this.carTableAdapter.Fill(this.testDataSet.Car);
 
