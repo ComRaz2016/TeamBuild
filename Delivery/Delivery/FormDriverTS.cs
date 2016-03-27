@@ -19,6 +19,11 @@ namespace Delivery
         String lastDriverTelefone = null;
         String lastDriverNumber = null;
 
+        String lastTSDriverFIO = null;
+        String lastTSDriverNumber = null;
+        String lastDriverTSMark = null;
+        String lastDriverTSNumber = null;
+
         public FormDriverTS()
         {
             String serverName = "127.0.0.1"; // Адрес сервера (для локальной базы пишите "localhost")
@@ -413,14 +418,77 @@ namespace Delivery
             comboBoxDriverNumberAdd.SelectedIndex = comboBoxDriverFIOAdd.SelectedIndex;
         }
 
+        // Выбор ТС для изменения
         private void dataGridViewTSChange(object sender, DataGridViewCellEventArgs e)
         {
+            lastTSDriverFIO = dataGridView2[1, e.RowIndex].Value.ToString();
+            lastTSDriverNumber = dataGridView2[2, e.RowIndex].Value.ToString();
+            lastDriverTSMark = dataGridView2[0, e.RowIndex].Value.ToString();
+            lastDriverTSNumber = dataGridView2[3, e.RowIndex].Value.ToString();
 
+            comboBoxTSDriverFIOChange.Text = dataGridView2[1, e.RowIndex].Value.ToString();
+            comboBoxTSDriverNumberChange.Text = dataGridView2[2, e.RowIndex].Value.ToString();
+            textBoxTSMarkChange.Text = dataGridView2[0, e.RowIndex].Value.ToString();
+            textBoxTSNumberChange.Text = dataGridView2[3, e.RowIndex].Value.ToString();
+            String tsBag = dataGridView2[5, e.RowIndex].Value.ToString();
+            if (tsBag == "1")
+            {
+                checkBoxTSBagChange.Checked = true;
+            }
+            else
+            {
+                checkBoxTSBagChange.Checked = false;
+            }
+            String tsBulk = dataGridView2[6, e.RowIndex].Value.ToString();
+            if (tsBulk == "1")
+            {
+                checkBoxTSBulkChange.Checked = true;
+            }
+            else
+            {
+                checkBoxTSBulkChange.Checked = false;
+            }
+            textBoxTSTonnChange.Text = dataGridView2[7, e.RowIndex].Value.ToString();
+            textBoxTSZone1Change.Text = dataGridView2[8, e.RowIndex].Value.ToString();
+            textBoxTSZone2Change.Text = dataGridView2[9, e.RowIndex].Value.ToString();
+            textBoxTSZone3Change.Text = dataGridView2[10, e.RowIndex].Value.ToString();
+            textBoxTSDopKmChange.Text = dataGridView2[11, e.RowIndex].Value.ToString();
+
+            buttonTSChange.Enabled = true;
         }
 
+        // Выбор ТС для удаления
         private void dataGridViewTSDelete(object sender, DataGridViewCellEventArgs e)
         {
+            comboBoxTSDriverFIODelete.Text = dataGridView1[1, e.RowIndex].Value.ToString();
+            comboBoxTSDriverNumberDelete.Text = dataGridView1[2, e.RowIndex].Value.ToString();
+            textBoxTSMarkDelete.Text = dataGridView1[0, e.RowIndex].Value.ToString();
+            textBoxTSNumberDelete.Text = dataGridView1[3, e.RowIndex].Value.ToString();
+            String tsBag = dataGridView1[5, e.RowIndex].Value.ToString();
+            if (tsBag == "1")
+            {
+                checkBoxTSBagDelete.Checked = true;
+            }
+            else
+            {
+                checkBoxTSBagDelete.Checked = false;
+            }
+            String tsBulk = dataGridView1[6, e.RowIndex].Value.ToString();
+            if (tsBulk == "1")
+            {
+                checkBoxTSBulkDelete.Checked = true;
+            }
+            else
+            {
+                checkBoxTSBulkDelete.Checked = false;
+            }
+            textBoxTSTonnDelete.Text = dataGridView1[7, e.RowIndex].Value.ToString();
+            textBoxTSZone1Delete.Text = dataGridView1[8, e.RowIndex].Value.ToString();
+            textBoxTSZone2Delete.Text = dataGridView1[9, e.RowIndex].Value.ToString();
+            textBoxTSZone3Delete.Text = dataGridView1[10, e.RowIndex].Value.ToString();
+            textBoxTSDopKmDelete.Text = dataGridView1[11, e.RowIndex].Value.ToString();
 
+            buttonTSDelete.Enabled = true;
         }
 
         // Добавление ТС
@@ -565,6 +633,176 @@ namespace Delivery
 
                                                         MessageBox.Show("Запись не добавлена, так как ТС с таким регистрационным номером существует.");
                                                     }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void tabPage8_Leave(object sender, EventArgs e)
+        {
+            textBoxTSMarkDelete.Clear();
+            textBoxTSNumberDelete.Clear();
+            checkBoxTSBagDelete.Checked = false;
+            checkBoxTSBulkDelete.Checked = false;
+
+            textBoxTSTonnDelete.Clear();
+            textBoxTSZone1Delete.Clear();
+            textBoxTSZone2Delete.Clear();
+            textBoxTSZone3Delete.Clear();
+            textBoxTSDopKmDelete.Clear();
+
+            buttonTSDelete.Enabled = false;
+        }
+
+        private void tabPage7_Leave(object sender, EventArgs e)
+        {
+            textBoxTSMarkChange.Clear();
+            textBoxTSNumberChange.Clear();
+            checkBoxTSBagChange.Checked = false;
+            checkBoxTSBulkChange.Checked = false;
+
+            textBoxTSTonnChange.Clear();
+            textBoxTSZone1Change.Clear();
+            textBoxTSZone2Change.Clear();
+            textBoxTSZone3Change.Clear();
+            textBoxTSDopKmChange.Clear();
+
+            buttonTSChange.Enabled = false;
+        }
+
+        private void tabPage6_Leave(object sender, EventArgs e)
+        {
+            textBoxTSMarkAdd.Clear();
+            textBoxTSNumberAdd.Clear();
+            checkBoxTSBagAdd.Checked = false;
+            checkBoxTSBulkAdd.Checked = false;
+
+            textBoxTSTonnAdd.Clear();
+            textBoxTSZone1Add.Clear();
+            textBoxTSZone2Add.Clear();
+            textBoxTSZone3Add.Clear();
+            textBoxTSDopKmAdd.Clear();
+        }
+
+        // Удаление ТС
+        private void buttonTSDelete_Click(object sender, EventArgs e)
+        {
+            String driverFIO = comboBoxTSDriverFIODelete.Text.Trim();
+            String driverNumber = comboBoxTSDriverNumberDelete.Text.Trim();
+            String tsMark = textBoxTSMarkDelete.Text.Trim();
+            String tsNumber = textBoxTSNumberDelete.Text.Trim();
+            String tsBag = null;
+            if (checkBoxTSBagDelete.Checked == true)
+            {
+                tsBag = "1";
+            }
+            else
+            {
+                tsBag = "0";
+            }
+            String tsBulk = null;
+            if (checkBoxTSBulkDelete.Checked == true)
+            {
+                tsBulk = "1";
+            }
+            else
+            {
+                tsBulk = "0";
+            }
+            String tsTonn = textBoxTSTonnDelete.Text.Trim();
+            String tsZone1 = textBoxTSZone1Delete.Text.Trim();
+            String tsZone2 = textBoxTSZone2Delete.Text.Trim();
+            String tsZone3 = textBoxTSZone3Delete.Text.Trim();
+            String tsDopKm = textBoxTSDopKmDelete.Text.Trim();
+
+            if (driverFIO.Trim() == "")
+            {
+                MessageBox.Show("Необходимо выбрать водителя в 'Водитель'.");
+            }
+            else
+            {
+                if (driverNumber.Trim() == "")
+                {
+                    MessageBox.Show("Необходимо выбрать водительское удостоверение в 'Водительское удостоверение'.");
+                }
+                else
+                {
+                    if (tsMark.Trim() == "")
+                    {
+                        MessageBox.Show("Необходимо заполнить поле 'Марка ТС'.");
+                    }
+                    else
+                    {
+                        if (tsNumber.Trim() == "")
+                        {
+                            MessageBox.Show("Необходимо заполнить поле 'Регистрационный номер'.");
+                        }
+                        else
+                        {
+                            if (checkBoxTSBagDelete.Checked == false && checkBoxTSBulkDelete.Checked == false)
+                            {
+                                MessageBox.Show("Необходимо выбрать виды доставок 'Насыпь или мешок'.");
+                            }
+                            else
+                            {
+                                if (tsTonn.Trim() == "")
+                                {
+                                    MessageBox.Show("Необходимо заполнить поле 'Тоннаж'.");
+                                }
+                                else
+                                {
+                                    if (tsZone1.Trim() == "")
+                                    {
+                                        MessageBox.Show("Необходимо заполнить поле 'Зона 1'.");
+                                    }
+                                    else
+                                    {
+                                        if (tsZone2.Trim() == "")
+                                        {
+                                            MessageBox.Show("Необходимо заполнить поле 'Зона 2'.");
+                                        }
+                                        else
+                                        {
+                                            if (tsZone3.Trim() == "")
+                                            {
+                                                MessageBox.Show("Необходимо заполнить поле 'Зона 3'.");
+                                            }
+                                            else
+                                            {
+                                                if (tsDopKm.Trim() == "")
+                                                {
+                                                    MessageBox.Show("Необходимо заполнить поле 'Доп. км'.");
+                                                }
+                                                else
+                                                {
+                                                    MySqlCommand msc = new MySqlCommand();
+                                                    msc.CommandText = "SELECT `pk_driver`  FROM `Driver`  WHERE `nomber_driver`  = '" + driverNumber + "' AND `fio_driver` = '" + driverFIO + "'";
+                                                    msc.Connection = ConnectionToMySQL;
+                                                    MySqlDataReader dataReader = msc.ExecuteReader();
+                                                    String driverPk = null;
+                                                    while (dataReader.Read())
+                                                    {
+                                                        driverPk = dataReader[0].ToString();
+                                                    }
+                                                    dataReader.Close();
+
+                                                    msc.CommandText = "DELETE FROM `Car` WHERE `pk_driver` = '" + driverPk + "' AND `mark_car` = '" + tsMark + "' AND `regist_number` = '" + tsNumber + "'";
+                                                    msc.Connection = ConnectionToMySQL;
+                                                    msc.ExecuteNonQuery();
+
+                                                    MessageBox.Show("Удаление записи успешно произведено.");
+
+                                                    this.carTableAdapter.Fill(this.testDataSet.Car);
+
+                                                    buttonDriverDelete.Enabled = false;
+                                                    // Проверка на то, что ТС не производит доставку,с активным, либо неактивным статусом
                                                 }
                                             }
                                         }
