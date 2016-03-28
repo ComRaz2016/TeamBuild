@@ -32,19 +32,22 @@ namespace Delivery
 
         private void buttonCreateOrder_Click(object sender, EventArgs e)
         {
-            Form f3 = new Form3(ConnectionToMySQL);
+            this.Hide();
+            Form f3 = new Form3(ConnectionToMySQL, this);
             f3.Show();
         }
 
         private void buttonProviderMaterial_Click(object sender, EventArgs e)
         {
-            Form fProviderMaterial = new FormProviderMaterial(ConnectionToMySQL);
+            this.Hide();
+            Form fProviderMaterial = new FormProviderMaterial(ConnectionToMySQL, this);
             fProviderMaterial.Show();
         }
 
         private void buttonDriverTS_Click(object sender, EventArgs e)
         {
-            Form fDriverTS = new FormDriverTS(ConnectionToMySQL);
+            this.Hide();
+            Form fDriverTS = new FormDriverTS(ConnectionToMySQL, this);
             fDriverTS.Show();
         }
 

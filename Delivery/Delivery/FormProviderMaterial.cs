@@ -14,6 +14,7 @@ namespace Delivery
     public partial class FormProviderMaterial : Form
     {
         MySqlConnection ConnectionToMySQL;
+        Form mainForm;
 
         String lastNameFirm = null;
         String lastAdressFirm = null;
@@ -27,9 +28,10 @@ namespace Delivery
         String lastMaterialFirm = null;
 
 
-        public FormProviderMaterial(MySqlConnection connection)
+        public FormProviderMaterial(MySqlConnection connection, Form form)
         {
             ConnectionToMySQL = connection;
+            mainForm = form;
             InitializeComponent();
         }
 
@@ -479,6 +481,7 @@ namespace Delivery
 
         private void FormProviderMaterial_FormClosed(object sender, FormClosedEventArgs e)
         {
+            mainForm.Show();
             //ConnectionToMySQL.Close();
         }
 

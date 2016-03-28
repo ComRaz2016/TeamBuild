@@ -16,6 +16,7 @@ namespace Delivery
     {
 
         MySqlConnection ConnectionToMySQL;
+        Form mainForm;
 
         double oneWorkerSale = 300; //Цена одного грузчика
 
@@ -940,9 +941,10 @@ namespace Delivery
             //comboBox2.SelectedIndex = 0;
         }
 
-        public Form3(MySqlConnection connection)
+        public Form3(MySqlConnection connection,Form form)
         {
             ConnectionToMySQL = connection;
+            mainForm = form;
             InitializeComponent();
             comboBox5.SelectedIndex = 0;
             //Установка минимальной датой сегодняшнюю дату
@@ -1072,6 +1074,7 @@ namespace Delivery
         private void Form3_FormClosed(object sender, FormClosedEventArgs e)
         {
             //ConnectionToMySQL.Close();
+            mainForm.Show();
         }
 
         //Вкладка "Насыпное"
@@ -1873,6 +1876,7 @@ namespace Delivery
                             increaseOrderNumber(getOrderNumber());
                             MessageBox.Show("Заказ успешно оформлен! Спасибо, что выбрали нас!", "Заказ оформлен");
                             ConnectionToMySQL.Close();
+                            mainForm.Show();
                             this.Close();
                         }
                     }
@@ -2022,6 +2026,7 @@ namespace Delivery
 
         private void button2_Click(object sender, EventArgs e)
         {
+            mainForm.Show();
             ConnectionToMySQL.Close();
             this.Close();
         }

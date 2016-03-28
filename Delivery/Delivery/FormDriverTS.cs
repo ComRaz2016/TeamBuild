@@ -14,6 +14,7 @@ namespace Delivery
     public partial class FormDriverTS : Form
     {
         MySqlConnection ConnectionToMySQL;
+        Form mainForm;
 
         String lastDriverFIO = null;
         String lastDriverTelefone = null;
@@ -24,9 +25,10 @@ namespace Delivery
         String lastDriverTSMark = null;
         String lastDriverTSNumber = null;
 
-        public FormDriverTS(MySqlConnection connection)
+        public FormDriverTS(MySqlConnection connection, Form form)
         {
             ConnectionToMySQL = connection;
+            mainForm = form;
 
             InitializeComponent();
         }
@@ -837,6 +839,7 @@ namespace Delivery
 
         private void FormDriverTS_FormClosed(object sender, FormClosedEventArgs e)
         {
+            mainForm.Show();
             //ConnectionToMySQL.Close();
         }
     }
