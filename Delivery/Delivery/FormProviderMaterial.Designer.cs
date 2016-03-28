@@ -150,6 +150,9 @@
             this.providerTableAdapter = new Delivery.TestDataSetTableAdapters.ProviderTableAdapter();
             this.provider_materialTableAdapter = new Delivery.TestDataSetTableAdapters.provider_materialTableAdapter();
             this.materialTableAdapter = new Delivery.TestDataSetTableAdapters.MaterialTableAdapter();
+            this.testDataSet1 = new Delivery.TestDataSet1();
+            this.providerBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
+            this.providerTableAdapter1 = new Delivery.TestDataSet1TableAdapters.ProviderTableAdapter();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabControl2.SuspendLayout();
@@ -181,6 +184,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView8)).BeginInit();
             this.tabPage12.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.testDataSet1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.providerBindingSource2)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -1369,6 +1374,20 @@
             // 
             this.materialTableAdapter.ClearBeforeFill = true;
             // 
+            // testDataSet1
+            // 
+            this.testDataSet1.DataSetName = "TestDataSet1";
+            this.testDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // providerBindingSource2
+            // 
+            this.providerBindingSource2.DataMember = "Provider";
+            this.providerBindingSource2.DataSource = this.testDataSet1;
+            // 
+            // providerTableAdapter1
+            // 
+            this.providerTableAdapter1.ClearBeforeFill = true;
+            // 
             // FormProviderMaterial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1419,6 +1438,8 @@
             this.tabPage12.ResumeLayout(false);
             this.tabPage12.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.testDataSet1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.providerBindingSource2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1546,5 +1567,8 @@
         private System.Windows.Forms.ComboBox comboBoxProviderDelete;
         private System.Windows.Forms.Label labelMaterialProviderDelete;
         private System.Windows.Forms.Label labelProviderMaterialDelete;
+        private TestDataSet1 testDataSet1;
+        private System.Windows.Forms.BindingSource providerBindingSource2;
+        private TestDataSet1TableAdapters.ProviderTableAdapter providerTableAdapter1;
     }
 }

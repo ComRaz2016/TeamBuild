@@ -49,6 +49,8 @@ namespace Delivery
 
         private void FormProviderMaterial_Load(object sender, EventArgs e)
         {
+            // TODO: данная строка кода позволяет загрузить данные в таблицу "testDataSet1.Provider". При необходимости она может быть перемещена или удалена.
+            this.providerTableAdapter1.Fill(this.testDataSet1.Provider);
             // TODO: данная строка кода позволяет загрузить данные в таблицу "testDataSet.Material". При необходимости она может быть перемещена или удалена.
             this.materialTableAdapter.Fill(this.testDataSet.Material);
             // TODO: данная строка кода позволяет загрузить данные в таблицу "testDataSet.provider_material". При необходимости она может быть перемещена или удалена.

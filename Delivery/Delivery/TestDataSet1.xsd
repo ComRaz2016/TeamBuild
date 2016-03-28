@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="TestDataSet1" targetNamespace="http://tempuri.org/TestDataSet1.xsd" xmlns:mstns="http://tempuri.org/TestDataSet1.xsd" xmlns="http://tempuri.org/TestDataSet1.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="providerBindingSourseKristalev" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="providerBindingSourseKristalev (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.Delivery.Properties.Settings.GlobalReference.Default.providerBindingSourseKristalev" Provider="MySql.Data.MySqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="ProviderTableAdapter" GeneratorDataComponentClassName="ProviderTableAdapter" Name="Provider" UserDataComponentName="ProviderTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="providerBindingSourseKristalev (Settings)" DbObjectName="Test.Provider" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT `name_firm`, `adress_firm`, `tel_number_firm` FROM `Provider`</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="name_firm" DataSetColumn="name_firm" />
+              <Mapping SourceColumn="adress_firm" DataSetColumn="adress_firm" />
+              <Mapping SourceColumn="tel_number_firm" DataSetColumn="tel_number_firm" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="TestDataSet1" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="TestDataSet1" msprop:Generator_UserDSName="TestDataSet1">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Provider" msprop:Generator_TableClassName="ProviderDataTable" msprop:Generator_TableVarName="tableProvider" msprop:Generator_TablePropName="Provider" msprop:Generator_RowDeletingName="ProviderRowDeleting" msprop:Generator_RowChangingName="ProviderRowChanging" msprop:Generator_RowEvHandlerName="ProviderRowChangeEventHandler" msprop:Generator_RowDeletedName="ProviderRowDeleted" msprop:Generator_UserTableName="Provider" msprop:Generator_RowChangedName="ProviderRowChanged" msprop:Generator_RowEvArgName="ProviderRowChangeEvent" msprop:Generator_RowClassName="ProviderRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="name_firm" msprop:Generator_ColumnVarNameInTable="columnname_firm" msprop:Generator_ColumnPropNameInRow="name_firm" msprop:Generator_ColumnPropNameInTable="name_firmColumn" msprop:Generator_UserColumnName="name_firm" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="300" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="adress_firm" msprop:Generator_ColumnVarNameInTable="columnadress_firm" msprop:Generator_ColumnPropNameInRow="adress_firm" msprop:Generator_ColumnPropNameInTable="adress_firmColumn" msprop:Generator_UserColumnName="adress_firm" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="300" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="tel_number_firm" msprop:Generator_ColumnVarNameInTable="columntel_number_firm" msprop:Generator_ColumnPropNameInRow="tel_number_firm" msprop:Generator_ColumnPropNameInTable="tel_number_firmColumn" msprop:Generator_UserColumnName="tel_number_firm" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="300" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

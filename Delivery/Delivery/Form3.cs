@@ -565,8 +565,32 @@ namespace Delivery
         // Заполнение combobox доступными машинами
         public void resultTrucks()
         {
+            if (trucks.Count == 0)
+            {
+                MessageBox.Show("В данный момент нет свободных машин, которые удолитворяют требованиям.", "Нет машин, удолитворяющих требованиям");
+                checkBox2.Checked = false;
+                checkBox3.Checked = false;
+                checkBox4.Checked = false;
+                checkBox5.Checked = false;
+                radioButton4.Checked = false;
+                radioButton3.Checked = true;
+                return;
+            }
             if (radioButton4.Checked == true)
             {
+                IEnumerable<String> rez;
+                rez = trucksDriver.Union(trucksDriver);
+                if (rez.Count() <= 1)
+                {
+                     MessageBox.Show("В данный момент нет двух свободных водителей с машинами, которые удолитворяют требованиям.", "Нет машин, удолитворяющих требованиям");
+                    checkBox2.Checked = false;
+                    checkBox3.Checked = false;
+                    checkBox4.Checked = false;
+                    checkBox5.Checked = false;
+                    radioButton4.Checked = false;
+                    radioButton3.Checked = true;
+                    return;
+                }
                 comboBox3.Items.Clear();
                 comboBox3.Text = "";
                 comboBox4.Items.Clear();
