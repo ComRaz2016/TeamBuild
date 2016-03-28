@@ -28,6 +28,7 @@ namespace Delivery
         double bagCost = 0;     //Цена за мешок
 
         bool checkMaterial = false;
+        bool error = false;
 
         List<String> trucks = new List<String>();   // Машины, подходящие для доставки
         List<String> trucksKey = new List<String>();    // Первичные ключи машин, подходящих для доставки
@@ -569,12 +570,15 @@ namespace Delivery
             if (trucks.Count == 0)
             {
                 MessageBox.Show("В данный момент нет свободных машин, которые удолитворяют требованиям.", "Нет машин, удолитворяющих требованиям");
+                error = true;
                 checkBox2.Checked = false;
                 checkBox3.Checked = false;
                 checkBox4.Checked = false;
                 checkBox5.Checked = false;
                 radioButton4.Checked = false;
                 radioButton3.Checked = true;
+                error = false;
+                resultCar();
                 return;
             }
             if (radioButton4.Checked == true)
@@ -584,12 +588,14 @@ namespace Delivery
                 if (rez.Count() <= 1)
                 {
                      MessageBox.Show("В данный момент нет двух свободных водителей с машинами, которые удолитворяют требованиям.", "Нет машин, удолитворяющих требованиям");
+                    error = true;
                     checkBox2.Checked = false;
                     checkBox3.Checked = false;
                     checkBox4.Checked = false;
                     checkBox5.Checked = false;
                     radioButton4.Checked = false;
                     radioButton3.Checked = true;
+                    error = false;
                     return;
                 }
                 comboBox3.Items.Clear();
@@ -960,27 +966,31 @@ namespace Delivery
                 trucksKey.Add(car.Item2);
             }*/
             resultCar();
-            resultTrucks();
+            //resultTrucks();
             insertMaterial();
             //
         }
 
         private void radioButton4_CheckedChanged(object sender, EventArgs e)
         {
-            this.Height = 705;
-            panel5.Location = new Point(14, 409);
-            panel4.Visible = true;
-            numericUpDown4.Enabled = true;
-            label7.Enabled = true;
-            numericUpDown4.Visible = true;
-            label7.Visible = true;
-            //
-            resultCar();
-            //
-            //
-            resultTonnage();
-            //
-            resultCost();
+            if (radioButton4.Checked == true)
+            {
+                this.Height = 705;
+                panel5.Location = new Point(14, 409);
+                panel4.Visible = true;
+                numericUpDown4.Enabled = true;
+                label7.Enabled = true;
+                numericUpDown4.Visible = true;
+                label7.Visible = true;
+                //
+                resultCar();
+                //
+                //
+                resultTonnage();
+                //
+                resultCost();
+            }
+            
         }
 
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
@@ -1245,25 +1255,32 @@ namespace Delivery
 
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
-            //
-            resultCar();
-            //
-            //
-            resultTonnage();
-            //
-            resultCost();
+            if (!error)
+            {
+                //
+                resultCar();
+                //
+                //
+                resultTonnage();
+                //
+                resultCost();
+            }
+            
 
         }
 
         private void checkBox3_CheckedChanged(object sender, EventArgs e)
         {
-            //
-            resultCar();
-            //
-            //
-            resultTonnage();
-            //
-            resultCost();
+            if (!error)
+            {
+                //
+                resultCar();
+                //
+                //
+                resultTonnage();
+                //
+                resultCost();
+            }
 
         }
 
@@ -1446,25 +1463,31 @@ namespace Delivery
 
         private void checkBox4_CheckedChanged(object sender, EventArgs e)
         {
-            //
-            resultCar();
-            //
-            //
-            resultTonnage();
-            //
-            resultCost();
+            if (!error)
+            {
+                //
+                resultCar();
+                //
+                //
+                resultTonnage();
+                //
+                resultCost();
+            }
 
         }
 
         private void checkBox5_CheckedChanged(object sender, EventArgs e)
         {
-            //
-            resultCar();
-            //
-            //
-            resultTonnage();
-            //
-            resultCost();
+            if (!error)
+            {
+                //
+                resultCar();
+                //
+                //
+                resultTonnage();
+                //
+                resultCost();
+            }
         }
 
         // Получение первичного ключа единиц измерения
