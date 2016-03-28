@@ -1736,6 +1736,7 @@
             this.Controls.Add(this.tabControl1);
             this.Name = "FormDriverTS";
             this.Text = "Водители и ТС";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormDriverTS_FormClosed);
             this.Load += new System.EventHandler(this.FormDriverTS_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);

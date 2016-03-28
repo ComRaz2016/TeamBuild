@@ -7,13 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace Delivery
 {
     public partial class Form1 : Form
     {
+        MySqlConnection ConnectionToMySQL;
+
         public Form1()
         {
+            ConnectionDBMySQL dbConnection = new ConnectionDBMySQL();
+            ConnectionToMySQL = dbConnection.getConnection();
+            ConnectionToMySQL.Open();
             InitializeComponent();
         }
 
@@ -26,19 +32,19 @@ namespace Delivery
 
         private void buttonCreateOrder_Click(object sender, EventArgs e)
         {
-            Form f3 = new Form3();
+            Form f3 = new Form3(ConnectionToMySQL);
             f3.Show();
         }
 
         private void buttonProviderMaterial_Click(object sender, EventArgs e)
         {
-            Form fProviderMaterial = new FormProviderMaterial();
+            Form fProviderMaterial = new FormProviderMaterial(ConnectionToMySQL);
             fProviderMaterial.Show();
         }
 
         private void buttonDriverTS_Click(object sender, EventArgs e)
         {
-            Form fDriverTS = new FormDriverTS();
+            Form fDriverTS = new FormDriverTS(ConnectionToMySQL);
             fDriverTS.Show();
         }
 
@@ -55,6 +61,11 @@ namespace Delivery
         private void buttonCheckCost_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            ConnectionToMySQL.Close();
         }
     }
 }

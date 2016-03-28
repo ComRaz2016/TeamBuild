@@ -27,37 +27,20 @@ namespace Delivery
         String lastMaterialFirm = null;
 
 
-        public FormProviderMaterial()
+        public FormProviderMaterial(MySqlConnection connection)
         {
-            String serverName = "127.0.0.1"; // Адрес сервера (для локальной базы пишите "localhost")
-            string userName = "dbadmin"; // Имя пользователя
-            string dbName = "Test"; //Имя базы данных
-            //string port = "6565"; // Порт для подключения
-            string port = "9570"; // Порт для подключения
-            string password = "dbadmin"; // Пароль для подключения
-            string charset = "utf8";
-            String connStr = "server=" + serverName +
-                ";user=" + userName +
-                ";database=" + dbName +
-                ";port=" + port +
-                ";password=" + password +
-                ";charset=" + charset + ";";
-            ConnectionToMySQL = new MySqlConnection(connStr);
-            ConnectionToMySQL.Open();
+            ConnectionToMySQL = connection;
             InitializeComponent();
         }
 
         private void FormProviderMaterial_Load(object sender, EventArgs e)
         {
-            // TODO: данная строка кода позволяет загрузить данные в таблицу "testDataSet1.Provider". При необходимости она может быть перемещена или удалена.
-            this.providerTableAdapter1.Fill(this.testDataSet1.Provider);
             // TODO: данная строка кода позволяет загрузить данные в таблицу "testDataSet.Material". При необходимости она может быть перемещена или удалена.
             this.materialTableAdapter.Fill(this.testDataSet.Material);
             // TODO: данная строка кода позволяет загрузить данные в таблицу "testDataSet.provider_material". При необходимости она может быть перемещена или удалена.
             this.provider_materialTableAdapter.Fill(this.testDataSet.provider_material);
             // TODO: данная строка кода позволяет загрузить данные в таблицу "testDataSet.Provider". При необходимости она может быть перемещена или удалена.
             this.providerTableAdapter.Fill(this.testDataSet.Provider);
-
         }
 
         // Удаление поставщика
@@ -496,7 +479,7 @@ namespace Delivery
 
         private void FormProviderMaterial_FormClosed(object sender, FormClosedEventArgs e)
         {
-            ConnectionToMySQL.Close();
+            //ConnectionToMySQL.Close();
         }
 
         // Добавление названия материала

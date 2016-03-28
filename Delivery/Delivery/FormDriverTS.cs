@@ -24,23 +24,9 @@ namespace Delivery
         String lastDriverTSMark = null;
         String lastDriverTSNumber = null;
 
-        public FormDriverTS()
+        public FormDriverTS(MySqlConnection connection)
         {
-            String serverName = "127.0.0.1"; // Адрес сервера (для локальной базы пишите "localhost")
-            string userName = "dbadmin"; // Имя пользователя
-            string dbName = "Test"; //Имя базы данных
-            //string port = "6565"; // Порт для подключения
-            string port = "9570"; // Порт для подключения
-            string password = "dbadmin"; // Пароль для подключения
-            string charset = "utf8";
-            String connStr = "server=" + serverName +
-                ";user=" + userName +
-                ";database=" + dbName +
-                ";port=" + port +
-                ";password=" + password +
-                ";charset=" + charset + ";";
-            ConnectionToMySQL = new MySqlConnection(connStr);
-            ConnectionToMySQL.Open();
+            ConnectionToMySQL = connection;
 
             InitializeComponent();
         }
@@ -847,6 +833,11 @@ namespace Delivery
                     }
                 }
             }
+        }
+
+        private void FormDriverTS_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            //ConnectionToMySQL.Close();
         }
     }
 }

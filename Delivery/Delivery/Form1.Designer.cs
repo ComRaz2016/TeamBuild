@@ -128,6 +128,7 @@
             this.Controls.Add(this.buttonCreateOrder);
             this.Name = "Form1";
             this.Text = "Главное окно";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.driverBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.testDataSet)).EndInit();
