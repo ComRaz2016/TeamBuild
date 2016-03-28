@@ -476,7 +476,56 @@ namespace Delivery
             textBoxTSZone3Change.Text = dataGridView2[10, e.RowIndex].Value.ToString();
             textBoxTSDopKmChange.Text = dataGridView2[11, e.RowIndex].Value.ToString();
 
+            checkBoxCompactChange.Checked = false;
+            checkBoxTipperChange.Checked = false;
+            checkBoxOnboardChange.Checked = false;
+            checkBoxSelfloaderChange.Checked = false;
+
             buttonTSChange.Enabled = true;
+
+            String tsNumber = textBoxTSNumberChange.Text;
+
+            MySqlCommand msc = new MySqlCommand();
+            msc.CommandText = "SELECT `pk_car`  FROM `Car`  WHERE `regist_number`  = '" + tsNumber + "'";
+            msc.Connection = ConnectionToMySQL;
+            MySqlDataReader dataReader = msc.ExecuteReader();
+            String tsPk = null;
+            while (dataReader.Read())
+            {
+                tsPk = dataReader[0].ToString();
+            }
+            dataReader.Close();
+
+            String selfloaderPk = getInstructionPk("Selfloader");
+            String onboardPk = getInstructionPk("Onboard");
+            String tipperPk = getInstructionPk("Tipper");
+            String compactPk = getInstructionPk("Compact");
+
+            msc.CommandText = "SELECT `pk_instruction`  FROM `instruction_car`  WHERE `pk_car`  = '" + tsPk + "'";
+            msc.Connection = ConnectionToMySQL;
+            dataReader = msc.ExecuteReader();
+            String instructionPk = null;
+            while (dataReader.Read())
+            {
+                instructionPk = dataReader[0].ToString();
+                if (instructionPk == selfloaderPk)
+                {
+                    checkBoxSelfloaderChange.Checked = true;
+                }
+                if (instructionPk == onboardPk)
+                {
+                    checkBoxOnboardChange.Checked = true;
+                }
+                if (instructionPk == compactPk)
+                {
+                    checkBoxCompactChange.Checked = true;
+                }
+                if (instructionPk == tipperPk)
+                {
+                    checkBoxTipperChange.Checked = true;
+                }
+            }
+            dataReader.Close();
         }
 
         // Выбор ТС для удаления
@@ -510,7 +559,71 @@ namespace Delivery
             textBoxTSZone3Delete.Text = dataGridView1[10, e.RowIndex].Value.ToString();
             textBoxTSDopKmDelete.Text = dataGridView1[11, e.RowIndex].Value.ToString();
 
+            checkBoxCompactDelete.Checked = false;
+            checkBoxTipperDelete.Checked = false;
+            checkBoxOnboardDelete.Checked = false;
+            checkBoxSelfloaderDelete.Checked = false;
+
             buttonTSDelete.Enabled = true;
+
+            String tsNumber = textBoxTSNumberDelete.Text;
+
+            MySqlCommand msc = new MySqlCommand();
+            msc.CommandText = "SELECT `pk_car`  FROM `Car`  WHERE `regist_number`  = '" + tsNumber + "'";
+            msc.Connection = ConnectionToMySQL;
+            MySqlDataReader dataReader = msc.ExecuteReader();
+            String tsPk = null;
+            while (dataReader.Read())
+            {
+                tsPk = dataReader[0].ToString();
+            }
+            dataReader.Close();
+
+            String selfloaderPk = getInstructionPk("Selfloader");
+            String onboardPk = getInstructionPk("Onboard");
+            String tipperPk = getInstructionPk("Tipper");
+            String compactPk = getInstructionPk("Compact");
+
+            msc.CommandText = "SELECT `pk_instruction`  FROM `instruction_car`  WHERE `pk_car`  = '" + tsPk + "'";
+            msc.Connection = ConnectionToMySQL;
+            dataReader = msc.ExecuteReader();
+            String instructionPk = null;
+            while (dataReader.Read())
+            {
+                instructionPk = dataReader[0].ToString();
+                if (instructionPk == selfloaderPk)
+                {
+                    checkBoxSelfloaderDelete.Checked = true;
+                }
+                if (instructionPk == onboardPk)
+                {
+                    checkBoxOnboardDelete.Checked = true;
+                }
+                if (instructionPk == compactPk)
+                {
+                    checkBoxCompactDelete.Checked = true;
+                }
+                if (instructionPk == tipperPk)
+                {
+                    checkBoxTipperDelete.Checked = true;
+                }
+            }
+            dataReader.Close();
+        }
+
+        public String getInstructionPk(String instructionDesc)
+        {
+            MySqlCommand msc = new MySqlCommand();
+            msc.CommandText = "SELECT pk_instruction FROM `instruction` WHERE `desc_instruction`  = '" + instructionDesc + "'";
+            msc.Connection = ConnectionToMySQL;
+            MySqlDataReader dataReader = msc.ExecuteReader();
+            String instructionPk = null;
+            while (dataReader.Read())
+            {
+                instructionPk = dataReader[0].ToString();
+            }
+            dataReader.Close();
+            return instructionPk;
         }
 
         // Добавление ТС
@@ -642,6 +755,62 @@ namespace Delivery
                                                         this.carTableAdapter.Fill(this.testDataSet.Car);
 
                                                         MessageBox.Show("Добавление записи успешно произведено.");
+
+                                                        msc.CommandText = "SELECT `pk_car`  FROM `Car`  WHERE `regist_number`  = '" + tsNumber + "'";
+                                                        msc.Connection = ConnectionToMySQL;
+                                                        dataReader = msc.ExecuteReader();
+                                                        String tsPk = null;
+                                                        while (dataReader.Read())
+                                                        {
+                                                            tsPk = dataReader[0].ToString();
+                                                        }
+                                                        dataReader.Close();
+
+                                                        if (checkBoxCompactAdd.Checked == true)
+                                                        {
+                                                            String instructionPk = getInstructionPk("Compact");
+                                                            if (instructionPk != null)
+                                                            {
+                                                                msc.CommandText = "INSERT INTO `instruction_car` (`pk_instruction`, `pk_car`) VALUES ('" + instructionPk + "', '" + tsPk + "')";
+                                                                msc.Connection = ConnectionToMySQL;
+                                                                msc.ExecuteNonQuery();
+                                                            }
+                                                        }
+                                                        if (checkBoxTipperAdd.Checked == true)
+                                                        {
+                                                            String instructionPk = getInstructionPk("Tipper");
+                                                            if (instructionPk != null)
+                                                            {
+                                                                msc.CommandText = "INSERT INTO `instruction_car` (`pk_instruction`, `pk_car`) VALUES ('" + instructionPk + "', '" + tsPk + "')";
+                                                                msc.Connection = ConnectionToMySQL;
+                                                                msc.ExecuteNonQuery();
+                                                            }
+                                                        }
+                                                        if (checkBoxOnboardAdd.Checked == true)
+                                                        {
+                                                            String instructionPk = getInstructionPk("Onboard");
+                                                            if (instructionPk != null)
+                                                            {
+                                                                msc.CommandText = "INSERT INTO `instruction_car` (`pk_instruction`, `pk_car`) VALUES ('" + instructionPk + "', '" + tsPk + "')";
+                                                                msc.Connection = ConnectionToMySQL;
+                                                                msc.ExecuteNonQuery();
+                                                            }
+                                                        }
+                                                        if (checkBoxSelfloaderAdd.Checked == true)
+                                                        {
+                                                            String instructionPk = getInstructionPk("Selfloader");
+                                                            if (instructionPk != null)
+                                                            {
+                                                                msc.CommandText = "INSERT INTO `instruction_car` (`pk_instruction`, `pk_car`) VALUES ('" + instructionPk + "', '" + tsPk + "')";
+                                                                msc.Connection = ConnectionToMySQL;
+                                                                msc.ExecuteNonQuery();
+                                                            }
+                                                        }
+
+                                                        checkBoxCompactAdd.Checked = false;
+                                                        checkBoxTipperAdd.Checked = false;
+                                                        checkBoxOnboardAdd.Checked = false;
+                                                        checkBoxSelfloaderAdd.Checked = false;
                                                     }
                                                     else
                                                     {
@@ -652,6 +821,11 @@ namespace Delivery
                                                         textBoxTSTonnAdd.Clear();
                                                         textBoxTSMarkAdd.Clear();
                                                         textBoxTSNumberAdd.Clear();
+
+                                                        checkBoxCompactAdd.Checked = false;
+                                                        checkBoxTipperAdd.Checked = false;
+                                                        checkBoxOnboardAdd.Checked = false;
+                                                        checkBoxSelfloaderAdd.Checked = false;
 
                                                         MessageBox.Show("Запись не добавлена, так как ТС с таким регистрационным номером существует.");
                                                     }
@@ -674,6 +848,11 @@ namespace Delivery
             checkBoxTSBagDelete.Checked = false;
             checkBoxTSBulkDelete.Checked = false;
 
+            checkBoxCompactDelete.Checked = false;
+            checkBoxTipperDelete.Checked = false;
+            checkBoxOnboardDelete.Checked = false;
+            checkBoxSelfloaderDelete.Checked = false;
+
             textBoxTSTonnDelete.Clear();
             textBoxTSZone1Delete.Clear();
             textBoxTSZone2Delete.Clear();
@@ -690,6 +869,11 @@ namespace Delivery
             checkBoxTSBagChange.Checked = false;
             checkBoxTSBulkChange.Checked = false;
 
+            checkBoxCompactChange.Checked = false;
+            checkBoxTipperChange.Checked = false;
+            checkBoxOnboardChange.Checked = false;
+            checkBoxSelfloaderChange.Checked = false;
+
             textBoxTSTonnChange.Clear();
             textBoxTSZone1Change.Clear();
             textBoxTSZone2Change.Clear();
@@ -705,6 +889,12 @@ namespace Delivery
             textBoxTSNumberAdd.Clear();
             checkBoxTSBagAdd.Checked = false;
             checkBoxTSBulkAdd.Checked = false;
+
+
+            checkBoxCompactAdd.Checked = false;
+            checkBoxTipperAdd.Checked = false;
+            checkBoxOnboardAdd.Checked = false;
+            checkBoxSelfloaderAdd.Checked = false;
 
             textBoxTSTonnAdd.Clear();
             textBoxTSZone1Add.Clear();
@@ -815,15 +1005,71 @@ namespace Delivery
                                                     }
                                                     dataReader.Close();
 
-                                                    msc.CommandText = "DELETE FROM `Car` WHERE `pk_driver` = '" + driverPk + "' AND `mark_car` = '" + tsMark + "' AND `regist_number` = '" + tsNumber + "'";
+                                                    msc.CommandText = "SELECT `pk_car`  FROM `Car`  WHERE `regist_number`  = '" + tsNumber + "'";
                                                     msc.Connection = ConnectionToMySQL;
-                                                    msc.ExecuteNonQuery();
+                                                    dataReader = msc.ExecuteReader();
+                                                    String tsPk = null;
+                                                    while (dataReader.Read())
+                                                    {
+                                                        tsPk = dataReader[0].ToString();
+                                                    }
+                                                    dataReader.Close();
+                                                    try
+                                                    {
+                                                        msc.CommandText = "DELETE FROM `Car` WHERE `pk_driver` = '" + driverPk + "' AND `mark_car` = '" + tsMark + "' AND `regist_number` = '" + tsNumber + "'";
+                                                        msc.Connection = ConnectionToMySQL;
+                                                        msc.ExecuteNonQuery();
 
-                                                    MessageBox.Show("Удаление записи успешно произведено.");
+                                                        msc.CommandText = "DELETE FROM `instruction_car` WHERE `pk_car` = '" + tsPk + "'";
+                                                        msc.Connection = ConnectionToMySQL;
+                                                        msc.ExecuteNonQuery();
 
-                                                    this.carTableAdapter.Fill(this.testDataSet.Car);
+                                                        MessageBox.Show("Удаление записи успешно произведено.");
 
-                                                    buttonDriverDelete.Enabled = false;
+                                                        textBoxTSMarkDelete.Clear();
+                                                        textBoxTSNumberDelete.Clear();
+                                                        checkBoxTSBagDelete.Checked = false;
+                                                        checkBoxTSBulkDelete.Checked = false;
+
+                                                        checkBoxCompactDelete.Checked = false;
+                                                        checkBoxTipperDelete.Checked = false;
+                                                        checkBoxOnboardDelete.Checked = false;
+                                                        checkBoxSelfloaderDelete.Checked = false;
+
+                                                        textBoxTSTonnDelete.Clear();
+                                                        textBoxTSZone1Delete.Clear();
+                                                        textBoxTSZone2Delete.Clear();
+                                                        textBoxTSZone3Delete.Clear();
+                                                        textBoxTSDopKmDelete.Clear();
+
+                                                        this.carTableAdapter.Fill(this.testDataSet.Car);
+
+                                                        buttonDriverDelete.Enabled = false;
+                                                    }
+                                                    catch (Exception)
+                                                    {
+                                                        MessageBox.Show("Удаление записи невозможно, так как грузовик выполняет доставку.");
+
+                                                        textBoxTSMarkDelete.Clear();
+                                                        textBoxTSNumberDelete.Clear();
+                                                        checkBoxTSBagDelete.Checked = false;
+                                                        checkBoxTSBulkDelete.Checked = false;
+
+                                                        checkBoxCompactDelete.Checked = false;
+                                                        checkBoxTipperDelete.Checked = false;
+                                                        checkBoxOnboardDelete.Checked = false;
+                                                        checkBoxSelfloaderDelete.Checked = false;
+
+                                                        textBoxTSTonnDelete.Clear();
+                                                        textBoxTSZone1Delete.Clear();
+                                                        textBoxTSZone2Delete.Clear();
+                                                        textBoxTSZone3Delete.Clear();
+                                                        textBoxTSDopKmDelete.Clear();
+
+                                                        this.carTableAdapter.Fill(this.testDataSet.Car);
+
+                                                        buttonDriverDelete.Enabled = false;
+                                                    }
                                                     // Проверка на то, что ТС не производит доставку,с активным, либо неактивным статусом
                                                 }
                                             }
@@ -841,6 +1087,337 @@ namespace Delivery
         {
             mainForm.Show();
             //ConnectionToMySQL.Close();
+        }
+
+        private void buttonTSChange_Click(object sender, EventArgs e)
+        {
+            String driverFIO = comboBoxTSDriverFIOChange.Text.Trim();
+            String driverNumber = comboBoxTSDriverNumberChange.Text.Trim();
+            String tsMark = textBoxTSMarkChange.Text.Trim();
+            String tsNumber = textBoxTSNumberChange.Text.Trim();
+            String tsBag = null;
+            if (checkBoxTSBagChange.Checked == true)
+            {
+                tsBag = "1";
+            }
+            else
+            {
+                tsBag = "0";
+            }
+            String tsBulk = null;
+            if (checkBoxTSBulkChange.Checked == true)
+            {
+                tsBulk = "1";
+            }
+            else
+            {
+                tsBulk = "0";
+            }
+            String tsTonn = textBoxTSTonnChange.Text.Trim();
+            String tsZone1 = textBoxTSZone1Change.Text.Trim();
+            String tsZone2 = textBoxTSZone2Change.Text.Trim();
+            String tsZone3 = textBoxTSZone3Change.Text.Trim();
+            String tsDopKm = textBoxTSDopKmChange.Text.Trim();
+
+            MySqlCommand msc = new MySqlCommand();
+            msc.CommandText = "SELECT `pk_car`  FROM `Car`  WHERE `regist_number`  = '" + lastDriverTSNumber + "'";
+            msc.Connection = ConnectionToMySQL;
+            MySqlDataReader dataReader = msc.ExecuteReader();
+            String lastTSPk = null;
+            while (dataReader.Read())
+            {
+                lastTSPk = dataReader[0].ToString();
+            }
+            dataReader.Close();
+
+            if (driverFIO.Trim() == "")
+            {
+                MessageBox.Show("Необходимо выбрать водителя в 'Водитель'.");
+            }
+            else
+            {
+                if (driverNumber.Trim() == "")
+                {
+                    MessageBox.Show("Необходимо выбрать водительское удостоверение в 'Водительское удостоверение'.");
+                }
+                else
+                {
+                    if (tsMark.Trim() == "")
+                    {
+                        MessageBox.Show("Необходимо заполнить поле 'Марка ТС'.");
+                    }
+                    else
+                    {
+                        if (tsNumber.Trim() == "")
+                        {
+                            MessageBox.Show("Необходимо заполнить поле 'Регистрационный номер'.");
+                        }
+                        else
+                        {
+                            if (checkBoxTSBagChange.Checked == false && checkBoxTSBulkChange.Checked == false)
+                            {
+                                MessageBox.Show("Необходимо выбрать виды доставок 'Насыпь или мешок'.");
+                            }
+                            else
+                            {
+                                if (tsTonn.Trim() == "")
+                                {
+                                    MessageBox.Show("Необходимо заполнить поле 'Тоннаж'.");
+                                }
+                                else
+                                {
+                                    if (tsZone1.Trim() == "")
+                                    {
+                                        MessageBox.Show("Необходимо заполнить поле 'Зона 1'.");
+                                    }
+                                    else
+                                    {
+                                        if (tsZone2.Trim() == "")
+                                        {
+                                            MessageBox.Show("Необходимо заполнить поле 'Зона 2'.");
+                                        }
+                                        else
+                                        {
+                                            if (tsZone3.Trim() == "")
+                                            {
+                                                MessageBox.Show("Необходимо заполнить поле 'Зона 3'.");
+                                            }
+                                            else
+                                            {
+                                                if (tsDopKm.Trim() == "")
+                                                {
+                                                    MessageBox.Show("Необходимо заполнить поле 'Доп. км'.");
+                                                }
+                                                else
+                                                {
+                                                    msc.CommandText = "SELECT `pk_car`  FROM `Car`  WHERE `regist_number`  = '" + tsNumber + "'";
+                                                    msc.Connection = ConnectionToMySQL;
+                                                    dataReader = msc.ExecuteReader();
+                                                    String tsPk = null;
+                                                    while (dataReader.Read())
+                                                    {
+                                                        tsPk = dataReader[0].ToString();
+                                                    }
+                                                    dataReader.Close();
+
+                                                    if (lastTSPk == tsPk)
+                                                    {
+                                                        msc.CommandText = "SELECT `pk_driver`  FROM `Driver`  WHERE `nomber_driver`  = '" + driverNumber + "' AND `fio_driver` = '" + driverFIO + "'";
+                                                        msc.Connection = ConnectionToMySQL;
+                                                        dataReader = msc.ExecuteReader();
+                                                        String driverPk = null;
+                                                        while (dataReader.Read())
+                                                        {
+                                                            driverPk = dataReader[0].ToString();
+                                                        }
+                                                        dataReader.Close();
+
+                                                        msc.CommandText = "SELECT `pk_car`  FROM `Car`  WHERE `regist_number`  = '" + lastDriverTSNumber + "'";
+                                                        msc.Connection = ConnectionToMySQL;
+                                                        dataReader = msc.ExecuteReader();
+                                                        tsPk = null;
+                                                        while (dataReader.Read())
+                                                        {
+                                                            tsPk = dataReader[0].ToString();
+                                                        }
+                                                        dataReader.Close();
+
+                                                        msc.CommandText = "DELETE FROM `instruction_car` WHERE `pk_car` = '" + tsPk + "'";
+                                                        msc.Connection = ConnectionToMySQL;
+                                                        msc.ExecuteNonQuery();
+
+                                                        msc.CommandText = "UPDATE `Car`  SET `mark_car` = '" + tsMark + "', `regist_number` = '" + tsNumber + "' , `delivery_bag` = '" + tsBag + "', `delivery_bulk` = '" + tsBulk + "', `tonnage` = '" + tsTonn + "', `Costfistzone` = '" + tsZone1 + "', `Costsecondzone` = '" + tsZone2 + "', `Costthirdzone` = '" + tsZone3 + "', `Costdopkm` = '" + tsDopKm + "', `pk_driver` = '" + driverPk + "' WHERE `mark_car` = '" + lastDriverTSMark + "' AND `regist_number` = '" + lastDriverTSNumber + "'";
+                                                        msc.Connection = ConnectionToMySQL;
+                                                        msc.ExecuteNonQuery();
+
+                                                        if (checkBoxCompactChange.Checked == true)
+                                                        {
+                                                            String instructionPk = getInstructionPk("Compact");
+                                                            if (instructionPk != null)
+                                                            {
+                                                                msc.CommandText = "INSERT INTO `instruction_car` (`pk_instruction`, `pk_car`) VALUES ('" + instructionPk + "', '" + tsPk + "')";
+                                                                msc.Connection = ConnectionToMySQL;
+                                                                msc.ExecuteNonQuery();
+                                                            }
+                                                        }
+                                                        if (checkBoxTipperChange.Checked == true)
+                                                        {
+                                                            String instructionPk = getInstructionPk("Tipper");
+                                                            if (instructionPk != null)
+                                                            {
+                                                                msc.CommandText = "INSERT INTO `instruction_car` (`pk_instruction`, `pk_car`) VALUES ('" + instructionPk + "', '" + tsPk + "')";
+                                                                msc.Connection = ConnectionToMySQL;
+                                                                msc.ExecuteNonQuery();
+                                                            }
+                                                        }
+                                                        if (checkBoxOnboardChange.Checked == true)
+                                                        {
+                                                            String instructionPk = getInstructionPk("Onboard");
+                                                            if (instructionPk != null)
+                                                            {
+                                                                msc.CommandText = "INSERT INTO `instruction_car` (`pk_instruction`, `pk_car`) VALUES ('" + instructionPk + "', '" + tsPk + "')";
+                                                                msc.Connection = ConnectionToMySQL;
+                                                                msc.ExecuteNonQuery();
+                                                            }
+                                                        }
+                                                        if (checkBoxSelfloaderChange.Checked == true)
+                                                        {
+                                                            String instructionPk = getInstructionPk("Selfloader");
+                                                            if (instructionPk != null)
+                                                            {
+                                                                msc.CommandText = "INSERT INTO `instruction_car` (`pk_instruction`, `pk_car`) VALUES ('" + instructionPk + "', '" + tsPk + "')";
+                                                                msc.Connection = ConnectionToMySQL;
+                                                                msc.ExecuteNonQuery();
+                                                            }
+                                                        }
+
+                                                        textBoxTSMarkChange.Clear();
+                                                        textBoxTSNumberChange.Clear();
+                                                        checkBoxTSBagChange.Checked = false;
+                                                        checkBoxTSBulkChange.Checked = false;
+
+                                                        checkBoxCompactChange.Checked = false;
+                                                        checkBoxTipperChange.Checked = false;
+                                                        checkBoxOnboardChange.Checked = false;
+                                                        checkBoxSelfloaderChange.Checked = false;
+
+                                                        textBoxTSTonnChange.Clear();
+                                                        textBoxTSZone1Change.Clear();
+                                                        textBoxTSZone2Change.Clear();
+                                                        textBoxTSZone3Change.Clear();
+                                                        textBoxTSDopKmChange.Clear();
+
+                                                        this.carTableAdapter.Fill(this.testDataSet.Car);
+
+                                                        buttonTSChange.Enabled = false;
+                                                    }
+                                                    else
+                                                    {
+                                                        if (tsPk == null)
+                                                        {
+                                                            msc.CommandText = "SELECT `pk_driver`  FROM `Driver`  WHERE `nomber_driver`  = '" + driverNumber + "' AND `fio_driver` = '" + driverFIO + "'";
+                                                            msc.Connection = ConnectionToMySQL;
+                                                            dataReader = msc.ExecuteReader();
+                                                            String driverPk = null;
+                                                            while (dataReader.Read())
+                                                            {
+                                                                driverPk = dataReader[0].ToString();
+                                                            }
+                                                            dataReader.Close();
+
+                                                            msc.CommandText = "SELECT `pk_car`  FROM `Car`  WHERE `regist_number`  = '" + lastDriverTSNumber + "'";
+                                                            msc.Connection = ConnectionToMySQL;
+                                                            dataReader = msc.ExecuteReader();
+                                                            tsPk = null;
+                                                            while (dataReader.Read())
+                                                            {
+                                                                tsPk = dataReader[0].ToString();
+                                                            }
+                                                            dataReader.Close();
+
+                                                            msc.CommandText = "DELETE FROM `instruction_car` WHERE `pk_car` = '" + tsPk + "'";
+                                                            msc.Connection = ConnectionToMySQL;
+                                                            msc.ExecuteNonQuery();
+
+                                                            msc.CommandText = "UPDATE `Car`  SET `mark_car` = '" + tsMark + "', `regist_number` = '" + tsNumber + "' , `delivery_bag` = '" + tsBag + "', `delivery_bulk` = '" + tsBulk + "', `tonnage` = '" + tsTonn + "', `Costfistzone` = '" + tsZone1 + "', `Costsecondzone` = '" + tsZone2 + "', `Costthirdzone` = '" + tsZone3 + "', `Costdopkm` = '" + tsDopKm + "', `pk_driver` = '" + driverPk + "' WHERE `mark_car` = '" + lastDriverTSMark + "' AND `regist_number` = '" + lastDriverTSNumber + "'";
+                                                            msc.Connection = ConnectionToMySQL;
+                                                            msc.ExecuteNonQuery();
+
+                                                            if (checkBoxCompactChange.Checked == true)
+                                                            {
+                                                                String instructionPk = getInstructionPk("Compact");
+                                                                if (instructionPk != null)
+                                                                {
+                                                                    msc.CommandText = "INSERT INTO `instruction_car` (`pk_instruction`, `pk_car`) VALUES ('" + instructionPk + "', '" + tsPk + "')";
+                                                                    msc.Connection = ConnectionToMySQL;
+                                                                    msc.ExecuteNonQuery();
+                                                                }
+                                                            }
+                                                            if (checkBoxTipperChange.Checked == true)
+                                                            {
+                                                                String instructionPk = getInstructionPk("Tipper");
+                                                                if (instructionPk != null)
+                                                                {
+                                                                    msc.CommandText = "INSERT INTO `instruction_car` (`pk_instruction`, `pk_car`) VALUES ('" + instructionPk + "', '" + tsPk + "')";
+                                                                    msc.Connection = ConnectionToMySQL;
+                                                                    msc.ExecuteNonQuery();
+                                                                }
+                                                            }
+                                                            if (checkBoxOnboardChange.Checked == true)
+                                                            {
+                                                                String instructionPk = getInstructionPk("Onboard");
+                                                                if (instructionPk != null)
+                                                                {
+                                                                    msc.CommandText = "INSERT INTO `instruction_car` (`pk_instruction`, `pk_car`) VALUES ('" + instructionPk + "', '" + tsPk + "')";
+                                                                    msc.Connection = ConnectionToMySQL;
+                                                                    msc.ExecuteNonQuery();
+                                                                }
+                                                            }
+                                                            if (checkBoxSelfloaderChange.Checked == true)
+                                                            {
+                                                                String instructionPk = getInstructionPk("Selfloader");
+                                                                if (instructionPk != null)
+                                                                {
+                                                                    msc.CommandText = "INSERT INTO `instruction_car` (`pk_instruction`, `pk_car`) VALUES ('" + instructionPk + "', '" + tsPk + "')";
+                                                                    msc.Connection = ConnectionToMySQL;
+                                                                    msc.ExecuteNonQuery();
+                                                                }
+                                                            }
+
+                                                            textBoxTSMarkChange.Clear();
+                                                            textBoxTSNumberChange.Clear();
+                                                            checkBoxTSBagChange.Checked = false;
+                                                            checkBoxTSBulkChange.Checked = false;
+
+                                                            checkBoxCompactChange.Checked = false;
+                                                            checkBoxTipperChange.Checked = false;
+                                                            checkBoxOnboardChange.Checked = false;
+                                                            checkBoxSelfloaderChange.Checked = false;
+
+                                                            textBoxTSTonnChange.Clear();
+                                                            textBoxTSZone1Change.Clear();
+                                                            textBoxTSZone2Change.Clear();
+                                                            textBoxTSZone3Change.Clear();
+                                                            textBoxTSDopKmChange.Clear();
+
+                                                            this.carTableAdapter.Fill(this.testDataSet.Car);
+
+                                                            buttonTSChange.Enabled = false;
+                                                        }
+                                                        else
+                                                        {
+                                                            MessageBox.Show("Изменение записи невозможно, так как ТС с таким регистрационным номером уже существует.");
+                                                            textBoxTSMarkChange.Clear();
+                                                            textBoxTSNumberChange.Clear();
+                                                            checkBoxTSBagChange.Checked = false;
+                                                            checkBoxTSBulkChange.Checked = false;
+
+                                                            checkBoxCompactChange.Checked = false;
+                                                            checkBoxTipperChange.Checked = false;
+                                                            checkBoxOnboardChange.Checked = false;
+                                                            checkBoxSelfloaderChange.Checked = false;
+
+                                                            textBoxTSTonnChange.Clear();
+                                                            textBoxTSZone1Change.Clear();
+                                                            textBoxTSZone2Change.Clear();
+                                                            textBoxTSZone3Change.Clear();
+                                                            textBoxTSDopKmChange.Clear();
+
+                                                            this.carTableAdapter.Fill(this.testDataSet.Car);
+
+                                                            buttonTSChange.Enabled = false;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
