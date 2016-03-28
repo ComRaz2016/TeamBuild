@@ -19,7 +19,7 @@ namespace Delivery
         {
             ConnectionDBMySQL dbConnection = new ConnectionDBMySQL();
             ConnectionToMySQL = dbConnection.getConnection();
-            ConnectionToMySQL.Open();
+            //ConnectionToMySQL.Open();
             InitializeComponent();
         }
 
@@ -32,6 +32,7 @@ namespace Delivery
 
         private void buttonCreateOrder_Click(object sender, EventArgs e)
         {
+            ConnectionToMySQL.Open();
             this.Hide();
             Form f3 = new Form3(ConnectionToMySQL, this);
             f3.Show();
@@ -39,6 +40,7 @@ namespace Delivery
 
         private void buttonProviderMaterial_Click(object sender, EventArgs e)
         {
+            ConnectionToMySQL.Open();
             this.Hide();
             Form fProviderMaterial = new FormProviderMaterial(ConnectionToMySQL, this);
             fProviderMaterial.Show();
@@ -46,6 +48,7 @@ namespace Delivery
 
         private void buttonDriverTS_Click(object sender, EventArgs e)
         {
+            ConnectionToMySQL.Open();
             this.Hide();
             Form fDriverTS = new FormDriverTS(ConnectionToMySQL, this);
             fDriverTS.Show();
@@ -53,7 +56,10 @@ namespace Delivery
 
         private void buttonStatistics_Click(object sender, EventArgs e)
         {
-
+            ConnectionToMySQL.Open();
+            this.Hide();
+            Form fStatistic = new FormStatistics(ConnectionToMySQL, this);
+            fStatistic.Show();
         }
 
         private void buttonObserverOrder_Click(object sender, EventArgs e)

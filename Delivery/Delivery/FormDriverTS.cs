@@ -1085,8 +1085,8 @@ namespace Delivery
 
         private void FormDriverTS_FormClosed(object sender, FormClosedEventArgs e)
         {
+            ConnectionToMySQL.Close();
             mainForm.Show();
-            //ConnectionToMySQL.Close();
         }
 
         private void buttonTSChange_Click(object sender, EventArgs e)

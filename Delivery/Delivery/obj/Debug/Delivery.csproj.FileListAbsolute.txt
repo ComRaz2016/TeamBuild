@@ -59,3 +59,4 @@ C:\Users\Danil\Source\Reposit\Delivery\Delivery\obj\Debug\Delivery.FormDriverTS.
 C:\Users\Danil\Source\Reposit\Delivery\Delivery\obj\Debug\Delivery.FormProviderMaterial.resources
 C:\Users\Danil\Source\Reposit\Delivery\Delivery\obj\Debug\Delivery.Properties.Resources.resources
 C:\Users\Danil\Source\Reposit\Delivery\Delivery\obj\Debug\Delivery.csproj.GenerateResource.Cache
+C:\Users\Danil\Source\Reposit\Delivery\Delivery\obj\Debug\Delivery.FormStatistics.resources

@@ -1083,7 +1083,7 @@ namespace Delivery
 
         private void Form3_FormClosed(object sender, FormClosedEventArgs e)
         {
-            //ConnectionToMySQL.Close();
+            ConnectionToMySQL.Close();
             mainForm.Show();
         }
 

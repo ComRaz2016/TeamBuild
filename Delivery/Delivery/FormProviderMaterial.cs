@@ -481,8 +481,8 @@ namespace Delivery
 
         private void FormProviderMaterial_FormClosed(object sender, FormClosedEventArgs e)
         {
+            ConnectionToMySQL.Close();
             mainForm.Show();
-            //ConnectionToMySQL.Close();
         }
 
         // Добавление названия материала
