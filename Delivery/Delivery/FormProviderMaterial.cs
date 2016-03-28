@@ -231,6 +231,17 @@ namespace Delivery
             String adressFirm = textBoxAdressFirmChange.Text.Trim();
             String telefoneFirm = textBoxTelefoneFirmChange.Text.Trim();
 
+            MySqlCommand msc = new MySqlCommand();
+            msc.CommandText = "SELECT `pk_provider`  FROM `Provider`  WHERE `name_firm`  = '" + lastNameFirm + "'";
+            msc.Connection = ConnectionToMySQL;
+            MySqlDataReader dataReader = msc.ExecuteReader();
+            String lastProviderPk = null;
+            while (dataReader.Read())
+            {
+                lastProviderPk = dataReader[0].ToString();
+            }
+            dataReader.Close();
+
             if (nameFirm.Trim() == "")
             {
                 MessageBox.Show("Необходимо заполнить поле 'Название фирмы'.");
@@ -249,10 +260,10 @@ namespace Delivery
                     }
                     else
                     {
-                        MySqlCommand msc = new MySqlCommand();
+                        //MySqlCommand msc = new MySqlCommand();
                         msc.CommandText = "SELECT `pk_provider`  FROM `Provider`  WHERE `name_firm`  = '" + nameFirm + "'";
                         msc.Connection = ConnectionToMySQL;
-                        MySqlDataReader dataReader = msc.ExecuteReader();
+                        dataReader = msc.ExecuteReader();
                         String providerPk = null;
                         while (dataReader.Read())
                         {
@@ -260,7 +271,7 @@ namespace Delivery
                         }
                         dataReader.Close();
 
-                        if (providerPk == null)
+                        if (lastProviderPk == providerPk)
                         {
                             msc.CommandText = "UPDATE `Provider`  SET `name_firm` = '" + nameFirm + "', `tel_number_firm` = '" + telefoneFirm + "' , `adress_firm` = '" + adressFirm + "' WHERE `name_firm` = '" + lastNameFirm + "' AND `tel_number_firm` = '" + lastTelefoneFirm + "' AND `adress_firm` = '" + lastAdressFirm + "'";
                             msc.Connection = ConnectionToMySQL;
@@ -282,17 +293,40 @@ namespace Delivery
                         }
                         else
                         {
-                            lastAdressFirm = null;
-                            lastNameFirm = null;
-                            lastTelefoneFirm = null;
+                            if (providerPk == null)
+                            {
+                                msc.CommandText = "UPDATE `Provider`  SET `name_firm` = '" + nameFirm + "', `tel_number_firm` = '" + telefoneFirm + "' , `adress_firm` = '" + adressFirm + "' WHERE `name_firm` = '" + lastNameFirm + "' AND `tel_number_firm` = '" + lastTelefoneFirm + "' AND `adress_firm` = '" + lastAdressFirm + "'";
+                                msc.Connection = ConnectionToMySQL;
+                                msc.ExecuteNonQuery();
 
-                            textBoxNameFirmChange.Clear();
-                            textBoxAdressFirmChange.Clear();
-                            textBoxTelefoneFirmChange.Clear();
+                                textBoxNameFirmChange.Clear();
+                                textBoxAdressFirmChange.Clear();
+                                textBoxTelefoneFirmChange.Clear();
 
-                            MessageBox.Show("Запись не изменена, так как фирма с таким названием существует.");
+                                lastAdressFirm = null;
+                                lastNameFirm = null;
+                                lastTelefoneFirm = null;
 
-                            buttonProviderChange.Enabled = false;
+                                this.providerTableAdapter.Fill(this.testDataSet.Provider);
+
+                                MessageBox.Show("Изменение записи успешно произведено.");
+
+                                buttonProviderChange.Enabled = false;
+                            }
+                            else
+                            {
+                                lastAdressFirm = null;
+                                lastNameFirm = null;
+                                lastTelefoneFirm = null;
+
+                                textBoxNameFirmChange.Clear();
+                                textBoxAdressFirmChange.Clear();
+                                textBoxTelefoneFirmChange.Clear();
+
+                                MessageBox.Show("Запись не изменена, так как фирма с таким названием существует.");
+
+                                buttonProviderChange.Enabled = false;
+                            }
                         }
                     }
                 }
@@ -584,15 +618,24 @@ namespace Delivery
             dataReader.Close();
             if (count == 0)
             {
-                msc.CommandText = "DELETE FROM `Material` WHERE `name` = '" + nameMaterial + "'";
-                msc.Connection = ConnectionToMySQL;
-                msc.ExecuteNonQuery();
+                try
+                {
+                    msc.CommandText = "DELETE FROM `Material` WHERE `name` = '" + nameMaterial + "'";
+                    msc.Connection = ConnectionToMySQL;
+                    msc.ExecuteNonQuery();
 
-                textBoxMaterialDelete.Clear();
+                    textBoxMaterialDelete.Clear();
 
-                this.materialTableAdapter.Fill(this.testDataSet.Material);
+                    this.materialTableAdapter.Fill(this.testDataSet.Material);
 
-                MessageBox.Show("Удаление записи успешно произведено.");
+                    MessageBox.Show("Удаление записи успешно произведено.");
+                }
+                catch (Exception)
+                {
+                    textBoxMaterialDelete.Clear();
+
+                    MessageBox.Show("Удаление записи невозможно, так как производится учет доставляемых товаров.");
+                }
             }
             else
             {
@@ -832,23 +875,38 @@ namespace Delivery
                         }
                         dataReader.Close();
 
-                        msc.CommandText = "DELETE FROM `provider_material` WHERE `pk_material` = '" + materialPk + "' AND `pk_provider` = '" + providerPk + "'";
-                        msc.Connection = ConnectionToMySQL;
-                        msc.ExecuteNonQuery();
+                        try
+                        {
+                            msc.CommandText = "DELETE FROM `provider_material` WHERE `pk_material` = '" + materialPk + "' AND `pk_provider` = '" + providerPk + "'";
+                            msc.Connection = ConnectionToMySQL;
+                            msc.ExecuteNonQuery();
 
-                        textBoxTonnCostDelete.Clear();
-                        textBoxBagCostDelete.Clear();
+                            textBoxTonnCostDelete.Clear();
+                            textBoxBagCostDelete.Clear();
 
-                        this.provider_materialTableAdapter.Fill(this.testDataSet.provider_material);
+                            this.provider_materialTableAdapter.Fill(this.testDataSet.provider_material);
 
-                        MessageBox.Show("Удаление записи успешно произведено.");
+                            MessageBox.Show("Удаление записи успешно произведено.");
 
-                        buttonProviderMaterialDelete.Enabled = false;
+                            buttonProviderMaterialDelete.Enabled = false;
+                        }
+                        catch (Exception)
+                        {
+                            textBoxTonnCostDelete.Clear();
+                            textBoxBagCostDelete.Clear();
+
+                            this.provider_materialTableAdapter.Fill(this.testDataSet.provider_material);
+
+                            MessageBox.Show("Удаление записи невозможно, так как производится учет доставляемых товаров.");
+
+                            buttonProviderMaterialDelete.Enabled = false;
+                        }
                     }
                 }
             }
         }
 
+        // Выбор материалов поставщика для изменения
         private void dataGridViewProviderMaterialChange(object sender, DataGridViewCellEventArgs e)
         {
             lastBagCost = dataGridView5[3, e.RowIndex].Value.ToString();
@@ -864,6 +922,7 @@ namespace Delivery
             buttonProviderMaterialChange.Enabled = true;
         }
 
+        // Выбор материалов поставщика для удаления
         private void dataGridViewProviderMaterialDelete(object sender, DataGridViewCellEventArgs e)
         {
             textBoxBagCostDelete.Text = dataGridView6[3, e.RowIndex].Value.ToString();

@@ -303,7 +303,9 @@
             this.telnumberfirmDataGridViewTextBoxColumn});
             this.dataGridView1.DataSource = this.providerBindingSource;
             this.dataGridView1.Location = new System.Drawing.Point(6, 6);
+            this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(665, 204);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewProviderAdd);
@@ -429,7 +431,9 @@
             this.dataGridViewTextBoxColumn3});
             this.dataGridView2.DataSource = this.providerBindingSource;
             this.dataGridView2.Location = new System.Drawing.Point(6, 6);
+            this.dataGridView2.MultiSelect = false;
             this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView2.Size = new System.Drawing.Size(665, 204);
             this.dataGridView2.TabIndex = 1;
             this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewProviderChange);
@@ -439,7 +443,6 @@
             this.dataGridViewTextBoxColumn1.DataPropertyName = "name_firm";
             this.dataGridViewTextBoxColumn1.HeaderText = "Название фирмы";
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
             this.dataGridViewTextBoxColumn1.Width = 200;
             // 
             // dataGridViewTextBoxColumn2
@@ -447,7 +450,6 @@
             this.dataGridViewTextBoxColumn2.DataPropertyName = "adress_firm";
             this.dataGridViewTextBoxColumn2.HeaderText = "Адрес расположения фирмы";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
             this.dataGridViewTextBoxColumn2.Width = 235;
             // 
             // dataGridViewTextBoxColumn3
@@ -547,7 +549,9 @@
             this.dataGridViewTextBoxColumn6});
             this.dataGridView3.DataSource = this.providerBindingSource;
             this.dataGridView3.Location = new System.Drawing.Point(6, 6);
+            this.dataGridView3.MultiSelect = false;
             this.dataGridView3.Name = "dataGridView3";
+            this.dataGridView3.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView3.Size = new System.Drawing.Size(665, 204);
             this.dataGridView3.TabIndex = 1;
             this.dataGridView3.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewProviderDelete);
@@ -721,7 +725,9 @@
             this.costtonnaDataGridViewTextBoxColumn});
             this.dataGridView4.DataSource = this.providermaterialBindingSource;
             this.dataGridView4.Location = new System.Drawing.Point(6, 6);
+            this.dataGridView4.MultiSelect = false;
             this.dataGridView4.Name = "dataGridView4";
+            this.dataGridView4.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView4.Size = new System.Drawing.Size(665, 204);
             this.dataGridView4.TabIndex = 0;
             this.dataGridView4.Paint += new System.Windows.Forms.PaintEventHandler(this.dataGridView4_Paint);
@@ -898,7 +904,9 @@
             this.dataGridViewTextBoxColumn12});
             this.dataGridView5.DataSource = this.providermaterialBindingSource;
             this.dataGridView5.Location = new System.Drawing.Point(6, 6);
+            this.dataGridView5.MultiSelect = false;
             this.dataGridView5.Name = "dataGridView5";
+            this.dataGridView5.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView5.Size = new System.Drawing.Size(665, 204);
             this.dataGridView5.TabIndex = 1;
             this.dataGridView5.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewProviderMaterialChange);
@@ -1072,7 +1080,9 @@
             this.dataGridViewTextBoxColumn18});
             this.dataGridView6.DataSource = this.providermaterialBindingSource;
             this.dataGridView6.Location = new System.Drawing.Point(6, 6);
+            this.dataGridView6.MultiSelect = false;
             this.dataGridView6.Name = "dataGridView6";
+            this.dataGridView6.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView6.Size = new System.Drawing.Size(665, 204);
             this.dataGridView6.TabIndex = 1;
             this.dataGridView6.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewProviderMaterialDelete);
@@ -1198,7 +1208,9 @@
             this.nameDataGridViewTextBoxColumn});
             this.dataGridView7.DataSource = this.materialBindingSource;
             this.dataGridView7.Location = new System.Drawing.Point(159, 6);
+            this.dataGridView7.MultiSelect = false;
             this.dataGridView7.Name = "dataGridView7";
+            this.dataGridView7.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView7.Size = new System.Drawing.Size(352, 204);
             this.dataGridView7.TabIndex = 0;
             // 
@@ -1265,7 +1277,9 @@
             this.dataGridViewTextBoxColumn19});
             this.dataGridView8.DataSource = this.materialBindingSource;
             this.dataGridView8.Location = new System.Drawing.Point(159, 6);
+            this.dataGridView8.MultiSelect = false;
             this.dataGridView8.Name = "dataGridView8";
+            this.dataGridView8.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView8.Size = new System.Drawing.Size(352, 204);
             this.dataGridView8.TabIndex = 4;
             this.dataGridView8.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewMaterialChange);
@@ -1328,7 +1342,9 @@
             this.dataGridViewTextBoxColumn20});
             this.dataGridView9.DataSource = this.materialBindingSource;
             this.dataGridView9.Location = new System.Drawing.Point(159, 6);
+            this.dataGridView9.MultiSelect = false;
             this.dataGridView9.Name = "dataGridView9";
+            this.dataGridView9.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView9.Size = new System.Drawing.Size(352, 204);
             this.dataGridView9.TabIndex = 8;
             this.dataGridView9.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewMaterialDelete);

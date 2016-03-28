@@ -118,6 +118,17 @@ namespace Delivery
             String driverFIO = textBoxDriverFIOChange.Text.Trim();
             String driverNumber = textBoxDriverNumberChange.Text.Trim();
             String driverTelefone = textBoxDriverTelefoneChange.Text.Trim();
+            MySqlCommand msc = new MySqlCommand();
+            msc.CommandText = "SELECT `pk_driver`  FROM `Driver`  WHERE `nomber_driver`  = '" + lastDriverNumber + "'";
+            msc.Connection = ConnectionToMySQL;
+            MySqlDataReader dataReader = msc.ExecuteReader();
+            String lastDriverPk = null;
+            while (dataReader.Read())
+            {
+                lastDriverPk = dataReader[0].ToString();
+            }
+            dataReader.Close();
+
             if (driverFIO.Trim() == "")
             {
                 MessageBox.Show("Необходимо заполнить поле 'ФИО водителя'.");
@@ -136,10 +147,10 @@ namespace Delivery
                     }
                     else
                     {
-                        MySqlCommand msc = new MySqlCommand();
-                        msc.CommandText = "SELECT `pk_driver`  FROM `Driver`  WHERE `nomber_driver`  = '" + driverNumber + "' AND `fio_driver`  = '" + driverFIO + "'";
+                        //MySqlCommand msc = new MySqlCommand();
+                        msc.CommandText = "SELECT `pk_driver`  FROM `Driver`  WHERE `nomber_driver`  = '" + driverNumber + "'";
                         msc.Connection = ConnectionToMySQL;
-                        MySqlDataReader dataReader = msc.ExecuteReader();
+                        dataReader = msc.ExecuteReader();
                         String driverPk = null;
                         while (dataReader.Read())
                         {
@@ -147,7 +158,7 @@ namespace Delivery
                         }
                         dataReader.Close();
 
-                        if (driverPk == null)
+                        if (lastDriverPk == driverPk)
                         {
                             msc.CommandText = "UPDATE `Driver`  SET `fio_driver` = '" + driverFIO + "', `nomber_driver` = '" + driverNumber + "' , `tel_number_driver` = '" + driverTelefone + "' WHERE `fio_driver` = '" + lastDriverFIO + "' AND `nomber_driver` = '" + lastDriverNumber + "' AND `tel_number_driver` = '" + lastDriverTelefone + "'";
                             msc.Connection = ConnectionToMySQL;
@@ -169,17 +180,40 @@ namespace Delivery
                         }
                         else
                         {
-                            lastDriverFIO = null;
-                            lastDriverTelefone = null;
-                            lastDriverNumber = null;
+                            if (driverPk == null)
+                            {
+                                msc.CommandText = "UPDATE `Driver`  SET `fio_driver` = '" + driverFIO + "', `nomber_driver` = '" + driverNumber + "' , `tel_number_driver` = '" + driverTelefone + "' WHERE `fio_driver` = '" + lastDriverFIO + "' AND `nomber_driver` = '" + lastDriverNumber + "' AND `tel_number_driver` = '" + lastDriverTelefone + "'";
+                                msc.Connection = ConnectionToMySQL;
+                                msc.ExecuteNonQuery();
 
-                            textBoxDriverFIOChange.Clear();
-                            textBoxDriverTelefoneChange.Clear();
-                            textBoxDriverNumberChange.Clear();
+                                textBoxDriverFIOChange.Clear();
+                                textBoxDriverTelefoneChange.Clear();
+                                textBoxDriverNumberChange.Clear();
 
-                            MessageBox.Show("Запись не изменена, так как водитель с таким удостоверением существует.");
+                                lastDriverFIO = null;
+                                lastDriverTelefone = null;
+                                lastDriverNumber = null;
 
-                            buttonDriverChange.Enabled = false;
+                                this.driverTableAdapter.Fill(this.testDataSet.Driver);
+
+                                MessageBox.Show("Изменение записи успешно произведено.");
+
+                                buttonDriverChange.Enabled = false;
+                            }
+                            else
+                            {
+                                lastDriverFIO = null;
+                                lastDriverTelefone = null;
+                                lastDriverNumber = null;
+
+                                textBoxDriverFIOChange.Clear();
+                                textBoxDriverTelefoneChange.Clear();
+                                textBoxDriverNumberChange.Clear();
+
+                                MessageBox.Show("Запись не изменена, так как водитель с таким удостоверением существует.");
+
+                                buttonDriverChange.Enabled = false;
+                            }
                         }
                     }
                 }
