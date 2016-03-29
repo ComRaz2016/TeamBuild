@@ -16,6 +16,11 @@ namespace Delivery
         MySqlConnection ConnectionToMySQL;
         Form mainForm;
 
+        List<Double> materialTonnComplete = new List<Double>();
+        List<Double> materialTonnCancel = new List<Double>();
+        List<Double> materialTonnActive = new List<Double>();
+        List<Double> materialTonnInactive = new List<Double>();
+
         public FormStatistics(MySqlConnection connection, Form form)
         {
             ConnectionToMySQL = connection;
@@ -58,6 +63,21 @@ namespace Delivery
             return statusPk;
         }
 
+        public String getMesurePk(String measureDesc)
+        {
+            MySqlCommand msc = new MySqlCommand();
+            msc.CommandText = "SELECT pk_measure FROM `Measure` WHERE `Nazv`  = '" + measureDesc + "'";
+            msc.Connection = ConnectionToMySQL;
+            MySqlDataReader dataReader = msc.ExecuteReader();
+            String measurePk = null;
+            while (dataReader.Read())
+            {
+                measurePk = dataReader[0].ToString();
+            }
+            dataReader.Close();
+            return measurePk;
+        }
+
         private void buttonCreateOrder_Click(object sender, EventArgs e)
         {
             if (dateTimePickerFrom.Value.Date > dateTimePickerOn.Value.Date)
@@ -66,6 +86,29 @@ namespace Delivery
             }
             else
             {
+                List<String> material = new List<String>();
+                
+
+                MySqlCommand msc = new MySqlCommand();
+                msc.CommandText = "SELECT *  FROM `Material`";
+                msc.Connection = ConnectionToMySQL;
+                MySqlDataReader dataReader = msc.ExecuteReader();
+
+                materialTonnComplete.Clear();
+                materialTonnCancel.Clear();
+                materialTonnActive.Clear();
+                materialTonnInactive.Clear();
+
+                while (dataReader.Read())
+                {
+                    material.Add(dataReader[0].ToString());
+                    materialTonnComplete.Add(0);
+                    materialTonnCancel.Add(0);
+                    materialTonnActive.Add(0);
+                    materialTonnInactive.Add(0);
+                }
+                dataReader.Close();
+
                 String date = null;
                 String statusPk = null;
                 String completeStatus = getStatusPk("Complete");
@@ -73,16 +116,20 @@ namespace Delivery
                 String activeStatus = getStatusPk("Active");
                 String inactiveStatus = getStatusPk("Inactive");
 
+                String bulkMeasure = getMesurePk("Bulk");
+                String bagMeasure = getMesurePk("Bag");
+
                 int count = 0;
                 int countActiveOrder = 0;
                 int countInactiveOrder = 0;
                 int countCompleteOrder = 0;
                 int countCancelOrder = 0;
 
-                MySqlCommand msc = new MySqlCommand();
+                int allProfit = 0;
+
                 msc.CommandText = "SELECT *  FROM `Order`";
                 msc.Connection = ConnectionToMySQL;
-                MySqlDataReader dataReader = msc.ExecuteReader();
+                dataReader = msc.ExecuteReader();
 
                 while (dataReader.Read())
                 {  
@@ -94,25 +141,90 @@ namespace Delivery
                         count++;
 
                         statusPk = dataReader[12].ToString();
+                        String materialPk = dataReader[13].ToString();
+                        int index = material.IndexOf(materialPk);
+                        String volume = dataReader[2].ToString();
+                        String measureOrder = dataReader[14].ToString();
                         if (statusPk == completeStatus)
                         {
                             countCompleteOrder++;
+
+                            String costOrder = dataReader[11].ToString();
+                            int cost = Convert.ToInt32(costOrder);
+                            allProfit += (cost / 115) * 15;
+
+                            double tonn = materialTonnComplete[index];
+                            if (measureOrder == bagMeasure)
+                            {
+                                tonn += Convert.ToDouble(volume) * 0.05;
+                            }
+                            else
+                            {
+                                tonn += Convert.ToDouble(volume);
+                            }
+                            materialTonnComplete.RemoveAt(index);
+                            materialTonnComplete.Insert(index,tonn);
                         }
                         if (statusPk == cancelStatus)
                         {
                             countCancelOrder++;
+
+                            double tonn = materialTonnCancel[index];
+                            if (measureOrder == bagMeasure)
+                            {
+                                tonn += Convert.ToDouble(volume) * 0.05;
+                            }
+                            else
+                            {
+                                tonn += Convert.ToDouble(volume);
+                            }
+                            materialTonnCancel.RemoveAt(index);
+                            materialTonnCancel.Insert(index, tonn);
                         }
                         if (statusPk == activeStatus)
                         {
                             countActiveOrder++;
+
+                            double tonn = materialTonnActive[index];
+                            if (measureOrder == bagMeasure)
+                            {
+                                tonn += Convert.ToDouble(volume) * 0.05;
+                            }
+                            else
+                            {
+                                tonn += Convert.ToDouble(volume);
+                            }
+                            materialTonnActive.RemoveAt(index);
+                            materialTonnActive.Insert(index, tonn);
                         }
                         if (statusPk == inactiveStatus)
                         {
                             countInactiveOrder++;
+                            
+                            double tonn = materialTonnInactive[index];
+                            if (measureOrder == bagMeasure)
+                            {
+                                tonn += Convert.ToDouble(volume) * 0.05;
+                            }
+                            else
+                            {
+                                tonn += Convert.ToDouble(volume);
+                            }
+                            materialTonnInactive.RemoveAt(index);
+                            materialTonnInactive.Insert(index, tonn);
                         }
                     }
                 }
                 dataReader.Close();
+
+                int i = 0;
+                foreach (double tonn in materialTonnComplete)
+                {
+                    dataGridView1[1, i].Value = tonn.ToString();
+                    i++;
+                }
+
+                textBoxAllProfit.Text = allProfit.ToString();
 
                 labelAllOrder.Text = count.ToString();
                 labelActiveOrder.Text = countActiveOrder.ToString();
@@ -121,6 +233,46 @@ namespace Delivery
                 labelCancelOrder.Text = countCancelOrder.ToString();
 
                 MessageBox.Show("Отчет составлен. "+ count.ToString());
+            }
+        }
+
+        private void dataGridView1_Paint(object sender, PaintEventArgs e)
+        {
+            int i = 0;
+            foreach (double tonn in materialTonnComplete)
+            {
+                dataGridView1[1, i].Value = tonn.ToString();
+                i++;
+            }
+        }
+
+        private void dataGridView2_Paint(object sender, PaintEventArgs e)
+        {
+            int i = 0;
+            foreach (double tonn in materialTonnCancel)
+            {
+                dataGridView2[1, i].Value = tonn.ToString();
+                i++;
+            }
+        }
+
+        private void dataGridView3_Paint(object sender, PaintEventArgs e)
+        {
+            int i = 0;
+            foreach (double tonn in materialTonnActive)
+            {
+                dataGridView3[1, i].Value = tonn.ToString();
+                i++;
+            }
+        }
+
+        private void dataGridView4_Paint(object sender, PaintEventArgs e)
+        {
+            int i = 0;
+            foreach (double tonn in materialTonnInactive)
+            {
+                dataGridView4[1, i].Value = tonn.ToString();
+                i++;
             }
         }
     }
