@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormDriverTS));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabControl2 = new System.Windows.Forms.TabControl();
@@ -74,6 +75,11 @@
             this.tabControl3 = new System.Windows.Forms.TabControl();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.checkBoxSelfloaderAdd = new System.Windows.Forms.CheckBox();
+            this.checkBoxOnboardAdd = new System.Windows.Forms.CheckBox();
+            this.checkBoxTipperAdd = new System.Windows.Forms.CheckBox();
+            this.checkBoxCompactAdd = new System.Windows.Forms.CheckBox();
             this.checkBoxTSBagAdd = new System.Windows.Forms.CheckBox();
             this.buttonTSAdd = new System.Windows.Forms.Button();
             this.labelTSMarkAdd = new System.Windows.Forms.Label();
@@ -114,6 +120,11 @@
             this.carBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabPage7 = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.checkBoxSelfloaderChange = new System.Windows.Forms.CheckBox();
+            this.checkBoxOnboardChange = new System.Windows.Forms.CheckBox();
+            this.checkBoxTipperChange = new System.Windows.Forms.CheckBox();
+            this.checkBoxCompactChange = new System.Windows.Forms.CheckBox();
             this.checkBoxTSBagChange = new System.Windows.Forms.CheckBox();
             this.buttonTSChange = new System.Windows.Forms.Button();
             this.labelTSMarkChange = new System.Windows.Forms.Label();
@@ -151,6 +162,11 @@
             this.dataGridViewTextBoxColumn23 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage8 = new System.Windows.Forms.TabPage();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.checkBoxSelfloaderDelete = new System.Windows.Forms.CheckBox();
+            this.checkBoxOnboardDelete = new System.Windows.Forms.CheckBox();
+            this.checkBoxTipperDelete = new System.Windows.Forms.CheckBox();
+            this.checkBoxCompactDelete = new System.Windows.Forms.CheckBox();
             this.checkBoxTSBagDelete = new System.Windows.Forms.CheckBox();
             this.buttonTSDelete = new System.Windows.Forms.Button();
             this.labelTSMarkDelete = new System.Windows.Forms.Label();
@@ -188,21 +204,6 @@
             this.costdopkmDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.carTableAdapter = new Delivery.TestDataSetTableAdapters.CarTableAdapter();
             this.driverTableAdapter = new Delivery.TestDataSetTableAdapters.DriverTableAdapter();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.checkBoxCompactAdd = new System.Windows.Forms.CheckBox();
-            this.checkBoxTipperAdd = new System.Windows.Forms.CheckBox();
-            this.checkBoxOnboardAdd = new System.Windows.Forms.CheckBox();
-            this.checkBoxSelfloaderAdd = new System.Windows.Forms.CheckBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.checkBoxSelfloaderChange = new System.Windows.Forms.CheckBox();
-            this.checkBoxOnboardChange = new System.Windows.Forms.CheckBox();
-            this.checkBoxTipperChange = new System.Windows.Forms.CheckBox();
-            this.checkBoxCompactChange = new System.Windows.Forms.CheckBox();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.checkBoxSelfloaderDelete = new System.Windows.Forms.CheckBox();
-            this.checkBoxOnboardDelete = new System.Windows.Forms.CheckBox();
-            this.checkBoxTipperDelete = new System.Windows.Forms.CheckBox();
-            this.checkBoxCompactDelete = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabControl2.SuspendLayout();
@@ -218,6 +219,7 @@
             this.tabControl3.SuspendLayout();
             this.tabPage6.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.driverBindingSource2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.driverBindingSource1)).BeginInit();
@@ -225,15 +227,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.carBindingSource)).BeginInit();
             this.tabPage7.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.groupBoxTSDopKmChange.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.tabPage8.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.groupBox2.SuspendLayout();
-            this.groupBox4.SuspendLayout();
-            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -692,6 +693,59 @@
             this.panel1.Size = new System.Drawing.Size(1019, 169);
             this.panel1.TabIndex = 18;
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.checkBoxSelfloaderAdd);
+            this.groupBox2.Controls.Add(this.checkBoxOnboardAdd);
+            this.groupBox2.Controls.Add(this.checkBoxTipperAdd);
+            this.groupBox2.Controls.Add(this.checkBoxCompactAdd);
+            this.groupBox2.Location = new System.Drawing.Point(13, 76);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(397, 52);
+            this.groupBox2.TabIndex = 18;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Требования к ТС";
+            // 
+            // checkBoxSelfloaderAdd
+            // 
+            this.checkBoxSelfloaderAdd.AutoSize = true;
+            this.checkBoxSelfloaderAdd.Location = new System.Drawing.Point(288, 19);
+            this.checkBoxSelfloaderAdd.Name = "checkBoxSelfloaderAdd";
+            this.checkBoxSelfloaderAdd.Size = new System.Drawing.Size(104, 17);
+            this.checkBoxSelfloaderAdd.TabIndex = 3;
+            this.checkBoxSelfloaderAdd.Text = "Самопогрузчик";
+            this.checkBoxSelfloaderAdd.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxOnboardAdd
+            // 
+            this.checkBoxOnboardAdd.AutoSize = true;
+            this.checkBoxOnboardAdd.Location = new System.Drawing.Point(208, 19);
+            this.checkBoxOnboardAdd.Name = "checkBoxOnboardAdd";
+            this.checkBoxOnboardAdd.Size = new System.Drawing.Size(74, 17);
+            this.checkBoxOnboardAdd.TabIndex = 2;
+            this.checkBoxOnboardAdd.Text = "Бортовая";
+            this.checkBoxOnboardAdd.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxTipperAdd
+            // 
+            this.checkBoxTipperAdd.AutoSize = true;
+            this.checkBoxTipperAdd.Location = new System.Drawing.Point(125, 19);
+            this.checkBoxTipperAdd.Name = "checkBoxTipperAdd";
+            this.checkBoxTipperAdd.Size = new System.Drawing.Size(77, 17);
+            this.checkBoxTipperAdd.TabIndex = 1;
+            this.checkBoxTipperAdd.Text = "Самосвал";
+            this.checkBoxTipperAdd.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxCompactAdd
+            // 
+            this.checkBoxCompactAdd.AutoSize = true;
+            this.checkBoxCompactAdd.Location = new System.Drawing.Point(6, 19);
+            this.checkBoxCompactAdd.Name = "checkBoxCompactAdd";
+            this.checkBoxCompactAdd.Size = new System.Drawing.Size(113, 17);
+            this.checkBoxCompactAdd.TabIndex = 0;
+            this.checkBoxCompactAdd.Text = "Малогабаритный";
+            this.checkBoxCompactAdd.UseVisualStyleBackColor = true;
+            // 
             // checkBoxTSBagAdd
             // 
             this.checkBoxTSBagAdd.AutoSize = true;
@@ -1064,6 +1118,59 @@
             this.panel2.Size = new System.Drawing.Size(1019, 169);
             this.panel2.TabIndex = 19;
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.checkBoxSelfloaderChange);
+            this.groupBox4.Controls.Add(this.checkBoxOnboardChange);
+            this.groupBox4.Controls.Add(this.checkBoxTipperChange);
+            this.groupBox4.Controls.Add(this.checkBoxCompactChange);
+            this.groupBox4.Location = new System.Drawing.Point(13, 76);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(397, 52);
+            this.groupBox4.TabIndex = 19;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Требования к ТС";
+            // 
+            // checkBoxSelfloaderChange
+            // 
+            this.checkBoxSelfloaderChange.AutoSize = true;
+            this.checkBoxSelfloaderChange.Location = new System.Drawing.Point(288, 19);
+            this.checkBoxSelfloaderChange.Name = "checkBoxSelfloaderChange";
+            this.checkBoxSelfloaderChange.Size = new System.Drawing.Size(104, 17);
+            this.checkBoxSelfloaderChange.TabIndex = 3;
+            this.checkBoxSelfloaderChange.Text = "Самопогрузчик";
+            this.checkBoxSelfloaderChange.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxOnboardChange
+            // 
+            this.checkBoxOnboardChange.AutoSize = true;
+            this.checkBoxOnboardChange.Location = new System.Drawing.Point(208, 19);
+            this.checkBoxOnboardChange.Name = "checkBoxOnboardChange";
+            this.checkBoxOnboardChange.Size = new System.Drawing.Size(74, 17);
+            this.checkBoxOnboardChange.TabIndex = 2;
+            this.checkBoxOnboardChange.Text = "Бортовая";
+            this.checkBoxOnboardChange.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxTipperChange
+            // 
+            this.checkBoxTipperChange.AutoSize = true;
+            this.checkBoxTipperChange.Location = new System.Drawing.Point(125, 19);
+            this.checkBoxTipperChange.Name = "checkBoxTipperChange";
+            this.checkBoxTipperChange.Size = new System.Drawing.Size(77, 17);
+            this.checkBoxTipperChange.TabIndex = 1;
+            this.checkBoxTipperChange.Text = "Самосвал";
+            this.checkBoxTipperChange.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxCompactChange
+            // 
+            this.checkBoxCompactChange.AutoSize = true;
+            this.checkBoxCompactChange.Location = new System.Drawing.Point(6, 19);
+            this.checkBoxCompactChange.Name = "checkBoxCompactChange";
+            this.checkBoxCompactChange.Size = new System.Drawing.Size(113, 17);
+            this.checkBoxCompactChange.TabIndex = 0;
+            this.checkBoxCompactChange.Text = "Малогабаритный";
+            this.checkBoxCompactChange.UseVisualStyleBackColor = true;
+            // 
             // checkBoxTSBagChange
             // 
             this.checkBoxTSBagChange.AutoSize = true;
@@ -1420,9 +1527,67 @@
             this.panel3.Size = new System.Drawing.Size(1019, 169);
             this.panel3.TabIndex = 19;
             // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.checkBoxSelfloaderDelete);
+            this.groupBox5.Controls.Add(this.checkBoxOnboardDelete);
+            this.groupBox5.Controls.Add(this.checkBoxTipperDelete);
+            this.groupBox5.Controls.Add(this.checkBoxCompactDelete);
+            this.groupBox5.Location = new System.Drawing.Point(13, 76);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(397, 52);
+            this.groupBox5.TabIndex = 19;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Требования к ТС";
+            // 
+            // checkBoxSelfloaderDelete
+            // 
+            this.checkBoxSelfloaderDelete.AutoSize = true;
+            this.checkBoxSelfloaderDelete.Enabled = false;
+            this.checkBoxSelfloaderDelete.Location = new System.Drawing.Point(288, 19);
+            this.checkBoxSelfloaderDelete.Name = "checkBoxSelfloaderDelete";
+            this.checkBoxSelfloaderDelete.Size = new System.Drawing.Size(104, 17);
+            this.checkBoxSelfloaderDelete.TabIndex = 3;
+            this.checkBoxSelfloaderDelete.Text = "Самопогрузчик";
+            this.checkBoxSelfloaderDelete.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxOnboardDelete
+            // 
+            this.checkBoxOnboardDelete.AutoSize = true;
+            this.checkBoxOnboardDelete.Enabled = false;
+            this.checkBoxOnboardDelete.Location = new System.Drawing.Point(208, 19);
+            this.checkBoxOnboardDelete.Name = "checkBoxOnboardDelete";
+            this.checkBoxOnboardDelete.Size = new System.Drawing.Size(74, 17);
+            this.checkBoxOnboardDelete.TabIndex = 2;
+            this.checkBoxOnboardDelete.Text = "Бортовая";
+            this.checkBoxOnboardDelete.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxTipperDelete
+            // 
+            this.checkBoxTipperDelete.AutoSize = true;
+            this.checkBoxTipperDelete.Enabled = false;
+            this.checkBoxTipperDelete.Location = new System.Drawing.Point(125, 19);
+            this.checkBoxTipperDelete.Name = "checkBoxTipperDelete";
+            this.checkBoxTipperDelete.Size = new System.Drawing.Size(77, 17);
+            this.checkBoxTipperDelete.TabIndex = 1;
+            this.checkBoxTipperDelete.Text = "Самосвал";
+            this.checkBoxTipperDelete.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxCompactDelete
+            // 
+            this.checkBoxCompactDelete.AutoSize = true;
+            this.checkBoxCompactDelete.Enabled = false;
+            this.checkBoxCompactDelete.Location = new System.Drawing.Point(6, 19);
+            this.checkBoxCompactDelete.Name = "checkBoxCompactDelete";
+            this.checkBoxCompactDelete.Size = new System.Drawing.Size(113, 17);
+            this.checkBoxCompactDelete.TabIndex = 0;
+            this.checkBoxCompactDelete.Text = "Малогабаритный";
+            this.checkBoxCompactDelete.UseVisualStyleBackColor = true;
+            // 
             // checkBoxTSBagDelete
             // 
             this.checkBoxTSBagDelete.AutoSize = true;
+            this.checkBoxTSBagDelete.Enabled = false;
             this.checkBoxTSBagDelete.Location = new System.Drawing.Point(631, 18);
             this.checkBoxTSBagDelete.Name = "checkBoxTSBagDelete";
             this.checkBoxTSBagDelete.Size = new System.Drawing.Size(61, 17);
@@ -1454,6 +1619,7 @@
             // 
             this.textBoxTSTonnDelete.Location = new System.Drawing.Point(571, 45);
             this.textBoxTSTonnDelete.Name = "textBoxTSTonnDelete";
+            this.textBoxTSTonnDelete.ReadOnly = true;
             this.textBoxTSTonnDelete.Size = new System.Drawing.Size(109, 20);
             this.textBoxTSTonnDelete.TabIndex = 16;
             // 
@@ -1461,6 +1627,7 @@
             // 
             this.textBoxTSMarkDelete.Location = new System.Drawing.Point(73, 16);
             this.textBoxTSMarkDelete.Name = "textBoxTSMarkDelete";
+            this.textBoxTSMarkDelete.ReadOnly = true;
             this.textBoxTSMarkDelete.Size = new System.Drawing.Size(121, 20);
             this.textBoxTSMarkDelete.TabIndex = 3;
             // 
@@ -1503,6 +1670,7 @@
             // 
             this.textBoxTSDopKmDelete.Location = new System.Drawing.Point(201, 55);
             this.textBoxTSDopKmDelete.Name = "textBoxTSDopKmDelete";
+            this.textBoxTSDopKmDelete.ReadOnly = true;
             this.textBoxTSDopKmDelete.Size = new System.Drawing.Size(66, 20);
             this.textBoxTSDopKmDelete.TabIndex = 7;
             // 
@@ -1519,6 +1687,7 @@
             // 
             this.textBoxTSZone3Delete.Location = new System.Drawing.Point(201, 24);
             this.textBoxTSZone3Delete.Name = "textBoxTSZone3Delete";
+            this.textBoxTSZone3Delete.ReadOnly = true;
             this.textBoxTSZone3Delete.Size = new System.Drawing.Size(66, 20);
             this.textBoxTSZone3Delete.TabIndex = 5;
             // 
@@ -1535,6 +1704,7 @@
             // 
             this.textBoxTSZone2Delete.Location = new System.Drawing.Point(63, 55);
             this.textBoxTSZone2Delete.Name = "textBoxTSZone2Delete";
+            this.textBoxTSZone2Delete.ReadOnly = true;
             this.textBoxTSZone2Delete.Size = new System.Drawing.Size(66, 20);
             this.textBoxTSZone2Delete.TabIndex = 3;
             // 
@@ -1551,6 +1721,7 @@
             // 
             this.textBoxTSZone1Delete.Location = new System.Drawing.Point(63, 24);
             this.textBoxTSZone1Delete.Name = "textBoxTSZone1Delete";
+            this.textBoxTSZone1Delete.ReadOnly = true;
             this.textBoxTSZone1Delete.Size = new System.Drawing.Size(66, 20);
             this.textBoxTSZone1Delete.TabIndex = 1;
             // 
@@ -1567,6 +1738,7 @@
             // 
             this.textBoxTSNumberDelete.Location = new System.Drawing.Point(374, 45);
             this.textBoxTSNumberDelete.Name = "textBoxTSNumberDelete";
+            this.textBoxTSNumberDelete.ReadOnly = true;
             this.textBoxTSNumberDelete.Size = new System.Drawing.Size(121, 20);
             this.textBoxTSNumberDelete.TabIndex = 5;
             // 
@@ -1575,6 +1747,7 @@
             this.comboBoxTSDriverNumberDelete.DataSource = this.driverBindingSource2;
             this.comboBoxTSDriverNumberDelete.DisplayMember = "nomber_driver";
             this.comboBoxTSDriverNumberDelete.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxTSDriverNumberDelete.Enabled = false;
             this.comboBoxTSDriverNumberDelete.FormattingEnabled = true;
             this.comboBoxTSDriverNumberDelete.Location = new System.Drawing.Point(374, 15);
             this.comboBoxTSDriverNumberDelete.Name = "comboBoxTSDriverNumberDelete";
@@ -1584,6 +1757,7 @@
             // checkBoxTSBulkDelete
             // 
             this.checkBoxTSBulkDelete.AutoSize = true;
+            this.checkBoxTSBulkDelete.Enabled = false;
             this.checkBoxTSBulkDelete.Location = new System.Drawing.Point(522, 17);
             this.checkBoxTSBulkDelete.Name = "checkBoxTSBulkDelete";
             this.checkBoxTSBulkDelete.Size = new System.Drawing.Size(66, 17);
@@ -1596,6 +1770,7 @@
             this.comboBoxTSDriverFIODelete.DataSource = this.driverBindingSource1;
             this.comboBoxTSDriverFIODelete.DisplayMember = "fio_driver";
             this.comboBoxTSDriverFIODelete.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxTSDriverFIODelete.Enabled = false;
             this.comboBoxTSDriverFIODelete.FormattingEnabled = true;
             this.comboBoxTSDriverFIODelete.Location = new System.Drawing.Point(73, 42);
             this.comboBoxTSDriverFIODelete.Name = "comboBoxTSDriverFIODelete";
@@ -1750,171 +1925,13 @@
             // 
             this.driverTableAdapter.ClearBeforeFill = true;
             // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.checkBoxSelfloaderAdd);
-            this.groupBox2.Controls.Add(this.checkBoxOnboardAdd);
-            this.groupBox2.Controls.Add(this.checkBoxTipperAdd);
-            this.groupBox2.Controls.Add(this.checkBoxCompactAdd);
-            this.groupBox2.Location = new System.Drawing.Point(13, 76);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(397, 52);
-            this.groupBox2.TabIndex = 18;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Требования к ТС";
-            // 
-            // checkBoxCompactAdd
-            // 
-            this.checkBoxCompactAdd.AutoSize = true;
-            this.checkBoxCompactAdd.Location = new System.Drawing.Point(6, 19);
-            this.checkBoxCompactAdd.Name = "checkBoxCompactAdd";
-            this.checkBoxCompactAdd.Size = new System.Drawing.Size(113, 17);
-            this.checkBoxCompactAdd.TabIndex = 0;
-            this.checkBoxCompactAdd.Text = "Малогабаритный";
-            this.checkBoxCompactAdd.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxTipperAdd
-            // 
-            this.checkBoxTipperAdd.AutoSize = true;
-            this.checkBoxTipperAdd.Location = new System.Drawing.Point(125, 19);
-            this.checkBoxTipperAdd.Name = "checkBoxTipperAdd";
-            this.checkBoxTipperAdd.Size = new System.Drawing.Size(77, 17);
-            this.checkBoxTipperAdd.TabIndex = 1;
-            this.checkBoxTipperAdd.Text = "Самосвал";
-            this.checkBoxTipperAdd.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxOnboardAdd
-            // 
-            this.checkBoxOnboardAdd.AutoSize = true;
-            this.checkBoxOnboardAdd.Location = new System.Drawing.Point(208, 19);
-            this.checkBoxOnboardAdd.Name = "checkBoxOnboardAdd";
-            this.checkBoxOnboardAdd.Size = new System.Drawing.Size(74, 17);
-            this.checkBoxOnboardAdd.TabIndex = 2;
-            this.checkBoxOnboardAdd.Text = "Бортовая";
-            this.checkBoxOnboardAdd.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxSelfloaderAdd
-            // 
-            this.checkBoxSelfloaderAdd.AutoSize = true;
-            this.checkBoxSelfloaderAdd.Location = new System.Drawing.Point(288, 19);
-            this.checkBoxSelfloaderAdd.Name = "checkBoxSelfloaderAdd";
-            this.checkBoxSelfloaderAdd.Size = new System.Drawing.Size(104, 17);
-            this.checkBoxSelfloaderAdd.TabIndex = 3;
-            this.checkBoxSelfloaderAdd.Text = "Самопогрузчик";
-            this.checkBoxSelfloaderAdd.UseVisualStyleBackColor = true;
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.checkBoxSelfloaderChange);
-            this.groupBox4.Controls.Add(this.checkBoxOnboardChange);
-            this.groupBox4.Controls.Add(this.checkBoxTipperChange);
-            this.groupBox4.Controls.Add(this.checkBoxCompactChange);
-            this.groupBox4.Location = new System.Drawing.Point(13, 76);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(397, 52);
-            this.groupBox4.TabIndex = 19;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Требования к ТС";
-            // 
-            // checkBoxSelfloaderChange
-            // 
-            this.checkBoxSelfloaderChange.AutoSize = true;
-            this.checkBoxSelfloaderChange.Location = new System.Drawing.Point(288, 19);
-            this.checkBoxSelfloaderChange.Name = "checkBoxSelfloaderChange";
-            this.checkBoxSelfloaderChange.Size = new System.Drawing.Size(104, 17);
-            this.checkBoxSelfloaderChange.TabIndex = 3;
-            this.checkBoxSelfloaderChange.Text = "Самопогрузчик";
-            this.checkBoxSelfloaderChange.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxOnboardChange
-            // 
-            this.checkBoxOnboardChange.AutoSize = true;
-            this.checkBoxOnboardChange.Location = new System.Drawing.Point(208, 19);
-            this.checkBoxOnboardChange.Name = "checkBoxOnboardChange";
-            this.checkBoxOnboardChange.Size = new System.Drawing.Size(74, 17);
-            this.checkBoxOnboardChange.TabIndex = 2;
-            this.checkBoxOnboardChange.Text = "Бортовая";
-            this.checkBoxOnboardChange.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxTipperChange
-            // 
-            this.checkBoxTipperChange.AutoSize = true;
-            this.checkBoxTipperChange.Location = new System.Drawing.Point(125, 19);
-            this.checkBoxTipperChange.Name = "checkBoxTipperChange";
-            this.checkBoxTipperChange.Size = new System.Drawing.Size(77, 17);
-            this.checkBoxTipperChange.TabIndex = 1;
-            this.checkBoxTipperChange.Text = "Самосвал";
-            this.checkBoxTipperChange.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxCompactChange
-            // 
-            this.checkBoxCompactChange.AutoSize = true;
-            this.checkBoxCompactChange.Location = new System.Drawing.Point(6, 19);
-            this.checkBoxCompactChange.Name = "checkBoxCompactChange";
-            this.checkBoxCompactChange.Size = new System.Drawing.Size(113, 17);
-            this.checkBoxCompactChange.TabIndex = 0;
-            this.checkBoxCompactChange.Text = "Малогабаритный";
-            this.checkBoxCompactChange.UseVisualStyleBackColor = true;
-            // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.checkBoxSelfloaderDelete);
-            this.groupBox5.Controls.Add(this.checkBoxOnboardDelete);
-            this.groupBox5.Controls.Add(this.checkBoxTipperDelete);
-            this.groupBox5.Controls.Add(this.checkBoxCompactDelete);
-            this.groupBox5.Location = new System.Drawing.Point(13, 76);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(397, 52);
-            this.groupBox5.TabIndex = 19;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Требования к ТС";
-            // 
-            // checkBoxSelfloaderDelete
-            // 
-            this.checkBoxSelfloaderDelete.AutoSize = true;
-            this.checkBoxSelfloaderDelete.Location = new System.Drawing.Point(288, 19);
-            this.checkBoxSelfloaderDelete.Name = "checkBoxSelfloaderDelete";
-            this.checkBoxSelfloaderDelete.Size = new System.Drawing.Size(104, 17);
-            this.checkBoxSelfloaderDelete.TabIndex = 3;
-            this.checkBoxSelfloaderDelete.Text = "Самопогрузчик";
-            this.checkBoxSelfloaderDelete.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxOnboardDelete
-            // 
-            this.checkBoxOnboardDelete.AutoSize = true;
-            this.checkBoxOnboardDelete.Location = new System.Drawing.Point(208, 19);
-            this.checkBoxOnboardDelete.Name = "checkBoxOnboardDelete";
-            this.checkBoxOnboardDelete.Size = new System.Drawing.Size(74, 17);
-            this.checkBoxOnboardDelete.TabIndex = 2;
-            this.checkBoxOnboardDelete.Text = "Бортовая";
-            this.checkBoxOnboardDelete.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxTipperDelete
-            // 
-            this.checkBoxTipperDelete.AutoSize = true;
-            this.checkBoxTipperDelete.Location = new System.Drawing.Point(125, 19);
-            this.checkBoxTipperDelete.Name = "checkBoxTipperDelete";
-            this.checkBoxTipperDelete.Size = new System.Drawing.Size(77, 17);
-            this.checkBoxTipperDelete.TabIndex = 1;
-            this.checkBoxTipperDelete.Text = "Самосвал";
-            this.checkBoxTipperDelete.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxCompactDelete
-            // 
-            this.checkBoxCompactDelete.AutoSize = true;
-            this.checkBoxCompactDelete.Location = new System.Drawing.Point(6, 19);
-            this.checkBoxCompactDelete.Name = "checkBoxCompactDelete";
-            this.checkBoxCompactDelete.Size = new System.Drawing.Size(113, 17);
-            this.checkBoxCompactDelete.TabIndex = 0;
-            this.checkBoxCompactDelete.Text = "Малогабаритный";
-            this.checkBoxCompactDelete.UseVisualStyleBackColor = true;
-            // 
             // FormDriverTS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1079, 462);
             this.Controls.Add(this.tabControl1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormDriverTS";
             this.Text = "Водители и ТС";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormDriverTS_FormClosed);
@@ -1938,6 +1955,8 @@
             this.tabPage6.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.driverBindingSource2)).EndInit();
@@ -1947,21 +1966,19 @@
             this.tabPage7.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.groupBoxTSDopKmChange.ResumeLayout(false);
             this.groupBoxTSDopKmChange.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.tabPage8.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
 
         }

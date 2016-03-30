@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.driverBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.testDataSet = new Delivery.TestDataSet();
             this.driverTableAdapter = new Delivery.TestDataSetTableAdapters.DriverTableAdapter();
@@ -58,6 +59,8 @@
             // 
             // buttonCreateOrder
             // 
+            this.buttonCreateOrder.Image = ((System.Drawing.Image)(resources.GetObject("buttonCreateOrder.Image")));
+            this.buttonCreateOrder.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonCreateOrder.Location = new System.Drawing.Point(37, 12);
             this.buttonCreateOrder.Name = "buttonCreateOrder";
             this.buttonCreateOrder.Size = new System.Drawing.Size(200, 67);
@@ -68,6 +71,8 @@
             // 
             // buttonProviderMaterial
             // 
+            this.buttonProviderMaterial.Image = ((System.Drawing.Image)(resources.GetObject("buttonProviderMaterial.Image")));
+            this.buttonProviderMaterial.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonProviderMaterial.Location = new System.Drawing.Point(37, 231);
             this.buttonProviderMaterial.Name = "buttonProviderMaterial";
             this.buttonProviderMaterial.Size = new System.Drawing.Size(200, 67);
@@ -78,6 +83,8 @@
             // 
             // buttonDriverTS
             // 
+            this.buttonDriverTS.Image = ((System.Drawing.Image)(resources.GetObject("buttonDriverTS.Image")));
+            this.buttonDriverTS.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonDriverTS.Location = new System.Drawing.Point(37, 304);
             this.buttonDriverTS.Name = "buttonDriverTS";
             this.buttonDriverTS.Size = new System.Drawing.Size(200, 67);
@@ -88,6 +95,8 @@
             // 
             // buttonStatistics
             // 
+            this.buttonStatistics.Image = ((System.Drawing.Image)(resources.GetObject("buttonStatistics.Image")));
+            this.buttonStatistics.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonStatistics.Location = new System.Drawing.Point(37, 377);
             this.buttonStatistics.Name = "buttonStatistics";
             this.buttonStatistics.Size = new System.Drawing.Size(200, 67);
@@ -98,6 +107,8 @@
             // 
             // buttonObserverOrder
             // 
+            this.buttonObserverOrder.Image = ((System.Drawing.Image)(resources.GetObject("buttonObserverOrder.Image")));
+            this.buttonObserverOrder.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonObserverOrder.Location = new System.Drawing.Point(37, 85);
             this.buttonObserverOrder.Name = "buttonObserverOrder";
             this.buttonObserverOrder.Size = new System.Drawing.Size(200, 67);
@@ -108,6 +119,8 @@
             // 
             // buttonCheckCost
             // 
+            this.buttonCheckCost.Image = ((System.Drawing.Image)(resources.GetObject("buttonCheckCost.Image")));
+            this.buttonCheckCost.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonCheckCost.Location = new System.Drawing.Point(37, 158);
             this.buttonCheckCost.Name = "buttonCheckCost";
             this.buttonCheckCost.Size = new System.Drawing.Size(200, 67);
@@ -127,6 +140,7 @@
             this.Controls.Add(this.buttonDriverTS);
             this.Controls.Add(this.buttonProviderMaterial);
             this.Controls.Add(this.buttonCreateOrder);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Главное окно";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
