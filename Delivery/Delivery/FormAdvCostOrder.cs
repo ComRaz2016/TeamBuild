@@ -1,0 +1,1518 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using MySql.Data.MySqlClient;
+
+namespace Delivery
+{
+
+    public partial class FormAdvCostOrder : Form
+    {
+
+        MySqlConnection ConnectionToMySQL;
+        Form mainForm;
+
+        double oneWorkerSale = 300; //Цена одного грузчика
+
+        double materialCost = 0;    //Общая стоимость материалов
+        double workerCost = 0;      //Общая стоимость грузчиков
+        double truckCost = 0;       //Общая стоимость машин
+
+        double tonnCost = 0;    //Цена за тонну
+        double bagCost = 0;     //Цена за мешок
+
+        bool checkMaterial = false;
+        bool error = false;
+
+        List<String> trucks = new List<String>();   // Машины, подходящие для доставки
+        List<String> trucksKey = new List<String>();    // Первичные ключи машин, подходящих для доставки
+        List<String> trucksDriver = new List<String>();    // водители машин
+
+        // Получение номера заказа
+        public String getOrderNumber()
+        {
+            MySqlCommand msc = new MySqlCommand();
+            msc.CommandText = "SELECT number_order  FROM order_number  WHERE pk_order_number  = 1";
+            msc.Connection = ConnectionToMySQL;
+            MySqlDataReader dataReader = msc.ExecuteReader();
+            String orderNumber = null;
+            while (dataReader.Read())
+            {
+                orderNumber = dataReader[0].ToString();
+            }
+            dataReader.Close();
+            //textBox10.Text = orderNumber;
+            return orderNumber;
+        }
+
+        // Увеличение номера заказа на единицу, если заказ оформлен
+        public void increaseOrderNumber(String orderNumber)
+        {
+            String nextNumber = Convert.ToString(Convert.ToInt32(orderNumber) + 1);
+            MySqlCommand msc = new MySqlCommand();
+            msc.CommandText = "UPDATE order_number  SET number_order = '" + nextNumber + "' WHERE pk_order_number = 1";
+            msc.Connection = ConnectionToMySQL;
+            msc.ExecuteNonQuery();
+        }
+
+        // Обеспечивает блокировку части формы, которая не отвечает за выбор материала доставки
+        public void changeEnabled()
+        {
+            if (checkMaterial)
+            {
+                panel1.Enabled = true;
+                panel2.Enabled = true;
+                panel3.Enabled = true;
+                panel4.Enabled = true;
+                panel5.Enabled = true;
+                label5.Enabled = true;
+                checkBox1.Enabled = true;
+                if (checkBox1.Checked)
+                {
+                    numericUpDown3.Enabled = true;
+                }
+                else
+                {
+                    numericUpDown3.Enabled = false;
+                }
+            }
+            else
+            {
+                panel1.Enabled = false;
+                panel2.Enabled = false;
+                panel3.Enabled = false;
+                panel4.Enabled = false;
+                panel5.Enabled = false;
+                label5.Enabled = false;
+                checkBox1.Enabled = false;
+                numericUpDown3.Enabled = false;
+            }
+        }
+
+        // Рассчет тоннажа машины
+        public double truckTonnage(String truck)
+        {
+            String[] splitTruck = truck.Split('(', ')');
+            String[] tonnage = splitTruck[2].Split('т');
+            return Convert.ToDouble(tonnage[0]);
+        }
+
+        // Рассчет тоннажа мешков
+        public double materialTonnage(double  materialTonn)
+        {
+            if (materialTonn < 1)
+            {
+                return 1;
+            }
+            for (int i = 1; i < 100; i++)
+            {
+
+                if (materialTonn >= i && materialTonn < (i + 0.5))
+                {
+                    double difference =  materialTonn - i;
+                    materialTonn = i + difference;
+                    break;
+                }
+                if (materialTonn >= (i + 0.5) && materialTonn <= (i + 1))
+                {
+                    materialTonn = i + 1;
+                    break;
+                }
+            }
+            return materialTonn;
+        }
+        //получаем стоимость доставки в машины с пк car в зону zone
+        public int getTruckCoastZone(String car, int zone)
+        {
+            MySqlCommand msc = new MySqlCommand();
+            String query;
+            switch (zone)
+            {
+                case 1:
+                    query = "Costfistzone";
+                    break;
+                case 2:
+                    query = "Costsecondzone";
+                    break;
+                case 3:
+                    query = "Costthirdzone";
+                    break;
+                default:
+                    query = null;
+                    break;
+            }
+            if (query != null)
+            {
+                int rez = 0;
+                msc.CommandText = "SELECT " + query + " FROM Car  WHERE " + car + " = pk_car";
+                msc.Connection = ConnectionToMySQL;
+                MySqlDataReader dataReader = msc.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    rez = Convert.ToInt32(dataReader[0].ToString());
+                }
+                dataReader.Close();
+                return rez;
+            }
+            else
+            {
+                return -1;
+            }
+
+        }
+
+        //стоимость доп км машины car за dop километров
+        public int getCostDopKm(String car, int dop)
+        {
+            MySqlCommand msc = new MySqlCommand();
+            msc.CommandText = "SELECT Costdopkm FROM Car  WHERE " + car + " = pk_car";
+            msc.Connection = ConnectionToMySQL;
+            MySqlDataReader dataReader = msc.ExecuteReader();
+            int costDopKm = 0;
+            while (dataReader.Read())
+            {
+                costDopKm = Convert.ToInt32(dataReader[0].ToString());
+            }
+            dataReader.Close();
+            return costDopKm * dop;
+
+        }
+
+        //получает стоимоть автомобиля по ключу car, с учетом выбранной зоны в combobox5 и если зона "Зона 3+", то так же учитывается
+        //стоимость доп километров, а так же учитывается количество рейсов kol
+        public double getTruckCoas(String car, int kol)
+        {
+            double rez = 0;
+            switch (comboBox5.Text)
+            {
+                case "Зона 1":
+                    rez += getTruckCoastZone(car, 1);
+                    break;
+                case "Зона 2":
+                    rez += getTruckCoastZone(car, 2);
+                    break;
+                case "Зона 3":
+                case "Зона 3+":
+                    rez += getTruckCoastZone(car, 3);
+                    break;
+            }
+            if (comboBox5.Text.Equals("Зона 3+"))
+                rez += getCostDopKm(car, Convert.ToInt32(numericUpDown6.Value));
+            rez *= kol;
+            return rez;
+        }
+
+        public void calculationTruckCost()
+        {
+            truckCost = 0;
+            if (comboBox3.SelectedItem != null)
+            {
+                truckCost += getTruckCoas(trucksKey[trucks.IndexOf(comboBox3.Text)], Convert.ToInt32(textBox2.Text));
+            }
+            if (panel4.Visible == true && comboBox4.SelectedItem != null)
+            {
+                truckCost += getTruckCoas(trucksKey[trucks.IndexOf(comboBox4.Text)], Convert.ToInt32(textBox3.Text));
+            }
+        }
+
+        // Рассчет количества рейсов для первой
+        public void resultTonnageFirstTruck()
+        {
+            //
+            double materialTonnFirstTruck = Convert.ToDouble(numericUpDown4.Value);
+            if (comboBox3.SelectedItem != null)
+            {
+                String selectedTruck = comboBox3.SelectedItem.ToString();
+                double truckTonn = truckTonnage(selectedTruck);
+
+                if (materialTonnFirstTruck == 0)
+                {
+                    textBox2.Text = "0";
+                }
+                else
+                {
+                    if (materialTonnFirstTruck <= truckTonn)
+                    {
+                        textBox2.Text = "1";
+                    }
+                    else {
+                        int countTrip = 0;
+                        if ((materialTonnFirstTruck % truckTonn) > 0)
+                        {
+                            countTrip = (int)(materialTonnFirstTruck / truckTonn) + 1;
+                        }
+                        else
+                        {
+                            countTrip = (int)(materialTonnFirstTruck / truckTonn);
+                        }
+                        textBox2.Text = Convert.ToString(countTrip);
+                    }
+                }
+            }
+            else
+            {
+                textBox2.Text = "0";
+            }
+            calculationTruckCost();
+            //
+        }
+
+        // Рассчет количства рейсов для второй машины
+        public void resultTonnageSecondTruck()
+        {
+            //
+            if (comboBox4.SelectedItem != null)
+            {
+                double materialTonnSecondTruck = Convert.ToDouble(numericUpDown5.Value);
+                String selectedTruck = comboBox4.SelectedItem.ToString();
+                double truckTonn = truckTonnage(selectedTruck);
+                //numericUpDown4.Value = 0;
+                if (materialTonnSecondTruck == 0)
+                {
+                    textBox3.Text = "0";
+                }
+                else
+                {
+                    if (materialTonnSecondTruck <= truckTonn)
+                    {
+                        textBox3.Text = "1";
+                    }
+                    else
+                    {
+                        int countTrip = 0;
+                        if ((materialTonnSecondTruck % truckTonn) > 0)
+                        {
+                            countTrip = (int)(materialTonnSecondTruck / truckTonn) + 1;
+                        }
+                        else
+                        {
+                            countTrip = (int)(materialTonnSecondTruck / truckTonn);
+                        }
+                        textBox3.Text = Convert.ToString(countTrip);
+                    }
+                }
+            }
+            else
+            {
+                textBox3.Text = "0";
+            }
+            calculationTruckCost();
+            //
+        }
+
+        // Рассчет количества рейсов для машины
+        public void resultTonnage()
+        {
+            if (radioButton4.Checked == true)
+            {
+                // Доставка двумя машинами
+                if (tabControl1.SelectedTab == tabPage1)
+                {
+                    double materialTonn = Convert.ToDouble(numericUpDown1.Value);
+
+                    numericUpDown4.Maximum = Convert.ToDecimal(materialTonn);
+                    numericUpDown5.Maximum = Convert.ToDecimal(materialTonn);
+
+                    numericUpDown4.Value = Convert.ToDecimal(materialTonn / 2);
+                    numericUpDown5.Value = Convert.ToDecimal(materialTonn / 2);
+                    // Рассчет рейсов для первой машины
+                    double materialTonnFirstTruck = Convert.ToDouble(numericUpDown4.Value);
+                    if (comboBox3.SelectedItem != null)
+                    {
+                        String selectedTruck = comboBox3.SelectedItem.ToString();
+                        double truckTonn = truckTonnage(selectedTruck);
+
+                        if (materialTonnFirstTruck == 0)
+                        {
+                            textBox2.Text = "0";
+                        }
+                        else
+                        {
+                            if (materialTonnFirstTruck <= truckTonn)
+                            {
+                                textBox2.Text = "1";
+                            }
+                            else
+                            {
+                                int countTrip = 0;
+                                if ((materialTonnFirstTruck % truckTonn) > 0)
+                                {
+                                    countTrip = (int)(materialTonnFirstTruck / truckTonn) + 1;
+                                }
+                                else
+                                {
+                                    countTrip = (int)(materialTonnFirstTruck / truckTonn);
+                                }
+                                textBox2.Text = Convert.ToString(countTrip);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        textBox2.Text = "0";
+                    }
+                    // Рассчет рейсов для второй машины
+                    if (comboBox4.SelectedItem != null)
+                    {
+                        double materialTonnSecondTruck = Convert.ToDouble(numericUpDown5.Value);
+                        String selectedTruck = comboBox4.SelectedItem.ToString();
+                        double truckTonn = truckTonnage(selectedTruck);
+
+                        if (materialTonnSecondTruck == 0)
+                        {
+                            textBox3.Text = "0";
+                        }
+                        else
+                        {
+                            if (materialTonnSecondTruck <= truckTonn)
+                            {
+                                textBox3.Text = "1";
+                            }
+                            else
+                            {
+                                int countTrip = 0;
+                                if ((materialTonnSecondTruck % truckTonn) > 0)
+                                {
+                                    countTrip = (int)(materialTonnSecondTruck / truckTonn) + 1;
+                                }
+                                else
+                                {
+                                    countTrip = (int)(materialTonnSecondTruck / truckTonn);
+                                }
+                                textBox3.Text = Convert.ToString(countTrip);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        textBox3.Text = "0";
+                    }
+                    //
+
+                }
+                if (tabControl1.SelectedTab == tabPage3)
+                {
+                    double materialTonn = Convert.ToDouble(numericUpDown2.Value) * 0.05;
+
+                    numericUpDown4.Maximum = Convert.ToDecimal(materialTonn);
+                    numericUpDown5.Maximum = Convert.ToDecimal(materialTonn);
+
+                    double halfMaterialTruck = materialTonn / 2;
+                    numericUpDown4.Value = Convert.ToDecimal(halfMaterialTruck);
+                    numericUpDown5.Value = Convert.ToDecimal(halfMaterialTruck);
+                    // Рассчет рейсов для первой машины
+                    double materialTonnFirstTruck = Convert.ToDouble(numericUpDown4.Value);
+                    if (comboBox3.SelectedItem != null)
+                    {
+                        String selectedTruck = comboBox3.SelectedItem.ToString();
+                        double truckTonn = truckTonnage(selectedTruck);
+
+                        if (materialTonnFirstTruck == 0)
+                        {
+                            textBox2.Text = "0";
+                        }
+                        else
+                        {
+                            if (materialTonnFirstTruck <= truckTonn)
+                            {
+                                textBox2.Text = "1";
+                            }
+                            else
+                            {
+                                int countTrip = 0;
+                                if ((materialTonnFirstTruck % truckTonn) > 0)
+                                {
+                                    countTrip = (int)(materialTonnFirstTruck / truckTonn) + 1;
+                                }
+                                else
+                                {
+                                    countTrip = (int)(materialTonnFirstTruck / truckTonn);
+                                }
+                                textBox2.Text = Convert.ToString(countTrip);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        textBox2.Text = "0";
+                    }
+                    // Рассчет рейсов для второй машины
+                    if (comboBox4.SelectedItem != null)
+                    {
+                        double materialTonnSecondTruck = Convert.ToDouble(numericUpDown5.Value);
+                        String selectedTruck = comboBox4.SelectedItem.ToString();
+                        double truckTonn = truckTonnage(selectedTruck);
+
+                        if (materialTonnSecondTruck == 0)
+                        {
+                            textBox3.Text = "0";
+                        }
+                        else
+                        {
+                            if (materialTonnSecondTruck <= truckTonn)
+                            {
+                                textBox3.Text = "1";
+                            }
+                            else
+                            {
+                                int countTrip = 0;
+                                if ((materialTonnSecondTruck % truckTonn) > 0)
+                                {
+                                    countTrip = (int)(materialTonnSecondTruck / truckTonn) + 1;
+                                }
+                                else
+                                {
+                                    countTrip = (int)(materialTonnSecondTruck / truckTonn);
+                                }
+                                textBox3.Text = Convert.ToString(countTrip);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        textBox3.Text = "0";
+                    }
+                    //
+                }
+            }
+            else
+            {
+                if (tabControl1.SelectedTab == tabPage1)
+                {
+                    double materialTonn = Convert.ToDouble(numericUpDown1.Value);
+                    if (comboBox3.SelectedItem != null)
+                    {
+                        String selectedTruck = comboBox3.SelectedItem.ToString();
+                        double truckTonn = truckTonnage(selectedTruck);
+                        numericUpDown4.Value = 0;
+                        if (materialTonn == 0)
+                        {
+                            textBox2.Text = "0";
+                        }
+                        else
+                        {
+                            if (materialTonn <= truckTonn)
+                            {
+                                textBox2.Text = "1";
+                            }
+                            else
+                            {
+                                int countTrip = 0;
+                                if ((materialTonn % truckTonn) > 0)
+                                {
+                                    countTrip = (int)(materialTonn / truckTonn) + 1;
+                                }
+                                else
+                                {
+                                    countTrip = (int)(materialTonn / truckTonn);
+                                }
+                                textBox2.Text = Convert.ToString(countTrip);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        textBox2.Text = "0";
+                }
+                }
+                if (tabControl1.SelectedTab == tabPage3)
+                {
+                    double materialTonn = Convert.ToDouble(numericUpDown2.Value) * 0.05;
+                    materialTonn = materialTonnage(materialTonn);
+                    if (comboBox3.SelectedItem != null)
+                    {
+                        String selectedTruck = comboBox3.SelectedItem.ToString();
+                        double truckTonn = truckTonnage(selectedTruck);
+                        numericUpDown4.Value = 0;
+                        if (materialTonn == 0)
+                        {
+                            textBox2.Text = "0";
+                        }
+                        else
+                        {
+                            if (materialTonn <= truckTonn)
+                            {
+                                textBox2.Text = "1";
+                            }
+                            else
+                            {
+                                int countTrip = 0;
+                                if ((materialTonn % truckTonn) > 0)
+                                {
+                                    countTrip = (int)(materialTonn / truckTonn) + 1;
+                                }
+                                else
+                                {
+                                    countTrip = (int)(materialTonn / truckTonn);
+                                }
+                                textBox2.Text = Convert.ToString(countTrip);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        textBox2.Text = "0";
+                }
+            }
+        }
+            calculationTruckCost();
+        }
+
+        // Заполнение combobox доступными машинами
+        public void resultTrucks()
+        {
+            if (trucks.Count == 0)
+            {
+                MessageBox.Show("В данный момент нет свободных машин, которые удолитворяют требованиям.", "Нет машин, удолитворяющих требованиям");
+                error = true;
+                checkBox2.Checked = false;
+                checkBox3.Checked = false;
+                checkBox4.Checked = false;
+                checkBox5.Checked = false;
+                radioButton4.Checked = false;
+                radioButton3.Checked = true;
+                error = false;
+                resultCar();
+                return;
+            }
+            if (radioButton4.Checked == true)
+            {
+                IEnumerable<String> rez;
+                rez = trucksDriver.Union(trucksDriver);
+                if (rez.Count() <= 1)
+                {
+                     MessageBox.Show("В данный момент нет двух свободных водителей с машинами, которые удолитворяют требованиям.", "Нет машин, удолитворяющих требованиям");
+                    error = true;
+                    checkBox2.Checked = false;
+                    checkBox3.Checked = false;
+                    checkBox4.Checked = false;
+                    checkBox5.Checked = false;
+                    radioButton4.Checked = false;
+                    radioButton3.Checked = true;
+                    error = false;
+                    return;
+                }
+                comboBox3.Items.Clear();
+                comboBox3.Text = "";
+                comboBox4.Items.Clear();
+                comboBox4.Text = "";
+                foreach (String truck in trucks)
+                {
+                    comboBox3.Items.Add(truck);
+                }
+                if (comboBox3.Items.Count != 0)
+                    comboBox3.SelectedIndex = 0;
+                foreach (String truck in trucks)
+                {
+                    int i = trucks.IndexOf(truck);
+                    int j = trucks.IndexOf(comboBox3.SelectedItem.ToString());
+                    if (trucksDriver[i] != 
+                        trucksDriver[j])
+                        comboBox4.Items.Add(truck);
+                }
+                if (comboBox4.Items.Count != 0)
+                    comboBox4.SelectedIndex = 0;
+                
+                List<String> listForDelete = new List<String>();
+                foreach (String truck in comboBox3.Items)
+                {
+                    int i = trucks.IndexOf(truck.ToString());
+                    if (comboBox4.SelectedItem != null)
+                    {
+                        int j = trucks.IndexOf(comboBox4.SelectedItem.ToString());
+                        if (trucksDriver[i] == trucksDriver[j])
+                        {
+                            listForDelete.Add(truck);
+                        }
+                    }
+                }
+                foreach(var deleteElem in listForDelete)
+                {
+                    comboBox3.Items.Remove(deleteElem);
+                }
+                /*for (int i = 0; i < trucks.Count; i++)
+                {
+                    comboBox3.Items.Add(trucks.ElementAt(i));
+                    if (i == 0)
+                    {
+                        comboBox3.Items.Add(trucks.ElementAt(i));
+                        comboBox3.SelectedIndex = 0;
+                    }
+                    else
+                    {
+                        if (i == 1)
+                        {
+                            comboBox4.Items.Add(trucks.ElementAt(i));
+                            comboBox4.SelectedIndex = 0;
+                        }
+                        else
+                        {
+                            comboBox3.Items.Add(trucks.ElementAt(i));
+                            comboBox4.Items.Add(trucks.ElementAt(i));
+                        }
+                    }*/
+                           
+                //}
+                }
+            else
+            {
+                comboBox3.Items.Clear();
+                comboBox3.Text = "";
+                foreach (String truck in trucks)
+                {
+                    comboBox3.Items.Add(truck);
+                }
+                if (comboBox3.Items.Count != 0)
+                    comboBox3.SelectedIndex = 0;
+            }
+        }
+
+        // Расчет стоимости заказа
+        public void resultCost()
+        {
+            double result = 0;
+            result += materialCost;
+            result += workerCost;
+            calculationTruckCost();
+            result += truckCost;
+            double firmProcent = 0.15;
+            textBox8.Text = Convert.ToString((int)result*(1+ firmProcent)); //мы делаем надбавку вообщето, а не просто отбираем у всех ценников по чуть-чуть
+            textBox9.Text = Convert.ToString((int)(result * firmProcent)); //это чему равны наши 15%
+        }
+
+        //возвращает массив ключей автомобилей, которые могут перевозить query
+        public List<String> instructionCars(String query)
+        {
+            List<String> cars = new List<String>();
+            MySqlCommand msc = new MySqlCommand();
+            String q = null;
+            if (query == "bag")
+                q = "delivery_bag";
+            if (query == "bulk")
+                q = "delivery_bulk";
+            msc.CommandText = "SELECT pk_car  FROM Car  WHERE " + q + " = 1";
+            msc.Connection = ConnectionToMySQL;
+            MySqlDataReader dataReader = msc.ExecuteReader();
+            //String car = null;
+            while (dataReader.Read())
+            {
+                cars.Add(dataReader[0].ToString());
+                //MessageBox.Show(dataReader[0].ToString());
+            }
+            dataReader.Close();
+            return cars;
+        }
+
+
+        //массив пк для требований
+        public List<String> getCarInstructionsPk(String car)
+        {
+            List<String> instructions = new List<String>();
+            MySqlCommand msc = new MySqlCommand();
+            msc.CommandText = "SELECT pk_instruction  FROM instruction_car  WHERE pk_car  = '" + car + "'";
+            msc.Connection = ConnectionToMySQL;
+            MySqlDataReader dataReader = msc.ExecuteReader();
+            while (dataReader.Read())
+            {
+                instructions.Add(dataReader[0].ToString());
+                //MessageBox.Show(dataReader[0].ToString());
+            }
+            dataReader.Close();
+            return instructions;
+        }
+
+        //название требования по пк
+        public String getInstructionsName(String pk_instr)
+        {
+            String rezult = null;
+            MySqlCommand msc = new MySqlCommand();
+            MySqlDataReader dataReader;
+            msc.CommandText = "SELECT desc_instruction  FROM instruction  WHERE pk_instruction  = '" + pk_instr + "'";
+            msc.Connection = ConnectionToMySQL;
+            dataReader = msc.ExecuteReader();
+            while (dataReader.Read())
+            {
+                rezult = dataReader[0].ToString();
+                //MessageBox.Show(dataReader[0].ToString());
+            }
+            dataReader.Close();
+            return rezult;
+        }
+
+        //Получить строку для вывода машины по ключу
+        public String getOutputStringForCar(String pk_car)
+        {
+            MySqlCommand msc = new MySqlCommand();
+            msc.CommandText = "SELECT mark_car,regist_number, tonnage  FROM Car  WHERE pk_car  = '" + pk_car + "'";
+            msc.Connection = ConnectionToMySQL;
+            MySqlDataReader dataReader = msc.ExecuteReader();
+            String carName = null;
+            String regNumber = null;
+            String tonnage = null;
+            while (dataReader.Read())
+            {
+                carName = dataReader[0].ToString();
+                regNumber = dataReader[1].ToString();
+                tonnage = dataReader[2].ToString();
+            }
+            dataReader.Close();
+            return carName + "(" + regNumber + ") " + tonnage + "т";
+        }
+
+        public String getPkDriver(String car)
+        {
+            String rezult = null;
+            MySqlCommand msc = new MySqlCommand();
+            MySqlDataReader dataReader;
+            msc.CommandText = "SELECT pk_driver  FROM Car  WHERE pk_car  = '" + car + "'";
+            msc.Connection = ConnectionToMySQL;
+            dataReader = msc.ExecuteReader();
+            while (dataReader.Read())
+            {
+                rezult = dataReader[0].ToString();
+                //MessageBox.Show(dataReader[0].ToString());
+            }
+            dataReader.Close();
+            return rezult;
+        }
+
+        //возвращает картеж, в котором первый элемент - это строка для вывода, второй - пк выведенных машин, третий - пк водилы.
+        //машины должны поддерживать требование inst, пк которых передаются в параметре cars
+        public List<Tuple<String, String, String>> instructionCars(List<String> cars, String inst)
+        {
+            List<Tuple<String, String, String>> rezult = new List<Tuple<String, String, String>>();
+            foreach (String car in cars)
+            {
+                List<String> instructions = getCarInstructionsPk(car);
+                foreach (String instruction in instructions)
+                {
+                    String instructionName = getInstructionsName(instruction);
+                    if (instructionName == inst)
+                    {
+                        String truck = getOutputStringForCar(car);
+                        String driver = getPkDriver(car);
+                        rezult.Add(new Tuple<String, String, String>(truck, car, driver));
+                    }
+                }
+
+            }
+            return rezult;
+        }
+
+
+        //возвращает картеж, в котором первый элемент - это строка для вывода, второй - пк выведенных машин.
+        //машины, пк которых передаются в параметре cars
+        public List<Tuple<String,String, String>> allCars(List<String> cars)
+        {
+            List<Tuple<String, String, String>> rezult = new List<Tuple<String, String, String>>();
+            MySqlCommand msc = new MySqlCommand();
+            foreach(var car in cars)
+            {
+                String truck = getOutputStringForCar(car);
+                String driver = getPkDriver(car);
+                rezult.Add(new Tuple<String, String,String>(truck, car, driver));
+            }
+            return rezult;
+        }
+
+
+        public void resultCar()
+        {
+            comboBox3.Items.Clear();
+            trucks.Clear();
+            trucksKey.Clear();
+            trucksDriver.Clear();
+            //trucksTonnage.Clear();
+            List<String> cars = new List<String>();
+            bool bulk = false;  //заказ на груз насыпью
+            bool bag = false;   //заказ на груз в мешках
+            List<Tuple<String, String>> rezult;
+
+            bool compact = false;  // требование на малогабаритное ТС
+            bool tipper = false;   // требование на самосвал
+            bool onboard = false;  // требование на бортовой автомобиль
+            bool selfloader = false;  // требование на самопогрузчик автомобиль
+
+            if (tabControl1.SelectedTab == tabPage1)
+            {
+                bulk = true;
+            }
+            else
+            {
+                bag = true;
+            }
+            if (checkBox2.Checked == true)
+            {
+                compact = true;
+            }
+            if (checkBox3.Checked == true)
+            {
+                tipper = true;
+            }
+            if (checkBox4.Checked == true)
+            {
+                onboard = true;
+            }
+            if (checkBox5.Checked == true)
+            {
+                selfloader = true;
+            }
+            if (bag)
+            {
+                cars = instructionCars("bag");
+            }
+            else
+            {
+                cars = instructionCars("bulk");
+            }
+            List<Tuple<String, String, String>> rezultCompact = new List<Tuple<string, string, string>>();
+            List<Tuple<String, String, String>> rezultTipper = new List<Tuple<string, string, string>>();
+            List<Tuple<String, String, String>> rezultOnboard = new List<Tuple<string, string, string>>();
+            List<Tuple<String, String, String>> rezultSelfloader = new List<Tuple<string, string, string>>();
+            IEnumerable<Tuple<String, String, String>> rez;
+            if (compact)
+            {
+                rezultCompact = instructionCars(cars,"Compact");
+            }
+            if (tipper)
+            {
+                rezultTipper = instructionCars(cars, "Tipper");
+            }
+            if (onboard)
+            {
+                rezultOnboard = instructionCars(cars, "Onboard");
+            }
+            if (selfloader)
+            {
+                rezultSelfloader = instructionCars(cars, "Selfloader");
+            }
+            trucks.Clear();
+            trucksKey.Clear();
+           
+            if (!compact && !tipper && !onboard && !selfloader)
+            {
+                rez = allCars(cars);   
+            }
+            else
+            {
+                rez = rezultCompact.Union(rezultOnboard.Union(rezultSelfloader.Union(rezultTipper)));
+                if (compact)
+                    rez = rez.Intersect(rezultCompact);
+                if (onboard)
+                    rez = rez.Intersect(rezultOnboard);
+                if (tipper)
+                    rez = rez.Intersect(rezultTipper);
+                if (selfloader)
+                    rez = rez.Intersect(rezultSelfloader);
+
+            }
+            foreach (var car in rez)
+            {
+                trucks.Add(car.Item1);
+                trucksKey.Add(car.Item2);
+                trucksDriver.Add(car.Item3);
+
+            }
+            resultTrucks();
+            return;       
+        }
+
+
+        public void insertMaterial()
+        {
+            MySqlCommand msc = new MySqlCommand();
+            msc.CommandText = "SELECT name FROM Material";
+            msc.Connection = ConnectionToMySQL;
+            MySqlDataReader dataReader = msc.ExecuteReader();
+            //String car = null;
+            List<String> materials = new List<String>();
+            while (dataReader.Read())
+            {
+                materials.Add(dataReader[0].ToString());
+                //MessageBox.Show(dataReader[0].ToString());
+            }
+            dataReader.Close();
+            foreach (var material in materials)
+            {
+                comboBox1.Items.Add(material);
+                comboBox2.Items.Add(material);
+            }
+            //comboBox1.SelectedIndex = 0;
+            //comboBox2.SelectedIndex = 0;
+        }
+
+        public FormAdvCostOrder(MySqlConnection connection,Form form)
+        {
+            ConnectionToMySQL = connection;
+            mainForm = form;
+            InitializeComponent();
+            comboBox5.SelectedIndex = 0;
+            //Установка минимальной датой сегодняшнюю дату
+            //dateTimePicker1.MinDate = dateTimePicker1.Value.Date;
+            //
+            getOrderNumber();
+            //
+            resultCost();
+            /*List<Tuple<String, String>> cars = allCars();
+            foreach(var car in cars)
+            {
+                trucks.Add(car.Item1);
+                trucksKey.Add(car.Item2);
+            }*/
+            resultCar();
+            //resultTrucks();
+            insertMaterial();
+            //
+        }
+
+        private void radioButton4_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton4.Checked == true)
+            {
+                this.Height = 580;
+                panel5.Location = new Point(24, 382);
+                panel4.Visible = true;
+                numericUpDown4.Enabled = true;
+                label7.Enabled = true;
+                numericUpDown4.Visible = true;
+                label7.Visible = true;
+                //
+                resultCar();
+                //
+                //
+                resultTonnage();
+                //
+                resultCost();
+            }
+            
+        }
+
+        private void radioButton3_CheckedChanged(object sender, EventArgs e)
+        {
+            numericUpDown4.Enabled = false;
+            label7.Enabled = false;
+            numericUpDown4.Visible = false;
+            label7.Visible = false;
+            panel4.Visible = false;
+            this.Height = 495;
+            panel5.Location = new Point(33, 298);
+            //
+            resultCar();
+            //
+            resultCost();
+        }
+
+        private void Form3_Load(object sender, EventArgs e)
+        {
+            // TODO: данная строка кода позволяет загрузить данные в таблицу "testDataSet.Material". При необходимости она может быть перемещена или удалена.
+            this.materialTableAdapter.Fill(this.testDataSet.Material);
+            // TODO: данная строка кода позволяет загрузить данные в таблицу "testDataSet.provider_material". При необходимости она может быть перемещена или удалена.
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            String materialName = comboBox1.Text;
+            if (materialName != "")
+            {
+                //MessageBox.Show(materialName);
+                MySqlCommand msc = new MySqlCommand();
+                msc.CommandText = "SELECT pk_material  FROM Material  WHERE name  = '" + materialName + "'";
+                msc.Connection = ConnectionToMySQL;
+                MySqlDataReader dataReader = msc.ExecuteReader();
+                String materialNumber = null;
+                while (dataReader.Read())
+                {
+                    materialNumber = dataReader[0].ToString();
+                }
+                dataReader.Close();
+                //MessageBox.Show(materialNumber);
+                msc.CommandText = "SELECT cost_tonna  FROM provider_material  WHERE pk_material  = '" + materialNumber + "'";
+                msc.Connection = ConnectionToMySQL;
+                dataReader = msc.ExecuteReader();
+                int count = 0;
+                double cost = 0;
+                while (dataReader.Read())
+                {
+                    count++;
+                    cost += Convert.ToDouble(dataReader[0].ToString());
+                }
+                dataReader.Close();
+                if (count == 0)
+                {
+                    //
+                    checkMaterial = false;
+                    changeEnabled();
+                    //
+                    MessageBox.Show("Товар не найден");
+                    label19.Visible = false;
+                    label20.Visible = false;
+                    numericUpDown1.Value = 1;
+                    numericUpDown1.Enabled = false;
+                    //
+                    materialCost = 0;
+                    resultCost();
+                    //
+                }
+                else
+                {
+                    //
+                    checkMaterial = true;
+                    changeEnabled();
+                    //
+                    label19.Visible = true;
+                    label20.Visible = true;
+                    tonnCost = cost / count;
+                    label20.Text = Convert.ToString(tonnCost) + " рублей/тонну";
+                    numericUpDown1.Enabled = true;
+                    //MessageBox.Show(Convert.ToString(cost / count));
+                    //
+                    materialCost = Convert.ToDouble(numericUpDown1.Value) * tonnCost;
+                    //
+                }
+                //
+                resultCost();
+                //
+            }
+        }
+
+        private void Form3_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            ConnectionToMySQL.Close();
+            mainForm.Show();
+        }
+
+        //Вкладка "Насыпное"
+        private void tabPage1_Leave(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedTab == tabPage3)
+            {
+                label19.Visible = false;
+                label20.Visible = false;
+                numericUpDown1.Value = 1;
+                numericUpDown1.Enabled = false;
+                //
+                materialCost = 0;
+                resultCost();
+                //
+            }
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            String materialName = comboBox2.Text;
+            if (materialName != "")
+            {
+                //MessageBox.Show(materialName);
+                MySqlCommand msc = new MySqlCommand();
+                msc.CommandText = "SELECT pk_material  FROM Material  WHERE name  = '" + materialName + "'";
+                msc.Connection = ConnectionToMySQL;
+                MySqlDataReader dataReader = msc.ExecuteReader();
+                String materialNumber = null;
+                while (dataReader.Read())
+                {
+                    materialNumber = dataReader[0].ToString();
+                }
+                dataReader.Close();
+                //MessageBox.Show(materialNumber);
+                msc.CommandText = "SELECT cost_bag  FROM provider_material  WHERE pk_material  = '" + materialNumber + "'";
+                msc.Connection = ConnectionToMySQL;
+                dataReader = msc.ExecuteReader();
+                int count = 0;
+                double cost = 0;
+                while (dataReader.Read())
+                {
+                    count++;
+                    cost += Convert.ToDouble(dataReader[0].ToString());
+                }
+                if (count == 0)
+                {
+                    //
+                    checkMaterial = false;
+                    changeEnabled();
+                    //
+                    MessageBox.Show("Товар не найден");
+                    label21.Visible = false;
+                    label22.Visible = false;
+                    numericUpDown2.Value = 1;
+                    numericUpDown2.Enabled = false;
+                    textBox1.Text = Convert.ToString("0.05");
+                    //
+                    materialCost = 0;
+                    resultCost();
+                    //
+                }
+                else
+                {
+                    //
+                    checkMaterial = true;
+                    changeEnabled();
+                    //
+                    label22.Visible = true;
+                    label21.Visible = true;
+                    bagCost = cost / count;
+                    label21.Text = Convert.ToString(bagCost) + " рублей/мешок";
+                    numericUpDown2.Enabled = true;
+                    materialCost = Convert.ToDouble(numericUpDown2.Value) * bagCost;
+                    //MessageBox.Show(Convert.ToString(cost / count));
+                }
+                dataReader.Close();
+                //
+                resultCost();
+                //
+            }
+        }
+
+        private void tabPage3_Leave(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedTab == tabPage1)
+            {
+                label21.Visible = false;
+                label22.Visible = false;
+                numericUpDown2.Value = 1;
+                numericUpDown2.Enabled = false;
+                textBox1.Text = Convert.ToString("0.05");
+                //
+                materialCost = 0;
+                resultCost();
+                //
+            }
+        }
+
+        private void numericUpDown2_ValueChanged(object sender, EventArgs e)
+        {
+            double weight = 0.05;
+            int countBag = Convert.ToInt32(numericUpDown2.Value);
+            textBox1.Text = Convert.ToString(weight * countBag);
+            //
+            materialCost = countBag * bagCost;
+            resultCost();
+            //
+            //
+            resultTonnage();
+            //
+        }
+
+        private void comboBox5_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox5.SelectedIndex == 3)
+            {
+                label12.Visible = true;
+                numericUpDown6.Visible = true;
+            }
+            else
+            {
+                label12.Visible = false;
+                numericUpDown6.Visible = false;
+            }
+            resultCost();
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (numericUpDown3.Enabled == true)
+            {
+                numericUpDown3.Enabled = false;
+                //
+                workerCost = 0;
+                resultCost();
+                //
+            }
+            else
+            {
+                //
+                workerCost = Convert.ToDouble(numericUpDown3.Value) * oneWorkerSale;
+                resultCost();
+                //
+                numericUpDown3.Enabled = true;
+            }
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            //
+            materialCost = Convert.ToDouble(numericUpDown1.Value) * tonnCost;
+            resultCost();
+            //
+            //
+            resultTonnage();
+            //
+        }
+
+        private void numericUpDown3_ValueChanged(object sender, EventArgs e)
+        {
+            //
+            workerCost = Convert.ToDouble(numericUpDown3.Value) * oneWorkerSale;
+            resultCost();
+            //
+
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!error)
+            {
+                //
+                resultCar();
+                //
+                //
+                resultTonnage();
+                //
+                resultCost();
+            }
+            
+
+        }
+
+        private void checkBox3_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!error)
+            {
+                //
+                resultCar();
+                //
+                //
+                resultTonnage();
+                //
+                resultCost();
+            }
+
+        }
+
+        private void tabPage3_Enter(object sender, EventArgs e)
+        {
+            //
+            if (numericUpDown2.Enabled == true)
+            {
+                //
+                checkMaterial = true;
+                changeEnabled();
+            //
+            //
+            materialCost = Convert.ToDouble(numericUpDown2.Value) * bagCost;
+            resultCost();
+                //
+                //
+                resultTonnage();
+                //
+            }
+            else
+            {
+                //
+                checkMaterial = false;
+                changeEnabled();
+                //
+                materialCost = 0;
+                resultCost();
+            //
+                //
+            }
+            //
+            //
+            resultCar();
+            //
+            
+        }
+
+        private void tabPage1_Enter(object sender, EventArgs e)
+        {
+            //
+            if (numericUpDown1.Enabled == true)
+            {
+                //
+                checkMaterial = true;
+                changeEnabled();
+            //
+            //
+            materialCost = Convert.ToDouble(numericUpDown1.Value) * tonnCost;
+            resultCost();
+                //
+                //
+                resultTonnage();
+                //
+            }
+            else
+            {
+                //
+                checkMaterial = false;
+                changeEnabled();
+                //
+                //
+                materialCost = Convert.ToDouble(numericUpDown1.Value) * 0;
+                resultCost();
+            //
+            }
+            //
+            //
+            resultCar();
+            //
+            
+        }
+
+        private void comboBox4_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            var currentItems = comboBox3.SelectedItem;
+            comboBox3.Items.Clear();
+            comboBox3.Text = "";
+            foreach (String truck in trucks)
+            {
+                if (!String.Equals(comboBox4.SelectedItem, truck) &&
+                     !String.Equals(trucksDriver[trucks.IndexOf(truck)], trucksDriver[trucks.IndexOf(comboBox4.SelectedItem.ToString())]))
+                    comboBox3.Items.Add(truck);
+            }
+            comboBox3.SelectedItem = currentItems;
+            resultCost();
+        }
+
+        private void comboBox3_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            var currentItems = comboBox4.SelectedItem;
+            comboBox4.Items.Clear();
+            comboBox4.Text = "";
+            foreach (String truck in trucks)
+            {
+                if (!String.Equals(comboBox3.SelectedItem.ToString(), truck) &&
+                    !String.Equals(trucksDriver[trucks.IndexOf(truck)], trucksDriver[trucks.IndexOf(comboBox3.SelectedItem.ToString())]))
+                    comboBox4.Items.Add(truck);
+            }
+            comboBox4.SelectedItem = currentItems;
+            resultCost();
+        }
+
+        private void numericUpDown4_ValueChanged(object sender, EventArgs e)
+        {
+            
+            if (tabControl1.SelectedTab == tabPage1)
+            {
+                numericUpDown4.Maximum = numericUpDown1.Value;
+                double materialTonn = Convert.ToDouble(numericUpDown1.Value);
+                if (Convert.ToDouble(numericUpDown4.Value) <= materialTonn)
+                {
+                    numericUpDown5.Value = Convert.ToDecimal(materialTonn - Convert.ToDouble(numericUpDown4.Value));
+                }
+                //
+                resultTonnageFirstTruck();
+                //
+            }
+            if (tabControl1.SelectedTab == tabPage3)
+            {
+                
+                double materialTonn = Convert.ToDouble(numericUpDown2.Value) * 0.05;
+                numericUpDown4.Maximum = Convert.ToDecimal(materialTonn);
+                //materialTonn = materialTonnage(materialTonn);
+                
+                if (Convert.ToDouble(numericUpDown4.Value) <= materialTonn)
+                {
+                    numericUpDown5.Value = Convert.ToDecimal(materialTonn - Convert.ToDouble(numericUpDown4.Value));
+                }
+                //
+                resultTonnageFirstTruck();
+                //
+            }
+            resultCost();
+        }
+
+        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //
+            resultTonnage();
+            //
+        }
+
+        private void label15_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numericUpDown5_ValueChanged(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedTab == tabPage1)
+            {
+                numericUpDown5.Maximum = numericUpDown1.Value;
+                double materialTonn = Convert.ToDouble(numericUpDown1.Value);
+                if (Convert.ToDouble(numericUpDown5.Value) <= materialTonn)
+                {
+                    numericUpDown4.Value = Convert.ToDecimal(materialTonn - Convert.ToDouble(numericUpDown5.Value));
+                }
+                //
+                resultTonnageSecondTruck();
+                //
+            }
+            if (tabControl1.SelectedTab == tabPage3)
+            {
+                
+                double materialTonn = Convert.ToDouble(numericUpDown2.Value) * 0.05;
+                numericUpDown4.Maximum = Convert.ToDecimal(materialTonn);
+                //materialTonn = materialTonnage(materialTonn);
+                if (Convert.ToDouble(numericUpDown5.Value) <= materialTonn)
+                {
+                    numericUpDown4.Value = Convert.ToDecimal(materialTonn - Convert.ToDouble(numericUpDown5.Value));
+                }
+                //
+                resultTonnageSecondTruck();
+                //
+            }
+            resultCost();
+        }
+
+
+        private void checkBox4_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!error)
+            {
+                //
+                resultCar();
+                //
+                //
+                resultTonnage();
+                //
+                resultCost();
+            }
+
+        }
+
+        private void checkBox5_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!error)
+            {
+                //
+                resultCar();
+                //
+                //
+                resultTonnage();
+                //
+                resultCost();
+            }
+        }
+
+        public bool checkTrucks()
+        {
+            if (comboBox3.Items.Count == 0)
+            {
+                MessageBox.Show("Отсутствуют машины, которые могут осуществить доставку","Отсутствие машин");
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        private void numericUpDown6_ValueChanged(object sender, EventArgs e)
+        {
+            resultCost();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            mainForm.Show();
+            ConnectionToMySQL.Close();
+            this.Close();
+        }
+    }
+}

@@ -114,6 +114,7 @@
             this.buttonCheckCost.TabIndex = 2;
             this.buttonCheckCost.Text = "Предварительный рассчет стоимости";
             this.buttonCheckCost.UseVisualStyleBackColor = true;
+            this.buttonCheckCost.Click += new System.EventHandler(this.buttonCheckCost_Click_1);
             // 
             // Form1
             // 

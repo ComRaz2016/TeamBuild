@@ -76,5 +76,13 @@ namespace Delivery
         {
             ConnectionToMySQL.Close();
         }
+
+        private void buttonCheckCost_Click_1(object sender, EventArgs e)
+        {
+            ConnectionToMySQL.Open();
+            this.Hide();
+            Form fAdvCostOrder = new FormAdvCostOrder(ConnectionToMySQL, this);
+            fAdvCostOrder.Show();
+        }
     }
 }
