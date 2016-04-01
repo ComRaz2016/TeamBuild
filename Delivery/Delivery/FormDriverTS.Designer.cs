@@ -304,6 +304,7 @@
             this.textBoxDriverNumberAdd.Name = "textBoxDriverNumberAdd";
             this.textBoxDriverNumberAdd.Size = new System.Drawing.Size(217, 20);
             this.textBoxDriverNumberAdd.TabIndex = 6;
+            this.textBoxDriverNumberAdd.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxDriverNumberAdd_KeyPress);
             // 
             // labelDriverNumberAdd
             // 
@@ -320,6 +321,7 @@
             this.textBoxDriverTelefoneAdd.Name = "textBoxDriverTelefoneAdd";
             this.textBoxDriverTelefoneAdd.Size = new System.Drawing.Size(216, 20);
             this.textBoxDriverTelefoneAdd.TabIndex = 4;
+            this.textBoxDriverTelefoneAdd.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxDriverTelefoneAdd_KeyPress);
             // 
             // labelDriverTelefoneAdd
             // 
@@ -336,6 +338,7 @@
             this.textBoxDriverFIOAdd.Name = "textBoxDriverFIOAdd";
             this.textBoxDriverFIOAdd.Size = new System.Drawing.Size(214, 20);
             this.textBoxDriverFIOAdd.TabIndex = 2;
+            this.textBoxDriverFIOAdd.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxDriverFIOAdd_KeyPress);
             // 
             // labelDriverFIOAdd
             // 
@@ -432,6 +435,7 @@
             this.textBoxDriverNumberChange.Name = "textBoxDriverNumberChange";
             this.textBoxDriverNumberChange.Size = new System.Drawing.Size(217, 20);
             this.textBoxDriverNumberChange.TabIndex = 13;
+            this.textBoxDriverNumberChange.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxDriverNumberChange_KeyPress);
             // 
             // labelDriverNumberChange
             // 
@@ -448,6 +452,7 @@
             this.textBoxDriverTelefoneChange.Name = "textBoxDriverTelefoneChange";
             this.textBoxDriverTelefoneChange.Size = new System.Drawing.Size(216, 20);
             this.textBoxDriverTelefoneChange.TabIndex = 11;
+            this.textBoxDriverTelefoneChange.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxDriverTelefoneChange_KeyPress);
             // 
             // labelDriverTelefoneChange
             // 
@@ -464,6 +469,7 @@
             this.textBoxDriverFIOChange.Name = "textBoxDriverFIOChange";
             this.textBoxDriverFIOChange.Size = new System.Drawing.Size(214, 20);
             this.textBoxDriverFIOChange.TabIndex = 9;
+            this.textBoxDriverFIOChange.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxDriverFIOChange_KeyPress);
             // 
             // labelDriverFIOChange
             // 
@@ -781,6 +787,7 @@
             this.textBoxTSTonnAdd.Name = "textBoxTSTonnAdd";
             this.textBoxTSTonnAdd.Size = new System.Drawing.Size(109, 20);
             this.textBoxTSTonnAdd.TabIndex = 16;
+            this.textBoxTSTonnAdd.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxTSTonnAdd_KeyPress);
             // 
             // textBoxTSMarkAdd
             // 
@@ -788,6 +795,7 @@
             this.textBoxTSMarkAdd.Name = "textBoxTSMarkAdd";
             this.textBoxTSMarkAdd.Size = new System.Drawing.Size(121, 20);
             this.textBoxTSMarkAdd.TabIndex = 3;
+            this.textBoxTSMarkAdd.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxTSMarkAdd_KeyPress);
             // 
             // labelTSTonnAdd
             // 
@@ -830,6 +838,7 @@
             this.textBoxTSDopKmAdd.Name = "textBoxTSDopKmAdd";
             this.textBoxTSDopKmAdd.Size = new System.Drawing.Size(66, 20);
             this.textBoxTSDopKmAdd.TabIndex = 7;
+            this.textBoxTSDopKmAdd.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxTSDopKmAdd_KeyPress);
             // 
             // labelTSDopKmAdd
             // 
@@ -846,6 +855,7 @@
             this.textBoxTSZone3Add.Name = "textBoxTSZone3Add";
             this.textBoxTSZone3Add.Size = new System.Drawing.Size(66, 20);
             this.textBoxTSZone3Add.TabIndex = 5;
+            this.textBoxTSZone3Add.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxTSZone3Add_KeyPress);
             // 
             // labelTSZone3Add
             // 
@@ -862,6 +872,7 @@
             this.textBoxTSZone2Add.Name = "textBoxTSZone2Add";
             this.textBoxTSZone2Add.Size = new System.Drawing.Size(66, 20);
             this.textBoxTSZone2Add.TabIndex = 3;
+            this.textBoxTSZone2Add.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxTSZone2Add_KeyPress);
             // 
             // labelTSZone2Add
             // 
@@ -878,6 +889,7 @@
             this.textBoxTSZone1Add.Name = "textBoxTSZone1Add";
             this.textBoxTSZone1Add.Size = new System.Drawing.Size(66, 20);
             this.textBoxTSZone1Add.TabIndex = 1;
+            this.textBoxTSZone1Add.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxTSZone1Add_KeyPress);
             // 
             // labelTSZone1Add
             // 
@@ -894,6 +906,7 @@
             this.textBoxTSNumberAdd.Name = "textBoxTSNumberAdd";
             this.textBoxTSNumberAdd.Size = new System.Drawing.Size(121, 20);
             this.textBoxTSNumberAdd.TabIndex = 5;
+            this.textBoxTSNumberAdd.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxTSNumberAdd_KeyPress);
             // 
             // comboBoxDriverNumberAdd
             // 
@@ -1207,6 +1220,7 @@
             this.textBoxTSTonnChange.Name = "textBoxTSTonnChange";
             this.textBoxTSTonnChange.Size = new System.Drawing.Size(109, 20);
             this.textBoxTSTonnChange.TabIndex = 16;
+            this.textBoxTSTonnChange.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxTSTonnChange_KeyPress);
             // 
             // textBoxTSMarkChange
             // 
@@ -1214,6 +1228,7 @@
             this.textBoxTSMarkChange.Name = "textBoxTSMarkChange";
             this.textBoxTSMarkChange.Size = new System.Drawing.Size(121, 20);
             this.textBoxTSMarkChange.TabIndex = 3;
+            this.textBoxTSMarkChange.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxTSMarkChange_KeyPress);
             // 
             // labelTSTonnChange
             // 
@@ -1256,6 +1271,7 @@
             this.textBoxTSDopKmChange.Name = "textBoxTSDopKmChange";
             this.textBoxTSDopKmChange.Size = new System.Drawing.Size(66, 20);
             this.textBoxTSDopKmChange.TabIndex = 7;
+            this.textBoxTSDopKmChange.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxTSDopKmChange_KeyPress);
             // 
             // label4
             // 
@@ -1272,6 +1288,7 @@
             this.textBoxTSZone3Change.Name = "textBoxTSZone3Change";
             this.textBoxTSZone3Change.Size = new System.Drawing.Size(66, 20);
             this.textBoxTSZone3Change.TabIndex = 5;
+            this.textBoxTSZone3Change.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxTSZone3Change_KeyPress);
             // 
             // labelTSZone3Change
             // 
@@ -1288,6 +1305,7 @@
             this.textBoxTSZone2Change.Name = "textBoxTSZone2Change";
             this.textBoxTSZone2Change.Size = new System.Drawing.Size(66, 20);
             this.textBoxTSZone2Change.TabIndex = 3;
+            this.textBoxTSZone2Change.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxTSZone2Change_KeyPress);
             // 
             // labelTSZone2Change
             // 
@@ -1304,6 +1322,7 @@
             this.textBoxTSZone1Change.Name = "textBoxTSZone1Change";
             this.textBoxTSZone1Change.Size = new System.Drawing.Size(66, 20);
             this.textBoxTSZone1Change.TabIndex = 1;
+            this.textBoxTSZone1Change.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxTSZone1Change_KeyPress);
             // 
             // labelTSZone1Change
             // 
@@ -1320,6 +1339,7 @@
             this.textBoxTSNumberChange.Name = "textBoxTSNumberChange";
             this.textBoxTSNumberChange.Size = new System.Drawing.Size(121, 20);
             this.textBoxTSNumberChange.TabIndex = 5;
+            this.textBoxTSNumberChange.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxTSNumberChange_KeyPress);
             // 
             // comboBoxTSDriverNumberChange
             // 

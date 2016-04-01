@@ -125,7 +125,7 @@
             this.buttonCheckCost.Name = "buttonCheckCost";
             this.buttonCheckCost.Size = new System.Drawing.Size(200, 67);
             this.buttonCheckCost.TabIndex = 2;
-            this.buttonCheckCost.Text = "Предварительный рассчет стоимости";
+            this.buttonCheckCost.Text = "Предварительный расчет стоимости заказа";
             this.buttonCheckCost.UseVisualStyleBackColor = true;
             this.buttonCheckCost.Click += new System.EventHandler(this.buttonCheckCost_Click_1);
             // 

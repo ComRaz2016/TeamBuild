@@ -232,7 +232,7 @@ namespace Delivery
                 labelCompleteOrder.Text = countCompleteOrder.ToString();
                 labelCancelOrder.Text = countCancelOrder.ToString();
 
-                MessageBox.Show("Отчет составлен. "+ count.ToString());
+                MessageBox.Show("Отчет составлен.");
             }
         }
 

@@ -489,7 +489,7 @@ namespace Delivery
         private void buttonMaterialAdd_Click(object sender, EventArgs e)
         {
             String nameMaterial = textBoxMaterialAdd.Text;
-            
+
             if (nameMaterial.Trim() == "")
             {
                 MessageBox.Show("Необходимо заполнить поле 'Название материала'.");
@@ -941,6 +941,78 @@ namespace Delivery
         {
             textBoxBagCostAdd.Clear();
             textBoxTonnCostAdd.Clear();
+        }
+
+        private void textBoxNameFirmAdd_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char c = e.KeyChar;
+            e.Handled = !(char.IsLetter(c) || c == '\b' || char.IsDigit(c) || c == ' ');
+        }
+
+        private void textBoxTelefoneFirmAdd_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char c = e.KeyChar;
+            e.Handled = !(c == '\b' || char.IsDigit(c) || c == '+');
+        }
+
+        private void textBoxAdressFirmAdd_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char c = e.KeyChar;
+            e.Handled = !(c == '\b' || char.IsDigit(c) || char.IsLetter(c) || c == ',' || c == '.' || c == ' ');
+        }
+
+        private void textBoxNameFirmChange_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char c = e.KeyChar;
+            e.Handled = !(char.IsLetter(c) || c == '\b' || char.IsDigit(c) || c == ' ');
+        }
+
+        private void textBoxTelefoneFirmChange_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char c = e.KeyChar;
+            e.Handled = !(c == '\b' || char.IsDigit(c) || c == '+');
+        }
+
+        private void textBoxAdressFirmChange_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char c = e.KeyChar;
+            e.Handled = !(c == '\b' || char.IsDigit(c) || char.IsLetter(c) || c == ',' || c == '.' || c == ' ');
+        }
+
+        private void textBoxBagCostAdd_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char c = e.KeyChar;
+            e.Handled = !(c == '\b' || char.IsDigit(c) || c == ',');
+        }
+
+        private void textBoxTonnCostAdd_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char c = e.KeyChar;
+            e.Handled = !(c == '\b' || char.IsDigit(c) || c == ',');
+        }
+
+        private void textBoxBagCostChange_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char c = e.KeyChar;
+            e.Handled = !(c == '\b' || char.IsDigit(c) || c == ',');
+        }
+
+        private void textBoxTonnCostChange_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char c = e.KeyChar;
+            e.Handled = !(c == '\b' || char.IsDigit(c) || c == ',');
+        }
+
+        private void textBoxMaterialAdd_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char c = e.KeyChar;
+            e.Handled = !(char.IsLetter(c) || c == '\b' || char.IsDigit(c) || c == ' ');
+        }
+
+        private void textBoxMaterialChange_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char c = e.KeyChar;
+            e.Handled = !(char.IsLetter(c) || c == '\b' || char.IsDigit(c) || c == ' ');
         }
     }
 }

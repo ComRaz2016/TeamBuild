@@ -1016,11 +1016,11 @@ namespace Delivery
                                                     dataReader.Close();
                                                     try
                                                     {
-                                                        msc.CommandText = "DELETE FROM `Car` WHERE `pk_driver` = '" + driverPk + "' AND `mark_car` = '" + tsMark + "' AND `regist_number` = '" + tsNumber + "'";
+                                                        msc.CommandText = "DELETE FROM `instruction_car` WHERE `pk_car` = '" + tsPk + "'";
                                                         msc.Connection = ConnectionToMySQL;
                                                         msc.ExecuteNonQuery();
 
-                                                        msc.CommandText = "DELETE FROM `instruction_car` WHERE `pk_car` = '" + tsPk + "'";
+                                                        msc.CommandText = "DELETE FROM `Car` WHERE `pk_driver` = '" + driverPk + "' AND `mark_car` = '" + tsMark + "' AND `regist_number` = '" + tsNumber + "'";
                                                         msc.Connection = ConnectionToMySQL;
                                                         msc.ExecuteNonQuery();
 
@@ -1418,6 +1418,126 @@ namespace Delivery
                     }
                 }
             }
+        }
+
+        private void textBoxDriverTelefoneAdd_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char c = e.KeyChar;
+            e.Handled = !(char.IsDigit(c) || c == '\b' || c=='+' );
+        }
+
+        private void textBoxDriverFIOAdd_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char c = e.KeyChar;
+            e.Handled = !(char.IsLetter(c) || c == '\b' || c == '.' || c== ' ');
+        }
+
+        private void textBoxDriverNumberAdd_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char c = e.KeyChar;
+            e.Handled = !(char.IsLetter(c) || c == '\b' || char.IsDigit(c));
+        }
+
+        private void textBoxDriverFIOChange_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char c = e.KeyChar;
+            e.Handled = !(char.IsLetter(c) || c == '\b' || c == '.' || c == ' ');
+        }
+
+        private void textBoxDriverTelefoneChange_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char c = e.KeyChar;
+            e.Handled = !(char.IsDigit(c) || c == '\b' || c == '+');
+        }
+
+        private void textBoxDriverNumberChange_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char c = e.KeyChar;
+            e.Handled = !(char.IsLetter(c) || c == '\b' || char.IsDigit(c));
+        }
+
+        private void textBoxTSMarkAdd_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char c = e.KeyChar;
+            e.Handled = !(char.IsLetter(c) || c == '\b' || c == ' ' || char.IsDigit(c));
+        }
+
+        private void textBoxTSNumberAdd_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char c = e.KeyChar;
+            e.Handled = !(char.IsLetter(c) || c == '\b' || char.IsDigit(c));
+        }
+
+        private void textBoxTSTonnAdd_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char c = e.KeyChar;
+            e.Handled = !(char.IsDigit(c) || c == '\b' || c == ',');
+        }
+
+        private void textBoxTSZone1Add_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char c = e.KeyChar;
+            e.Handled = !(char.IsDigit(c) || c == '\b' || c == ',');
+        }
+
+        private void textBoxTSZone2Add_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char c = e.KeyChar;
+            e.Handled = !(char.IsDigit(c) || c == '\b' || c == ',');
+        }
+
+        private void textBoxTSZone3Add_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char c = e.KeyChar;
+            e.Handled = !(char.IsDigit(c) || c == '\b' || c == ',');
+        }
+
+        private void textBoxTSDopKmAdd_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char c = e.KeyChar;
+            e.Handled = !(char.IsDigit(c) || c == '\b' || c == ',');
+        }
+
+        private void textBoxTSMarkChange_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char c = e.KeyChar;
+            e.Handled = !(char.IsLetter(c) || c == '\b' || c == ' ' || char.IsDigit(c));
+        }
+
+        private void textBoxTSNumberChange_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char c = e.KeyChar;
+            e.Handled = !(char.IsLetter(c) || c == '\b' || char.IsDigit(c));
+        }
+
+        private void textBoxTSTonnChange_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char c = e.KeyChar;
+            e.Handled = !(char.IsDigit(c) || c == '\b' || c == ',');
+        }
+
+        private void textBoxTSZone1Change_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char c = e.KeyChar;
+            e.Handled = !(char.IsDigit(c) || c == '\b' || c == ',');
+        }
+
+        private void textBoxTSZone2Change_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char c = e.KeyChar;
+            e.Handled = !(char.IsDigit(c) || c == '\b' || c == ',');
+        }
+
+        private void textBoxTSZone3Change_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char c = e.KeyChar;
+            e.Handled = !(char.IsDigit(c) || c == '\b' || c == ',');
+        }
+
+        private void textBoxTSDopKmChange_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char c = e.KeyChar;
+            e.Handled = !(char.IsDigit(c) || c == '\b' || c == ',');
         }
     }
 }

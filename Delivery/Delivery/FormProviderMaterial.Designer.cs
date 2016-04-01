@@ -257,6 +257,7 @@
             this.textBoxAdressFirmAdd.Name = "textBoxAdressFirmAdd";
             this.textBoxAdressFirmAdd.Size = new System.Drawing.Size(505, 20);
             this.textBoxAdressFirmAdd.TabIndex = 27;
+            this.textBoxAdressFirmAdd.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxAdressFirmAdd_KeyPress);
             // 
             // labelAdressFirmAdd
             // 
@@ -273,6 +274,7 @@
             this.textBoxTelefoneFirmAdd.Name = "textBoxTelefoneFirmAdd";
             this.textBoxTelefoneFirmAdd.Size = new System.Drawing.Size(161, 20);
             this.textBoxTelefoneFirmAdd.TabIndex = 25;
+            this.textBoxTelefoneFirmAdd.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxTelefoneFirmAdd_KeyPress);
             // 
             // labelTelefoneFirmAdd
             // 
@@ -289,6 +291,7 @@
             this.textBoxNameFirmAdd.Name = "textBoxNameFirmAdd";
             this.textBoxNameFirmAdd.Size = new System.Drawing.Size(216, 20);
             this.textBoxNameFirmAdd.TabIndex = 23;
+            this.textBoxNameFirmAdd.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxNameFirmAdd_KeyPress);
             // 
             // labelNameFirmAdd
             // 
@@ -385,6 +388,7 @@
             this.textBoxAdressFirmChange.Name = "textBoxAdressFirmChange";
             this.textBoxAdressFirmChange.Size = new System.Drawing.Size(505, 20);
             this.textBoxAdressFirmChange.TabIndex = 20;
+            this.textBoxAdressFirmChange.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxAdressFirmChange_KeyPress);
             // 
             // labelAdressFirmChange
             // 
@@ -401,6 +405,7 @@
             this.textBoxTelefoneFirmChange.Name = "textBoxTelefoneFirmChange";
             this.textBoxTelefoneFirmChange.Size = new System.Drawing.Size(161, 20);
             this.textBoxTelefoneFirmChange.TabIndex = 18;
+            this.textBoxTelefoneFirmChange.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxTelefoneFirmChange_KeyPress);
             // 
             // labelTelefoneFirmChange
             // 
@@ -417,6 +422,7 @@
             this.textBoxNameFirmChange.Name = "textBoxNameFirmChange";
             this.textBoxNameFirmChange.Size = new System.Drawing.Size(216, 20);
             this.textBoxNameFirmChange.TabIndex = 16;
+            this.textBoxNameFirmChange.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxNameFirmChange_KeyPress);
             // 
             // labelNameFirmChange
             // 
@@ -644,6 +650,7 @@
             this.textBoxTonnCostAdd.Name = "textBoxTonnCostAdd";
             this.textBoxTonnCostAdd.Size = new System.Drawing.Size(112, 20);
             this.textBoxTonnCostAdd.TabIndex = 8;
+            this.textBoxTonnCostAdd.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxTonnCostAdd_KeyPress);
             // 
             // textBoxBagCostAdd
             // 
@@ -651,6 +658,7 @@
             this.textBoxBagCostAdd.Name = "textBoxBagCostAdd";
             this.textBoxBagCostAdd.Size = new System.Drawing.Size(112, 20);
             this.textBoxBagCostAdd.TabIndex = 7;
+            this.textBoxBagCostAdd.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxBagCostAdd_KeyPress);
             // 
             // labelTonnCostAdd
             // 
@@ -831,6 +839,7 @@
             this.textBoxTonnCostChange.Name = "textBoxTonnCostChange";
             this.textBoxTonnCostChange.Size = new System.Drawing.Size(112, 20);
             this.textBoxTonnCostChange.TabIndex = 17;
+            this.textBoxTonnCostChange.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxTonnCostChange_KeyPress);
             // 
             // textBoxBagCostChange
             // 
@@ -838,6 +847,7 @@
             this.textBoxBagCostChange.Name = "textBoxBagCostChange";
             this.textBoxBagCostChange.Size = new System.Drawing.Size(112, 20);
             this.textBoxBagCostChange.TabIndex = 16;
+            this.textBoxBagCostChange.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxBagCostChange_KeyPress);
             // 
             // labelTonnCostChange
             // 
@@ -1196,6 +1206,7 @@
             this.textBoxMaterialAdd.Name = "textBoxMaterialAdd";
             this.textBoxMaterialAdd.Size = new System.Drawing.Size(234, 20);
             this.textBoxMaterialAdd.TabIndex = 2;
+            this.textBoxMaterialAdd.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxMaterialAdd_KeyPress);
             // 
             // labelMaterialAdd
             // 
@@ -1265,6 +1276,7 @@
             this.textBoxMaterialChange.Name = "textBoxMaterialChange";
             this.textBoxMaterialChange.Size = new System.Drawing.Size(234, 20);
             this.textBoxMaterialChange.TabIndex = 6;
+            this.textBoxMaterialChange.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxMaterialChange_KeyPress);
             // 
             // labelMaterialChange
             // 
