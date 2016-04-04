@@ -64,7 +64,10 @@ namespace Delivery
 
         private void buttonObserverOrder_Click(object sender, EventArgs e)
         {
-
+            ConnectionToMySQL.Open();
+            this.Hide();
+            Form fOrders = new FormOrders(ConnectionToMySQL, this);
+            fOrders.Show();
         }
 
         private void buttonCheckCost_Click(object sender, EventArgs e)

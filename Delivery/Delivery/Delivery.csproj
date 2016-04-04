@@ -76,6 +76,12 @@
     <Compile Include="FormDriverTS.Designer.cs">
       <DependentUpon>FormDriverTS.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormOrders.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormOrders.Designer.cs">
+      <DependentUpon>FormOrders.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormProviderMaterial.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -100,6 +106,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TestDataSet1.xsd</DependentUpon>
     </Compile>
+    <Compile Include="TestDataSet2.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TestDataSet2.xsd</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -111,6 +122,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormDriverTS.resx">
       <DependentUpon>FormDriverTS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormOrders.resx">
+      <DependentUpon>FormOrders.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormProviderMaterial.resx">
       <DependentUpon>FormProviderMaterial.cs</DependentUpon>
@@ -127,6 +141,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="Properties\DataSources\Delivery.TestDataSetTableAdapters.OrderTableAdapter.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -157,6 +172,17 @@
     </None>
     <None Include="TestDataSet1.xss">
       <DependentUpon>TestDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="TestDataSet2.xsc">
+      <DependentUpon>TestDataSet2.xsd</DependentUpon>
+    </None>
+    <None Include="TestDataSet2.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>TestDataSet2.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="TestDataSet2.xss">
+      <DependentUpon>TestDataSet2.xsd</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>

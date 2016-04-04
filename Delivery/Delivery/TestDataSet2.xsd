@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="TestDataSet2" targetNamespace="http://tempuri.org/TestDataSet2.xsd" xmlns:mstns="http://tempuri.org/TestDataSet2.xsd" xmlns="http://tempuri.org/TestDataSet2.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="TestConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="TestConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.Delivery.Properties.Settings.GlobalReference.Default.TestConnectionString" Provider="MySql.Data.MySqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="MeasureTableAdapter" GeneratorDataComponentClassName="MeasureTableAdapter" Name="Measure" UserDataComponentName="MeasureTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="TestConnectionString (Settings)" DbObjectName="Test.Measure" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT `Nazv` FROM `Measure`</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="Nazv" DataSetColumn="Nazv" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="OrderTableAdapter" GeneratorDataComponentClassName="OrderTableAdapter" Name="Order" UserDataComponentName="OrderTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="TestConnectionString (Settings)" DbObjectName="Test.`Order`" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT `nomer`, `volume`, `date_time`, `cost_order` FROM `Order`</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="nomer" DataSetColumn="nomer" />
+              <Mapping SourceColumn="volume" DataSetColumn="volume" />
+              <Mapping SourceColumn="date_time" DataSetColumn="date_time" />
+              <Mapping SourceColumn="cost_order" DataSetColumn="cost_order" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="order_statusTableAdapter" GeneratorDataComponentClassName="order_statusTableAdapter" Name="order_status" UserDataComponentName="order_statusTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="TestConnectionString (Settings)" DbObjectName="Test.order_status" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT `name_status` FROM `order_status`</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="name_status" DataSetColumn="name_status" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="TestDataSet2" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="TestDataSet2" msprop:Generator_UserDSName="TestDataSet2">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Measure" msprop:Generator_TableClassName="MeasureDataTable" msprop:Generator_TableVarName="tableMeasure" msprop:Generator_TablePropName="Measure" msprop:Generator_RowDeletingName="MeasureRowDeleting" msprop:Generator_RowChangingName="MeasureRowChanging" msprop:Generator_RowEvHandlerName="MeasureRowChangeEventHandler" msprop:Generator_RowDeletedName="MeasureRowDeleted" msprop:Generator_UserTableName="Measure" msprop:Generator_RowChangedName="MeasureRowChanged" msprop:Generator_RowEvArgName="MeasureRowChangeEvent" msprop:Generator_RowClassName="MeasureRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Nazv" msprop:Generator_ColumnVarNameInTable="columnNazv" msprop:Generator_ColumnPropNameInRow="Nazv" msprop:Generator_ColumnPropNameInTable="NazvColumn" msprop:Generator_UserColumnName="Nazv" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="300" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Order" msprop:Generator_TableClassName="OrderDataTable" msprop:Generator_TableVarName="tableOrder" msprop:Generator_TablePropName="Order" msprop:Generator_RowDeletingName="OrderRowDeleting" msprop:Generator_RowChangingName="OrderRowChanging" msprop:Generator_RowEvHandlerName="OrderRowChangeEventHandler" msprop:Generator_RowDeletedName="OrderRowDeleted" msprop:Generator_UserTableName="Order" msprop:Generator_RowChangedName="OrderRowChanged" msprop:Generator_RowEvArgName="OrderRowChangeEvent" msprop:Generator_RowClassName="OrderRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="nomer" msprop:Generator_ColumnVarNameInTable="columnnomer" msprop:Generator_ColumnPropNameInRow="nomer" msprop:Generator_ColumnPropNameInTable="nomerColumn" msprop:Generator_UserColumnName="nomer" type="xs:int" minOccurs="0" />
+              <xs:element name="volume" msprop:Generator_ColumnVarNameInTable="columnvolume" msprop:Generator_ColumnPropNameInRow="volume" msprop:Generator_ColumnPropNameInTable="volumeColumn" msprop:Generator_UserColumnName="volume" type="xs:int" minOccurs="0" />
+              <xs:element name="date_time" msprop:Generator_ColumnVarNameInTable="columndate_time" msprop:Generator_ColumnPropNameInRow="date_time" msprop:Generator_ColumnPropNameInTable="date_timeColumn" msprop:Generator_UserColumnName="date_time" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="300" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="cost_order" msprop:Generator_ColumnVarNameInTable="columncost_order" msprop:Generator_ColumnPropNameInRow="cost_order" msprop:Generator_ColumnPropNameInTable="cost_orderColumn" msprop:Generator_UserColumnName="cost_order" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="order_status" msprop:Generator_TableClassName="order_statusDataTable" msprop:Generator_TableVarName="tableorder_status" msprop:Generator_TablePropName="order_status" msprop:Generator_RowDeletingName="order_statusRowDeleting" msprop:Generator_RowChangingName="order_statusRowChanging" msprop:Generator_RowEvHandlerName="order_statusRowChangeEventHandler" msprop:Generator_RowDeletedName="order_statusRowDeleted" msprop:Generator_UserTableName="order_status" msprop:Generator_RowChangedName="order_statusRowChanged" msprop:Generator_RowEvArgName="order_statusRowChangeEvent" msprop:Generator_RowClassName="order_statusRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="name_status" msprop:Generator_ColumnVarNameInTable="columnname_status" msprop:Generator_ColumnPropNameInRow="name_status" msprop:Generator_ColumnPropNameInTable="name_statusColumn" msprop:Generator_UserColumnName="name_status" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="300" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
