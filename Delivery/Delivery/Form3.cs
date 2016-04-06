@@ -1532,16 +1532,8 @@ namespace Delivery
         // Получение первичного ключа товара на доставку
         public String getPkStatus()
         {
-            int differenceYear = dateTimePicker1.Value.Year.CompareTo(DateTime.Now.Year);
-            if (differenceYear == 0)
-            {
-                int differenceMonth = dateTimePicker1.Value.Month.CompareTo(DateTime.Now.Month);
-                if (differenceMonth == 0)
-                {
-                    int differenceDay = dateTimePicker1.Value.Day.CompareTo(DateTime.Now.Day);
-                    if (differenceDay == 0)
-                    {
-                        String status = "Active";
+            
+                        String status = "Wait";
                         MySqlCommand msc = new MySqlCommand();
                         msc.CommandText = "SELECT pk_status  FROM order_status  WHERE name_status  = '" + status + "'";
                         msc.Connection = ConnectionToMySQL;
@@ -1554,57 +1546,7 @@ namespace Delivery
                         }
                         dataReader.Close();
                         return statusPk;
-                    }
-                    else
-                    {
-                        String status = "Inactive";
-                        MySqlCommand msc = new MySqlCommand();
-                        msc.CommandText = "SELECT pk_status  FROM order_status  WHERE name_status  = '" + status + "'";
-                        msc.Connection = ConnectionToMySQL;
-                        MySqlDataReader dataReader = msc.ExecuteReader();
-                        String statusPk = null;
-                        while (dataReader.Read())
-                        {
-                            statusPk = dataReader[0].ToString();
-                            //MessageBox.Show(materialPk);
-                        }
-                        dataReader.Close();
-                        return statusPk;
-                    }
-                }
-                else
-                {
-                    String status = "Inactive";
-                    MySqlCommand msc = new MySqlCommand();
-                    msc.CommandText = "SELECT pk_status  FROM order_status  WHERE name_status  = '" + status + "'";
-                    msc.Connection = ConnectionToMySQL;
-                    MySqlDataReader dataReader = msc.ExecuteReader();
-                    String statusPk = null;
-                    while (dataReader.Read())
-                    {
-                        statusPk = dataReader[0].ToString();
-                        //MessageBox.Show(materialPk);
-                    }
-                    dataReader.Close();
-                    return statusPk;
-                }
-            }
-            else
-            {
-                String status = "Inactive";
-                MySqlCommand msc = new MySqlCommand();
-                msc.CommandText = "SELECT pk_status  FROM order_status  WHERE name_status  = '" + status + "'";
-                msc.Connection = ConnectionToMySQL;
-                MySqlDataReader dataReader = msc.ExecuteReader();
-                String statusPk = null;
-                while (dataReader.Read())
-                {
-                    statusPk = dataReader[0].ToString();
-                    //MessageBox.Show(materialPk);
-                }
-                dataReader.Close();
-                return statusPk;
-            }
+                   
             //int differenceMonth = dateTimePicker1.Value.Month.CompareTo(DateTime.Now.Month);
             //if (difference == 0)
             //{
@@ -1989,7 +1931,7 @@ namespace Delivery
                     String instructionPk = getInstructionPk("Compact");
                     if (instructionPk != null)
                     {
-                        msc.CommandText = "INSERT INTO `Instuction_zone` (`pk_instruction`, `pk_order`) VALUES ('" + instructionPk + "', '" + orderPk + "')";
+                        msc.CommandText = "INSERT INTO `order_instruction` (`pk_instruction`, `pk_order`) VALUES ('" + instructionPk + "', '" + orderPk + "')";
                         msc.Connection = ConnectionToMySQL;
                         msc.ExecuteNonQuery();
                     }
@@ -1999,7 +1941,7 @@ namespace Delivery
                     String instructionPk = getInstructionPk("Tipper");
                     if (instructionPk != null)
                     {
-                        msc.CommandText = "INSERT INTO `Instuction_zone` (`pk_instruction`, `pk_order`) VALUES ('" + instructionPk + "', '" + orderPk + "')";
+                        msc.CommandText = "INSERT INTO `order_instruction` (`pk_instruction`, `pk_order`) VALUES ('" + instructionPk + "', '" + orderPk + "')";
                         msc.Connection = ConnectionToMySQL;
                         msc.ExecuteNonQuery();
                     }
@@ -2009,7 +1951,7 @@ namespace Delivery
                     String instructionPk = getInstructionPk("Onboard");
                     if (instructionPk != null)
                     {
-                        msc.CommandText = "INSERT INTO `Instuction_zone` (`pk_instruction`, `pk_order`) VALUES ('" + instructionPk + "', '" + orderPk + "')";
+                        msc.CommandText = "INSERT INTO `order_instruction` (`pk_instruction`, `pk_order`) VALUES ('" + instructionPk + "', '" + orderPk + "')";
                         msc.Connection = ConnectionToMySQL;
                         msc.ExecuteNonQuery();
                     }
@@ -2019,7 +1961,7 @@ namespace Delivery
                     String instructionPk = getInstructionPk("Selfloader");
                     if (instructionPk != null)
                     {
-                        msc.CommandText = "INSERT INTO `Instuction_zone` (`pk_instruction`, `pk_order`) VALUES ('" + instructionPk + "', '" + orderPk + "')";
+                        msc.CommandText = "INSERT INTO `order_instruction` (`pk_instruction`, `pk_order`) VALUES ('" + instructionPk + "', '" + orderPk + "')";
                         msc.Connection = ConnectionToMySQL;
                         msc.ExecuteNonQuery();
                     }

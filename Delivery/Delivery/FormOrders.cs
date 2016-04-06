@@ -35,7 +35,7 @@ namespace Delivery
         private void setDataGridActivOrder()
         {
             MySqlCommand msc = new MySqlCommand();
-            msc.CommandText = "SELECT * FROM `Order` WHERE date_time LIKE " + '"' + DateTime.Today.AddDays(1).ToString("dd.MM.yyyy") + "%" + '"';
+            msc.CommandText = "SELECT * FROM `Order` WHERE date_time LIKE " + '"' + DateTime.Today.ToString("dd.MM.yyyy") + "%" + '"';
             msc.Connection = ConnectionToMySQL;
             MySqlDataReader dataReader = msc.ExecuteReader();
             while (dataReader.Read())
@@ -50,6 +50,10 @@ namespace Delivery
                 dataGridView1.Rows[i].Cells[6].Value = dataReader[14].ToString();
             }
             dataReader.Close();
+            /*msc = new MySqlCommand();
+            msc.CommandText = "SELECT * FROM `Order` WHERE date_time LIKE " + '"' + DateTime.Today.AddDays(1).ToString("dd.MM.yyyy") + "%" + '"';
+            msc.Connection = ConnectionToMySQL;
+            MySqlDataReader dataReader = msc.ExecuteReader();*/
         }
 
         private void tabControl1_Selected(object sender, TabControlEventArgs e)
