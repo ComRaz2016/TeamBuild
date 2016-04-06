@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabPageComplite = new System.Windows.Forms.TabPage();
             this.tabPageNotActive = new System.Windows.Forms.TabPage();
             this.tabPageActive = new System.Windows.Forms.TabPage();
@@ -47,19 +48,6 @@
             this.buttonEdit1 = new System.Windows.Forms.Button();
             this.buttonEdit2 = new System.Windows.Forms.Button();
             this.button = new System.Windows.Forms.Button();
-            this.colNumOrder = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colStatusOrder = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.colAdr = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCost = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colVolume = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colBulkOrBad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewComboBoxColumn1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -67,6 +55,20 @@
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colKostyl = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colNumOrder = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colStatusOrder = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colAdr = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCost = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colVolume = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colBulkOrBad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPageComplite.SuspendLayout();
             this.tabPageNotActive.SuspendLayout();
             this.tabPageActive.SuspendLayout();
@@ -138,6 +140,8 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToResizeColumns = false;
+            this.dataGridView1.AllowUserToResizeRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colNumOrder,
@@ -148,9 +152,13 @@
             this.colVolume,
             this.colBulkOrBad});
             this.dataGridView1.Location = new System.Drawing.Point(58, 6);
+            this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(939, 318);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
+            this.dataGridView1.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseClick);
             // 
             // tabControl1
             // 
@@ -257,6 +265,7 @@
             this.dataGridView4.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView4.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn11,
+            this.colKostyl,
             this.dataGridViewTextBoxColumn12,
             this.dataGridViewTextBoxColumn13,
             this.dataGridViewTextBoxColumn14,
@@ -296,123 +305,6 @@
             this.button.TabIndex = 5;
             this.button.Text = "Редактировать заказ";
             this.button.UseVisualStyleBackColor = true;
-            // 
-            // colNumOrder
-            // 
-            this.colNumOrder.HeaderText = "Номер заказа";
-            this.colNumOrder.MinimumWidth = 100;
-            this.colNumOrder.Name = "colNumOrder";
-            this.colNumOrder.ReadOnly = true;
-            // 
-            // colStatusOrder
-            // 
-            this.colStatusOrder.FillWeight = 200F;
-            this.colStatusOrder.HeaderText = "Статус заказа";
-            this.colStatusOrder.Items.AddRange(new object[] {
-            "Ожидает доставки",
-            "Едет на загрузку",
-            "Загружается",
-            "Осуществлят доставку",
-            "Доставка выполнена",
-            "Заказ обработан"});
-            this.colStatusOrder.MinimumWidth = 200;
-            this.colStatusOrder.Name = "colStatusOrder";
-            this.colStatusOrder.Width = 200;
-            // 
-            // colAdr
-            // 
-            this.colAdr.FillWeight = 200F;
-            this.colAdr.HeaderText = "Адрес заказа";
-            this.colAdr.MinimumWidth = 200;
-            this.colAdr.Name = "colAdr";
-            this.colAdr.ReadOnly = true;
-            this.colAdr.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.colAdr.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.colAdr.Width = 200;
-            // 
-            // colTime
-            // 
-            this.colTime.HeaderText = "Время доставки";
-            this.colTime.MinimumWidth = 100;
-            this.colTime.Name = "colTime";
-            this.colTime.ReadOnly = true;
-            this.colTime.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.colTime.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // colCost
-            // 
-            this.colCost.HeaderText = "Стоимость заказа";
-            this.colCost.MinimumWidth = 100;
-            this.colCost.Name = "colCost";
-            this.colCost.ReadOnly = true;
-            this.colCost.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.colCost.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // colVolume
-            // 
-            this.colVolume.FillWeight = 75F;
-            this.colVolume.HeaderText = "Объем заказа";
-            this.colVolume.MinimumWidth = 75;
-            this.colVolume.Name = "colVolume";
-            this.colVolume.ReadOnly = true;
-            this.colVolume.Width = 75;
-            // 
-            // colBulkOrBad
-            // 
-            this.colBulkOrBad.HeaderText = "Материал";
-            this.colBulkOrBad.Name = "colBulkOrBad";
-            this.colBulkOrBad.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn11
-            // 
-            this.dataGridViewTextBoxColumn11.HeaderText = "Номер заказа";
-            this.dataGridViewTextBoxColumn11.MinimumWidth = 100;
-            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
-            this.dataGridViewTextBoxColumn11.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn12
-            // 
-            this.dataGridViewTextBoxColumn12.FillWeight = 200F;
-            this.dataGridViewTextBoxColumn12.HeaderText = "Адрес заказа";
-            this.dataGridViewTextBoxColumn12.MinimumWidth = 200;
-            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
-            this.dataGridViewTextBoxColumn12.ReadOnly = true;
-            this.dataGridViewTextBoxColumn12.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewTextBoxColumn12.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dataGridViewTextBoxColumn12.Width = 200;
-            // 
-            // dataGridViewTextBoxColumn13
-            // 
-            this.dataGridViewTextBoxColumn13.HeaderText = "Дата доставки";
-            this.dataGridViewTextBoxColumn13.MinimumWidth = 100;
-            this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
-            this.dataGridViewTextBoxColumn13.ReadOnly = true;
-            this.dataGridViewTextBoxColumn13.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewTextBoxColumn13.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // dataGridViewTextBoxColumn14
-            // 
-            this.dataGridViewTextBoxColumn14.HeaderText = "Стоимость заказа";
-            this.dataGridViewTextBoxColumn14.MinimumWidth = 100;
-            this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
-            this.dataGridViewTextBoxColumn14.ReadOnly = true;
-            this.dataGridViewTextBoxColumn14.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewTextBoxColumn14.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // dataGridViewTextBoxColumn15
-            // 
-            this.dataGridViewTextBoxColumn15.FillWeight = 75F;
-            this.dataGridViewTextBoxColumn15.HeaderText = "Объем заказа";
-            this.dataGridViewTextBoxColumn15.MinimumWidth = 75;
-            this.dataGridViewTextBoxColumn15.Name = "dataGridViewTextBoxColumn15";
-            this.dataGridViewTextBoxColumn15.ReadOnly = true;
-            this.dataGridViewTextBoxColumn15.Width = 75;
-            // 
-            // dataGridViewTextBoxColumn16
-            // 
-            this.dataGridViewTextBoxColumn16.HeaderText = "Материал";
-            this.dataGridViewTextBoxColumn16.Name = "dataGridViewTextBoxColumn16";
-            this.dataGridViewTextBoxColumn16.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -481,6 +373,129 @@
             this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
             this.dataGridViewTextBoxColumn6.ReadOnly = true;
             // 
+            // dataGridViewTextBoxColumn11
+            // 
+            this.dataGridViewTextBoxColumn11.HeaderText = "Номер заказа";
+            this.dataGridViewTextBoxColumn11.MinimumWidth = 100;
+            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
+            this.dataGridViewTextBoxColumn11.ReadOnly = true;
+            // 
+            // colKostyl
+            // 
+            this.colKostyl.HeaderText = "Костыль чтоб метод норм робил";
+            this.colKostyl.Name = "colKostyl";
+            this.colKostyl.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn12
+            // 
+            this.dataGridViewTextBoxColumn12.FillWeight = 200F;
+            this.dataGridViewTextBoxColumn12.HeaderText = "Адрес заказа";
+            this.dataGridViewTextBoxColumn12.MinimumWidth = 200;
+            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
+            this.dataGridViewTextBoxColumn12.ReadOnly = true;
+            this.dataGridViewTextBoxColumn12.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewTextBoxColumn12.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn12.Width = 200;
+            // 
+            // dataGridViewTextBoxColumn13
+            // 
+            this.dataGridViewTextBoxColumn13.HeaderText = "Дата доставки";
+            this.dataGridViewTextBoxColumn13.MinimumWidth = 100;
+            this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
+            this.dataGridViewTextBoxColumn13.ReadOnly = true;
+            this.dataGridViewTextBoxColumn13.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewTextBoxColumn13.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // dataGridViewTextBoxColumn14
+            // 
+            this.dataGridViewTextBoxColumn14.HeaderText = "Стоимость заказа";
+            this.dataGridViewTextBoxColumn14.MinimumWidth = 100;
+            this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
+            this.dataGridViewTextBoxColumn14.ReadOnly = true;
+            this.dataGridViewTextBoxColumn14.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewTextBoxColumn14.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // dataGridViewTextBoxColumn15
+            // 
+            this.dataGridViewTextBoxColumn15.FillWeight = 75F;
+            this.dataGridViewTextBoxColumn15.HeaderText = "Объем заказа";
+            this.dataGridViewTextBoxColumn15.MinimumWidth = 75;
+            this.dataGridViewTextBoxColumn15.Name = "dataGridViewTextBoxColumn15";
+            this.dataGridViewTextBoxColumn15.ReadOnly = true;
+            this.dataGridViewTextBoxColumn15.Width = 75;
+            // 
+            // dataGridViewTextBoxColumn16
+            // 
+            this.dataGridViewTextBoxColumn16.HeaderText = "Материал";
+            this.dataGridViewTextBoxColumn16.Name = "dataGridViewTextBoxColumn16";
+            this.dataGridViewTextBoxColumn16.ReadOnly = true;
+            // 
+            // colNumOrder
+            // 
+            this.colNumOrder.HeaderText = "Номер заказа";
+            this.colNumOrder.MinimumWidth = 100;
+            this.colNumOrder.Name = "colNumOrder";
+            this.colNumOrder.ReadOnly = true;
+            // 
+            // colStatusOrder
+            // 
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            this.colStatusOrder.DefaultCellStyle = dataGridViewCellStyle1;
+            this.colStatusOrder.FillWeight = 200F;
+            this.colStatusOrder.HeaderText = "Статус заказа";
+            this.colStatusOrder.MinimumWidth = 200;
+            this.colStatusOrder.Name = "colStatusOrder";
+            this.colStatusOrder.ReadOnly = true;
+            this.colStatusOrder.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colStatusOrder.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colStatusOrder.Width = 200;
+            // 
+            // colAdr
+            // 
+            this.colAdr.FillWeight = 200F;
+            this.colAdr.HeaderText = "Адрес заказа";
+            this.colAdr.MinimumWidth = 200;
+            this.colAdr.Name = "colAdr";
+            this.colAdr.ReadOnly = true;
+            this.colAdr.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colAdr.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colAdr.Width = 200;
+            // 
+            // colTime
+            // 
+            this.colTime.HeaderText = "Время доставки";
+            this.colTime.MinimumWidth = 100;
+            this.colTime.Name = "colTime";
+            this.colTime.ReadOnly = true;
+            this.colTime.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colTime.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // colCost
+            // 
+            this.colCost.HeaderText = "Стоимость заказа";
+            this.colCost.MinimumWidth = 100;
+            this.colCost.Name = "colCost";
+            this.colCost.ReadOnly = true;
+            this.colCost.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colCost.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // colVolume
+            // 
+            this.colVolume.FillWeight = 75F;
+            this.colVolume.HeaderText = "Объем заказа";
+            this.colVolume.MinimumWidth = 75;
+            this.colVolume.Name = "colVolume";
+            this.colVolume.ReadOnly = true;
+            this.colVolume.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.colVolume.Width = 75;
+            // 
+            // colBulkOrBad
+            // 
+            this.colBulkOrBad.HeaderText = "Материал";
+            this.colBulkOrBad.Name = "colBulkOrBad";
+            this.colBulkOrBad.ReadOnly = true;
+            this.colBulkOrBad.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
             // FormOrders
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -524,19 +539,6 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.Button button;
         private System.Windows.Forms.DataGridView dataGridView4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colNumOrder;
-        private System.Windows.Forms.DataGridViewComboBoxColumn colStatusOrder;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colAdr;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colTime;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colCost;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colVolume;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colBulkOrBad;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn15;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn16;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewComboBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
@@ -544,5 +546,19 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colKostyl;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn15;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn16;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colNumOrder;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colStatusOrder;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colAdr;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colTime;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colCost;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colVolume;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colBulkOrBad;
     }
 }

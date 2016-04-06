@@ -22,15 +22,15 @@ namespace Delivery
             ConnectionToMySQL = connection;
             mainForm = form;
             InitializeComponent();
-        }
-
-        private void FormOrders_Load(object sender, EventArgs e)
-        {
-            tabPageActive.Select();
             setDataGridActivOrder();
             setDataGridOtherOrder();
             setDataGridCompleteOrder();
             setDataGridRawOrder();
+        }
+
+        private void FormOrders_Load(object sender, EventArgs e)
+        {
+            
         }
 
 
@@ -39,38 +39,69 @@ namespace Delivery
         private void setDataGridActivOrder()
         {
             MySqlCommand msc = new MySqlCommand();
-            msc.CommandText = "SELECT * FROM `Order` WHERE date_time LIKE " + '"' + DateTime.Today.ToString("dd.MM.yyyy") + "%" + '"' + " AND pk_status = 1";
+            msc.CommandText = "SELECT * FROM `Order` WHERE date_time LIKE " + '"' + DateTime.Today.ToString("dd.MM.yyyy") + "%" + '"' + " OR pk_status = 2 OR pk_status = 3 OR pk_status = 4 OR pk_status = 5";
             msc.Connection = ConnectionToMySQL;
             MySqlDataReader dataReader = msc.ExecuteReader();
+            int i = 0;
             while (dataReader.Read())
             {
-                int i = dataGridView1.NewRowIndex;
+                dataGridView1.Rows.Add();
                 dataGridView1.Rows[i].Cells[0].Value = dataReader[1].ToString();    //номер заказа
-                dataGridView1.Rows[i].Cells[1].Value = "Ожидает доставки";          //статус заказа
+                dataGridView1.Rows[i].Cells[1].Value = getStringStatus(dataReader[12].ToString());          //статус заказа
+                dataGridView1.Rows[i].Cells[1].Style.BackColor = getColorCell(dataReader[12].ToString());
                 dataGridView1.Rows[i].Cells[2].Value = dataReader[4].ToString();    //адрес
                 dataGridView1.Rows[i].Cells[3].Value = dataReader[3].ToString().Substring(dataReader[3].ToString().IndexOf(" "));      //время
                 dataGridView1.Rows[i].Cells[4].Value = dataReader[11].ToString();      //стоимость
                 dataGridView1.Rows[i].Cells[5].Value = dataReader[2].ToString();        //объем закза
                 dataGridView1.Rows[i].Cells[6].Value = dataReader[13].ToString();       //материал
+                i++;
             }
             dataReader.Close();
             inserMaterial(dataGridView1);
+        }
+
+        //кусок бд в проге))
+        private String getStringStatus(String pk)
+        {
+            switch (pk)
+            {
+                case "1":
+                    return "Ожидает доставки";
+                case "2":
+                    return "Едет на загрузку";
+                case "3":
+                    return "Загружается";
+                case "4":
+                    return "Осуществлят доставку";
+                case "5":
+                    return "Доставка выполнена";
+            }
+            return "";
+        }
+        
+        private Color getColorCell(String pk)
+        {
+            if (pk == "5")
+                return Color.Green;
+            return Color.White;
         }
 
         //метод хаполняет таблицу обработанных заказов
         private void setDataGridCompleteOrder()
         {
             MySqlCommand msc = new MySqlCommand();
-            msc.CommandText = "SELECT * FROM `Order` WHERE pk_status = 7" ;
+            msc.CommandText = "SELECT * FROM `Order` WHERE pk_status = 6" ;
             msc.Connection = ConnectionToMySQL;
             MySqlDataReader dataReader = msc.ExecuteReader();
+            int i = 0;
             while (dataReader.Read())
             {
-                int i = dataGridView3.NewRowIndex;
+                dataGridView3.Rows.Add();
                 dataGridView3.Rows[i].Cells[0].Value = dataReader[1].ToString();
                 dataGridView3.Rows[i].Cells[1].Value = dataReader[4].ToString();
                 dataGridView3.Rows[i].Cells[2].Value = dataReader[3].ToString().Substring(0,dataReader[3].ToString().IndexOf(" "));      //время
-                dataGridView1.Rows[i].Cells[3].Value = dataReader[11].ToString();
+                dataGridView3.Rows[i].Cells[3].Value = dataReader[11].ToString();
+                i++;
             }
             dataReader.Close();
         }
@@ -83,11 +114,11 @@ namespace Delivery
             msc.Connection = ConnectionToMySQL;
             MySqlDataReader dataReader = msc.ExecuteReader();
             List<String> badOrders = new List<String>();
+            int i = 0;
             while (dataReader.Read())
             {
                 if (isGoodDate(dataReader[3].ToString()))
                 {
-                    int i = dataGridView2.NewRowIndex;
                     dataGridView2.Rows[i].Cells[0].Value = dataReader[1].ToString();    //номер заказа
                     dataGridView2.Rows[i].Cells[1].Value = "Ожидает доставки";          //статус заказа
                     dataGridView2.Rows[i].Cells[2].Value = dataReader[4].ToString();    //адрес
@@ -95,19 +126,14 @@ namespace Delivery
                     dataGridView2.Rows[i].Cells[4].Value = dataReader[11].ToString();      //стоимость
                     dataGridView2.Rows[i].Cells[5].Value = dataReader[2].ToString();        //объем закза
                     dataGridView2.Rows[i].Cells[6].Value = dataReader[13].ToString();       //материал
+                    i++;
                 }
                 else
                 {
                     badOrders.Add(dataReader[0].ToString());    //запоминаем пк плохих заказов
-                    /*int i = dataGridView4.NewRowIndex;
-                    dataGridView4.Rows[i].Cells[0].Value = dataReader[1].ToString();    //номер заказа
-                    dataGridView4.Rows[i].Cells[2].Value = dataReader[4].ToString();    //адрес
-                    dataGridView4.Rows[i].Cells[3].Value = dataReader[3].ToString().Substring(0, dataReader[3].ToString().IndexOf(" "));      //дата
-                    dataGridView4.Rows[i].Cells[4].Value = dataReader[11].ToString();      //стоимость
-                    dataGridView4.Rows[i].Cells[5].Value = dataReader[2].ToString();        //объем закза
-                    dataGridView4.Rows[i].Cells[6].Value = dataReader[13].ToString();       //материал*/
                 }
             }
+            dataReader.Close();
             dataReader.Close();
             inserMaterial(dataGridView2);
             updateRawOrder(badOrders);
@@ -119,7 +145,7 @@ namespace Delivery
             MySqlCommand msc = new MySqlCommand();
             foreach (String bad in badOrders)
             {
-                msc.CommandText = "UPDATE `Order`  SET `pk_status` = '8` WHERE `pk_order` = '" + bad + "'";
+                msc.CommandText = "UPDATE `Order`  SET `pk_status` = 7 WHERE `pk_order` = '" + bad + "'";
                 msc.Connection = ConnectionToMySQL;
                 msc.ExecuteNonQuery();
             }
@@ -138,29 +164,36 @@ namespace Delivery
                 materials.Add(new Tuple<String, String>(dataReader[0].ToString(), dataReader[1].ToString()));
             }
             dataReader.Close();
-            foreach(DataGridViewRow row in table.Rows)
+            foreach (DataGridViewRow row in table.Rows)
             {
-                row.Cells[6].Value = materials.Find((Tuple<string,string> t) => t.Item1 == row.Cells[6].Value.ToString()).Item2;    //вот чему учит Scala
+                try
+                {
+                    row.Cells[6].Value = materials.Find((Tuple<string, string> t) => t.Item1 == row.Cells[6].Value.ToString()).Item2;    //вот чему учит Scala
+                }catch(Exception e)
+                {}
             }
         }
 
         private void setDataGridRawOrder()
         {
             MySqlCommand msc = new MySqlCommand();
-            msc.CommandText = "SELECT * FROM `Order` WHERE pk_status = 8";
+            msc.CommandText = "SELECT * FROM `Order` WHERE pk_status = 7";
             msc.Connection = ConnectionToMySQL;
             MySqlDataReader dataReader = msc.ExecuteReader();
+            int i = 0;
             while (dataReader.Read())
             {
-                int i = dataGridView4.NewRowIndex;
                 dataGridView4.Rows[i].Cells[0].Value = dataReader[1].ToString();    //номер заказа
                 dataGridView4.Rows[i].Cells[2].Value = dataReader[4].ToString();    //адрес
                 dataGridView4.Rows[i].Cells[3].Value = dataReader[3].ToString().Substring(0, dataReader[3].ToString().IndexOf(" "));      //дата
                 dataGridView4.Rows[i].Cells[4].Value = dataReader[11].ToString();      //стоимость
                 dataGridView4.Rows[i].Cells[5].Value = dataReader[2].ToString();        //объем закза
                 dataGridView4.Rows[i].Cells[6].Value = dataReader[13].ToString();       //материал
+                i++;
             }
             dataReader.Close();
+            //dataGridView4.Rows.RemoveAt(dataGridView4.Rows.Count - 1);
+            inserMaterial(dataGridView4);
         }
 
         private bool isGoodDate(String dateOrder)
@@ -176,7 +209,7 @@ namespace Delivery
 
         private void tabControl1_Selected(object sender, TabControlEventArgs e)
         {
-            setDataGridActivOrder();
+            //setDataGridActivOrder();
         }
 
         private void FormOrders_FormClosed(object sender, FormClosedEventArgs e)
@@ -187,7 +220,73 @@ namespace Delivery
 
         private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
         {
-            setDataGridActivOrder();
+            //setDataGridActivOrder();
+        }
+
+        //по идеи никогда не вызывается))) 
+        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            String status = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+            int pkStatus = 0;
+            switch (status)
+            {
+                case "Ожидает доставки":
+                    pkStatus = 1;
+                    break;
+                case "Едет на загрузку":
+                    pkStatus = 2;
+                    break;
+                case "Загружается":
+                    pkStatus = 3;
+                    break;
+                case "Осуществлят доставку":
+                    pkStatus = 4;
+                    break;
+                case "Доставка выполнена":
+                    pkStatus = 5;
+                    break;
+            }
+            MySqlCommand msc = new MySqlCommand();
+            msc.CommandText = "UPDATE `Order`  SET `pk_status` = + " + pkStatus +" WHERE `nomer` = '" + dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString() + "'";
+            msc.Connection = ConnectionToMySQL;
+            msc.ExecuteNonQuery();
+        }
+
+        private void dataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.ColumnIndex == 1 && e.RowIndex >=0)
+            {
+                String status = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+                int pkStatus = 0;
+                switch (status)
+                {
+                    case "Ожидает доставки":
+                        dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = "Едет на загрузку";
+                        pkStatus = 2;
+                        break;
+                    case "Едет на загрузку":
+                        dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = "Загружается";
+                        pkStatus = 3;
+                        break;
+                    case "Загружается":
+                        dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = "Осуществлят доставку";
+                        pkStatus = 4;
+                        break;
+                    case "Осуществлят доставку":
+                        dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = "Доставка выполнена";
+                        dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.ForeColor = Color.Green;
+                        pkStatus = 5;
+                        break;
+                }
+                if (pkStatus != 0)
+                {
+                    MySqlCommand msc = new MySqlCommand();
+                    msc.CommandText = "UPDATE `Order`  SET `pk_status` = + " + pkStatus + " WHERE `nomer` = '" + dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString() + "'";
+                    msc.Connection = ConnectionToMySQL;
+                    msc.ExecuteNonQuery();
+                }
+                
+            }
         }
     }
 }
