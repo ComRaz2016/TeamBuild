@@ -999,6 +999,12 @@ namespace Delivery
                 comboBox1.SelectedItem = getMaterial(oldPoly[13]);      //материал в доставке
                 numericUpDown1.Value = Decimal.Parse(oldPoly[2].ToString());        //сколько
             }
+            else
+            {
+                tabPage3.Select();
+                comboBox2.SelectedItem = getMaterial(oldPoly[13]);      //материал в доставке
+                numericUpDown2.Value = Decimal.Parse(oldPoly[2].ToString());        //сколько
+            }
             setInstruction(oldPoly[0]);         //требования к авто в заказе
             setCars(oldPoly[0]);                //заполняем авто в заказе
             if (oldPoly[10].ToString() != "0")  //рабы
