@@ -12,7 +12,7 @@ using MySql.Data.MySqlClient;
 namespace Delivery
 {
 
-    public partial class Form3 : Form
+    public partial class OrderEdit : Form
     {
 
         MySqlConnection ConnectionToMySQL;
@@ -33,6 +33,10 @@ namespace Delivery
         List<String> trucks = new List<String>();   // Машины, подходящие для доставки
         List<String> trucksKey = new List<String>();    // Первичные ключи машин, подходящих для доставки
         List<String> trucksDriver = new List<String>();    // водители машин
+
+        List<String> oldPoly = new List<string>();
+        List<int> pk_instr = new List<int>();
+        List<int> pk_cars = new List<int>();
 
         // Получение номера заказа
         public String getOrderNumber()
@@ -947,28 +951,119 @@ namespace Delivery
             //comboBox2.SelectedIndex = 0;
         }
 
-        public Form3(MySqlConnection connection,Form form)
+        public OrderEdit(MySqlConnection connection,Form form, String num_order)
         {
             ConnectionToMySQL = connection;
             mainForm = form;
             InitializeComponent();
             comboBox5.SelectedIndex = 0;
             //Установка минимальной датой сегодняшнюю дату
-            dateTimePicker1.MinDate = dateTimePicker1.Value.Date;
-            //
-            getOrderNumber();
-            //
-            resultCost();
-            /*List<Tuple<String, String>> cars = allCars();
-            foreach(var car in cars)
-            {
-                trucks.Add(car.Item1);
-                trucksKey.Add(car.Item2);
-            }*/
-            resultCar();
-            //resultTrucks();
+            // dateTimePicker1.MinDate = dateTimePicker1.Value.Date;
+            //getOrderNumber();
             insertMaterial();
-            //
+            loadFullForm(num_order);
+            /*resultCost();
+            resultCar();*/
+            //insertMaterial();
+        }
+
+        private void loadFullForm(String num_order)
+        {
+            textBox10.Text = num_order;
+            MySqlCommand msc = new MySqlCommand();
+            msc.CommandText = "SELECT * FROM `Order` WHERE nomer = " + num_order;
+            msc.Connection = ConnectionToMySQL;
+            MySqlDataReader dataReader = msc.ExecuteReader();
+            while (dataReader.Read())
+            {
+                oldPoly.Add(dataReader[0].ToString());
+                oldPoly.Add(dataReader[1].ToString());
+                oldPoly.Add(dataReader[2].ToString());
+                oldPoly.Add(dataReader[3].ToString());
+                oldPoly.Add(dataReader[4].ToString());
+                oldPoly.Add(dataReader[5].ToString());
+                oldPoly.Add(dataReader[6].ToString());
+                oldPoly.Add(dataReader[7].ToString());
+                oldPoly.Add(dataReader[8].ToString());
+                oldPoly.Add(dataReader[9].ToString());
+                oldPoly.Add(dataReader[10].ToString());
+                oldPoly.Add(dataReader[11].ToString());
+                oldPoly.Add(dataReader[12].ToString());
+                oldPoly.Add(dataReader[13].ToString());
+                oldPoly.Add(dataReader[14].ToString());
+            }
+            dataReader.Close();
+            if (oldPoly[14] == "1")
+            {
+                tabPage1.Select();
+                comboBox1.SelectedItem = getMaterial(oldPoly[13]);
+                numericUpDown1.Value = Decimal.Parse(oldPoly[2].ToString());
+                setInstruction(oldPoly[0]);
+                setCars(oldPoly[0]);
+            }
+        }
+        
+        private void setCars(String pk)
+        {
+            MySqlCommand msc = new MySqlCommand();
+            msc.CommandText = "SELECT pk_car FROM `order_car` WHERE pk_order = " + pk;
+            msc.Connection = ConnectionToMySQL;
+            MySqlDataReader dataReader = msc.ExecuteReader();
+            while (dataReader.Read())
+            {
+                pk_cars.Add(Int32.Parse(dataReader[0].ToString()));
+            }
+            dataReader.Close();
+            //if ()
+        }
+
+        private void setInstruction(String pk)
+        {
+             MySqlCommand msc = new MySqlCommand();
+            msc.CommandText = "SELECT pk_instruction FROM `order_instruction` WHERE pk_order = " + pk;
+            msc.Connection = ConnectionToMySQL;
+            MySqlDataReader dataReader = msc.ExecuteReader();
+           
+            while (dataReader.Read())
+            {
+                pk_instr.Add(Int32.Parse(dataReader[0].ToString()));
+            }
+            dataReader.Close();
+            foreach(int pk1 in pk_instr)
+            {
+                switch (pk1)
+                {
+                    case 1:
+                        checkBox2.Checked = true;
+                        break;
+                    case 2:
+                        checkBox3.Checked = true;
+                        break;
+                    case 3:
+                        checkBox4.Checked = true;
+                        break;
+                    case 4:
+                        checkBox5.Checked = true;
+                        break;
+                }
+            }
+        }
+
+
+
+        private string getMaterial(String pk)
+        {
+            MySqlCommand msc = new MySqlCommand();
+            msc.CommandText = "SELECT name FROM `Material` WHERE pk_material = " + pk;
+            msc.Connection = ConnectionToMySQL;
+            MySqlDataReader dataReader = msc.ExecuteReader();
+            String rez = "";
+            while (dataReader.Read())
+            {
+                rez = dataReader[0].ToString();
+            }
+            dataReader.Close();
+            return rez;
         }
 
         private void radioButton4_CheckedChanged(object sender, EventArgs e)
@@ -1083,7 +1178,7 @@ namespace Delivery
 
         private void Form3_FormClosed(object sender, FormClosedEventArgs e)
         {
-            ConnectionToMySQL.Close();
+            //ConnectionToMySQL.Close();
             mainForm.Show();
         }
 
@@ -1179,7 +1274,7 @@ namespace Delivery
                 textBox1.Text = Convert.ToString("0.05");
                 //
                 materialCost = 0;
-                resultCost();
+               // resultCost();
                 //
             }
         }
@@ -1874,17 +1969,13 @@ namespace Delivery
                 String countTripFirstTruck = null;
                 String countTripSecondTruck = null;
 
-                String volumeFistTruck = null;
-                String volumeSecondTruck = null;
-
                 if (radioButton4.Checked == true)
                 {
                     if (comboBox3.SelectedItem != null)
                     {
                         countTripFirstTruck = textBox2.Text;
                         keyFirstTruck = trucksKey[trucks.IndexOf(comboBox3.SelectedItem.ToString())];
-                        volumeFistTruck = numericUpDown4.Value.ToString();
-                        msc.CommandText = "INSERT INTO `order_car` (`pk_car`, `pk_order`, `count_trip`, `volume_car`) VALUES ('" + keyFirstTruck + "', '" + orderPk + "', '" + countTripFirstTruck + "', '" + volumeFistTruck + "')";
+                        msc.CommandText = "INSERT INTO `order_car` (`pk_car`, `pk_order`, `count_trip`) VALUES ('" + keyFirstTruck + "', '" + orderPk + "', '" + countTripFirstTruck + "')";
                         msc.Connection = ConnectionToMySQL;
                         msc.ExecuteNonQuery();
                     }
@@ -1892,8 +1983,7 @@ namespace Delivery
                     {
                         countTripSecondTruck = textBox3.Text;
                         keySecondTruck = trucksKey[trucks.IndexOf(comboBox4.SelectedItem.ToString())];
-                        volumeSecondTruck = numericUpDown5.Value.ToString();
-                        msc.CommandText = "INSERT INTO `order_car` (`pk_car`, `pk_order`, `count_trip`, `volume_car`) VALUES ('" + keySecondTruck + "', '" + orderPk + "', '" + countTripSecondTruck + "', '" + volumeSecondTruck + "')";
+                        msc.CommandText = "INSERT INTO `order_car` (`pk_car`, `pk_order`, `count_trip`) VALUES ('" + keySecondTruck + "', '" + orderPk + "', '" + countTripSecondTruck + "')";
                         msc.Connection = ConnectionToMySQL;
                         msc.ExecuteNonQuery();
                     }
@@ -1904,8 +1994,7 @@ namespace Delivery
                     {
                         countTripFirstTruck = textBox2.Text;
                         keyFirstTruck = trucksKey[trucks.IndexOf(comboBox3.SelectedItem.ToString())];
-                        volumeFistTruck = numericUpDown4.Value.ToString();
-                        msc.CommandText = "INSERT INTO `order_car` (`pk_car`, `pk_order`, `count_trip`, `volume_car`) VALUES ('" + keyFirstTruck + "', '" + orderPk + "', '" + countTripFirstTruck + "', '" + volumeFistTruck + "')";
+                        msc.CommandText = "INSERT INTO `order_car` (`pk_car`, `pk_order`, `count_trip`) VALUES ('" + keyFirstTruck + "', '" + orderPk + "', '" + countTripFirstTruck + "')";
                         msc.Connection = ConnectionToMySQL;
                         msc.ExecuteNonQuery();
                     }
@@ -1998,7 +2087,7 @@ namespace Delivery
         private void button2_Click(object sender, EventArgs e)
         {
             mainForm.Show();
-            ConnectionToMySQL.Close();
+            //ConnectionToMySQL.Close();
             this.Close();
         }
     }
