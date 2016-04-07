@@ -1130,6 +1130,7 @@ namespace Delivery
                     count++;
                     cost += Convert.ToDouble(dataReader[0].ToString());
                 }
+                dataReader.Close();
                 if (count == 0)
                 {
                     //
@@ -1161,7 +1162,6 @@ namespace Delivery
                     materialCost = Convert.ToDouble(numericUpDown2.Value) * bagCost;
                     //MessageBox.Show(Convert.ToString(cost / count));
                 }
-                dataReader.Close();
                 //
                 resultCost();
                 //
