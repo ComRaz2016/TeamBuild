@@ -22,16 +22,13 @@ namespace Delivery
             ConnectionToMySQL = connection;
             mainForm = form;
             InitializeComponent();
-            buttonEdit1.Enabled = false;
+            //buttonEdit1.Enabled = false;
+            buttonCompliteOrder.Enabled = false;
+            buttonCancelOrder.Enabled = false;
             setDataGridActivOrder();
             setDataGridOtherOrder();
             setDataGridCompleteOrder();
             setDataGridRawOrder();
-        }
-
-        private void FormOrders_Load(object sender, EventArgs e)
-        {
-            
         }
 
 
@@ -40,7 +37,7 @@ namespace Delivery
         private void setDataGridActivOrder()
         {
             MySqlCommand msc = new MySqlCommand();
-            msc.CommandText = "SELECT * FROM `Order` WHERE date_time LIKE " + '"' + DateTime.Today.ToString("dd.MM.yyyy") + "%" + '"' + " OR pk_status = 2 OR pk_status = 3 OR pk_status = 4 OR pk_status = 5";
+            msc.CommandText = "SELECT * FROM `Order` WHERE (date_time LIKE " + '"' + DateTime.Today.ToString("dd.MM.yyyy") + "%" + '"' + " OR (pk_status = 2 OR pk_status = 3 OR pk_status = 4 OR pk_status = 5)) AND pk_status != 6 AND pk_status != 7";
             msc.Connection = ConnectionToMySQL;
             MySqlDataReader dataReader = msc.ExecuteReader();
             int i = 0;
@@ -120,6 +117,7 @@ namespace Delivery
             {
                 if (isGoodDate(dataReader[3].ToString()))
                 {
+                    dataGridView2.Rows.Add();
                     dataGridView2.Rows[i].Cells[0].Value = dataReader[1].ToString();    //номер заказа
                     dataGridView2.Rows[i].Cells[1].Value = "Ожидает доставки";          //статус заказа
                     dataGridView2.Rows[i].Cells[2].Value = dataReader[4].ToString();    //адрес
@@ -134,7 +132,6 @@ namespace Delivery
                     badOrders.Add(dataReader[0].ToString());    //запоминаем пк плохих заказов
                 }
             }
-            dataReader.Close();
             dataReader.Close();
             inserMaterial(dataGridView2);
             updateRawOrder(badOrders);
@@ -184,6 +181,7 @@ namespace Delivery
             int i = 0;
             while (dataReader.Read())
             {
+                dataGridView4.Rows.Add();
                 dataGridView4.Rows[i].Cells[0].Value = dataReader[1].ToString();    //номер заказа
                 dataGridView4.Rows[i].Cells[2].Value = dataReader[4].ToString();    //адрес
                 dataGridView4.Rows[i].Cells[3].Value = dataReader[3].ToString().Substring(0, dataReader[3].ToString().IndexOf(" "));      //дата
@@ -274,12 +272,21 @@ namespace Delivery
                 String st = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
                 if (st == "Ожидает доставки" || st == "Едет на загрузку")
                 {
-                    buttonEdit1.Enabled = true;
+                    buttonCancelOrder.Enabled = true;
                 }
                 else
                 {
-                    buttonEdit1.Enabled = false;
+                    buttonCancelOrder.Enabled = false;
                 }
+                if (st == "Доставка выполнена")
+                {
+                    buttonCompliteOrder.Enabled = true;
+                }
+                else
+                {
+                    buttonCompliteOrder.Enabled = false;
+                }
+
                 
             }
         }
@@ -295,7 +302,47 @@ namespace Delivery
             
            //dataGridView1.SelectedRows[0].Cells;
         }
+        private void reloadTables()
+        {
+            dataGridView1.Rows.Clear();
+            dataGridView2.Rows.Clear();
+            dataGridView3.Rows.Clear();
+            dataGridView4.Rows.Clear();
+            setDataGridActivOrder();
+            setDataGridOtherOrder();
+            setDataGridCompleteOrder();
+            setDataGridRawOrder();
+        }
+
+        private void buttonCompliteOrder_Click(object sender, EventArgs e)
+        {
+            if (!dataGridView1.SelectedRows[0].IsNewRow)
+            {
+                MySqlCommand msc = new MySqlCommand();
+                msc.CommandText = "UPDATE `Order`  SET `pk_status` = 6 WHERE `nomer` = '" + dataGridView1.SelectedRows[0].Cells[0].Value.ToString() + "'";
+                msc.Connection = ConnectionToMySQL;
+                msc.ExecuteNonQuery();
+            }
+            reloadTables();
+        }
+
+        private void buttonCancelOrder_Click(object sender, EventArgs e)
+        {
+            if (!dataGridView1.SelectedRows[0].IsNewRow)
+            {
+                MySqlCommand msc = new MySqlCommand();
+                msc.CommandText = "UPDATE `Order`  SET `pk_status` = 7 WHERE `nomer` = '" + dataGridView1.SelectedRows[0].Cells[0].Value.ToString() + "'";
+                msc.Connection = ConnectionToMySQL;
+                msc.ExecuteNonQuery();
+            }
+            reloadTables();
+        }
 
        
+
+        private void FormOrders_VisibleChanged(object sender, EventArgs e)
+        {
+            reloadTables();
+        }
     }
 }

@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabPageComplite = new System.Windows.Forms.TabPage();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -284,7 +284,7 @@
             this.buttonEdit1.Name = "buttonEdit1";
             this.buttonEdit1.Size = new System.Drawing.Size(150, 45);
             this.buttonEdit1.TabIndex = 3;
-            this.buttonEdit1.Text = "Редактировать заказ";
+            this.buttonEdit1.Text = "Детали заказа";
             this.buttonEdit1.UseVisualStyleBackColor = true;
             this.buttonEdit1.Click += new System.EventHandler(this.buttonEdit1_Click);
             // 
@@ -297,6 +297,7 @@
             this.buttonCancelOrder.TabIndex = 2;
             this.buttonCancelOrder.Text = "Отменить заказ";
             this.buttonCancelOrder.UseVisualStyleBackColor = true;
+            this.buttonCancelOrder.Click += new System.EventHandler(this.buttonCancelOrder_Click);
             // 
             // buttonCompliteOrder
             // 
@@ -307,6 +308,7 @@
             this.buttonCompliteOrder.TabIndex = 1;
             this.buttonCompliteOrder.Text = "Заказ обработан";
             this.buttonCompliteOrder.UseVisualStyleBackColor = true;
+            this.buttonCompliteOrder.Click += new System.EventHandler(this.buttonCompliteOrder_Click);
             // 
             // dataGridView1
             // 
@@ -338,8 +340,8 @@
             // 
             // colStatusOrder
             // 
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
-            this.colStatusOrder.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
+            this.colStatusOrder.DefaultCellStyle = dataGridViewCellStyle2;
             this.colStatusOrder.FillWeight = 200F;
             this.colStatusOrder.HeaderText = "Статус заказа";
             this.colStatusOrder.MinimumWidth = 200;
@@ -516,7 +518,7 @@
             this.Name = "FormOrders";
             this.Text = "Заказы";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormOrders_FormClosed);
-            this.Load += new System.EventHandler(this.FormOrders_Load);
+            this.VisibleChanged += new System.EventHandler(this.FormOrders_VisibleChanged);
             this.tabPageComplite.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
             this.tabPageNotActive.ResumeLayout(false);

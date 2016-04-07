@@ -1016,6 +1016,16 @@ namespace Delivery
             }
             dateTimePicker1.Value =  DateTime.Parse(oldPoly[3].ToString());
             textBox7.Text = oldPoly[7].ToString();
+            if (oldPoly[12].ToString() == "1" || oldPoly[12].ToString() == "2")
+            {
+                button1.Enabled = true;
+                button1.Show();  
+            }
+            else
+            {
+                button1.Enabled = false;
+                button1.Hide();
+            }
         }
         
         private void setCars(String pk)
@@ -1918,75 +1928,97 @@ namespace Delivery
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //Получение первичного ключа материала
-            String materialPk = getPkMaterial();
-
-            //Получение первичного ключа единиц измерения
-            String measurePk = getMeasurePk();
-
-            //Получение номеpa заказа
-            String numberOrder = getOrderNumber();
-
-            // Получение объема заказа
-            String volumeOrder = getVolumeOrder();
-
-            // Подсчет количества грузчиков
-            String countWorkers = getCountWorkers();
-
-            // Стоимость доставки
-            String costOrder = textBox8.Text;
-
-            if (checkTrucks())
+            DialogResult rez = MessageBox.Show("Вы уверенны что хотите сохранить изменения?", "Сохранение изменений.", MessageBoxButtons.YesNo);
+            if (rez == DialogResult.Yes)
             {
-                if (checkNumberZone())
+                //Получение первичного ключа материала
+                String materialPk = getPkMaterial();
+
+                //Получение первичного ключа единиц измерения
+                String measurePk = getMeasurePk();
+
+                //Получение номеpa заказа
+                String numberOrder = textBox10.Text;
+
+                // Получение объема заказа
+                String volumeOrder = getVolumeOrder();
+
+                // Подсчет количества грузчиков
+                String countWorkers = getCountWorkers();
+
+                // Стоимость доставки
+                String costOrder = textBox8.Text;
+
+                if (checkTrucks())
                 {
-                    // Получение зоны доставки
-                    String numberZone = getNumberZone();
-
-                    // Если Зона 3+, то получить дополнительные км
-                    String extendedKm = getExtendedKm();
-
-                    if (checkDataTime())
+                    if (checkNumberZone())
                     {
-                        String pkStatusOrder = getPkStatus();
+                        // Получение зоны доставки
+                        String numberZone = getNumberZone();
 
-                        //Получение даты и времени доставки
-                        String dataTimeOrder = getDataTime();
+                        // Если Зона 3+, то получить дополнительные км
+                        String extendedKm = getExtendedKm();
 
-                        // Проверка номера телефона, адреса доставки и заказчика
-                        if (checkAdressFIOTelefone())
+                        if (checkDataTime())
                         {
-                            String adressOrder = textBox6.Text;
-                            String telefoneOrder = textBox5.Text;
-                            String clientOrder = textBox4.Text;
-                            String commentOrder = null;
-                            if (textBox7.Text.Trim() == "")
-                            {
-                                commentOrder = null;
-                            }
-                            else
-                            {
-                                commentOrder = textBox7.Text;
-                            }
+                            String pkStatusOrder = getPkStatus();
 
-                            //
-                            MySqlCommand msc = new MySqlCommand();
-                            msc.CommandText = "INSERT INTO `Order` (`nomer`, `volume`, `date_time`, `adress`, `contact`, `number_contact`, `comment`, `Numberzone`, `Exstendway`, `worker`, `cost_order`, `pk_status`, `pk_material`, `pk_measure`) VALUES ('" + numberOrder + "', '" + volumeOrder + "', '" + dataTimeOrder + "', '" + adressOrder + "', '" + clientOrder + "', '" + telefoneOrder + "', '" + commentOrder + "', '" + numberZone + "', '" + extendedKm + "', '" + countWorkers + "', '" + costOrder + "', '" + pkStatusOrder + "', '" + materialPk + "', '" + measurePk + "')";
-                            msc.Connection = ConnectionToMySQL;
-                            msc.ExecuteNonQuery();
-                            //Добавление машин в расшивочную таблицу
-                            createCarsOrder(numberOrder);
-                            createInstructionsOrder(numberOrder);
-                            // Увеличение номера заказа
-                            increaseOrderNumber(getOrderNumber());
-                            MessageBox.Show("Заказ успешно оформлен! Спасибо, что выбрали нас!", "Заказ оформлен");
-                            ConnectionToMySQL.Close();
-                            mainForm.Show();
-                            this.Close();
+                            //Получение даты и времени доставки
+                            String dataTimeOrder = getDataTime();
+
+                            // Проверка номера телефона, адреса доставки и заказчика
+                            if (checkAdressFIOTelefone())
+                            {
+                                String adressOrder = textBox6.Text;
+                                String telefoneOrder = textBox5.Text;
+                                String clientOrder = textBox4.Text;
+                                String commentOrder = null;
+                                if (textBox7.Text.Trim() == "")
+                                {
+                                    commentOrder = null;
+                                }
+                                else
+                                {
+                                    commentOrder = textBox7.Text;
+                                }
+
+                                MySqlCommand msc = new MySqlCommand();
+                                msc.CommandText = "UPDATE `Order` SET `volume` = '" + volumeOrder + "', `date_time` = '" + dataTimeOrder + "', `adress` = '" + adressOrder + "', `contact` = '" + clientOrder + "', `number_contact` = '" + telefoneOrder + "', `comment` = '" + commentOrder + "', `Numberzone` = '" + numberZone + "', `Exstendway` = '" + extendedKm + "', `worker` = '" + countWorkers + "', `cost_order` = '" + costOrder + "', `pk_status` = '" + oldPoly[12].ToString() + "', `pk_material` = '" + materialPk + "', `pk_measure` = '" + measurePk + "' WHERE `pk_order` = " + oldPoly[0].ToString(); 
+                                msc.Connection = ConnectionToMySQL;
+                                msc.ExecuteNonQuery();
+                                //удалить старые машины и требования в старой таблице
+                                deleteCarsOrder(oldPoly[0].ToString());
+                                deleteInstructionsOrder(oldPoly[0].ToString());
+                                //Добавление машин в расшивочную таблицу
+                                createCarsOrder(numberOrder);
+                                createInstructionsOrder(numberOrder);
+                                // Увеличение номера заказа
+                                //increaseOrderNumber(getOrderNumber());
+                                MessageBox.Show("Заказ успешно отредактирован!", "Заказ отредактирован");
+                                //ConnectionToMySQL.Close();
+                                mainForm.Show();
+                                this.Close();
+                            }
                         }
                     }
                 }
             }
+        }
+
+        public void deleteCarsOrder(String numberOrder)
+        {
+            MySqlCommand msc = new MySqlCommand();
+            msc.CommandText = "DELETE FROM `order_car` WHERE `pk_order` = " + numberOrder;
+            msc.Connection = ConnectionToMySQL;
+            msc.ExecuteNonQuery();
+        }
+
+        public void deleteInstructionsOrder(String numberOrder)
+        {
+            MySqlCommand msc = new MySqlCommand();
+            msc.CommandText = "DELETE FROM `order_instruction` WHERE `pk_order` = " + numberOrder;
+            msc.Connection = ConnectionToMySQL;
+            msc.ExecuteNonQuery();
         }
 
         //Добавление машин в расшивочную таблицу
