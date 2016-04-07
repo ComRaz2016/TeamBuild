@@ -2001,5 +2001,23 @@ namespace Delivery
             ConnectionToMySQL.Close();
             this.Close();
         }
+
+        private void textBox4_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char c = e.KeyChar;
+            e.Handled = !(char.IsLetter(c) || c == '\b' || c == '.' || c == ' ');
+        }
+
+        private void textBox5_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char c = e.KeyChar;
+            e.Handled = !(char.IsDigit(c) || c == '\b' || c == '+');
+        }
+
+        private void textBox6_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char c = e.KeyChar;
+            e.Handled = !(char.IsLetter(c) || char.IsDigit(c) || c == '\b' || c == '.' || c == ' ' || c == ',');
+        }
     }
 }
