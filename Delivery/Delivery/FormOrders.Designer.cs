@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabPageComplite = new System.Windows.Forms.TabPage();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -159,23 +159,23 @@
             // 
             // buttonEdit2
             // 
-            this.buttonEdit2.Enabled = false;
             this.buttonEdit2.Location = new System.Drawing.Point(176, 363);
             this.buttonEdit2.Name = "buttonEdit2";
             this.buttonEdit2.Size = new System.Drawing.Size(150, 45);
             this.buttonEdit2.TabIndex = 4;
             this.buttonEdit2.Text = "Редактировать заказ";
             this.buttonEdit2.UseVisualStyleBackColor = true;
+            this.buttonEdit2.Click += new System.EventHandler(this.buttonEdit2_Click);
             // 
             // button1
             // 
-            this.button1.Enabled = false;
             this.button1.Location = new System.Drawing.Point(761, 363);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(150, 45);
             this.button1.TabIndex = 3;
             this.button1.Text = "Отменить заказ";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // dataGridView2
             // 
@@ -340,8 +340,8 @@
             // 
             // colStatusOrder
             // 
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
-            this.colStatusOrder.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
+            this.colStatusOrder.DefaultCellStyle = dataGridViewCellStyle6;
             this.colStatusOrder.FillWeight = 200F;
             this.colStatusOrder.HeaderText = "Статус заказа";
             this.colStatusOrder.MinimumWidth = 200;

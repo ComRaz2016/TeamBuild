@@ -995,13 +995,15 @@ namespace Delivery
             dataReader.Close();
             if (oldPoly[14] == "1")
             {
-                tabPage1.Select();  //насыпь
+                tabControl1.SelectTab(0);
+                //tabPage1.Select();  //насыпь
                 comboBox1.SelectedItem = getMaterial(oldPoly[13]);      //материал в доставке
                 numericUpDown1.Value = Decimal.Parse(oldPoly[2].ToString());        //сколько
             }
             else
             {
-                tabPage3.Select();
+                //tabPage3.Show();
+                tabControl1.SelectTab(1);
                 comboBox2.SelectedItem = getMaterial(oldPoly[13]);      //материал в доставке
                 numericUpDown2.Value = Decimal.Parse(oldPoly[2].ToString());        //сколько
             }
@@ -1335,7 +1337,7 @@ namespace Delivery
                 textBox1.Text = Convert.ToString("0.05");
                 //
                 materialCost = 0;
-               // resultCost();
+                resultCost();
                 //
             }
         }
@@ -1829,7 +1831,7 @@ namespace Delivery
             }
             else
             {
-                return numericUpDown2.Text.Substring(0, numericUpDown2.Text.IndexOf(',')) + "." + numericUpDown2.Text.Substring(numericUpDown2.Text.IndexOf(',') + 1);
+                return numericUpDown2.Text;//.Substring(0, numericUpDown2.Text.IndexOf(',')) + "." + numericUpDown2.Text.Substring(numericUpDown2.Text.IndexOf(',') + 1);
             }
         }
 

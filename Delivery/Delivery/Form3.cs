@@ -1673,7 +1673,7 @@ namespace Delivery
             }
             else
             {
-                return numericUpDown2.Text.Substring(0, numericUpDown2.Text.IndexOf(',')) + "." + numericUpDown2.Text.Substring(numericUpDown2.Text.IndexOf(',') + 1);
+                return numericUpDown2.Text;//.Substring(0, numericUpDown2.Text.IndexOf(',')) + "." + numericUpDown2.Text.Substring(numericUpDown2.Text.IndexOf(',') + 1);
             }
         }
 

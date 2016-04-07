@@ -344,5 +344,27 @@ namespace Delivery
         {
             reloadTables();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (!dataGridView2.SelectedRows[0].IsNewRow)
+            {
+                MySqlCommand msc = new MySqlCommand();
+                msc.CommandText = "UPDATE `Order`  SET `pk_status` = 7 WHERE `nomer` = '" + dataGridView2.SelectedRows[0].Cells[0].Value.ToString() + "'";
+                msc.Connection = ConnectionToMySQL;
+                msc.ExecuteNonQuery();
+            }
+            reloadTables();
+        }
+
+        private void buttonEdit2_Click(object sender, EventArgs e)
+        {
+            if (!dataGridView2.SelectedRows[0].IsNewRow)
+            {
+                Form editForm = new OrderEdit(ConnectionToMySQL, this, dataGridView2.SelectedRows[0].Cells[0].Value.ToString());
+                this.Visible = false;
+                editForm.Show();
+            }
+        }
     }
 }
