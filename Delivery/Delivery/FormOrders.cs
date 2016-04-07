@@ -22,6 +22,7 @@ namespace Delivery
             ConnectionToMySQL = connection;
             mainForm = form;
             InitializeComponent();
+            buttonEdit1.Enabled = false;
             setDataGridActivOrder();
             setDataGridOtherOrder();
             setDataGridCompleteOrder();
@@ -235,35 +236,49 @@ namespace Delivery
             {
                 if (e.ColumnIndex == 1)
                 {
-                    String status = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
-                    int pkStatus = 0;
-                    switch (status)
+                    DialogResult rez =  MessageBox.Show("Вы уверены что хотите сменить стутус заказа?", "Статус заказа.", MessageBoxButtons.OKCancel);
+                    if (rez == DialogResult.OK)
                     {
-                        case "Ожидает доставки":
-                            dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = "Едет на загрузку";
-                            pkStatus = 2;
-                            break;
-                        case "Едет на загрузку":
-                            dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = "Загружается";
-                            pkStatus = 3;
-                            break;
-                        case "Загружается":
-                            dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = "Осуществлят доставку";
-                            pkStatus = 4;
-                            break;
-                        case "Осуществлят доставку":
-                            dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = "Доставка выполнена";
-                            dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = Color.Green;
-                            pkStatus = 5;
-                            break;
+                        String status = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+                        int pkStatus = 0;
+                        switch (status)
+                        {
+                            case "Ожидает доставки":
+                                dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = "Едет на загрузку";
+                                pkStatus = 2;
+                                break;
+                            case "Едет на загрузку":
+                                dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = "Загружается";
+                                pkStatus = 3;
+                                break;
+                            case "Загружается":
+                                dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = "Осуществлят доставку";
+                                pkStatus = 4;
+                                break;
+                            case "Осуществлят доставку":
+                                dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = "Доставка выполнена";
+                                dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = Color.Green;
+                                pkStatus = 5;
+                                break;
+                        }
+                        if (pkStatus != 0)
+                        {
+                            MySqlCommand msc = new MySqlCommand();
+                            msc.CommandText = "UPDATE `Order`  SET `pk_status` = + " + pkStatus + " WHERE `nomer` = '" + dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString() + "'";
+                            msc.Connection = ConnectionToMySQL;
+                            msc.ExecuteNonQuery();
+                        }
                     }
-                    if (pkStatus != 0)
-                    {
-                        MySqlCommand msc = new MySqlCommand();
-                        msc.CommandText = "UPDATE `Order`  SET `pk_status` = + " + pkStatus + " WHERE `nomer` = '" + dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString() + "'";
-                        msc.Connection = ConnectionToMySQL;
-                        msc.ExecuteNonQuery();
-                    }
+                    
+                }
+                String st = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
+                if (st == "Ожидает доставки" || st == "Едет на загрузку")
+                {
+                    buttonEdit1.Enabled = true;
+                }
+                else
+                {
+                    buttonEdit1.Enabled = false;
                 }
                 
             }
@@ -271,9 +286,13 @@ namespace Delivery
 
         private void buttonEdit1_Click(object sender, EventArgs e)
         {
-            Form editForm = new OrderEdit(ConnectionToMySQL, this, dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
-            this.Visible = false;
-            editForm.Show();
+            if (!dataGridView1.SelectedRows[0].IsNewRow)
+            {
+                Form editForm = new OrderEdit(ConnectionToMySQL, this, dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
+                this.Visible = false;
+                editForm.Show();
+            }
+            
            //dataGridView1.SelectedRows[0].Cells;
         }
 

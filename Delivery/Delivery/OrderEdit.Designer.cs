@@ -72,10 +72,7 @@
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.materialBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.materialBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.testDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.testDataSet = new Delivery.TestDataSet();
             this.label1 = new System.Windows.Forms.Label();
-            this.materialTableAdapter = new Delivery.TestDataSetTableAdapters.MaterialTableAdapter();
             this.panel5 = new System.Windows.Forms.Panel();
             this.textBox9 = new System.Windows.Forms.TextBox();
             this.label23 = new System.Windows.Forms.Label();
@@ -96,8 +93,11 @@
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
-            this.driverTableAdapter1 = new Delivery.TestDataSetTableAdapters.DriverTableAdapter();
             this.textBox10 = new System.Windows.Forms.TextBox();
+            this.testDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.testDataSet = new Delivery.TestDataSet();
+            this.materialTableAdapter = new Delivery.TestDataSetTableAdapters.MaterialTableAdapter();
+            this.driverTableAdapter1 = new Delivery.TestDataSetTableAdapters.DriverTableAdapter();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
             this.panel3.SuspendLayout();
@@ -112,10 +112,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.materialBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.materialBindingSource1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.testDataSetBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.testDataSet)).BeginInit();
             this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.testDataSetBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.testDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // panel4
@@ -651,16 +651,6 @@
             this.materialBindingSource1.DataMember = "Material";
             this.materialBindingSource1.DataSource = this.testDataSetBindingSource;
             // 
-            // testDataSetBindingSource
-            // 
-            this.testDataSetBindingSource.DataSource = this.testDataSet;
-            this.testDataSetBindingSource.Position = 0;
-            // 
-            // testDataSet
-            // 
-            this.testDataSet.DataSetName = "TestDataSet";
-            this.testDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -671,10 +661,6 @@
             this.label1.Size = new System.Drawing.Size(91, 15);
             this.label1.TabIndex = 21;
             this.label1.Text = "Номер заказа:";
-            // 
-            // materialTableAdapter
-            // 
-            this.materialTableAdapter.ClearBeforeFill = true;
             // 
             // panel5
             // 
@@ -897,10 +883,6 @@
             this.textBox4.Size = new System.Drawing.Size(193, 20);
             this.textBox4.TabIndex = 49;
             // 
-            // driverTableAdapter1
-            // 
-            this.driverTableAdapter1.ClearBeforeFill = true;
-            // 
             // textBox10
             // 
             this.textBox10.Location = new System.Drawing.Point(100, 8);
@@ -908,6 +890,24 @@
             this.textBox10.ReadOnly = true;
             this.textBox10.Size = new System.Drawing.Size(72, 20);
             this.textBox10.TabIndex = 48;
+            // 
+            // testDataSetBindingSource
+            // 
+            this.testDataSetBindingSource.DataSource = this.testDataSet;
+            this.testDataSetBindingSource.Position = 0;
+            // 
+            // testDataSet
+            // 
+            this.testDataSet.DataSetName = "TestDataSet";
+            this.testDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // materialTableAdapter
+            // 
+            this.materialTableAdapter.ClearBeforeFill = true;
+            // 
+            // driverTableAdapter1
+            // 
+            this.driverTableAdapter1.ClearBeforeFill = true;
             // 
             // OrderEdit
             // 
@@ -951,11 +951,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.materialBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.materialBindingSource1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.testDataSetBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.testDataSet)).EndInit();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.testDataSetBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.testDataSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

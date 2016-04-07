@@ -995,12 +995,27 @@ namespace Delivery
             dataReader.Close();
             if (oldPoly[14] == "1")
             {
-                tabPage1.Select();
-                comboBox1.SelectedItem = getMaterial(oldPoly[13]);
-                numericUpDown1.Value = Decimal.Parse(oldPoly[2].ToString());
-                setInstruction(oldPoly[0]);
-                setCars(oldPoly[0]);
+                tabPage1.Select();  //насыпь
+                comboBox1.SelectedItem = getMaterial(oldPoly[13]);      //материал в доставке
+                numericUpDown1.Value = Decimal.Parse(oldPoly[2].ToString());        //сколько
             }
+            setInstruction(oldPoly[0]);         //требования к авто в заказе
+            setCars(oldPoly[0]);                //заполняем авто в заказе
+            if (oldPoly[10].ToString() != "0")  //рабы
+            {
+                checkBox1.Checked = true;
+                numericUpDown3.Value = Decimal.Parse(oldPoly[10].ToString());
+            }
+            textBox4.Text = oldPoly[5].ToString();
+            textBox5.Text = oldPoly[6].ToString();
+            textBox6.Text = oldPoly[4].ToString();
+            comboBox5.SelectedItem = comboBox5.Items[Int32.Parse(oldPoly[8].ToString()) - 1];
+            if (oldPoly[8].ToString() == "4")
+            {
+                numericUpDown6.Value = Decimal.Parse(oldPoly[9].ToString());
+            }
+            dateTimePicker1.Value =  DateTime.Parse(oldPoly[3].ToString());
+            textBox7.Text = oldPoly[7].ToString();
         }
         
         private void setCars(String pk)
@@ -1014,7 +1029,37 @@ namespace Delivery
                 pk_cars.Add(Int32.Parse(dataReader[0].ToString()));
             }
             dataReader.Close();
-            //if ()
+            if (pk_cars.Count == 2)
+            {
+                radioButton4.Checked = true;
+                comboBox3.Text = getOutputStringForCar(pk_cars[0].ToString());
+                comboBox4.Text = getOutputStringForCar(pk_cars[1].ToString());
+                numericUpDown4.Value = getValumeCar(pk_cars[0].ToString(), pk);
+            }
+            else
+            {
+                comboBox3.Text = getOutputStringForCar(pk_cars[0].ToString());
+            }
+                
+
+            
+        }
+
+        private decimal getValumeCar(string pk_car, string pk_order)
+        {
+
+            MySqlCommand msc = new MySqlCommand();
+            msc.CommandText = "SELECT volume_car FROM `order_car` WHERE pk_car = " + pk_car + " AND pk_order = " + pk_order + ";";
+            msc.Connection = ConnectionToMySQL;
+            MySqlDataReader dataReader = msc.ExecuteReader();
+            String rez = "";
+            while (dataReader.Read())
+            {
+               rez = dataReader[0].ToString();
+            }
+            dataReader.Close();
+            return Decimal.Parse(rez);
+
         }
 
         private void setInstruction(String pk)
@@ -1764,11 +1809,11 @@ namespace Delivery
         {
             if (tabControl1.SelectedTab == tabPage1)
             {
-                return numericUpDown1.Value.ToString();
+                return numericUpDown1.Text.Substring(0, numericUpDown1.Text.IndexOf(',')) + "." + numericUpDown1.Text.Substring(numericUpDown1.Text.IndexOf(',') + 1);
             }
             else
             {
-                return numericUpDown2.Value.ToString();
+                return numericUpDown2.Text.Substring(0, numericUpDown2.Text.IndexOf(',')) + "." + numericUpDown2.Text.Substring(numericUpDown2.Text.IndexOf(',') + 1);
             }
         }
 
@@ -1969,13 +2014,18 @@ namespace Delivery
                 String countTripFirstTruck = null;
                 String countTripSecondTruck = null;
 
+
+                String volumeFistTruck = null;
+                String volumeSecondTruck = null;
+
                 if (radioButton4.Checked == true)
                 {
                     if (comboBox3.SelectedItem != null)
                     {
                         countTripFirstTruck = textBox2.Text;
                         keyFirstTruck = trucksKey[trucks.IndexOf(comboBox3.SelectedItem.ToString())];
-                        msc.CommandText = "INSERT INTO `order_car` (`pk_car`, `pk_order`, `count_trip`) VALUES ('" + keyFirstTruck + "', '" + orderPk + "', '" + countTripFirstTruck + "')";
+                        volumeFistTruck = numericUpDown4.Text.Substring(0, numericUpDown4.Text.IndexOf(',')) + "." + numericUpDown4.Text.Substring(numericUpDown4.Text.IndexOf(',') + 1);
+                        msc.CommandText = "INSERT INTO `order_car` (`pk_car`, `pk_order`, `count_trip`, `volume_car`) VALUES ('" + keyFirstTruck + "', '" + orderPk + "', '" + countTripFirstTruck + "', '" + volumeFistTruck + "')";
                         msc.Connection = ConnectionToMySQL;
                         msc.ExecuteNonQuery();
                     }
@@ -1983,7 +2033,8 @@ namespace Delivery
                     {
                         countTripSecondTruck = textBox3.Text;
                         keySecondTruck = trucksKey[trucks.IndexOf(comboBox4.SelectedItem.ToString())];
-                        msc.CommandText = "INSERT INTO `order_car` (`pk_car`, `pk_order`, `count_trip`) VALUES ('" + keySecondTruck + "', '" + orderPk + "', '" + countTripSecondTruck + "')";
+                        volumeSecondTruck = numericUpDown5.Text.Substring(0, numericUpDown5.Text.IndexOf(',')) + "." + numericUpDown5.Text.Substring(numericUpDown5.Text.IndexOf(',') + 1);
+                        msc.CommandText = "INSERT INTO `order_car` (`pk_car`, `pk_order`, `count_trip`, `volume_car`) VALUES ('" + keySecondTruck + "', '" + orderPk + "', '" + countTripSecondTruck + "', '" + volumeSecondTruck + "')";
                         msc.Connection = ConnectionToMySQL;
                         msc.ExecuteNonQuery();
                     }
@@ -1994,13 +2045,14 @@ namespace Delivery
                     {
                         countTripFirstTruck = textBox2.Text;
                         keyFirstTruck = trucksKey[trucks.IndexOf(comboBox3.SelectedItem.ToString())];
-                        msc.CommandText = "INSERT INTO `order_car` (`pk_car`, `pk_order`, `count_trip`) VALUES ('" + keyFirstTruck + "', '" + orderPk + "', '" + countTripFirstTruck + "')";
+                        volumeFistTruck = numericUpDown4.Text.Substring(0, numericUpDown4.Text.IndexOf(',')) + "." + numericUpDown4.Text.Substring(numericUpDown4.Text.IndexOf(',') + 1);
+                        msc.CommandText = "INSERT INTO `order_car` (`pk_car`, `pk_order`, `count_trip`, `volume_car`) VALUES ('" + keyFirstTruck + "', '" + orderPk + "', '" + countTripFirstTruck + "', '" + volumeFistTruck + "')";
                         msc.Connection = ConnectionToMySQL;
                         msc.ExecuteNonQuery();
                     }
                 }
             }
-            
+
         }
 
         public void createInstructionsOrder(String numberOrder)
