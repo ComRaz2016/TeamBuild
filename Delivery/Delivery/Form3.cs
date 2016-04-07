@@ -1669,11 +1669,11 @@ namespace Delivery
         {
             if (tabControl1.SelectedTab == tabPage1)
             {
-                return numericUpDown1.Value.ToString();
+                return numericUpDown1.Text.Substring(0, numericUpDown1.Text.IndexOf(',')) + "." + numericUpDown1.Text.Substring(numericUpDown1.Text.IndexOf(',') + 1); 
             }
             else
             {
-                return numericUpDown2.Value.ToString();
+                return numericUpDown2.Text.Substring(0, numericUpDown2.Text.IndexOf(',')) + "." + numericUpDown2.Text.Substring(numericUpDown2.Text.IndexOf(',') + 1);
             }
         }
 
@@ -1883,7 +1883,7 @@ namespace Delivery
                     {
                         countTripFirstTruck = textBox2.Text;
                         keyFirstTruck = trucksKey[trucks.IndexOf(comboBox3.SelectedItem.ToString())];
-                        volumeFistTruck = numericUpDown4.Value.ToString();
+                        volumeFistTruck = numericUpDown4.Text.Substring(0, numericUpDown4.Text.IndexOf(',')) + "." + numericUpDown4.Text.Substring(numericUpDown4.Text.IndexOf(',')+1);
                         msc.CommandText = "INSERT INTO `order_car` (`pk_car`, `pk_order`, `count_trip`, `volume_car`) VALUES ('" + keyFirstTruck + "', '" + orderPk + "', '" + countTripFirstTruck + "', '" + volumeFistTruck + "')";
                         msc.Connection = ConnectionToMySQL;
                         msc.ExecuteNonQuery();
@@ -1892,7 +1892,7 @@ namespace Delivery
                     {
                         countTripSecondTruck = textBox3.Text;
                         keySecondTruck = trucksKey[trucks.IndexOf(comboBox4.SelectedItem.ToString())];
-                        volumeSecondTruck = numericUpDown5.Value.ToString();
+                        volumeSecondTruck = numericUpDown5.Text.Substring(0, numericUpDown5.Text.IndexOf(',')) + "." + numericUpDown5.Text.Substring(numericUpDown5.Text.IndexOf(',') + 1);
                         msc.CommandText = "INSERT INTO `order_car` (`pk_car`, `pk_order`, `count_trip`, `volume_car`) VALUES ('" + keySecondTruck + "', '" + orderPk + "', '" + countTripSecondTruck + "', '" + volumeSecondTruck + "')";
                         msc.Connection = ConnectionToMySQL;
                         msc.ExecuteNonQuery();
@@ -1904,7 +1904,7 @@ namespace Delivery
                     {
                         countTripFirstTruck = textBox2.Text;
                         keyFirstTruck = trucksKey[trucks.IndexOf(comboBox3.SelectedItem.ToString())];
-                        volumeFistTruck = numericUpDown4.Value.ToString();
+                        volumeFistTruck = numericUpDown4.Text.Substring(0, numericUpDown4.Text.IndexOf(',')) + "." + numericUpDown4.Text.Substring(numericUpDown4.Text.IndexOf(',') + 1);
                         msc.CommandText = "INSERT INTO `order_car` (`pk_car`, `pk_order`, `count_trip`, `volume_car`) VALUES ('" + keyFirstTruck + "', '" + orderPk + "', '" + countTripFirstTruck + "', '" + volumeFistTruck + "')";
                         msc.Connection = ConnectionToMySQL;
                         msc.ExecuteNonQuery();
