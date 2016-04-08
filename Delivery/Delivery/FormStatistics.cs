@@ -207,19 +207,38 @@ namespace Delivery
                         }
                         if (statusPk == waitStatus)
                         {
-                            countWaitOrder++;
-
-                            double tonn = materialTonnWait[index];
-                            if (measureOrder == bagMeasure)
+                            if (DateTime.Parse(dataReader[3].ToString().Substring(0, dataReader[3].ToString().IndexOf(" "))) == DateTime.Today)
                             {
-                                tonn += Convert.ToDouble(volume) * 0.05;
+                                countActiveOrder++;
+
+                                double tonn = materialTonnActive[index];
+                                if (measureOrder == bagMeasure)
+                                {
+                                    tonn += Convert.ToDouble(volume) * 0.05;
+                                }
+                                else
+                                {
+                                    tonn += Convert.ToDouble(volume);
+                                }
+                                materialTonnActive.RemoveAt(index);
+                                materialTonnActive.Insert(index, tonn);
                             }
                             else
                             {
-                                tonn += Convert.ToDouble(volume);
+                                countWaitOrder++;
+
+                                double tonn = materialTonnWait[index];
+                                if (measureOrder == bagMeasure)
+                                {
+                                    tonn += Convert.ToDouble(volume) * 0.05;
+                                }
+                                else
+                                {
+                                    tonn += Convert.ToDouble(volume);
+                                }
+                                materialTonnWait.RemoveAt(index);
+                                materialTonnWait.Insert(index, tonn);
                             }
-                            materialTonnWait.RemoveAt(index);
-                            materialTonnWait.Insert(index, tonn);
                         }
                     }
                 }
