@@ -1295,7 +1295,7 @@ namespace Delivery
             //
             //
             materialCost = Convert.ToDouble(numericUpDown2.Value) * bagCost;
-            resultCost();
+            
                 //
                 //
                 resultTonnage();
@@ -1308,15 +1308,15 @@ namespace Delivery
                 changeEnabled();
                 //
                 materialCost = 0;
-                resultCost();
             //
                 //
             }
             //
             //
             resultCar();
+            resultCost();
             //
-            
+
         }
 
         private void tabPage1_Enter(object sender, EventArgs e)
@@ -1330,7 +1330,7 @@ namespace Delivery
             //
             //
             materialCost = Convert.ToDouble(numericUpDown1.Value) * tonnCost;
-            resultCost();
+            
                 //
                 //
                 resultTonnage();
@@ -1344,14 +1344,14 @@ namespace Delivery
                 //
                 //
                 materialCost = Convert.ToDouble(numericUpDown1.Value) * 0;
-                resultCost();
             //
             }
             //
             //
             resultCar();
+            resultCost();
             //
-            
+
         }
 
         private void comboBox4_SelectionChangeCommitted(object sender, EventArgs e)

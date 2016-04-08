@@ -1024,7 +1024,7 @@ namespace Delivery
             }
             dateTimePicker1.Value =  DateTime.Parse(oldPoly[3].ToString());
             textBox7.Text = oldPoly[7].ToString();
-            if (oldPoly[12].ToString() == "1" || oldPoly[12].ToString() == "2")
+            if (oldPoly[12].ToString() == "1" || oldPoly[12].ToString() == "2" || oldPoly[12].ToString() == "7")
             {
                 button1.Enabled = true;
                 button1.Show();  
@@ -1033,6 +1033,8 @@ namespace Delivery
             {
                 button1.Enabled = false;
                 button1.Hide();
+                button2.Hide();
+                this.Enabled = false;
             }
         }
         
@@ -1453,7 +1455,6 @@ namespace Delivery
             //
             //
             materialCost = Convert.ToDouble(numericUpDown2.Value) * bagCost;
-            resultCost();
                 //
                 //
                 resultTonnage();
@@ -1466,15 +1467,16 @@ namespace Delivery
                 changeEnabled();
                 //
                 materialCost = 0;
-                resultCost();
+                
             //
                 //
             }
             //
             //
             resultCar();
+            resultCost();
             //
-            
+
         }
 
         private void tabPage1_Enter(object sender, EventArgs e)
@@ -1488,7 +1490,7 @@ namespace Delivery
             //
             //
             materialCost = Convert.ToDouble(numericUpDown1.Value) * tonnCost;
-            resultCost();
+            
                 //
                 //
                 resultTonnage();
@@ -1502,14 +1504,14 @@ namespace Delivery
                 //
                 //
                 materialCost = Convert.ToDouble(numericUpDown1.Value) * 0;
-                resultCost();
             //
             }
             //
             //
             resultCar();
+            resultCost();
             //
-            
+
         }
 
         private void comboBox4_SelectionChangeCommitted(object sender, EventArgs e)
@@ -1991,6 +1993,8 @@ namespace Delivery
                                 }
 
                                 MySqlCommand msc = new MySqlCommand();
+                                if (oldPoly[12].ToString() == "7")
+                                    oldPoly[12] = "1";
                                 msc.CommandText = "UPDATE `Order` SET `volume` = '" + volumeOrder + "', `date_time` = '" + dataTimeOrder + "', `adress` = '" + adressOrder + "', `contact` = '" + clientOrder + "', `number_contact` = '" + telefoneOrder + "', `comment` = '" + commentOrder + "', `Numberzone` = '" + numberZone + "', `Exstendway` = '" + extendedKm + "', `worker` = '" + countWorkers + "', `cost_order` = '" + costOrder + "', `pk_status` = '" + oldPoly[12].ToString() + "', `pk_material` = '" + materialPk + "', `pk_measure` = '" + measurePk + "' WHERE `pk_order` = " + oldPoly[0].ToString(); 
                                 msc.Connection = ConnectionToMySQL;
                                 msc.ExecuteNonQuery();

@@ -366,5 +366,15 @@ namespace Delivery
                 editForm.Show();
             }
         }
+
+        private void button_Click(object sender, EventArgs e)
+        {
+            if (!dataGridView4.SelectedRows[0].IsNewRow)
+            {
+                Form editForm = new OrderEdit(ConnectionToMySQL, this, dataGridView4.SelectedRows[0].Cells[0].Value.ToString());
+                this.Visible = false;
+                editForm.Show();
+            }
+        }
     }
 }

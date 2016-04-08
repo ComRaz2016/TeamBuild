@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabPageComplite = new System.Windows.Forms.TabPage();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -340,8 +340,8 @@
             // 
             // colStatusOrder
             // 
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
-            this.colStatusOrder.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            this.colStatusOrder.DefaultCellStyle = dataGridViewCellStyle1;
             this.colStatusOrder.FillWeight = 200F;
             this.colStatusOrder.HeaderText = "Статус заказа";
             this.colStatusOrder.MinimumWidth = 200;
@@ -424,13 +424,13 @@
             // 
             // button
             // 
-            this.button.Enabled = false;
             this.button.Location = new System.Drawing.Point(168, 368);
             this.button.Name = "button";
             this.button.Size = new System.Drawing.Size(150, 45);
             this.button.TabIndex = 5;
             this.button.Text = "Редактировать заказ";
             this.button.UseVisualStyleBackColor = true;
+            this.button.Click += new System.EventHandler(this.button_Click);
             // 
             // dataGridView4
             // 
